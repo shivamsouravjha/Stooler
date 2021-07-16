@@ -20,6 +20,7 @@ app.use((req, res, next) => {
 }); 
 
 app.use('/api/users', Routes.AccountApiRouter); ///for user commands
+app.use('/api/groups', Routes.GroupApiRouter);  ///for group commands
 
 
 app.use((req, res, next) => {
