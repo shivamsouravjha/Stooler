@@ -16,12 +16,12 @@ AccountApiRouter.post('/account/login/', (request, response) => {
 
 AccountApiRouter.post('/account/:uid', (request, response) => {
   const accountController = new AccountController(response);
-  accountController.getData(request);
+  accountController.getUserGroupData(request);
 });
 
 AccountApiRouter.post('/account/data/:uid', (request, response) => {
   const accountController = new AccountController(response);
-  accountController.verifyUsername({_id:request.params.uid});
+  accountController.getUserDetail({_id:request.params.uid});
 });
 
 export default AccountApiRouter;
