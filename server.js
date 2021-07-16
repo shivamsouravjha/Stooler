@@ -19,6 +19,7 @@ app.use((req, res, next) => {
   next();
 }); 
 
+app.use('/api/users', Routes.AccountApiRouter); ///for user commands
 
 
 app.use((req, res, next) => {
