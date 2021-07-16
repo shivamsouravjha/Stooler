@@ -2,7 +2,7 @@ import UserModel from "../Models/userModel";
 import jwt from 'jsonwebtoken';
 
 export default class AccountRepository {
-    async findUserDetail(obj){
+    async findUserDetail(obj){          //finding user detail
         try {
             const found = await UserModel.findOne(obj)
             return found;
@@ -10,14 +10,14 @@ export default class AccountRepository {
             return "error at finding"
         }
     }
-    async findUid (obj) {
+    async findUid (obj) {         //fetching the userdetail based on params and populate groups
         try {
             return await UserModel.findById(obj,'-password -_id').populate('groups');
         } catch (error) {
             return "error finding User"
         }
     }
-    async findUsername(obj){
+    async findUsername(obj){      //fetching the userdetail based on params and populate transaction
         try {
             const found = await UserModel.findOne(obj).populate('transaction');
             return found;
