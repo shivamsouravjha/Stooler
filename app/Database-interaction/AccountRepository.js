@@ -33,6 +33,25 @@ export default class AccountRepository {
     }
 
 
+    async findUserDetail(obj){
+        try {
+            const found = await UserModel.findOne(obj)
+            return found;
+        } catch (error) {
+            return "error at finding"
+        }
+    }
+
+    
+    async findUid (obj) {
+        try {
+            return await UserModel.findById(obj,'-password -_id').populate('groups');
+        } catch (error) {
+            return "error finding User"
+        }
+    }
+
+
     async findUsername(obj){
         try {
             const found = await UserModel.findOne(obj).populate('transaction');
