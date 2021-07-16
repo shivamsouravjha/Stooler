@@ -8,4 +8,10 @@ GroupApiRouter.post('/create/:uid', (request, response) => {
   groupController.createGroup(request);
 });
 
+
+GroupApiRouter.post('/:groupId', (request, response) => {
+  const groupController = new GroupController(response);
+  groupController.getGroup(request);
+});
+
 export default GroupApiRouter;

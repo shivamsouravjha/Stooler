@@ -57,4 +57,13 @@ export default class GroupRepository {
         return {"success":true};
     }
 
+    async findGroup (obj) {
+        try {
+            const found = await GroupModel.find(obj).populate('sources').populate('groupOwner');
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
+
 }

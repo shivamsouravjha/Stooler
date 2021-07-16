@@ -18,4 +18,14 @@ export default class AccountService{
         }
     }
 
+    async getOwnGroup(args) {
+        try {
+
+            let groupsInfo = await this.repository.findGroup(args);
+            return groupsInfo[0];
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding groups"));
+        }
+    }
+
 }
