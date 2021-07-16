@@ -32,4 +32,15 @@ export default class AccountRepository {
         return {"success":true,"token":token,"userId":userDetails._id,email:userDetails.email};
     }
 
+
+    async findUsername(obj){
+        try {
+            const found = await UserModel.findOne(obj).populate('transaction');
+            return found;
+        } catch (error) {
+            return "error at finding"
+        }
+    }
+
+    
 }

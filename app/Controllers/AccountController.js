@@ -25,4 +25,22 @@ export default class AccountController extends Controller {
             this.handleException(error)
         }
     }
+
+    loginAccount (request) {
+        try{
+            let {value,error} = Validators.loginAccount.validate(request.body);
+            if(error){
+                throw (new Exceptions.ValidationException(error.details[0].message));
+            }     
+            const addUser = this.service.loginAccount(value);
+            addUser.then(res => {
+                this.sendResponse(res);
+              })
+              .catch (error => {
+                this.handleException(error);
+              }) 
+        } catch (error) {
+            this.handleException(error)
+        }
+    }
 }

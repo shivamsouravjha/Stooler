@@ -34,4 +34,31 @@ export default class AccountService{
         throw error;
         }
     }
+
+    async loginAccount(args) {
+        try {
+            const {username}=args
+            let profile = await this.verifyUsername({username})
+            if (!profile) {
+                throw (new Exceptions.ConflictException("Username doesn't exist"));
+            }
+            let isvalidpassword = await bycrypt.compare(args.password,profile.password);
+            if(!isvalidpassword) {
+                throw (new Exceptions.ConflictException("Password doesn't match"));
+            }
+            let token = jwt.sign({userId:profile.id,email:profile.email},process.env.secretcode,{expiresIn:'7d'});
+            return {message: 'Logged in!',success: true,userId:profile.id,email:profile.email,token:token}
+        } catch (error) {
+        throw error;
+        }
+    }
+
+    async verifyUsername(args) {
+        try {
+            let accountInfo = await this.repository.findUsername(args);
+            return accountInfo;
+        } catch (error) {
+        throw error;
+        }
+    }
 }
