@@ -39,5 +39,19 @@ export default class AccountController extends Controller {
       this.handleException(error);
     } 
   } 
+
+  getGroups (request,obj) {
+    try {
+      const uid = request.params.uid;
+      const promise  = this.service.getGroups(uid,request.body,obj);
+      promise.then(res=>{
+        this.sendResponse(res);
+      }).catch(error =>{
+        this.handleException(error);
+      })
+    } catch(error){
+      this.handleException(error);
+    }
+  }
   
 }

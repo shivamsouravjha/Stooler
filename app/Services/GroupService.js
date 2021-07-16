@@ -28,4 +28,30 @@ export default class AccountService{
         }
     }
 
+    async getGroups(uid,args,objj){
+        try {
+            function clean(obj) {
+                for (var propName in obj) {
+                  if (obj[propName] === null || obj[propName] === '') {
+                    delete obj[propName];
+                  }
+                }
+                return obj
+            }
+            args = clean(args);   
+            let groupsInfo = await this.repository.findGroup(args);
+            function checkUid(uids) {
+                return objj == uids.members.includes(uid);
+            };
+            groupsInfo = groupsInfo.filter(checkUid);           
+
+            groupsInfo.sort(function(a,b){
+                return (b.members).length-(a.members).length;
+            })
+            return groupsInfo;
+        } catch (error) {
+            throw (new Exceptions.ValidationException(error.message));
+        }
+    }
+
 }

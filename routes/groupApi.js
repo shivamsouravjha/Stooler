@@ -9,6 +9,12 @@ GroupApiRouter.post('/create/:uid', (request, response) => {
 });
 
 
+GroupApiRouter.post('/getgroups/:uid', (request, response) => {
+  const groupController = new GroupController(response);
+  groupController.getGroups(request,true);
+});
+
+
 GroupApiRouter.post('/:groupId', (request, response) => {
   const groupController = new GroupController(response);
   groupController.getGroup(request);
