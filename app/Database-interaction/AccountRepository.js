@@ -2,6 +2,9 @@ import UserModel from "../Models/userModel";
 import jwt from 'jsonwebtoken';
 
 export default class AccountRepository {
+    /* 
+        user signup procedure
+    */
     async addUser(obj){
         const {name,panNumber,aadhar,username,email,password,number}=obj
         const userModel = new UserModel({name,
@@ -32,7 +35,9 @@ export default class AccountRepository {
         return {"success":true,"token":token,"userId":userDetails._id,email:userDetails.email};
     }
 
-
+    /*
+        finding a user detail based on params. 
+    */
     async findUserDetail(obj){
         try {
             const found = await UserModel.findOne(obj)
@@ -42,8 +47,10 @@ export default class AccountRepository {
         }
     }
 
-    
-    async findUid (obj) {
+    /*
+        finding group detail to fetch group details
+    */
+    async findUserGroups (obj) {
         try {
             return await UserModel.findById(obj,'-password -_id').populate('groups');
         } catch (error) {
@@ -51,8 +58,10 @@ export default class AccountRepository {
         }
     }
 
-
-    async findUsername(obj){
+    /*
+        fetching user detail on populating transaction history 
+    */
+    async findUserTransaction(obj){
         try {
             const found = await UserModel.findOne(obj).populate('transaction');
             return found;

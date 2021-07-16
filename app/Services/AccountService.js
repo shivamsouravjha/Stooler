@@ -55,10 +55,59 @@ export default class AccountService{
 
     async verifyUsername(args) {
         try {
-            let accountInfo = await this.repository.findUsername(args);
+            let accountInfo = await this.repository.findUserTransaction(args);
             return accountInfo;
         } catch (error) {
         throw error;
         }
     }
+
+    async findUid (uid,args) {
+        try {
+            function clean(obj) {
+                for (var propName in obj) {
+                    if (obj[propName] === null || obj[propName] === '') {
+                        delete obj[propName];
+                    }
+                }
+                return obj
+            }
+            function search(obj) {
+                for (var propName in obj) {
+                    if (obj[propName] === null || obj[propName] === '') {
+                        delete obj[propName];
+                    }
+                    for( var tick in args) {
+                        if(obj[propName][tick] != args[tick]){
+                            delete obj[propName];
+                        }   
+                    }
+                }
+                return obj
+            }
+            args = clean(args);
+            let groupsInfo = await this.repository.findUserGroups(uid);
+            if(!Object.keys(args).length){
+                return groupsInfo;
+            }
+            let groupsInfos = groupsInfo.groups;
+            search(groupsInfos);            
+            groupsInfos = groupsInfos.filter(function (el) {
+                return el != null;
+            });
+            return groupsInfos;
+        } catch(error){
+            throw error;
+        }
+    }
+
+    async verifyUserDetail(args) {
+        try {
+            let accountInfo = await this.repository.findUserDetail(args);
+            return accountInfo;
+        } catch (error) {
+        throw (new Exceptions.ValidationException("Error finding user details"));
+        }
+    }
+
 }
