@@ -2,9 +2,29 @@ import UserModel from "../Models/userModel";
 import jwt from 'jsonwebtoken';
 
 export default class AccountRepository {
-    /* 
-        user signup procedure
-    */
+    async findUserDetail(obj){
+        try {
+            const found = await UserModel.findOne(obj)
+            return found;
+        } catch (error) {
+            return "error at finding"
+        }
+    }
+    async findUid (obj) {
+        try {
+            return await UserModel.findById(obj,'-password -_id').populate('groups');
+        } catch (error) {
+            return "error finding User"
+        }
+    }
+    async findUsername(obj){
+        try {
+            const found = await UserModel.findOne(obj).populate('transaction');
+            return found;
+        } catch (error) {
+            return "error at finding"
+        }
+    }
     async addUser(obj){
         const {name,panNumber,aadhar,username,email,password,number}=obj
         const userModel = new UserModel({name,
@@ -35,40 +55,4 @@ export default class AccountRepository {
         return {"success":true,"token":token,"userId":userDetails._id,email:userDetails.email};
     }
 
-    /*
-        finding a user detail based on params. 
-    */
-    async findUserDetail(obj){
-        try {
-            const found = await UserModel.findOne(obj)
-            return found;
-        } catch (error) {
-            return "error at finding"
-        }
-    }
-
-    /*
-        finding group detail to fetch group details
-    */
-    async findUserGroups (obj) {
-        try {
-            return await UserModel.findById(obj,'-password -_id').populate('groups');
-        } catch (error) {
-            return "error finding User"
-        }
-    }
-
-    /*
-        fetching user detail on populating transaction history 
-    */
-    async findUserTransaction(obj){
-        try {
-            const found = await UserModel.findOne(obj).populate('transaction');
-            return found;
-        } catch (error) {
-            return "error at finding"
-        }
-    }
-
-    
 }

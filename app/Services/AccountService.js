@@ -1,4 +1,4 @@
-import AccountRepository from '../Database-interaction/AccountRepository';
+import AccountRepository from '../Repositories/accountRepository.js';
 import * as Exceptions from '../Exceptions/exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -34,7 +34,6 @@ export default class AccountService{
         throw error;
         }
     }
-
     async loginAccount(args) {
         try {
             const {username}=args
@@ -53,9 +52,10 @@ export default class AccountService{
         }
     }
 
+
     async verifyUsername(args) {
         try {
-            let accountInfo = await this.repository.findUserTransaction(args);
+            let accountInfo = await this.repository.findUsername(args);
             return accountInfo;
         } catch (error) {
         throw error;
@@ -86,7 +86,7 @@ export default class AccountService{
                 return obj
             }
             args = clean(args);
-            let groupsInfo = await this.repository.findUserGroups(uid);
+            let groupsInfo = await this.repository.findUid(uid);
             if(!Object.keys(args).length){
                 return groupsInfo;
             }
@@ -109,5 +109,7 @@ export default class AccountService{
         throw (new Exceptions.ValidationException("Error finding user details"));
         }
     }
+
+
 
 }

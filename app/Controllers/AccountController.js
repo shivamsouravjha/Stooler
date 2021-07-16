@@ -27,28 +27,13 @@ export default class AccountController extends Controller {
     }
 
     loginAccount (request) {
-        try{
-            let {value,error} = Validators.loginAccount.validate(request.body);
-            if(error){
-                throw (new Exceptions.ValidationException(error.details[0].message));
-            }     
-            const addUser = this.service.loginAccount(value);
-            addUser.then(res => {
-                this.sendResponse(res);
-              })
-              .catch (error => {
-                this.handleException(error);
-              }) 
-        } catch (error) {
-            this.handleException(error)
-        }
-    }
-
-    getUserGroupData (request) {
-        try{
-          const value = request.params.uid;
-          const user = this.service.findUid(value,request.body);
-          user.then(res => {
+      try{
+          let {value,error} = Validators.loginAccount.validate(request.body);
+          if(error){
+              throw (new Exceptions.ValidationException(error.details[0].message));
+          }     
+          const addUser = this.service.loginAccount(value);
+          addUser.then(res => {
               this.sendResponse(res);
             })
             .catch (error => {
@@ -57,19 +42,37 @@ export default class AccountController extends Controller {
       } catch (error) {
           this.handleException(error)
       }
+  }
+
+
+
+    getData (request) {
+      try{
+        const value = request.params.uid;
+        const user = this.service.findUid(value,request.body);
+        user.then(res => {
+            this.sendResponse(res);
+          })
+          .catch (error => {
+            this.handleException(error);
+          }) 
+    } catch (error) {
+        this.handleException(error)
+    }
+    }
+
+    
+      verifyUsername (request) {
+          try{
+              const exist =  this.service.verifyUsername(request);
+              exist.then(res => {
+                this.sendResponse(res);
+              })
+              .catch (error => {
+                this.handleException(error);
+              }) 
+          } catch (error) {
+              this.handleException(error)
+          }
       }
-      
-      getUserDetail(request) {
-            try{
-                const exist =  this.service.verifyUsername(request);
-                exist.then(res => {
-                  this.sendResponse(res);
-                })
-                .catch (error => {
-                  this.handleException(error);
-                }) 
-            } catch (error) {
-                this.handleException(error)
-            }
-        }
 }
