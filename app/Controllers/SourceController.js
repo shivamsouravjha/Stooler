@@ -46,4 +46,40 @@ export default class CompanyController extends Controller {
     }
   }
   
+
+  editSource (request) {
+    try {
+      const value={'sid':request.params.sid};
+      value['uid'] = request.params.uid;
+      let promise;
+      if(request.params.edit == "edit"){
+         promise  = this.service.editSourceDetails(value,request.body);
+      }else{
+        request.params['sellingPrice'] = request.body.sellingPrice;
+        promise  = this.service.deleteSource(request.params);
+      }
+      promise.then(res=>{
+        this.sendResponse(res);
+      }).catch(error =>{
+        this.handleException(error);
+      })
+    } catch(error){
+      this.handleException(error);
+    }
+  }
+
+  getSources (request) {
+    try {
+      let value = {_id:request.params.gid};
+      const promise  = this.service.getSources(value);
+      promise.then(res=>{
+        this.sendResponse(res);
+      }).catch(error =>{
+        this.handleException(error);
+      })
+    } catch(error){
+      this.handleException(error);
+    } 
+  }
+
 }
