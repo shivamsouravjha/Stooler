@@ -62,4 +62,49 @@ export default class AccountService{
             throw error;
         }
     }
+
+    async editSourceDetails(value,args){
+        try {
+            let sourceInfo = await this.repository.findSource(value.sid);
+            if(!sourceInfo){
+                throw (new Exceptions.NotFoundException("No such source found"))
+            }            
+            let groupInfo  = await this.repository.findGroup(sourceInfo.group)
+            if(!groupInfo){
+                throw (new Exceptions.NotFoundException("No such group found"))
+            } 
+            groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*args['price']);
+            if(groupInfo['fund']<0){
+                throw (new Exceptions.ConflictException("Source funds less than group amount"));
+            }
+            if(groupInfo.groupOwner == value.uid){
+                sourceInfo.type = "APPROVED";
+                sourceInfo.approved= true;
+                sourceInfo['editsuggestion']=0;
+                if(args['unitsPurchase']<sourceInfo['unitsPurchase']){
+                    const deal = ((args['unitsPurchase']-sourceInfo['unitsPurchase'])*(args['price']-sourceInfo['price']));
+                    if(deal>0){
+                        groupInfo.loss += deal;
+                        groupInfo.loss_deal.push(deal);
+                    }else{
+                        groupInfo.profit_deal.push(-deal);
+                    }
+                }
+                sourceInfo['unitsPurchase'] = args.unitsPurchase; 
+                sourceInfo['price'] = args['price'];
+                await this.repository.editSource(sourceInfo);
+                await this.repository.editSource(groupInfo);
+                return {'success':true,message:"Source quantity edited"};
+            }else{
+                sourceInfo.type = "EDIT";
+                sourceInfo['editsuggestion'] = args.unitsPurchase;
+                sourceInfo['editPrice'] = args.price;
+                sourceInfo['approved'] = false;
+                await this.repository.editSource(sourceInfo);
+                return {'success':true,message:"Edit suggestion sent to Group Owner"};
+            }           
+        } catch (error) {
+            throw error;
+        }
+    }
 }
