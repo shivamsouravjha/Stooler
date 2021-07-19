@@ -8,27 +8,6 @@ export default class AccountService{
         this.repository = new SourceRepository();
     }
 
-    async createSource(args) {
-        try {
-            const groupInfo = await this.repository.findGroup(args.groupId);
-            const accountInfo = await this.repository.findUser(args.userId);
-            const suggestorName = accountInfo.name;
-            const {name,details,targetPrice,duration,price,unitsPurchase,groupId}=args
-            const approved = groupInfo.groupOwner == args.userId?true:false;
-            const type = approved? "APPROVED":"ADD";
-            const sourceModel = new SourceModel({
-                name,details,targetPrice,duration,price,editPrice:price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
-            })
-            groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
-            if(groupInfo['fund']<0){
-                throw {"message":`Source price more than current fund of group, exceeds by = ${price*unitsPurchase-groupInfo['fund']}`}
-            }
-            const response = await this.repository.createSource(sourceModel,groupInfo,approved);
-            return response;
-        } catch (error) {
-            throw error;
-        }
-    }
 
     async deleteSource(args) {
         try {
@@ -60,6 +39,73 @@ export default class AccountService{
             return reply;
         } catch (error) {
             throw error;
+        }
+    }
+
+
+
+    async createSource(args) {
+        try {
+            const groupInfo = await this.repository.findGroup(args.groupId);
+            const accountInfo = await this.repository.findUser(args.userId);
+            const suggestorName = accountInfo.name;
+            const {name,details,targetPrice,duration,price,unitsPurchase,groupId}=args
+            const approved = groupInfo.groupOwner == args.userId?true:false;
+            const type = approved? "APPROVED":"ADD";
+            const sourceModel = new SourceModel({
+                name,details,targetPrice,duration,price,editPrice:price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
+            })
+            groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
+            if(groupInfo['fund']<0){
+                throw {"message":`Source price more than current fund of group, exceeds by = ${price*unitsPurchase-groupInfo['fund']}`}
+            }
+            const response = await this.repository.createSource(sourceModel,groupInfo,approved);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+
+    async verifyUserDetail(args) {
+        try {
+            let accountInfo = await this.repository.findUser(args);
+            return accountInfo;
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding user details"));
+        }
+    }
+
+
+    async getSources(args){
+        try {
+            let sourceInfo = await this.repository.findGroup(args);
+           return {'source':sourceInfo.sources};
+            
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
+
+    async getSourceDetails(args,bool,value){
+        try {
+            let sourceInfo = await this.repository.findSource(args);
+            if(!bool)return {'source':sourceInfo};
+            else{
+                let approved = value.set == "true"?true:false;
+                if(!approved){
+                    sourceInfo.approved = true;
+                    sourceInfo.editPrice = 0;
+                    sourceInfo.editsuggestion =0;
+                    sourceInfo.type = "APPROVED";
+                     await this.repository.editSource(sourceInfo);
+                     return {"message":"Edit Request Removed"}
+                }
+                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion,'price':sourceInfo.editPrice}); 
+                return promise;
+            }
+        } catch (error) {
+            throw error
         }
     }
 
@@ -107,6 +153,7 @@ export default class AccountService{
             throw error;
         }
     }
+
     async getAprroval(uid){
         try {
             let sourceInfo = await this.repository.findGroupApprovalAdd();
