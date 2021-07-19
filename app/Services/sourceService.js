@@ -1,4 +1,4 @@
-import GroupRepository from '../Repositories/groupRepository';
+import GroupRepository from '../Database-interaction/GroupRepository';
 import * as Exceptions from '../Exceptions/exceptions';
 import SourceRepository from '../Repositories/sourceRepositroy';
 import SourceModel from "../Models/sourceModel";
@@ -25,6 +25,39 @@ export default class AccountService{
             }
             const response = await this.repository.createSource(sourceModel,groupInfo,approved);
             return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteSource(args) {
+        try {
+            let sourceInfo = await this.repository.findSource(args.sid);
+            if(!sourceInfo){
+                throw (new Exceptions.NotFoundException("No such source found"));
+            }            
+            let groupInfo  = await this.repository.findGroup(sourceInfo.group); 
+            if(!groupInfo){
+                throw (new Exceptions.NotFoundException("No such group found"));
+            }
+            if(args.uid != groupInfo.groupOwner){
+                sourceInfo.sellingPrice =args['sellingPrice'] ;
+                sourceInfo.type = "REMOVE";
+                sourceInfo.approved = false;
+                await this.repository.editSource(sourceInfo);
+                return {"message":"Sent to admin for removal"};
+            } 
+            sourceInfo['sellingPrice'] = args['sellingPrice'];
+            groupInfo['fund'] += sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
+            if(sourceInfo['price']*sourceInfo['unitsPurchase'] > sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']){
+                groupInfo['loss'] +=sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
+                groupInfo.loss_deal.push(sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
+            }else{
+                groupInfo.profit_deal.push(-sourceInfo['price']*sourceInfo['unitsPurchase'] + sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
+
+            } 
+            const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
+            return reply;
         } catch (error) {
             throw error;
         }
