@@ -107,4 +107,73 @@ export default class AccountService{
             throw error;
         }
     }
+    async getAprroval(uid){
+        try {
+            let sourceInfo = await this.repository.findGroupApprovalAdd();
+            function checkUid(args) {
+                if(!args.group)return false;
+                return args.group.groupOwner==uid;
+            };
+            sourceInfo = sourceInfo.filter(checkUid);
+            return {'groups':sourceInfo};
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
+    
+    async setAprrovalAdd(args){
+        try {
+            let sourceInfo = await this.repository.findSource(args.sid);
+            console.log(args,sourceInfo);
+            let groupInfo  = await this.repository.findGroup(sourceInfo.group)
+            console.log(groupInfo,sourceInfo)
+            groupInfo['fund'] = groupInfo['fund']-sourceInfo["editPrice"]*sourceInfo['unitsPurchase'];
+            if(groupInfo['fund']<0){
+                throw {"message":`Source price more than current fund of group, exceeds by = ${sourceInfo["price"]*sourceInfo['unitsPurchase']-groupInfo['fund']}`}
+            }
+            let approved = args.set == "true"?true:false;
+            if(approved){
+                sourceInfo.approved = true;
+                sourceInfo.type = "APPROVED";
+                sourceInfo.price = sourceInfo.editPrice;
+                sourceInfo.editPrice = 0;
+                await this.repository.createSource(sourceInfo,groupInfo,approved);
+                return {'success':true,"message":"Source Added to group"};
+            }else{
+                await this.repository.deleteSourceSet(sourceInfo);
+                return {'success':true,"message":"Source Deleted"};
+            }
+            
+        } catch (error) {
+            console.log(error)
+            throw (new Exceptions.ValidationException(error.message));
+        }
+    }
+
+
+    async setApproval(request) {
+        try {
+            let sourceInfo = await this.repository.findSource(request.params.sid);
+            let promise;
+            const value={'sid':request.params.sid};
+            value['uid'] = request.params.uid;
+            if(request.params.uid != sourceInfo.group.groupOwner){
+                throw (new Exceptions.ValidationException({"message":"No authorization"}));
+            }
+            if(sourceInfo.type == "ADD"){
+                value['set'] = request.body.set;
+                promise = await this.setAprrovalAdd(value);
+            }else if(sourceInfo.type == "EDIT"){
+              value['set'] = request.body.set;
+              promise  =  await this.getSourceDetails(request.params.sid,true,value)
+            }else if(sourceInfo.type == "REMOVE"){
+                value['sellingPrice'] = sourceInfo.sellingPrice;  
+                promise = await this.deleteSource(value);
+            }
+            return promise;
+
+          } catch(error){
+            throw (new Exceptions.ValidationException(error.message));
+          }
+    }
 }
