@@ -43,6 +43,7 @@
     "knex": "^0.16.5",
     "lodash": "^4.17.20",
     "mongoose": "^5.12.13",
+    "mongoose-unique-validator": "^2.0.3",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "nodemailer": "^5.1.1",

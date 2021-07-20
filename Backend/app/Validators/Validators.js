@@ -7,5 +7,7 @@ export default {
         email: Joi.string().required(),
         panNumber: Joi.string().required(),
         aadhar: Joi.string().required(),
+        username: Joi.string().required(),
+        password: Joi.string().required()
     })
 }
