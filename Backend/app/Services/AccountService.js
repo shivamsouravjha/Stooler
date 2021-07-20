@@ -11,9 +11,7 @@ export default class AccountService{
     async addAccount(args) {
         try {
             let verifyUsername = await this.verifyUsername(args.username,args.panCard,args.email,args.number,args.aadhar)
-            delete verifyUsername._id
-            console.log(verifyUsername)
-            if(verifyUsername){
+            if(verifyUsername.username){
                 throw (new Exceptions.ConflictException("details already exist"));
             }
             let accountInfo = await this.repository.addUser(args);
