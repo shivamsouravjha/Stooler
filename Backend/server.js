@@ -3,11 +3,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-
+import Routes from './routes/routes'
 // const Error = require('./MODELS/error');
 // const memer = require('./ROUTERS/memer');
 // const memes = require('./ROUTERS/memes');
 import Error from '../Backend/app/Exceptions/Error';
+import { request } from 'gaxios';
 require('dotenv').config();
 
 const app = express();
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
   next();
 }); 
-// app.use('/api/memers', memer); 
+app.use('/api/users', Routes.AccountRouter); 
 // app.use('/api/memes', memes);
 
 app.use((req, res, next) => {
