@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 
 
-
+// removing the CORS error
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
   
   
 
-app.use((error, req, res, next) => {          //special 4 term function that lets know error to cinsuder it as error
+app.use((error, req, res, next) => {          //special 4 term function that lets know error to consider it as error
     if (res.headerSent) {
       return next(error);
     }
