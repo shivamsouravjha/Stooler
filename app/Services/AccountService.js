@@ -7,6 +7,8 @@ export default class AccountService{
     constructor() {
         this.repository = new AccountRepository();
     }
+
+    //adding account
     async addAccount(args) {
         try {
             const {panNumber,aadhar,username,email,number}=args
@@ -52,7 +54,7 @@ export default class AccountService{
         }
     }
 
-
+    //verify that params aren't existing earlier
     async verifyUsername(args) {
         try {
             let accountInfo = await this.repository.findUsername(args);
@@ -72,7 +74,7 @@ export default class AccountService{
                 }
                 return obj
             }
-            function search(obj) {
+            function search(obj) {              //search and remove the blank query params 
                 for (var propName in obj) {
                     if (obj[propName] === null || obj[propName] === '') {
                         delete obj[propName];
@@ -86,7 +88,7 @@ export default class AccountService{
                 return obj
             }
             args = clean(args);
-            let groupsInfo = await this.repository.findUid(uid);
+            let groupsInfo = await this.repository.findUid(uid);///find all groups of a user
             if(!Object.keys(args).length){
                 return groupsInfo;
             }
@@ -95,7 +97,7 @@ export default class AccountService{
             groupsInfos = groupsInfos.filter(function (el) {
                 return el != null;
             });
-            return groupsInfos;
+            return groupsInfos; ///returning all group that belong to a user
         } catch(error){
             throw error;
         }

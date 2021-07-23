@@ -8,7 +8,7 @@ export default class CompanyController extends Controller {
       this.service = new SourceService();
     }
 
-    
+    //adding source to a group
     addSource (request) {
       try{
           let {value,error} = Validators.createSource.validate(request.body);
@@ -29,7 +29,7 @@ export default class CompanyController extends Controller {
       }
   }
 
-  
+  //getting source of a group
   getSource (request) {
     try {
       const value = request.params.sid;
@@ -46,7 +46,7 @@ export default class CompanyController extends Controller {
     }
   }
   
-
+//edit source of a group
   editSource (request) {
     try {
       const value={'sid':request.params.sid};
@@ -68,6 +68,7 @@ export default class CompanyController extends Controller {
     }
   }
 
+  //get sources of a group
   getSources (request) {
     try {
       let value = {_id:request.params.gid};
@@ -82,6 +83,7 @@ export default class CompanyController extends Controller {
     } 
   }
 
+  //get those groups who need approval
   getAprroval (request) {
     try {
       const promise  = this.service.getAprroval(request.params.uid);
@@ -95,6 +97,7 @@ export default class CompanyController extends Controller {
     } 
   }
 
+  //approve the group 
   setApproval (request) {
     try {
       let promise;

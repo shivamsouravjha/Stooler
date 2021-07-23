@@ -9,7 +9,7 @@ export default class AccountService{
     }
 
 
-    async userToGroup(args) {
+    async userToGroup(args) {   //adding user to a group and removing them by increasing or decreasing funds
         try {        
             const {userId,groupId}=args
             let verifyuserId =  await this.verifyUserDetail(userId)
@@ -109,7 +109,6 @@ export default class AccountService{
             }
             args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
-            console.log(groupsInfo)
             function checkUid(uids) {
                 return objj == uids.members.includes(uid);
             };
