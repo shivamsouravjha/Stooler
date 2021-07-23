@@ -8,6 +8,7 @@ export default class AccountController extends Controller {
       this.service = new GroupService();
     }
 
+    ////create a group 
     createGroup (request) {
         try{
             let {value,error} = Validators.groupCreate.validate(request.body);
@@ -27,6 +28,7 @@ export default class AccountController extends Controller {
         }
     }
 
+    //fixing user to group relation :-leave or join
     userGroup (request) {
       try{
           let {value,error} = Validators.groupJoin.validate(request.body);
@@ -47,6 +49,7 @@ export default class AccountController extends Controller {
       }
   }
 
+  ///getting all groups
     getGroups (request,obj) {
       try {
         const uid = request.params.uid;
@@ -61,6 +64,8 @@ export default class AccountController extends Controller {
       }
     }
 
+
+    //getting owner groups
     getGroup (request) {
       try {
         let value = {_id:request.params.groupId};
@@ -75,7 +80,7 @@ export default class AccountController extends Controller {
       } 
     } 
     
-    
+    //get members of a group
     getMembers (request) {
       try {
         let value = {groupId:request.params.groupId};
@@ -90,7 +95,7 @@ export default class AccountController extends Controller {
       } 
     }
     
-    
+    //get groups of an owner 
     getOwner (request) {
       try {
         let value = {groupOwner:request.params.uid};
