@@ -12,13 +12,12 @@ export default class AccountService{
     async addAccount(args) {
         try {
             const {panNumber,aadhar,username,email,number}=args
-            let verifyUsername = await this.verifyUsername({panNumber,aadhar,username,email,number})
-            if(verifyUsername.username){
-
+            let verifyUsername =  await this.verifyUserDetail({panNumber,aadhar,username,email,number})
+            if(verifyUsername){
                 throw (new Exceptions.ConflictException("details already exist"));
-            }
-            let hasedPassowrd = await bycrypt.hash(args,12)
-            args.password = hasedPassowrd
+            } 
+            let hasedPassword = await bycrypt.hash(args.password,12)
+            args.password = hasedPassword
             let accountInfo = await this.repository.addUser(args);
             return accountInfo
         } catch (error) {
@@ -49,7 +48,7 @@ export default class AccountService{
     async verifyUsername(args) {
         try {
             let accountInfo = await this.repository.findUsername(args);
-            return accountInfo
+            return accountInfo;
         } catch (error) {
         throw error;
         }
@@ -58,9 +57,9 @@ export default class AccountService{
     async verifyUserDetail(args) {
         try {
             let accountInfo = await this.repository.findUserDetail(args);
-            return accountInfo
+            return accountInfo;
         } catch (error) {
-        throw error;
+        throw (new Exceptions.ValidationException("Error finding user details"));
         }
     }
 
