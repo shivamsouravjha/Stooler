@@ -35,7 +35,7 @@
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-watch": "^5.1.2",
     "express": "^4.17.1",
-    "fast-csv": "^3.7.0",
+    "fast-csv": "^4.3.6",
     "googleapis": "^71.0.0",
     "helmet": "^3.23.3",
     "is-image-url": "^1.1.8",
