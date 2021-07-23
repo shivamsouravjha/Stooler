@@ -40,7 +40,7 @@
     "helmet": "^3.23.3",
     "is-image-url": "^1.1.8",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.16.5",
+    "knex": "^0.19.5",
     "lodash": "^4.17.20",
     "mongoose": "^5.12.13",
     "mongoose-unique-validator": "^2.0.3",
