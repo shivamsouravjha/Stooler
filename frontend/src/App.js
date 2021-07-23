@@ -5,7 +5,9 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom';
-
+import Main from './groups/pages/main';
+import Group from './groups/pages/groups';
+import GroupAuth from './groups/pages/auth.js';
 import Users from './user/pages/Users';
 import Auth from './user/pages/Auth';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
@@ -28,9 +30,17 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Users />
+          <Main />
+        </Route>
+        <Route path="/group_auth" exact>
+          <GroupAuth />
+        </Route>
+        <Route path="/view_group" exact>
+          <Group />
         </Route>
         <Redirect to="/" />
+        
+        
       </Switch>
     );
   } else {
@@ -39,6 +49,7 @@ const App = () => {
         <Route path="/" exact>
           <Users />
         </Route>
+        
         <Route path="/auth">
           <Auth />
         </Route>
@@ -55,6 +66,7 @@ const App = () => {
         <MainNavigation />
         <main>{routes}</main>
       </Router>
+      
     </AuthContext.Provider>
   );
 };

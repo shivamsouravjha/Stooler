@@ -1,0 +1,127 @@
+ body{
+    margin-top:5%;
+}
+hr{
+  margin:20px;
+}
+ /* css for form heading*/
+ .form_heading{
+  font-size:2rem;
+  text-align: center;
+  margin-bottom: 20px; 
+}
+
+/* form css */
+.auth_form{
+  background-color: white;
+  border-radius: 8px;
+  width:fit-content;
+  padding:10px;
+  margin:10px;
+}
+
+/* css for labels of the input*/
+.labels{
+  font-size:1.5rem;
+  font-weight: bold;
+}
+
+/* css for asterics */
+span{
+color:rgb(165, 7, 7);
+}
+
+/* css for input fields */
+.inputs{
+  text-align: center;
+  width:-webkit-fill-available;
+  height:2.5rem;
+  border-radius: 5px;
+  margin-top:0.5rem;
+  font-size: 1.3rem;
+  background-color: rgb(255, 255, 255);
+  border: 1px black solid;
+}
+
+/*  css for the textarea (description) */
+.text{
+  margin-top:0.5rem;
+  min-height:40px;
+  resize:both;
+  padding:9px;
+  box-sizing:border-box;
+  font-size: 1.3rem;
+  
+}
+
+/* css for select options*/
+.select{
+  margin-top:0.5rem;
+  width:200px;
+  height:40px;
+  font-size:1.3rem;
+  border-radius: 5px;
+}
+
+/* css for 'create group' button*/
+.confirm_btns{
+    width:16rem;
+    height:3rem;
+    background-color:white;
+   color:#ff0055;
+   border-color: #ff0055;
+   border-radius:5px;
+    margin: auto 10%;
+    font-size: 1.5rem;
+}
+
+.confirm_btns:hover{
+  
+  color:white;
+ background-color:#ff0055;
+ }
+
+/* css for mobile view*/
+@media only screen and (max-width: 600px) {
+  .auth_form {
+  border-radius: 5px;
+  width:fit-content;
+  padding:6px;
+  }
+  .inputs{
+    width:-webkit-fill-available;
+    height:1.5rem;
+    margin-top:0.5rem;
+    font-size: 1rem;
+
+}
+.text{
+  margin-top:0.5rem;
+  min-height:30px;
+  max-width:320px;
+  resize:both;
+  padding:7px;
+  box-sizing:border-box;
+  font-size: 1rem;
+  
+}
+.labels{
+    font-size:1.1rem;
+  }
+
+.form_heading{
+  font-size:1.5rem;
+  text-align: center;
+}
+.confirm_btns{
+  width:12rem;
+  height:2.5rem;
+  font-size: 1.4rem;
+}
+.select{
+  width:140px;
+  height:35px;
+  font-size:1.1rem;
+}
+
+}
