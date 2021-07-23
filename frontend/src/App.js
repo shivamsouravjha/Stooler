@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
+import './App.css';
+import BarChart from './user/components/PieChart';
 import {
   BrowserRouter as Router,
   Route,
   Redirect,
   Switch
 } from 'react-router-dom';
-
 import Users from './user/pages/Users';
 import Auth from './user/pages/Auth';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
@@ -55,6 +56,9 @@ const App = () => {
         <MainNavigation />
         <main>{routes}</main>
       </Router>
+      <div className="App">
+        <BarChart/>
+      </div>
     </AuthContext.Provider>
   );
 };
