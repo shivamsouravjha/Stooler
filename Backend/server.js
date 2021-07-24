@@ -23,7 +23,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
   next();
 }); 
-app.use('/api/users', Routes.AccountRouter); 
+app.use('/api/users', Routes.AccountApiRouter); 
 // app.use('/api/memes', memes);
 
 app.use((req, res, next) => {
