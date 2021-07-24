@@ -6,7 +6,7 @@ import ReactTable from "react-table";
 class Group extends Component {  
   render() {  
      const data = [{  
-        group_name: 'sss',  
+        groupName: 'sss',  
         genre: 'stock'
         },{  
          name: 'wqwwq',  
