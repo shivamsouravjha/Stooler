@@ -18,9 +18,26 @@ export default class AccountRepository {
             return "error at finding"
         }
     }
+    async findUid(obj){
+        try {
+            const found = await UserModel.findOne({obj})
+            return found;
+        } catch (error) {
+            return "error at finding"
+        }
+    }
     async addUser(obj){
         const {name,panNumber,aadhar,username,email,password,number}=obj
-        const userModel = new UserModel({name,panNumber,aadhar,username,email,password,number})
+        const userModel = new UserModel({name,
+            panNumber,
+            aadhar,
+            username,
+            email,
+            password,
+            number,
+            groups:[],
+            portfolio:[]
+        })
         let userDetails;
         let token;
         try{

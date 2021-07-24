@@ -7,8 +7,6 @@ export default class AccountService{
     constructor() {
         this.repository = new AccountRepository();
     }
-
-
     async addAccount(args) {
         try {
             const {panNumber,aadhar,username,email,number}=args

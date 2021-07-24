@@ -10,10 +10,13 @@ const userschema = new schema({
     username: {type :String },
     email: {type :String,},
     password: {type :String },
-    number:{type :String,},
+    number:{type :String},
+    groups: [{type :mongoose.Types.ObjectId,required:true,ref:'Group'}],
+    portfolio:[{type: Map}],
 },{
     versionKey: false 
   });
 
 userschema.plugin(uniqueValidator);
-module.exports = mongoose.model('User',userschema);
+
+module.exports = mongoose.models['User'] || mongoose.model("User", userschema)
