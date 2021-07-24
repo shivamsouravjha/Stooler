@@ -7,12 +7,9 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom';
-<<<<<<< HEAD
 import Main from './groups/pages/main';
 import Group from './groups/pages/groups';
 import GroupAuth from './groups/pages/auth.js';
-=======
->>>>>>> 6e7c5ee4697ae70637d84a88f924731cb447fff8
 import Users from './user/pages/Users';
 import Auth from './user/pages/Auth';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
@@ -70,14 +67,10 @@ const App = () => {
       <Router>
         <MainNavigation />
         <main>{routes}</main>
-      </Router>
-<<<<<<< HEAD
-      
-=======
+      </Router>      
       <div className="App">
         <BarChart/>
       </div>
->>>>>>> 6e7c5ee4697ae70637d84a88f924731cb447fff8
     </AuthContext.Provider>
   );
 };

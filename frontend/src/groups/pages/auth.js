@@ -6,7 +6,7 @@ import "./auth.css";
 
 const  GroupAuth = ()=>{
    
-    const [group_name,setName]=useState("");
+    const [groupName,setName]=useState("");
     const [description,setDesc]=useState("");
     const [genre,setGenre]=useState("");
     const [duration,setDuration]=useState("");
@@ -15,7 +15,7 @@ const  GroupAuth = ()=>{
     const onSubmitform = async e =>{
         e.preventDefault();
         try{
-            const body={group_name,description,genre,duration,amount};
+            const body={groupName,description,genre,duration,amount};
             
             const response = await fetch("http://localhost:5000/api/newevents",{
                 method:"POST",headers:{"Content-Type":"application/json"},
@@ -36,12 +36,12 @@ const  GroupAuth = ()=>{
                 </h2> 
                 <hr/>
                                         {/* Label for GROUP_NAME */}
-                <label for="group_name" className="labels">
+                <label for="groupName" className="labels">
                     Group Name<span > * </span> 
                 </label>
                 <br/>
                         {/* Input field for GROUP_NAME */}
-                <input type="text" name="group_name" className="inputs" value={group_name} placeholder="Enter a Unique group name" onChange={e =>setName(e.target.value)} required />
+                <input type="text" name="groupName" className="inputs" value={groupName} placeholder="Enter a Unique group name" onChange={e =>setName(e.target.value)} required />
                 <br/><br/>
                         {/* label for DESCRIPTION */}
                 <label for="description" className="labels">
