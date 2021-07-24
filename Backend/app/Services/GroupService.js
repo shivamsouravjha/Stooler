@@ -1,15 +1,15 @@
-import AccountRepository from '../Repositories/AccountRepository.js';
+import GroupRepository from '../Repositories/GroupRepository';
 import * as Exceptions from '../Exceptions/Exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export default class AccountService{
     constructor() {
-        this.repository = new AccountRepository();
+        this.repository = new GroupRepository();
     }
 
 
-    async addAccount(args) {
+    async addUserToGroup(args) {
         try {
             const {panNumber,aadhar,username,email,number}=args
             let verifyUsername =  await this.verifyUserDetail({panNumber,aadhar,username,email,number})
@@ -24,31 +24,10 @@ export default class AccountService{
         throw error;
         }
     }
-    async loginAccount(args) {
+    async createGroup(args) {
         try {
-            const {username}=args
-            let profile = await this.verifyUsername({username})
-            if (!profile.username) {
-                throw (new Exceptions.ConflictException("Username doesn't exist"));
-            }
-
-            let isvalidpassword = await bycrypt.compare(args.password,profile.password);
-            if(!isvalidpassword) {
-                throw (new Exceptions.ConflictException("Password doesn't match"));
-            }
-            let token = jwt.sign({userid:profile.id,email:profile.email},process.env.secretcode,{expiresIn:'7d'});
-            console.log(token)
-            return {message: 'Logged in!',success: true,userid:profile.id,email:profile.email,token:token}
-        } catch (error) {
-        throw error;
-        }
-    }
-
-
-    async verifyUsername(args) {
-        try {
-            let accountInfo = await this.repository.findUsername(args);
-            return accountInfo;
+            let newGroup = await this.repository.addUserToGroup(args);
+            return {message: 'Group Created!',success: true}
         } catch (error) {
         throw error;
         }
