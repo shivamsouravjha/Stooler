@@ -8,10 +8,13 @@ const groupSchema = new schema({
     description: {type :String },
     genre: {type :String},
     duration: {type :String },
-    amount: {type :String,},
+    amount: {type :String},
+    profit: [{type: Number,required: false}],
+    members: [{type :mongoose.Types.ObjectId,required:false,ref:'User'}],
+    groupOwner: {type :mongoose.Types.ObjectId,required:false,ref:'User'},
 },{
     versionKey: false 
   });
 
-userschema.plugin(uniqueValidator);
-module.exports = mongoose.model('group',groupSchema);
+groupSchema.plugin(uniqueValidator);
+module.exports = mongoose.model('Group',groupSchema);

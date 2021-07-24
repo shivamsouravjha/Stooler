@@ -45,7 +45,7 @@ export default class AccountController extends Controller {
               this.handleException(error);
             }) 
       } catch (error) {
-          Logger.error("Error at adding account",error);
+          Logger.error("Error at logging in",error);
           this.handleException(error)
       }
   }
