@@ -1,5 +1,6 @@
-import AccountRouter from './accountApi';
-
+import AccountApiRouter from './accountApi';
+import GroupApiRouter from './groupApi';
 export default {
-  AccountRouter,
+  AccountApiRouter,
+  GroupApiRouter
 };
