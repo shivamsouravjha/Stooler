@@ -1,13 +1,18 @@
 import React, { useState, useCallback } from 'react';
+import './App.css';
+import BarChart from './user/components/PieChart';
 import {
   BrowserRouter as Router,
   Route,
   Redirect,
   Switch
 } from 'react-router-dom';
+<<<<<<< HEAD
 import Main from './groups/pages/main';
 import Group from './groups/pages/groups';
 import GroupAuth from './groups/pages/auth.js';
+=======
+>>>>>>> 6e7c5ee4697ae70637d84a88f924731cb447fff8
 import Users from './user/pages/Users';
 import Auth from './user/pages/Auth';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
@@ -66,7 +71,13 @@ const App = () => {
         <MainNavigation />
         <main>{routes}</main>
       </Router>
+<<<<<<< HEAD
       
+=======
+      <div className="App">
+        <BarChart/>
+      </div>
+>>>>>>> 6e7c5ee4697ae70637d84a88f924731cb447fff8
     </AuthContext.Provider>
   );
 };

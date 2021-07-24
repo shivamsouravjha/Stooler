@@ -10,7 +10,7 @@ export default class AccountController extends Controller {
       this.service = new AccountService();
     }
 
-    addaccount (request) {
+    addAccount (request) {
         Logger.info("Adding account");
         try{
             let {value,error} = Validators.createAccount.validate(request.body);
@@ -30,6 +30,25 @@ export default class AccountController extends Controller {
         }
     }
 
+    loginAccount (request) {
+      Logger.info("Adding account");
+      try{
+          let {value,error} = Validators.loginAccount.validate(request.body);
+          if(error){
+              throw (new Exceptions.ValidationException(error.details[0].message));
+          }     
+          const addUser = this.service.loginAccount(value);
+          addUser.then(res => {
+              this.sendResponse(res);
+            })
+            .catch (error => {
+              this.handleException(error);
+            }) 
+      } catch (error) {
+          Logger.error("Error at adding account",error);
+          this.handleException(error)
+      }
+  }
     //  verifyUsername (request) {
     //     try{
     //         const exist =  this.service.verifyUsername(request);
