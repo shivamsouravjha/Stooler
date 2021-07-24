@@ -24,6 +24,7 @@ app.use((req, res, next) => {
   next();
 }); 
 app.use('/api/users', Routes.AccountApiRouter); 
+app.use('/api/groups', Routes.GroupApiRouter); 
 // app.use('/api/memes', memes);
 
 app.use((req, res, next) => {
