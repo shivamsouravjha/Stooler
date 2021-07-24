@@ -38,6 +38,7 @@ export default class AccountController extends Controller {
           if(error){
               throw (new Exceptions.ValidationException(error.details[0].message));
           }     
+          value.userId = request.params.uid;
           const addUser = this.service.addUserToGroup(value);
           addUser.then(res => {
               this.sendResponse(res);

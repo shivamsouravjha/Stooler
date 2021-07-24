@@ -8,7 +8,7 @@ GroupApiRouter.post('/create/:uid', (request, response) => {
   groupController.createGroup(request);
 });
 
-GroupApiRouter.post('/join', (request, response) => {
+GroupApiRouter.post('/join/:uid', (request, response) => {
   const groupController = new GroupCpntroller(response);
   groupController.joinGroup(request);
 });
