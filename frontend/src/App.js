@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react';
+import './App.css';
+import BarChart from './user/components/PieChart';
 import {
   BrowserRouter as Router,
   Route,
@@ -65,8 +67,10 @@ const App = () => {
       <Router>
         <MainNavigation />
         <main>{routes}</main>
-      </Router>
-      
+      </Router>      
+      <div className="App">
+        <BarChart/>
+      </div>
     </AuthContext.Provider>
   );
 };

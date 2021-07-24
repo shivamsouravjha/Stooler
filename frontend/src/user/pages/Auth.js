@@ -93,7 +93,7 @@ const Auth = () => {
               id="number"
               type="text"
               label="Your Mobile Number"
-              validators={[VALIDATOR_REQUIRE()]}
+              validators={[VALIDATOR_MINLENGTH(10)]}
               errorText="Please enter a Mobile number."
               onInput={inputHandler}
             />)
@@ -104,7 +104,7 @@ const Auth = () => {
             id="panNumber"
             type="text"
             label="Your Pancard Number"
-            validators={[VALIDATOR_REQUIRE()]}
+            validators={[VALIDATOR_MINLENGTH(10)]}
             errorText="Please enter Pancard number."
             onInput={inputHandler}
           />)
@@ -115,8 +115,8 @@ const Auth = () => {
             id="aadhar"
             type="text"
             label="Your aadhar Number"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Please enter aadhar number."
+            validators={[VALIDATOR_MINLENGTH(12)]}
+            errorText="Please enter valid aadhar number."
             onInput={inputHandler}
           />)
         }

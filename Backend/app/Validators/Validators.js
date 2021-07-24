@@ -9,5 +9,9 @@ export default {
         aadhar: Joi.string().required(),
         username: Joi.string().required(),
         password: Joi.string().required()
+    }),
+    loginAccount : Joi.object().keys({
+        username: Joi.string().required(),
+        password: Joi.string().required()
     })
 }
