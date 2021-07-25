@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import './App.css';
-import BarChart from './user/components/PieChart';
 import {
   BrowserRouter as Router,
   Route,
@@ -10,8 +9,8 @@ import {
 import Main from './groups/pages/main';
 import Group from './groups/pages/groups';
 import GroupAuth from './groups/pages/auth.js';
-import Users from './user/pages/Users';
 import Auth from './user/pages/Auth';
+import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
 
@@ -40,6 +39,9 @@ const App = () => {
         <Route path="/view_group" exact>
           <Group />
         </Route>
+        <Route path="/profile" exact>
+          <Profile />
+        </Route>
         <Redirect to="/" />
         
         
@@ -49,7 +51,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Users />
+          This IS HOME, Authenticate please
         </Route>
         
         <Route path="/auth">
@@ -68,9 +70,6 @@ const App = () => {
         <MainNavigation />
         <main>{routes}</main>
       </Router>      
-      <div className="App">
-        <BarChart/>
-      </div>
     </AuthContext.Provider>
   );
 };

@@ -1,5 +1,5 @@
 .user-item {
-  margin: 1rem;
+  margin: 5rem;
   width: calc(45% - 2rem);
   min-width: 17.5rem;
 }
@@ -15,33 +15,24 @@
   background: #292929;
 }
 
-.user-item a:hover,
-.user-item a:active {
-  background: #ffd900;
-}
-
 .user-item__content {
   padding: 0;
 }
 
 .user-item__image {
-  width: 4rem;
-  height: 4rem;
+  width: 10rem;
+  height: 8rem;
   margin-right: 1rem;
+  padding-left: 2rem;
 }
 
 .user-item__info h2 {
   font-size: 1.5rem;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0.5rem 0.5rem 0;
   font-weight: normal;
-  color: #ffd900;
-}
-
-.user-item:hover h2,
-.user-item:active h2,
-.user-item:hover h3,
-.user-item:active h3 {
-  color: #292929;
+  color: #130101;
+  text-align: left;
+  padding-left: 1rem;
 }
 
 .user-item__info h3 {
