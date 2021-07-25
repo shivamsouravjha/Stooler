@@ -1,11 +1,11 @@
 import React from 'react';
 import {Pie} from 'react-chartjs-2';
-const BarChart = () => {
+const PieChart = () => {
     return (
         <div>
             <Pie
                 data={{
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    labels: ['Adani', 'Birla', 'Tata', 'Modi', 'Ambani', 'MotaBahi'],
                     datasets: [
                         {
                         label: '# of votes',
@@ -54,4 +54,4 @@ const BarChart = () => {
     )
 };
 
-export default BarChart
+export default PieChart
