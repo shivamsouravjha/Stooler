@@ -1,14 +1,14 @@
 
 # Stool
-! Imagine having an app that treats an investor with 1k 
+ Imagine having an app that treats an investor with 1k 
 equally to an investor with 1lakh, where you can 
 invest money without any knowledge and without 
 the help of any broker.
 
-My team presenting you with a project **Stool** to make 
-our life easier
+Presenting you with a  **Stool** to make 
+our finance easier and life better.
 
-A plan to invest in a stock via group pool. Friends come
+A plan to invest in a stock via group pool. Friends and strangers come
 together to invest in stocks and cryptocurrency, for 
 sharing the investment strategy and profit. 
 
@@ -55,7 +55,7 @@ To run this project, you will need to add the following environment variables to
 
 `db (MongoDB_databasename)`
 
-`secretcode (zwt_authentication_token)`
+`secretcode (jwt_authentication_token)`
 
 `cloudinary_cloud_name`
 
