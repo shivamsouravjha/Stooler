@@ -61,7 +61,7 @@ const Auth = () => {
 
     }else{
       try{
-        const response = await fetch('https://stool-back.herokuapp.com/api/users/signup',{
+        const response = await fetch('https://stool-back.herokuapp.com/api/users/account/signup',{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
