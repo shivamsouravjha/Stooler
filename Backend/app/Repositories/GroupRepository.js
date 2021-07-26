@@ -17,7 +17,7 @@ export default class GroupRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.find(obj);
+            const found = await GroupModel.find(obj,'-groupPayment');
             return found;
         } catch (error) {
             throw error

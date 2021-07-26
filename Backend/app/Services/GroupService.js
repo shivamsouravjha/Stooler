@@ -13,10 +13,7 @@ export default class AccountService{
         try {
             const {userId,amount,groupId}=args
             let verifyUserId =  await this.verifyUserDetail({_id:userId})
-            console.log(verifyUserId)
-            let verifyGroupId =  (await this.verifyDetail({_id:groupId}))[0];
-            console.log(verifyGroupId)
-
+            let verifyGroupId =  (await this.getGroups({_id:groupId}))[0];
             if(!verifyUserId){
                 throw (new Exceptions.ConflictException("No user found"));
             }
@@ -42,14 +39,14 @@ export default class AccountService{
     }
 
 
-    async verifyDetail(args) {
-        try {
-            let groupInfo = await this.repository.findGroup(args);
-            return groupInfo;
-        } catch (error) {
-            throw (new Exceptions.ValidationException("Error finding user details"));
-        }
-    }
+    // async getGroups(args) {
+    //     try {
+    //         let groupInfo = await this.repository.findGroup(args);
+    //         return groupInfo;
+    //     } catch (error) {
+    //         throw (new Exceptions.ValidationException("Error finding user details"));
+    //     }
+    // }
 
 
     async verifyUserDetail(args) {
@@ -62,9 +59,9 @@ export default class AccountService{
     }
 
 
-    async getGroups(){
+    async getGroups(args){
         try {
-            let groupsInfo = await this.repository.findGroup();
+            let groupsInfo = await this.repository.findGroup(args);
             groupsInfo.sort(function(a,b){
                 return (b.members).length-(a.members).length;
             })
