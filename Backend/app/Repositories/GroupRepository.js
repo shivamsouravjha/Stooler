@@ -13,14 +13,18 @@ export default class GroupRepository {
             throw error
         }
     }
+
+
     async findGroup (obj) {
         try {
-            const found = await GroupModel.findOne(obj)
+            const found = await GroupModel.find(obj);
             return found;
         } catch (error) {
             throw error
         }
     }
+
+
     async addUserToGroup (args,verifyGroupId,verifyUserId) {
         try {
             const newTransaction = new Transaction(args);
@@ -29,10 +33,8 @@ export default class GroupRepository {
             await newTransaction.save(); 
             verifyGroupId.groupPayment.push(newTransaction._id); 
             verifyGroupId.members.push(verifyUserId._id);
-            console.log(verifyGroupId)
             verifyUserId.groups.push(verifyGroupId._id); 
             verifyUserId.transaction.push(newTransaction._id); 
-            console.log(verifyUserId)
             await verifyGroupId.save({ session: sess }); 
             await verifyUserId.save({ session: sess }); 
             await sess.commitTransaction(); 
@@ -41,6 +43,8 @@ export default class GroupRepository {
             throw error
         }
     }
+
+
     async createGroup (obj) {
         const {groupName,description,genre,duration,amount,userId}=obj
         const groupModel = new GroupModel({groupName,
