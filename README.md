@@ -27,8 +27,10 @@ Or you can create your unique group and  add different stocks in
 it, and ask other users to join you and invest with you, where
 you can share ideas with each other and can grow together.
 
+
+## [To see live action](https://stool-front.herokuapp.com/)
   
-## Deployment
+## Deployment on Local System
 
 To deploy this project run
 
