@@ -1,5 +1,5 @@
-import GroupRepository from '../Repositories/GroupRepository';
-import * as Exceptions from '../Exceptions/Exceptions';
+import GroupRepository from '../Repositories/groupRepository';
+import * as Exceptions from '../Exceptions/exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 

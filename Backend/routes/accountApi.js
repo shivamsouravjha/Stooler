@@ -1,5 +1,5 @@
 import express from 'express';
-import AccountController from '../app/Controllers/AccountController';
+import AccountController from '../app/Controllers/accountController';
 
 const AccountApiRouter = express.Router();
 

@@ -7,7 +7,7 @@ import Routes from './routes/routes'
 // const Error = require('./MODELS/error');
 // const memer = require('./ROUTERS/memer');
 // const memes = require('./ROUTERS/memes');
-import Error from '../Backend/app/Exceptions/Error';
+import Error from './app/Exceptions/error';
 import { request } from 'gaxios';
 require('dotenv').config();
 

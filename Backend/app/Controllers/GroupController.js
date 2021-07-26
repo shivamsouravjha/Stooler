@@ -1,9 +1,9 @@
-import Controller from './Controller';
+import Controller from './controller';
 import at from 'v-at'
-import * as Exceptions from '../Exceptions/Exceptions'
+import * as Exceptions from '../Exceptions/exceptions'
 import Logger from '../Helpers/Logger';
-import Validators from '../Validators/Validators';
-import GroupService from '../Services/GroupService';
+import Validators from '../Validators/validators';
+import GroupService from '../Services/groupService';
 export default class AccountController extends Controller {
     constructor(response) {
       super(response);
@@ -11,7 +11,7 @@ export default class AccountController extends Controller {
     }
 
     createGroup (request) {
-        Logger.info("Creating Group");
+        // Logger.info("Creating Group");
         try{
             let {value,error} = Validators.groupCreate.validate(request.body);
             value.userId = request.params.uid;
@@ -26,13 +26,13 @@ export default class AccountController extends Controller {
                 this.handleException(error);
               }) 
         } catch (error) {
-            Logger.error("Error at creating group",error);
+            // Logger.error("Error at creating group",error);
             this.handleException(error)
         }
     }
 
     joinGroup (request) {
-      Logger.info("Joining Group");
+      // Logger.info("Joining Group");
       try{
           let {value,error} = Validators.groupJoin.validate(request.body);
           if(error){
@@ -47,7 +47,7 @@ export default class AccountController extends Controller {
               this.handleException(error);
             }) 
       } catch (error) {
-          Logger.error("Error at joining error",error);
+          // Logger.error("Error at joining error",error);
           this.handleException(error)
       }
   }
