@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "apis": "npx babel-node --presets=@babel/preset-env -- server.js",
-    "start": "npm-run-all --parallel apis",
-    "dev": "mkdir storage  node npm --exec npm-run-all --parallel apis"
+    "start": "nodemon  --exec npm-run-all --parallel apis",
+    "dev": "nodemon  --exec npm-run-all --parallel apis"
   },
   "author": "shivamsouravjha",
   "license": "ISC",
