@@ -1,4 +1,4 @@
-import Exception from './Error';
+import Exception from './error';
 /**
  * conflict request exception module
  */

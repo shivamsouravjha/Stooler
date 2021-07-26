@@ -1,5 +1,5 @@
-import AccountRepository from '../Repositories/AccountRepository.js';
-import * as Exceptions from '../Exceptions/Exceptions';
+import AccountRepository from '../Repositories/accountRepository.js';
+import * as Exceptions from '../Exceptions/exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 

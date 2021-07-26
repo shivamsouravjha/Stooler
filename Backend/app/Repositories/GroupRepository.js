@@ -1,6 +1,6 @@
-import GroupModel from "../Models/GroupModel";
-import UserModel from "../Models/UserModel";
-import Transaction from "../Models/Transaction";
+import GroupModel from "../Models/groupModel";
+import UserModel from "../Models/userModel";
+import Transaction from "../Models/transaction";
 import mongoose from 'mongoose';
 mongoose.models = {GroupModel,UserModel}
 

@@ -1,9 +1,9 @@
-import Controller from './Controller';
+import Controller from './controller';
 import at from 'v-at'
-import * as Exceptions from '../Exceptions/Exceptions'
+import * as Exceptions from '../Exceptions/exceptions'
 import Logger from '../Helpers/Logger';
-import Validators from '../Validators/Validators';
-import AccountService from '../Services/AccountService';
+import Validators from '../Validators/validators';
+import AccountService from '../Services/accountService';
 export default class AccountController extends Controller {
     constructor(response) {
       super(response);
@@ -11,7 +11,7 @@ export default class AccountController extends Controller {
     }
 
     addAccount (request) {
-        Logger.info("Adding account");
+        // Logger.info("Adding account");
         try{
             let {value,error} = Validators.createAccount.validate(request.body);
             if(error){
@@ -25,13 +25,13 @@ export default class AccountController extends Controller {
                 this.handleException(error);
               }) 
         } catch (error) {
-            Logger.error("Error at adding account",error);
+            // Logger.error("Error at adding account",error);
             this.handleException(error)
         }
     }
 
     loginAccount (request) {
-      Logger.info("Adding account");
+      // Logger.info("Adding account");
       try{
           let {value,error} = Validators.loginAccount.validate(request.body);
           if(error){
@@ -45,7 +45,7 @@ export default class AccountController extends Controller {
               this.handleException(error);
             }) 
       } catch (error) {
-          Logger.error("Error at logging in",error);
+          // Logger.error("Error at logging in",error);
           this.handleException(error)
       }
   }
