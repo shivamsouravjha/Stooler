@@ -1,10 +1,10 @@
 import GroupModel from "../Models/groupModel";
 import UserModel from "../Models/userModel";
-import Transaction from "../Models/transaction";
+import SourceModel from "../Models/sourceModel";
 import mongoose from 'mongoose';
 mongoose.models = {GroupModel,UserModel}
 
-export default class GroupRepository {
+export default class SourceRepository {
     async findUser (obj) {
         try {
             const found = await UserModel.findById(obj)
@@ -17,7 +17,7 @@ export default class GroupRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.find(obj,'-groupPayment');
+            const found = await GroupModel.findById(obj,'-groupPayment');
             return found;
         } catch (error) {
             throw error
@@ -45,27 +45,22 @@ export default class GroupRepository {
     }
 
 
-    async createGroup (obj) {
-        const {groupName,description,genre,duration,amount,userId}=obj
-        const groupModel = new GroupModel({groupName,
-            description,
-            genre,
-            duration,
-            amount,
-            profit:[],
-            members:[userId],
-            groupOwner: userId,
-            groupPayment:[],
-            sources: []
-        })
+    async createSource (obj) {
         let ownerDetails;
         try{
-            ownerDetails = await UserModel.findById(userId);
+            const groupInfo = await this.findGroup(obj.groupId);
+            const accountInfo = await this.findUser(obj.userId);
+            const suggestorName = accountInfo.name;
+            const {name,details,targetPrice,duration,price,unitsPurchase,groupId}=obj
+            const approved = groupInfo.groupOwner == obj.userId?true:false;
+            const sourceModel = new SourceModel({
+                name,details,targetPrice,duration,price,unitsPurchase,approved:approved,suggestorName,group:groupId
+            })
+            await sourceModel.save({ session: sess });
             const sess = await mongoose.startSession();
             sess.startTransaction();
-            await groupModel.save({ session: sess }); 
-            ownerDetails.groups.push(groupModel._id); 
-            await ownerDetails.save({ session: sess }); 
+            groupInfo.sources.push(sourceModel._id); 
+            await groupInfo.save({ session: sess }); 
             await sess.commitTransaction(); 
         } catch (error) {
             throw error

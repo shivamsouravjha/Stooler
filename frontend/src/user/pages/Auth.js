@@ -85,7 +85,7 @@ const Auth = () => {
         // auth.login();
       } catch (err) {
         setIsLoading(false);
-        // setError(err.message || 'Something went wrong, please try again.');
+        setError(err.message || 'Something went wrong, please try again.');
       }
     } else {
       try {

@@ -25,8 +25,12 @@ export default {
         amount: Joi.number().required(),
         groupId: Joi.string().required(),
     }),
-    createCompany: Joi.object().keys({
-        amount: Joi.number().required(),
-        groupId: Joi.string().required(),
+    createSource: Joi.object().keys({
+        name: Joi.string().required(),
+        price: Joi.number().required(),
+        unitsPurchase: Joi.number().required(),
+        details: Joi.string().required(),
+        targetPrice: Joi.number().required(),
+        duration: Joi.string().required()
     }), 
 }
