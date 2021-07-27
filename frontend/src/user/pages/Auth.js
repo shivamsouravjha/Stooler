@@ -65,7 +65,7 @@ const Auth = () => {
 
     if (isLoginMode) {
       try {
-        const response = await fetch("http://localhost:5000/api/users/account/login", {
+        const response = await fetch("http://stool-back.herokuapp.com/api/users/account/login", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json'
@@ -77,15 +77,14 @@ const Auth = () => {
         });
         const responseData = await response.json();
         console.log(responseData)
-        // if (!response.success) {
-        //   throw new Error(responseData.message);
-        // }
-
+        if(!response.ok) {
+          throw new Error(responseData.error);
+        }
         setIsLoading(false);
-        // auth.login();
+        auth.login();
       } catch (err) {
         setIsLoading(false);
-        // setError(err.message || 'Something went wrong, please try again.');
+        setError(err.error || 'Something went wrong, please try again.');
       }
     } else {
       try {
@@ -107,13 +106,13 @@ const Auth = () => {
 
         const responseData = await response.json();
         if (!response.ok) {
-          throw new Error(responseData.message);
+          throw new Error(responseData.error);
         }
         setIsLoading(false);
         auth.login();
       } catch (err) {
         setIsLoading(false);
-        setError(err.message || 'Something went wrong, please try again.');
+        setError(err.error || 'Something went wrong, please try again.');
       }
     }
   };
