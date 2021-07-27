@@ -1,24 +1,24 @@
 import Controller from './controller';
 import at from 'v-at'
 import * as Exceptions from '../Exceptions/exceptions'
-import Logger from '../Helpers/Logger';
 import Validators from '../Validators/validators';
-import GroupService from '../Services/groupService';
+import SourceService from '../Services/sourceService';
 export default class CompanyController extends Controller {
     constructor(response) {
       super(response);
-      this.service = new GroupService();
+      this.service = new SourceService();
     }
 
-    addCompany (request) {
+    addSource (request) {
         // Logger.info("Creating Group");
         try{
-            let {value,error} = Validators.groupCreate.validate(request.body);
+            let {value,error} = Validators.createSource.validate(request.body);
             value.userId = request.params.uid;
+            value.groupId = request.params.gid;
             if(error){
                 throw (new Exceptions.ValidationException(error.details[0].message));
             }     
-            const addUser = this.service.createGroup(value);
+            const addUser = this.service.createSource(value);
             addUser.then(res => {
                 this.sendResponse(res);
               })
@@ -31,14 +31,10 @@ export default class CompanyController extends Controller {
         }
     }
 
-    removeCompany (request) {
+    removeSource (request) {
       // Logger.info("Joining Group");
-      try{
-          let {value,error} = Validators.groupJoin.validate(request.body);
-          if(error){
-              throw (new Exceptions.ValidationException(error.details[0].message));
-          }     
-          value.userId = request.params.uid;
+      try{              
+          console.log(request.params)
           const addUser = this.service.addUserToGroup(value);
           addUser.then(res => {
               this.sendResponse(res);
@@ -52,7 +48,7 @@ export default class CompanyController extends Controller {
       }
   }
 
-    getCompany (request) {
+    getSource (request) {
       try {
         const promise  = this.service.getGroups();
         promise.then(res=>{
@@ -65,7 +61,7 @@ export default class CompanyController extends Controller {
       }
     }
 
-    getCompanies (request) {
+    getSources (request) {
       try {
         let value = {_id:request.params.groupId};
         const promise  = this.service.getGroups(value);

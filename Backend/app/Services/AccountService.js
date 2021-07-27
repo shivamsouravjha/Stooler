@@ -33,7 +33,6 @@ export default class AccountService{
             if(!isvalidpassword) {
                 throw (new Exceptions.ConflictException("Password doesn't match"));
             }
-            console.log(profile)
             let token = jwt.sign({userid:profile.id,email:profile.email},process.env.secretcode,{expiresIn:'7d'});
             return {message: 'Logged in!',success: true,userid:profile.id,email:profile.email,token:token}
         } catch (error) {
