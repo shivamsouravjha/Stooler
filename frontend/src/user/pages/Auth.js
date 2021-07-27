@@ -5,7 +5,6 @@ import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -61,12 +60,12 @@ const Auth = () => {
 
   const authSubmitHandler = async event => {
     event.preventDefault();
-
+    
     setIsLoading(true);
 
-    if(isLoginMode){
+    if (isLoginMode) {
       try {
-        const response = await fetch('https://stool-back.herokuapp.com/api/users/account/login', {
+        const response = await fetch('http://stool-back.herokuapp.com/api/users/account/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -84,13 +83,12 @@ const Auth = () => {
         setIsLoading(false);
         auth.login();
       } catch (err) {
-        console.log(err);
         setIsLoading(false);
         setError(err.message || 'Something went wrong, please try again.');
       }
-    }else{
-      try{
-        const response = await fetch('https://stool-back.herokuapp.com/api/users/account/signup',{
+    } else {
+      try {
+        const response = await fetch('http://stool-back.herokuapp.com/api/users/account/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -99,14 +97,14 @@ const Auth = () => {
             name: formState.inputs.name.value,
             username: formState.inputs.username.value,
             number: formState.inputs.number.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
+            panNumber: formState.inputs.panNumber.value,
             aadhar: formState.inputs.aadhar.value,
-            panNumber: formState.inputs.panNumber.value
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value
           })
         });
 
-        const responseData= await response.json();
+        const responseData = await response.json();
         if (!response.ok) {
           throw new Error(responseData.message);
         }
@@ -119,10 +117,13 @@ const Auth = () => {
     }
   };
 
-  
+  const errorHandler = () => {
+    setError(null);
+  };
 
   return (
-    
+    <React.Fragment>
+      <ErrorModal error={error} onClear={errorHandler} />
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
         <h2>Login Required</h2>
@@ -145,7 +146,7 @@ const Auth = () => {
               element="input"
               id="email"
               type="email"
-              label="E-Mail"
+              label="E-Mail address"
               validators={[VALIDATOR_EMAIL()]}
               errorText="Please enter a valid email address."
               onInput={inputHandler}
@@ -167,7 +168,7 @@ const Auth = () => {
               element="input"
               id="panNumber"
               type="text"
-              label="Your Pancard Number"
+              label="Your pancard Number"
               validators={[VALIDATOR_MINLENGTH(10)]}
               errorText="Please enter Pancard number."
               onInput={inputHandler}
@@ -210,7 +211,7 @@ const Auth = () => {
           SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
         </Button>
       </Card>
-    
+    </React.Fragment>
   );
 };
 
