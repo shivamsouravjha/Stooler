@@ -39,6 +39,7 @@ export default class AccountController extends Controller {
           }     
           const addUser = this.service.loginAccount(value);
           addUser.then(res => {
+            console.log(res)
               this.sendResponse(res);
             })
             .catch (error => {
