@@ -13,7 +13,7 @@ const groupSchema = new schema({
     members: [{type :mongoose.Types.ObjectId,required:false,ref:'User'}],
     groupOwner: {type :mongoose.Types.ObjectId,required:false,ref:'User'},
     groupPayment: [{type :mongoose.Types.ObjectId,required:false,ref:'User'}],
-    sources: [{type :mongoose.Types.ObjectId,required:false,ref:'Source'}]
+    sources: [{type :mongoose.Types.ObjectId,required:false,ref:'Source'}],
 },{
     versionKey: false 
   });

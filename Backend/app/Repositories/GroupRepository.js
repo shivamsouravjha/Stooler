@@ -17,7 +17,7 @@ export default class GroupRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.find(obj,'-groupPayment');
+            const found = await GroupModel.find(obj);
             return found;
         } catch (error) {
             throw error
@@ -31,10 +31,12 @@ export default class GroupRepository {
             const sess = await mongoose.startSession();
             sess.startTransaction();      
             await newTransaction.save(); 
+            console.log(verifyUserId,verifyGroupId,newTransaction)
             verifyGroupId.groupPayment.push(newTransaction._id); 
             verifyGroupId.members.push(verifyUserId._id);
             verifyUserId.groups.push(verifyGroupId._id); 
             verifyUserId.transaction.push(newTransaction._id); 
+            console.log(verifyUserId,verifyGroupId,newTransaction)
             await verifyGroupId.save({ session: sess }); 
             await verifyUserId.save({ session: sess }); 
             await sess.commitTransaction(); 
