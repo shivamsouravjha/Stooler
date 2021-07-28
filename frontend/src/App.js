@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import Main from './groups/pages/main';
 import Group from './groups/pages/groups';
-import GroupAuth from './groups/pages/auth.js';
+import GroupAuth from './groups/pages/auth';
 import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
