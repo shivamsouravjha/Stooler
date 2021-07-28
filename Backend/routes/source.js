@@ -8,19 +8,19 @@ SourceApiRouter.post('/add/:gid/:uid', (request, response) => {
   groupController.addSource(request);
 });
 
-SourceApiRouter.post('/remove/:gid/:uid', (request, response) => {
+SourceApiRouter.post('/remove/:gid/:uid/:sid', (request, response) => {
   const groupController = new SourceController(response);
   groupController.removeSource(request);
 });
 
 SourceApiRouter.get('/getcompany/:gid', (request, response) => {
   const groupController = new SourceController(response);
-  groupController.getSource(request);
+  groupController.getSources(request);
 });
 
-SourceApiRouter.get('/getcompanydetails/:groupId', (request, response) => {
+SourceApiRouter.get('/getcompanydetails/:gid', (request, response) => {
   const groupController = new SourceController(response);
-  groupController.getSources(request);
+  groupController.getSource(request);
 });
 
 export default SourceApiRouter;
