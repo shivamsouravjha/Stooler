@@ -7,8 +7,13 @@ import {
   Switch
 } from 'react-router-dom';
 import Main from './groups/pages/main';
+<<<<<<< HEAD
 import Group from './groups/pages/groups';
 import GroupAuth from './groups/pages/auth';
+=======
+import Group from './groups/pages/mygroup';
+import GroupAuth from './groups/pages/auth.js';
+>>>>>>> 60f933eebe8e925b1e4f8c543aec31eb9866467e
 import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
