@@ -5,16 +5,18 @@ import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch
+  Switch,
+  useParams
 } from 'react-router-dom';
 import Main from './groups/pages/main';
 import MyGroup from './groups/pages/mygroup';
-import GroupAuth from './groups/pages/auth';
+import GroupAuth from './groups/pages/creategroup';
 import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
-
+import JoinGroup from './groups/pages/getjoinGroups';
+import JoinGroupAuth from './groups/pages/joingroups';
 const App = () => {
   ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,14 +47,19 @@ const App = () => {
           <GroupAuth />
         </Route>
         <Route path="/view_group" exact>
-          <MyGroup />
+          <JoinGroup />
         </Route>
         <Route path="/profile" exact>
           <Profile />
         </Route>
-        <Redirect to="/" />
+        <Route path="/group/:gid" exact>
+          <JoinGroupAuth/>
+        </Route>
+        <Route path="/portfolio" exact>
+          <MyGroup />
+        </Route>
         
-        
+        <Redirect to="/" />       
       </Switch>
     );
   } else {
