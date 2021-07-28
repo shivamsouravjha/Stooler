@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect} from 'react';
 import ReactSession from './Reactsession';
 import './App.css';
 import {
@@ -25,10 +25,16 @@ const App = () => {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+    ReactSession.remove("username");
   }, []);
+  
+  useEffect(() => {
+    if (ReactSession.get("username")) {
+      login();
+    }
+  }, [login]);
 
   let routes;
-
   if (isLoggedIn) {
     routes = (
       <Switch>
