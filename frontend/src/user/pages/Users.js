@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactSession from '../../Reactsession';
 
 import UsersList from '../components/UsersList';
 
@@ -6,7 +7,7 @@ const Users = () => {
   const USERS = [
     {
       name:"shivam",
-      username:"dhfgrehdsghjfegdfd",
+      username:ReactSession.get("username"), 
       number:"32424234324",
       email:"hfeegn35bgdfb@gmail.com",
       panNumber:"1125bdhdgf92afh2",

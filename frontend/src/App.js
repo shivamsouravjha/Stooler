@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import ReactSession from './Reactsession';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -7,14 +8,15 @@ import {
   Switch
 } from 'react-router-dom';
 import Main from './groups/pages/main';
-import Group from './groups/pages/mygroup';
-import GroupAuth from './groups/pages/auth.js';
+import Group from './groups/pages/groups';
+import GroupAuth from './groups/pages/auth';
 import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
+  ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = useCallback(() => {

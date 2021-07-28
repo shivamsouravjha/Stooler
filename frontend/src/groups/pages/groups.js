@@ -1,12 +1,10 @@
 import React,{Component} from 'react';
 import ReactTable from "react-table";  
 
-
-
 class Group extends Component {  
   render() {  
      const data = [{  
-        groupName: 'sss',  
+        name: 'sss',  
         genre: 'stock'
         },{  
          name: 'wqwwq',  
@@ -24,10 +22,9 @@ class Group extends Component {
               <ReactTable  
                   data={data}  
                   columns={columns}  
-                   
               />  
           </div>        
     )  
-  }  
+  } 
 }  
 export default Group;  
