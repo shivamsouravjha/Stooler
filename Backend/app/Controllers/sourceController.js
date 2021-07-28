@@ -37,7 +37,6 @@ export default class CompanyController extends Controller {
           value.userId = request.params.uid;
           value.groupId = request.params.gid;
           value.sourceId = request.params.sid;
-          console.log(value)
           const addUser = this.service.deleteSource(value);
           addUser.then(res => {
               this.sendResponse(res);
