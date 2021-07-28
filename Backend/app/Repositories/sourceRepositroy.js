@@ -25,6 +25,15 @@ export default class SourceRepository {
     }
 
 
+    async findSource (obj) {
+        try {
+            const found = await SourceModel.findById(obj);
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
+
     async addUserToGroup (args,verifyGroupId,verifyUserId) {
         try {
             const newTransaction = new Transaction(args);
@@ -46,7 +55,6 @@ export default class SourceRepository {
 
 
     async createSource (obj) {
-        let ownerDetails;
         try{
             const groupInfo = await this.findGroup(obj.groupId);
             const accountInfo = await this.findUser(obj.userId);
@@ -62,10 +70,26 @@ export default class SourceRepository {
             groupInfo.sources.push(sourceModel._id); 
             await groupInfo.save({ session: sess }); 
             await sess.commitTransaction(); 
+            return {"success":true};
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async deleteSource (obj) {
+        try{
+            console.log(obj)
+            const groupInfo = await this.findGroup(obj.groupId);
+            const sourceInfo = await this.findSource(obj.sourceId);
+            const sess = await mongoose.startSession();
+            sess.startTransaction();
+            await sourceInfo.remove({session:sess});
+            groupInfo.sources.pull(obj.sourceId); 
+            await groupInfo.save({ session: sess }); 
+            await sess.commitTransaction();; 
         } catch (error) {
             throw error
         }
         return {"success":true};
     }
-
 }

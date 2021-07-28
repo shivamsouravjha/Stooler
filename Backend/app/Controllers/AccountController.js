@@ -49,6 +49,24 @@ export default class AccountController extends Controller {
           this.handleException(error)
       }
   }
+
+
+
+    getData (request) {
+      try{
+        const value = request.params.uid;
+        const user = this.service.findUid(value);
+        user.then(res => {
+            this.sendResponse(res);
+          })
+          .catch (error => {
+            this.handleException(error);
+          }) 
+    } catch (error) {
+        // Logger.error("Error at logging in",error);
+        this.handleException(error)
+    }
+    }
     //  verifyUsername (request) {
     //     try{
     //         const exist =  this.service.verifyUsername(request);

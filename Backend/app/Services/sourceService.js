@@ -7,19 +7,10 @@ export default class AccountService{
     }
 
 
-    async addUserToGroup(args) {
+    async deleteSource(args) {
         try {
-            const {userId,amount,groupId}=args
-            let verifyUserId =  await this.verifyUserDetail({_id:userId})
-            let verifyGroupId =  (await this.getGroups({_id:groupId}))[0];
-            if(!verifyUserId){
-                throw (new Exceptions.ConflictException("No user found"));
-            }
-            if(!verifyGroupId){
-                throw (new Exceptions.ConflictException("No Group found"));
-            } 
-            let accountInfo = await this.repository.addUserToGroup(args,verifyGroupId,verifyUserId);
-            return {'message':'Group Joined','success':true}
+            const reply =  await this.repository.deleteSource(args);
+            return reply;
         } catch (error) {
             throw error;
         }
@@ -32,19 +23,9 @@ export default class AccountService{
             await this.repository.createSource(args);
             return {message: 'Group Created!',success: true}
         } catch (error) {
-            throw error;
+            throw (new Exceptions.ValidationException("Error finding creating source"));
         }
     }
-
-
-    // async getGroups(args) {
-    //     try {
-    //         let groupInfo = await this.repository.findGroup(args);
-    //         return groupInfo;
-    //     } catch (error) {
-    //         throw (new Exceptions.ValidationException("Error finding user details"));
-    //     }
-    // }
 
 
     async verifyUserDetail(args) {
@@ -57,15 +38,22 @@ export default class AccountService{
     }
 
 
-    async getGroups(args){
+    async getSources(args){
         try {
-            let groupsInfo = await this.repository.findGroup(args);
-            groupsInfo.sort(function(a,b){
-                return (b.members).length-(a.members).length;
-            })
-            return groupsInfo;
+            let sourceInfo = await this.repository.findGroup(args);
+            return {'source':sourceInfo.sources};
         } catch (error) {
-            throw (new Exceptions.ValidationException("Error finding groups"));
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
+
+    async getSourceDetails(args){
+        try {
+            console.log(args)
+            let sourceInfo = await this.repository.findSource(args);
+            return {'source':sourceInfo};
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
         }
     }
 }

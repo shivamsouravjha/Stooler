@@ -12,4 +12,10 @@ AccountApiRouter.post('/account/login/', (request, response) => {
   const accountController = new AccountController(response);
   accountController.loginAccount(request);
 });
+
+AccountApiRouter.get('/account/:uid', (request, response) => {
+  const accountController = new AccountController(response);
+  accountController.getData(request);
+});
+
 export default AccountApiRouter;

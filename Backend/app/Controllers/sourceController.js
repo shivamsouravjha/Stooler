@@ -1,5 +1,4 @@
 import Controller from './controller';
-import at from 'v-at'
 import * as Exceptions from '../Exceptions/exceptions'
 import Validators from '../Validators/validators';
 import SourceService from '../Services/sourceService';
@@ -34,8 +33,12 @@ export default class CompanyController extends Controller {
     removeSource (request) {
       // Logger.info("Joining Group");
       try{              
-          console.log(request.params)
-          const addUser = this.service.addUserToGroup(value);
+          const value ={};
+          value.userId = request.params.uid;
+          value.groupId = request.params.gid;
+          value.sourceId = request.params.sid;
+          console.log(value)
+          const addUser = this.service.deleteSource(value);
           addUser.then(res => {
               this.sendResponse(res);
             })
@@ -50,7 +53,8 @@ export default class CompanyController extends Controller {
 
     getSource (request) {
       try {
-        const promise  = this.service.getGroups();
+        const value = request.params.gid;
+        const promise  = this.service.getSourceDetails(value);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
@@ -63,8 +67,8 @@ export default class CompanyController extends Controller {
 
     getSources (request) {
       try {
-        let value = {_id:request.params.groupId};
-        const promise  = this.service.getGroups(value);
+        let value = {_id:request.params.gid};
+        const promise  = this.service.getSources(value);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

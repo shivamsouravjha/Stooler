@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 
-import makeData from './makeData'
-
 const Styles = styled.div`
   padding: 1rem;
 
@@ -82,35 +80,14 @@ function Group() {
         Header: 'Name',
         columns: [
           {
-            Header: 'First Name',
-            accessor: '_id',
-          },
-          {
-            Header: 'Last Name',
-            accessor: 'members',
-          },
-    
-        //    {
-        //     Header: 'Age',
-        //     accessor: 'age',
-        //   },
-        //   {
-        //     Header: 'Visits',
-        //     accessor: 'visits',
-        //   },
-        //   {
-        //     Header: 'Status',
-        //     accessor: 'status',
-        //   },
-        //   {
-        //     Header: 'Profile Progress',
-        //     accessor: 'progress',
-        //   },
+            Header: 'My Groups',
+            accessor: 'groupId',
+          },   
         ],
       },
     ],
     []
-  )
+  );
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
 
@@ -118,31 +95,26 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          'http://localhost:5001/api/groups/getgroups'
+          'http://localhost:5000/api/users/account/60fbf1b17b7fdc5ac0aa000e'
         );
-        console.log(loadedUsers)
-        console.log(responseData.data)
-        setLoadedUsers(responseData.data);
+        responseData.data.groups = responseData.data.groups.map((val)=>{return {
+          'groupId':val
+        }})
+        const dataResponse = responseData.data.groups;
+        console.log(dataResponse)
+        setLoadedUsers(dataResponse);
       } catch (err) {}
     };
     fetchUsers();
   }, [sendRequest]);
-//    const works = async event =>{
-//    const response = await fetch('http://localhost:5001/api/groups/getgroups', {
-//           method: 'get',
-//           headers: {
-//             'Content-Type': 'application/json'
-//           },
-//         });
-//         const datainJson = await resoinse.json();
-//         console.log(datainJson)
-//     }
-    // console.log(works(20))
-  const data = React.useMemo(() => loadedUsers, [])
+
+  var data = React.useMemo(() => loadedUsers, [loadedUsers]);
 
   return (
     <Styles>
+      
       <Table columns={columns} data={data} />
+    
     </Styles>
   )
 }
