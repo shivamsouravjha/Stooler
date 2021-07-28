@@ -8,7 +8,7 @@ import {
   Switch
 } from 'react-router-dom';
 import Main from './groups/pages/main';
-import Group from './groups/pages/groups';
+import MyGroup from './groups/pages/mygroup';
 import GroupAuth from './groups/pages/auth';
 import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
@@ -39,7 +39,7 @@ const App = () => {
           <GroupAuth />
         </Route>
         <Route path="/view_group" exact>
-          <Group />
+          <MyGroup />
         </Route>
         <Route path="/profile" exact>
           <Profile />
