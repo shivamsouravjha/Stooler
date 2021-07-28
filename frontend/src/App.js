@@ -28,7 +28,6 @@ const App = () => {
   }, []);
 
   let routes;
-
   if (isLoggedIn) {
     routes = (
       <Switch>
