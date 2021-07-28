@@ -95,7 +95,7 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/users/account/60fbf1b17b7fdc5ac0aa000e"
+          "http://stool-back.herokuapp.com/api/users/account/60fbf1b17b7fdc5ac0aa000e"
         );
         responseData.data.groups = responseData.data.groups.map((val) => {
           return {

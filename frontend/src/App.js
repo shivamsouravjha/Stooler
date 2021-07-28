@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect} from 'react';
 import ReactSession from './Reactsession';
 import './App.css';
 import {
@@ -8,8 +8,8 @@ import {
   Switch
 } from 'react-router-dom';
 import Main from './groups/pages/main';
-import Group from './groups/pages/groups';
-import GroupAuth from './groups/pages/auth';
+import Group from './groups/pages/mygroup';
+import GroupAuth from './groups/pages/creategroup';
 import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
@@ -25,10 +25,16 @@ const App = () => {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+    ReactSession.remove("username");
   }, []);
+  
+  useEffect(() => {
+    if (ReactSession.get("username")) {
+      login();
+    }
+  }, [login]);
 
   let routes;
-
   if (isLoggedIn) {
     routes = (
       <Switch>
