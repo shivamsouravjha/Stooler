@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,Fragment} from 'react'
 import styled from 'styled-components'
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -74,6 +74,7 @@ function Table({ columns, data }) {
 }
 
 function Group() {
+  const [compLoading, setCompLoading] = useState(true);
   const columns = React.useMemo(
     () => [
       {
@@ -90,33 +91,37 @@ function Group() {
   );
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          'http://localhost:5000/api/users/account/60fbf1b17b7fdc5ac0aa000e'
+          "http://localhost:5000/api/users/account/60fbf1b17b7fdc5ac0aa000e"
         );
-        responseData.data.groups = responseData.data.groups.map((val)=>{return {
-          'groupId':val
-        }})
+        responseData.data.groups = responseData.data.groups.map((val) => {
+          return {
+            groupId: val,
+          };
+        });
         const dataResponse = responseData.data.groups;
-        console.log(dataResponse)
         setLoadedUsers(dataResponse);
+        setCompLoading(false)
       } catch (err) {}
     };
     fetchUsers();
-  }, [sendRequest]);
-
+  }, []);
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
-
+  console.log(loadedUsers)
   return (
-    <Styles>
-      
-      <Table columns={columns} data={data} />
-    
-    </Styles>
-  )
+        <Fragment>
+          {compLoading ? (
+            <div>Loading...</div>
+          ) : (
+            <Styles>
+              <Table columns={columns} data={data} />
+            </Styles>
+          )}
+        </Fragment>
+      );
 }
 
 export default Group
