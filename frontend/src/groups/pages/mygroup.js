@@ -2,6 +2,7 @@ import React,{useEffect,useState,Fragment} from 'react'
 import styled from 'styled-components'
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -113,9 +114,7 @@ function Group() {
   console.log(loadedUsers)
   return (
         <Fragment>
-          {compLoading ? (
-            <div>Loading...</div>
-          ) : (
+          {compLoading ?<LoadingSpinner asOverlay /> : (
             <Styles>
               <Table columns={columns} data={data} />
             </Styles>

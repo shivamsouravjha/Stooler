@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { NavLink } from 'react-router-dom';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -80,10 +81,18 @@ function JoinGroup() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Name',
+        Header: 'Available Groups',
         columns: [
           {
-            Header: 'My Groups',
+            Header: 'Group name',
+            accessor: 'groupName',
+          },
+          {
+            Header: 'Group detaiss',
+            accessor: 'description',
+          },
+          {
+            Header: 'Group ID',
             accessor: '_id',
             Cell: e => <button><NavLink to={`/group/${e.value}`}>{e.value} </NavLink></button>
           },   
@@ -92,7 +101,6 @@ function JoinGroup() {
     ],
     []
   );
-  
 
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
@@ -102,6 +110,7 @@ function JoinGroup() {
         const responseData = await sendRequest(
           "http://stool-back.herokuapp.com/api/groups/getgroups"
         );
+        console.log(responseData)
         setLoadedUsers(responseData.data);
         setCompLoading(false)
       } catch (err) {}
@@ -111,9 +120,7 @@ function JoinGroup() {
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
   return (
         <Fragment>
-          {compLoading ? (
-            <div>Loading...</div>
-          ) : (
+          {compLoading ? <LoadingSpinner asOverlay />: (
             <Styles>
               <Table columns={columns} data={data} />
             </Styles>
