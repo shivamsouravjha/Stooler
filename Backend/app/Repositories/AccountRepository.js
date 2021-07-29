@@ -12,8 +12,7 @@ export default class AccountRepository {
     }
     async findUid (obj) {
         try {
-            console.log("DFSdf")
-            return await UserModel.findById(obj,'-password -_id');
+            return await UserModel.findById(obj,'-password -_id').populate('groups');;
         } catch (error) {
             return "error finding User"
         }

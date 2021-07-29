@@ -79,12 +79,20 @@ function Group() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Name',
+        Header: 'My Groups',
         columns: [
           {
+            Header: 'ID',
+            accessor: '_id',
+          },  
+          {
             Header: 'My Groups',
-            accessor: 'groupId',
-          },   
+            accessor: 'groupName',
+          },
+          {
+            Header: 'My Groups',
+            accessor: 'groupOwner',
+          }, 
         ],
       },
     ],
@@ -96,13 +104,9 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          "http://stool-back.herokuapp.com/api/users/account/60fbf1b17b7fdc5ac0aa000e"
+          "http://localhost:5000/api/users/account/60fbf1b17b7fdc5ac0aa000e"
         );
-        responseData.data.groups = responseData.data.groups.map((val) => {
-          return {
-            groupId: val,
-          };
-        });
+        console.log(responseData.data.groups)
         const dataResponse = responseData.data.groups;
         setLoadedUsers(dataResponse);
         setCompLoading(false)
@@ -111,7 +115,6 @@ function Group() {
     fetchUsers();
   }, []);
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
-  console.log(loadedUsers)
   return (
         <Fragment>
           {compLoading ?<LoadingSpinner asOverlay /> : (
