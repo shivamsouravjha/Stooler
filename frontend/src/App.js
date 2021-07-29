@@ -27,7 +27,9 @@ const App = () => {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
-    ReactSession.remove("username");
+    ReactSession.remove('username');
+    ReactSession.remove('userid');
+    ReactSession.remove('token');
   }, []);
   
   useEffect(() => {
