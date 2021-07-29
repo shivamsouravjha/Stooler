@@ -2,6 +2,7 @@ import React,{useEffect,useState,Fragment} from 'react'
 import styled from 'styled-components'
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -78,12 +79,20 @@ function Group() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Name',
+        Header: 'My Groups',
         columns: [
           {
+            Header: 'ID',
+            accessor: '_id',
+          },  
+          {
+            Header: ' Group Name',
+            accessor: 'groupName',
+          },
+          {
             Header: 'My Groups',
-            accessor: 'groupId',
-          },   
+            accessor: 'groupOwner',
+          }, 
         ],
       },
     ],
@@ -97,11 +106,7 @@ function Group() {
         const responseData = await sendRequest(
           "http://stool-back.herokuapp.com/api/users/account/60fbf1b17b7fdc5ac0aa000e"
         );
-        responseData.data.groups = responseData.data.groups.map((val) => {
-          return {
-            groupId: val,
-          };
-        });
+        console.log(responseData.data.groups)
         const dataResponse = responseData.data.groups;
         setLoadedUsers(dataResponse);
         setCompLoading(false)
@@ -110,12 +115,9 @@ function Group() {
     fetchUsers();
   }, []);
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
-  console.log(loadedUsers)
   return (
         <Fragment>
-          {compLoading ? (
-            <div>Loading...</div>
-          ) : (
+          {compLoading ?<LoadingSpinner asOverlay /> : (
             <Styles>
               <Table columns={columns} data={data} />
             </Styles>
