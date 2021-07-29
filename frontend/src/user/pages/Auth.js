@@ -83,7 +83,8 @@ const Auth = () => {
         }
         setIsLoading(false);
         auth.login();
-        ReactSession.set("username", formState.inputs.username.value);
+        ReactSession.set("username",formState.inputs.username.value);
+        ReactSession.set("token","asd");
       } catch (err) {
         setIsLoading(false);
         setError(err.message || 'Something went wrong, please try again.');
@@ -113,7 +114,8 @@ const Auth = () => {
         }
         setIsLoading(false);
         auth.login();
-        ReactSession.set("username", formState.inputs.username.value);
+        ReactSession.set("username",formState.inputs.username.value);
+        ReactSession.set("token",responseData.token);
       } catch (err) {
         setIsLoading(false);
         setError(err.message || 'Something went wrong, please try again.');
