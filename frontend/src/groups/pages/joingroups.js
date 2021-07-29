@@ -17,10 +17,12 @@ const  JoinGroupAuth = ()=>{
             var userid = localStorage.getItem('__react_session__');
             userid = await JSON.parse(userid)
             userid = userid['userid']
-            console.log(userid,amount,gid)
-            const body={"amount":amount,"groupId":gid};
+            var body={"amount":amount,"groupId":gid};
+            body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body
+                `https://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body,{
+                    'Content-Type': 'application/json'
+            }
               );
             console.log(responseData)
         }catch(err){
