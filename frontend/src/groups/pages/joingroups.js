@@ -4,9 +4,7 @@ import Input from '../../shared/components/FormElements/Input';
 import "./auth.css";
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import Card from '../../shared/components/UIElements/Card';
 import SuccessModal from '../../shared/components/UIElements/Success';
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 
 
 const  JoinGroupAuth = ()=>{
@@ -60,7 +58,7 @@ const  JoinGroupAuth = ()=>{
                 </h2> 
                 <input type="number" name="amount" className="inputs" value={amount} step="50" min="50"placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)} required />
                 <br/><br/>
-                <button type="submit" className="confirm_btns" >
+                <button type="submit" className="confirm_btns">
                     Join Group
                 </button>
             </form> 
