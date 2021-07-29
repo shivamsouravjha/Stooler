@@ -8,10 +8,12 @@ const groupSchema = new schema({
     description: {type :String },
     genre: {type :String},
     duration: {type :String },
-    amount: {type :String},
+    amount: {type :Number},
     profit: [{type: Number,required: false}],
     members: [{type :mongoose.Types.ObjectId,required:false,ref:'User'}],
     groupOwner: {type :mongoose.Types.ObjectId,required:false,ref:'User'},
+    groupPayment: [{type :mongoose.Types.ObjectId,required:false,ref:'User'}],
+    sources: [{type :mongoose.Types.ObjectId,required:false,ref:'Source'}],
 },{
     versionKey: false 
   });

@@ -1,7 +1,7 @@
 /**
  * general request exception module
  */
-import Exception from './Error';
+import Exception from './error';
 
 export default class GeneralException extends Exception {
   constructor(message) {

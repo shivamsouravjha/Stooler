@@ -7,7 +7,7 @@ import Routes from './routes/routes'
 // const Error = require('./MODELS/error');
 // const memer = require('./ROUTERS/memer');
 // const memes = require('./ROUTERS/memes');
-import Error from '../Backend/app/Exceptions/Error';
+import Error from './app/Exceptions/error';
 import { request } from 'gaxios';
 require('dotenv').config();
 
@@ -23,8 +23,10 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
   next();
 }); 
+
 app.use('/api/users', Routes.AccountApiRouter); 
 app.use('/api/groups', Routes.GroupApiRouter); 
+app.use('/api/source', Routes.SourceApiRouter); 
 // app.use('/api/memes', memes);
 
 app.use((req, res, next) => {

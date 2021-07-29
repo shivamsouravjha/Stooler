@@ -1,24 +1,23 @@
 import Controller from './controller';
-import at from 'v-at'
 import * as Exceptions from '../Exceptions/exceptions'
-import Logger from '../Helpers/Logger';
 import Validators from '../Validators/validators';
-import GroupService from '../Services/groupService';
-export default class AccountController extends Controller {
+import SourceService from '../Services/sourceService';
+export default class CompanyController extends Controller {
     constructor(response) {
       super(response);
-      this.service = new GroupService();
+      this.service = new SourceService();
     }
 
-    createGroup (request) {
+    addSource (request) {
         // Logger.info("Creating Group");
         try{
-            let {value,error} = Validators.groupCreate.validate(request.body);
+            let {value,error} = Validators.createSource.validate(request.body);
             value.userId = request.params.uid;
+            value.groupId = request.params.gid;
             if(error){
                 throw (new Exceptions.ValidationException(error.details[0].message));
             }     
-            const addUser = this.service.createGroup(value);
+            const addUser = this.service.createSource(value);
             addUser.then(res => {
                 this.sendResponse(res);
               })
@@ -31,15 +30,14 @@ export default class AccountController extends Controller {
         }
     }
 
-    joinGroup (request) {
+    removeSource (request) {
       // Logger.info("Joining Group");
-      try{
-          let {value,error} = Validators.groupJoin.validate(request.body);
-          if(error){
-              throw (new Exceptions.ValidationException(error.details[0].message));
-          }     
+      try{              
+          const value ={};
           value.userId = request.params.uid;
-          const addUser = this.service.addUserToGroup(value);
+          value.groupId = request.params.gid;
+          value.sourceId = request.params.sid;
+          const addUser = this.service.deleteSource(value);
           addUser.then(res => {
               this.sendResponse(res);
             })
@@ -52,9 +50,10 @@ export default class AccountController extends Controller {
       }
   }
 
-    getGroups (request) {
+    getSource (request) {
       try {
-        const promise  = this.service.getGroups(request.body);
+        const value = request.params.gid;
+        const promise  = this.service.getSourceDetails(value);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
@@ -65,10 +64,10 @@ export default class AccountController extends Controller {
       }
     }
 
-    getGroup (request) {
+    getSources (request) {
       try {
-        let value = {_id:request.params.groupId};
-        const promise  = this.service.getGroups(value);
+        let value = {_id:request.params.gid};
+        const promise  = this.service.getSources(value);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

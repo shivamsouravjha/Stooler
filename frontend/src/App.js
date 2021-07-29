@@ -1,21 +1,24 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect} from 'react';
+import ReactSession from './Reactsession';
 import './App.css';
-import BarChart from './user/components/PieChart';
 import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch
+  Switch,
+  useParams
 } from 'react-router-dom';
 import Main from './groups/pages/main';
-import Group from './groups/pages/groups';
-import GroupAuth from './groups/pages/auth.js';
-import Users from './user/pages/Users';
+import MyGroup from './groups/pages/mygroup';
+import GroupAuth from './groups/pages/creategroup';
 import Auth from './user/pages/Auth';
+import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
-
+import JoinGroup from './groups/pages/getjoinGroups';
+import JoinGroupAuth from './groups/pages/joingroups';
 const App = () => {
+  ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = useCallback(() => {
@@ -24,10 +27,16 @@ const App = () => {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+    ReactSession.remove("username");
   }, []);
+  
+  useEffect(() => {
+    if (ReactSession.get("username")) {
+      login();
+    }
+  }, [login]);
 
   let routes;
-
   if (isLoggedIn) {
     routes = (
       <Switch>
@@ -38,18 +47,26 @@ const App = () => {
           <GroupAuth />
         </Route>
         <Route path="/view_group" exact>
-          <Group />
+          <JoinGroup />
         </Route>
-        <Redirect to="/" />
+        <Route path="/profile" exact>
+          <Profile />
+        </Route>
+        <Route path="/group/:gid" exact>
+          <JoinGroupAuth/>
+        </Route>
+        <Route path="/portfolio" exact>
+          <MyGroup />
+        </Route>
         
-        
+        <Redirect to="/" />       
       </Switch>
     );
   } else {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Users />
+          This IS HOME, Authenticate please
         </Route>
         
         <Route path="/auth">
@@ -68,9 +85,6 @@ const App = () => {
         <MainNavigation />
         <main>{routes}</main>
       </Router>      
-      <div className="App">
-        <BarChart/>
-      </div>
     </AuthContext.Provider>
   );
 };

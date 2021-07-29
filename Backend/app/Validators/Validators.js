@@ -19,11 +19,18 @@ export default {
         description: Joi.string().required(),
         genre: Joi.string().required(),
         duration: Joi.string().required(),
-        amount: Joi.string().required(),
+        amount: Joi.number().required(),
     }),
     groupJoin : Joi.object().keys({
-        userId: Joi.string().required(),
-        amount: Joi.string().required(),
+        amount: Joi.number().required(),
         groupId: Joi.string().required(),
     }),
+    createSource: Joi.object().keys({
+        name: Joi.string().required(),
+        price: Joi.number().required(),
+        unitsPurchase: Joi.number().required(),
+        details: Joi.string().required(),
+        targetPrice: Joi.number().required(),
+        duration: Joi.string().required()
+    }), 
 }

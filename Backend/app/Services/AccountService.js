@@ -1,5 +1,5 @@
-import AccountRepository from '../Repositories/AccountRepository.js';
-import * as Exceptions from '../Exceptions/Exceptions';
+import AccountRepository from '../Repositories/accountRepository.js';
+import * as Exceptions from '../Exceptions/exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -26,16 +26,14 @@ export default class AccountService{
         try {
             const {username}=args
             let profile = await this.verifyUsername({username})
-            if (!profile.username) {
+            if (!profile) {
                 throw (new Exceptions.ConflictException("Username doesn't exist"));
             }
-
             let isvalidpassword = await bycrypt.compare(args.password,profile.password);
             if(!isvalidpassword) {
                 throw (new Exceptions.ConflictException("Password doesn't match"));
             }
             let token = jwt.sign({userid:profile.id,email:profile.email},process.env.secretcode,{expiresIn:'7d'});
-            console.log(token)
             return {message: 'Logged in!',success: true,userid:profile.id,email:profile.email,token:token}
         } catch (error) {
         throw error;
@@ -49,6 +47,15 @@ export default class AccountService{
             return accountInfo;
         } catch (error) {
         throw error;
+        }
+    }
+
+    async findUid (args) {
+        try {
+            console.log("fsdf")
+            return await this.repository.findUid(args);
+        } catch(error){
+            throw error;
         }
     }
 
