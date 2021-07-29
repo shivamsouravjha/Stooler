@@ -26,7 +26,7 @@ const  JoinGroupAuth = ()=>{
             var body={"amount":amount,"groupId":gid};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `http://localhost:5000/api/groups/join/${userid}`,"POST",body,{
+                `http://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body,{
                     'Content-Type': 'application/json'
             }
               );

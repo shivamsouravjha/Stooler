@@ -103,8 +103,11 @@ function Group() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        var userid = localStorage.getItem('__react_session__');
+        userid = await JSON.parse(userid)
+        userid = userid['userid']
         const responseData = await sendRequest(
-          "http://stool-back.herokuapp.com/api/users/account/60fbf1b17b7fdc5ac0aa000e"
+          `http://stool-back.herokuapp.com/api/users/account/${userid}`
         );
         console.log(responseData.data.groups)
         const dataResponse = responseData.data.groups;
