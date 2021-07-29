@@ -26,7 +26,7 @@ const  JoinGroupAuth = ()=>{
             var body={"amount":amount,"groupId":gid};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `http://localhost:5000/api/groups/join/${userid}`,"POST",body,{
+                `http://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body,{
                     'Content-Type': 'application/json'
             }
               );
@@ -34,7 +34,7 @@ const  JoinGroupAuth = ()=>{
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
             setError(false);
-
+            window.location="/";
         }catch(err){
             setIsLoading(false);
             setError(err.message || 'Something went wrong, please try again.');

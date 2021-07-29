@@ -1,13 +1,18 @@
 import React, { useEffect, useState,Component} from 'react';
-
 import Input from '../../shared/components/FormElements/Input';
 import "./auth.css";
 import { useHttpClient } from '../../shared/hooks/http-hook';
-
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import Card from '../../shared/components/UIElements/Card';
+import SuccessModal from '../../shared/components/UIElements/Success';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 
 const  Newgroup = ()=>{
     const {sendRequest} = useHttpClient();
-    
+    const [isLoading, setIsLoading] = useState(false);
+    const [success, setSuccess] = useState();
+    const [error, setError] = useState();
+
     const [groupName,setName]=useState("");
     const [description,setDesc]=useState("");
     const [genre,setGenre]=useState("");
@@ -17,20 +22,37 @@ const  Newgroup = ()=>{
     const onSubmitform = async e =>{
         e.preventDefault();
         try{   
+            setIsLoading(true);
+
             var userid = localStorage.getItem('__react_session__');
             userid = await JSON.parse(userid)
             userid = userid['userid']
             console.log(userid,groupName,description,genre,duration,amount)
-            const body={"groupName":groupName,"description":description,"genre":genre,"duration":duration,"amount":amount};
+            var body={"groupName":groupName,"description":description,"genre":genre,"duration":duration,"amount":amount};
+            body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body
-              );
+                `http://stool-back.herokuapp.com/api/groups/create/${userid}`,"POST",body,{
+                    'Content-Type': 'application/json'
+            });
             console.log(responseData)
+            setSuccess(responseData.data.message || 'Something went wrong, please try again.');
+            setIsLoading(false);
+            setError(false);
+            window.location="/";
+            
         }catch(err){
-            console.log(err)
+            setIsLoading(false);
+            setError(err.message || 'Something went wrong, please try again.');
         }
     }
-    return (   
+    const successHandler = () => {
+        setSuccess(null);
+        setError(null);
+      };
+    return ( 
+        <React.Fragment>
+        <SuccessModal error={success} onClear={successHandler} />
+        {isLoading && <LoadingSpinner asOverlay />}  
     <div className="group_form_div">
 		<center>
             <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
@@ -54,6 +76,7 @@ const  Newgroup = ()=>{
                     Genre <span > * </span> 
                 </label><br/>
                 <select name="genre" className="select" onChange={e =>setGenre(e.target.value)}>
+                    <option></option>
                     <option value="Gold/Silver" className="options">Gold/Silver</option>
                     <option value="Stock" className="options">Stock</option>
                     <option value="Cryptocurrency" className="options">Cryptocurrency</option>
@@ -65,6 +88,7 @@ const  Newgroup = ()=>{
                 </label>
                 <br/>
                 <select name="duration" className="select" onChange={e =>setDuration(e.target.value)}>
+                    <option></option>
                     <option value="1" className="options">1 Month</option>
                     <option value="3" className="options">3 Months</option>
                     <option value="6" className="options">6 Months</option>
@@ -84,6 +108,7 @@ const  Newgroup = ()=>{
             </form> 
         </center>
     </div>
+    </React.Fragment>
     );
 };
 
