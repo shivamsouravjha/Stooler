@@ -29,6 +29,7 @@ const App = () => {
     setIsLoggedIn(false);
     ReactSession.remove('username');
     ReactSession.remove('userid');
+    ReactSession.remove('token');
   }, []);
   
   useEffect(() => {

@@ -1,12 +1,13 @@
 import React, { useEffect, useState,Component} from 'react';
-import ReactSession from '../../Reactsession';
 
 import Input from '../../shared/components/FormElements/Input';
 import "./auth.css";
+import { useHttpClient } from '../../shared/hooks/http-hook';
 
 
 const  Newgroup = ()=>{
-   
+    const {sendRequest} = useHttpClient();
+    
     const [groupName,setName]=useState("");
     const [description,setDesc]=useState("");
     const [genre,setGenre]=useState("");
@@ -15,14 +16,18 @@ const  Newgroup = ()=>{
 
     const onSubmitform = async e =>{
         e.preventDefault();
-        try{
-            const body={groupName,description,genre,duration,amount};
-            const response = await fetch("http://stool-back.herokuapp.com/api/newevents",{
-                method:"POST",headers:{"Content-Type":"application/json"},
-                Authorization: 'Bearer '+ReactSession.get("token"), 
-            })
+        try{   
+            var userid = localStorage.getItem('__react_session__');
+            userid = await JSON.parse(userid)
+            userid = userid['userid']
+            console.log(userid,groupName,description,genre,duration,amount)
+            const body={"groupName":groupName,"description":description,"genre":genre,"duration":duration,"amount":amount};
+            const responseData = await sendRequest(
+                `https://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body
+              );
+            console.log(responseData)
         }catch(err){
-            console.log('Error')
+            console.log(err)
         }
     }
     return (   
