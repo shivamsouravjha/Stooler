@@ -64,7 +64,6 @@ export default class AccountService{
 
     async findUid (args) {
         try {
-            console.log("fsdf")
             return await this.repository.findUid(args);
         } catch(error){
             throw error;

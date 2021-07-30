@@ -27,7 +27,7 @@ const UsersList = props => {
           email={user.email}
           aadhar={user.aadhar}
           panNumber={user.panNumber}
-          placeCount={user.places}
+          groups={user.groups}
         />
       ))}
     </ul>
