@@ -13,7 +13,7 @@ GroupApiRouter.post('/join/:uid', (request, response) => {
   groupController.joinGroup(request);
 });
 
-GroupApiRouter.get('/getgroups', (request, response) => {
+GroupApiRouter.get('/getgroups/:uid', (request, response) => {
   const groupController = new GroupCpntroller(response);
   groupController.getGroups(request);
 });
