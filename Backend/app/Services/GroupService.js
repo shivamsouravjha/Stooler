@@ -11,9 +11,9 @@ export default class AccountService{
 
     async addUserToGroup(args) {
         try {
-            const {userId,amount,groupId}=args
+            const {userId,groupId}=args
             let verifyUserId =  await this.verifyUserDetail({_id:userId})
-            let verifyGroupId =  (await this.getGroups({_id:groupId}))[0];
+            let verifyGroupId =  (await this.getGroups({_id:userId},{_id:groupId}))[0];
             if(!verifyUserId){
                 throw (new Exceptions.ConflictException("No user found"));
             }
