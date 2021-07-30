@@ -27,6 +27,15 @@ export default class GroupRepository {
 
     async addUserToGroup (args,verifyGroupId,verifyUserId) {
         try {
+            if(verifyGroupId.genre == 'Gold/Silver'){
+                verifyUserId.shares[0]+=args.amount
+            }else if(verifyGroupId.genre == 'Stock'){
+                verifyUserId.shares[1]+=args.amount
+            }else if(verifyGroupId.genre == 'Cryptocurrency'){
+                verifyUserId.shares[2]+=args.amount
+            }else if(verifyGroupId.genre == 'Currency Exchange'){
+                verifyUserId.shares[3]+=args.amount
+            }
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
