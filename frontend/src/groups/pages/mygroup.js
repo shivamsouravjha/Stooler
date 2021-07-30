@@ -76,6 +76,7 @@ function Table({ columns, data }) {
 
 function Group() {
   const [compLoading, setCompLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const columns = React.useMemo(
     () => [
       {
@@ -103,15 +104,17 @@ function Group() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setCompLoading(true);
         var userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/users/account/${userid}`
         );
-        console.log(responseData.data.groups)
         const dataResponse = responseData.data.groups;
-        setLoadedUsers(dataResponse);
+        const filterdata = search.length === 0 ? dataResponse : dataResponse.filter(dataResponse => dataResponse.groupName.toLowerCase().includes(search.toLowerCase()));
+        console.log(filterdata,"obcd");
+        setLoadedUsers(filterdata);
         setCompLoading(false)
       } catch (err) {}
     };
@@ -120,6 +123,15 @@ function Group() {
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
   return (
         <Fragment>
+          <div>
+          <h3>Search</h3>
+            <input 
+                type="text" 
+                placeholder="Search name" 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                />
+          </div>
           {compLoading ?<LoadingSpinner asOverlay /> : (
             <Styles>
               <Table columns={columns} data={data} />
