@@ -37,7 +37,7 @@ const  JoinGroupAuth = ()=>{
             window.location="/";
         }catch(err){
             setIsLoading(false);
-            setError(err.message || 'Something went wrong, please try again.');
+            setSuccess(err.message || 'Something went wrong, please try again.');
         }
     }
     const successHandler = () => {

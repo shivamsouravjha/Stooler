@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 export default class AccountRepository {
     async findUserDetail(obj){
         try {
-            const found = await UserModel.findOne({username:obj.username,panCard:obj.panCard,email:obj.email,number:obj.number,aadhar:obj.aadhar})
+            const found = await UserModel.findOne(obj)
             return found;
         } catch (error) {
             return "error at finding"
@@ -19,7 +19,7 @@ export default class AccountRepository {
     }
     async findUsername(obj){
         try {
-            const found = await UserModel.findOne({username:obj.username})
+            const found = await UserModel.findOne(obj)
             return found;
         } catch (error) {
             return "error at finding"
@@ -45,7 +45,7 @@ export default class AccountRepository {
         } catch (error) {
             return "error at adding"
         }
-        return {"success":true,"token":token};
+        return {"success":true,"token":token,"userid":userDetails._id};
     }
 
 }

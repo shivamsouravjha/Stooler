@@ -59,9 +59,13 @@ export default class AccountService{
     }
 
 
-    async getGroups(args){
+    async getGroups(uid,args){
         try {
             let groupsInfo = await this.repository.findGroup(args);
+            function checkUid(uids) {
+                return !uids.members.includes(uid);
+            };
+            groupsInfo = groupsInfo.filter(checkUid);
             groupsInfo.sort(function(a,b){
                 return (b.members).length-(a.members).length;
             })
