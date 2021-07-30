@@ -36,8 +36,6 @@ export default class GroupRepository {
             } if(verifyGroupId.genre == 'Currency Exchange'){
                 verifyUserId.shares[3]['amount']+=args.amount
             }
-            console.log(verifyUserId.shares[2]['amount'])
-
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
@@ -46,16 +44,9 @@ export default class GroupRepository {
             verifyGroupId.members.push(verifyUserId._id);
             verifyUserId.groups.push(verifyGroupId._id); 
             verifyUserId.transaction.push(newTransaction._id);
- 
             await verifyGroupId.save({ session: sess }); 
-
             await verifyUserId.save({ session: sess }); 
-
             await sess.commitTransaction(); 
-
-
-
-
             return "Joined";
         } catch (error) {
             throw error

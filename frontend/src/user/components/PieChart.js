@@ -19,29 +19,31 @@ const PieChart = () => {
         userid = await JSON.parse(userid)
         userid = userid['userid']
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/users/account/${userid}`
+          `http://localhost:5000/api/users/account/${userid}`
         );
-        console.log(responseData.data)
-        const dataResponse = responseData.data;
+        const dataResponse = responseData.data.shares.map((val)=>{
+            return val.amount;
+        });
         setLoadedUsers(dataResponse);
         setCompLoading(false)
+        console.log(loadedUsers)
       } catch (err) {}
     };
     fetchUsers();
   }, []);
   var data = [];
   if(!compLoading){
-    data = loadedUsers.shares
+    data = loadedUsers
     }
     return (
         <div>
             <Pie
                 data={{
-                    labels: ['Adani', 'Birla', 'Tata', 'Modi'],
+                    labels: ['Gold/Silver', 'Stock', 'Cryptocurrency', 'Currency Exchange'],
                     datasets: [
                         {
                         label: '# of votes',
-                        data: {data},
+                        data: data,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
