@@ -93,6 +93,10 @@ function Group() {
             Header: 'My Groups',
             accessor: 'groupOwner',
           }, 
+          {
+            Header: 'Genre',
+            accessor: 'genre',
+          }, 
         ],
       },
     ],

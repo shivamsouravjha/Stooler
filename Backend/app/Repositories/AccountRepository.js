@@ -35,6 +35,7 @@ export default class AccountRepository {
             password,
             number,
             groups:[],
+            shares:[0,0,0,0],
             portfolio:[]
         })
         let userDetails;

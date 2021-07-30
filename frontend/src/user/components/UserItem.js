@@ -20,7 +20,7 @@ const UserItem = props => {
             <h2>Aadhar : {props.aadhar}</h2>
             <h2>PanNumber : {props.panNumber}</h2>
             <h3>
-              Invested in {props.placeCount} {props.placeCount === 1 ? 'Company' : 'Companies'}
+              Invested in {props.groups} {props.groups === 1 ? 'Group' : 'Groups'}
             </h3>
           </div>
       </Card>
