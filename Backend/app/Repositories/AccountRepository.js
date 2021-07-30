@@ -35,8 +35,11 @@ export default class AccountRepository {
             password,
             number,
             groups:[],
-            shares:[0,0,0,0],
-            portfolio:[]
+            shares:[{genre:'Gold/Silver',amount:0},
+            {genre:'Stock',amount:0},
+            {genre:'Cryptocurrency',amount:0},           
+            {genre:'Currency Exchange',amount:0},           
+        ],
         })
         let userDetails;
         let token;
