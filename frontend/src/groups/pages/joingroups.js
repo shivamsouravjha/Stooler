@@ -34,7 +34,7 @@ const  JoinGroupAuth = ()=>{
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
             setError(false);
-
+            window.location="/";
         }catch(err){
             setIsLoading(false);
             setSuccess(err.message || 'Something went wrong, please try again.');
