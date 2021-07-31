@@ -107,8 +107,11 @@ function JoinGroup() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        var userid = localStorage.getItem('__react_session__');
+        userid = await JSON.parse(userid)
+        userid = userid['userid']
         const responseData = await sendRequest(
-          "http://stool-back.herokuapp.com/api/groups/getgroups","POST"
+          `http://localhost:5000/api/groups/getgroups/${userid}`,"POST"
         );
         console.log(responseData)
         setLoadedUsers(responseData.data);
