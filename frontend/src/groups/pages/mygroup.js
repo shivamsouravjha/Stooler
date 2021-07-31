@@ -117,7 +117,7 @@ function Group() {
         userid = await JSON.parse(userid)
         userid = userid['userid']
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/users/account/${userid}`
+          `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST"
         );
         console.log(responseData.data.groups)
         const dataResponse = responseData.data.groups;
@@ -141,7 +141,7 @@ function Group() {
         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
+            `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         const dataResponse = responseData.data;

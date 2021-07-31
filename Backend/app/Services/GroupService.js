@@ -61,7 +61,6 @@ export default class AccountService{
 
     async getGroups(uid,args){
         try {
-            console.log(uid,args)
             function clean(obj) {
                 for (var propName in obj) {
                   if (obj[propName] === null || obj[propName] === '') {
@@ -76,16 +75,21 @@ export default class AccountService{
             function checkUid(uids) {
                 return !uids.members.includes(uid);
             };
-            console.log(groupsInfo)
-
-            // if(groupsInfo.length ==1 ){
-            //     return groupsInfo;
-            // }
             groupsInfo = groupsInfo.filter(checkUid);
             groupsInfo.sort(function(a,b){
                 return (b.members).length-(a.members).length;
             })
             return groupsInfo;
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding groups"));
+        }
+    }
+
+    async getOwnGroup(args) {
+        try {
+
+            let groupsInfo = await this.repository.findGroup(args);
+            return groupsInfo[0];
         } catch (error) {
             throw (new Exceptions.ValidationException("Error finding groups"));
         }
