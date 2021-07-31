@@ -19,7 +19,7 @@ const PieChart = () => {
         userid = await JSON.parse(userid)
         userid = userid['userid']
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/users/account/${userid}`
+          `http://stool-back.herokuapp.com/api/users/data/account/${userid}`,"POST"
         );
         const dataResponse = responseData.data.shares.map((val)=>{
             return val.amount;

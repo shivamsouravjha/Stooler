@@ -141,7 +141,7 @@ function Group() {
         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST",body,{
+            `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         const dataResponse = responseData.data;
