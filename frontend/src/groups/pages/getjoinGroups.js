@@ -111,7 +111,7 @@ function JoinGroup() {
         userid = await JSON.parse(userid)
         userid = userid['userid']
         const responseData = await sendRequest(
-          `http://localhost:5000/api/groups/getgroups/${userid}`,"POST"
+          `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
         );
         console.log(responseData)
         setLoadedUsers(responseData.data);
