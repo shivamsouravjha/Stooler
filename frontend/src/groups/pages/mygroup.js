@@ -2,6 +2,7 @@ import React,{useEffect,useState,Fragment} from 'react'
 import styled from 'styled-components'
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
+import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const Styles = styled.div`
@@ -76,7 +77,6 @@ function Table({ columns, data }) {
 
 function Group() {
   const [compLoading, setCompLoading] = useState(true);
-  const [search, setSearch] = useState('');
   const columns = React.useMemo(
     () => [
       {
@@ -85,6 +85,7 @@ function Group() {
           {
             Header: 'ID',
             accessor: '_id',
+            Cell: e => <button><NavLink to={`/groupdetail/${e.value}`}>{e.value} </NavLink></button>
           },  
           {
             Header: ' Group Name',
@@ -93,10 +94,6 @@ function Group() {
           {
             Header: 'My Groups',
             accessor: 'groupOwner',
-          }, 
-          {
-            Header: 'Genre',
-            accessor: 'genre',
           }, 
         ],
       },
@@ -108,17 +105,15 @@ function Group() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setCompLoading(true);
         var userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/users/account/${userid}`
         );
+        console.log(responseData.data.groups)
         const dataResponse = responseData.data.groups;
-        const filterdata = search.length === 0 ? dataResponse : dataResponse.filter(dataResponse => dataResponse.groupName.toLowerCase().includes(search.toLowerCase()));
-        console.log(filterdata,"obcd");
-        setLoadedUsers(filterdata);
+        setLoadedUsers(dataResponse);
         setCompLoading(false)
       } catch (err) {}
     };
@@ -127,15 +122,6 @@ function Group() {
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
   return (
         <Fragment>
-          <div>
-          <h3>Search</h3>
-            <input 
-                type="text" 
-                placeholder="Search name" 
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                />
-          </div>
           {compLoading ?<LoadingSpinner asOverlay /> : (
             <Styles>
               <Table columns={columns} data={data} />

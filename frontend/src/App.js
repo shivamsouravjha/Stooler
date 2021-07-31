@@ -17,6 +17,7 @@ import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
 import JoinGroup from './groups/pages/getjoinGroups';
 import JoinGroupAuth from './groups/pages/joingroups';
+import GroupDetail from './groups/pages/groupdetail';
 const App = () => {
   ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -60,7 +61,9 @@ const App = () => {
         <Route path="/portfolio" exact>
           <MyGroup />
         </Route>
-        
+        <Route path="/groupdetail/:gid" exact>
+          <GroupDetail/>
+        </Route>
         <Redirect to="/" />       
       </Switch>
     );
