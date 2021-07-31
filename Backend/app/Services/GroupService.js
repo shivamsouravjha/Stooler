@@ -61,6 +61,7 @@ export default class AccountService{
 
     async getGroups(uid,args){
         try {
+            console.log(uid,args)
             function clean(obj) {
                 for (var propName in obj) {
                   if (obj[propName] === null || obj[propName] === '') {
