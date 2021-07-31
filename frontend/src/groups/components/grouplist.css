@@ -1,0 +1,10 @@
+.group-list {
+    list-style: none;
+    margin: 0 auto;
+    padding: 4;
+    width: 90%;
+    max-width: 70rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
