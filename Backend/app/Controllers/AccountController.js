@@ -55,7 +55,7 @@ export default class AccountController extends Controller {
     getData (request) {
       try{
         const value = request.params.uid;
-        const user = this.service.findUid(value);
+        const user = this.service.findUid(value,request.body);
         user.then(res => {
             this.sendResponse(res);
           })
