@@ -108,7 +108,7 @@ function JoinGroup() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          "http://stool-back.herokuapp.com/api/groups/getgroups"
+          "http://stool-back.herokuapp.com/api/groups/getgroups","POST"
         );
         console.log(responseData)
         setLoadedUsers(responseData.data);
