@@ -18,9 +18,9 @@ AccountApiRouter.post('/account/:uid', (request, response) => {
   accountController.getData(request);
 });
 
-// AccountApiRouter.post('/account/data/:uid', (request, response) => {
-//   const accountController = new AccountController(response);
-//   accountController.verifyUsername({_id:request.params.uid});
-// });
+AccountApiRouter.post('/account/data/:uid', (request, response) => {
+  const accountController = new AccountController(response);
+  accountController.verifyUsername({_id:request.params.uid});
+});
 
 export default AccountApiRouter;
