@@ -1,53 +1,47 @@
-import React,{useEffect,useState,Fragment} from 'react'
+import React,{useEffect,useState,Fragment} from 'react';
+import { useParams } from 'react-router-dom';
 import ReactSession from '../../Reactsession';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-//import UsersList from '../components/UsersList';
+import GroupList from '../components/grouplist';
 
-const Users = () => {
-//   const {sendRequest} = useHttpClient();
-//   const [compLoading, setCompLoading] = useState(true);
-//   const [loadedUsers, setLoadedUsers] = useState();
-//   useEffect(() => {
-//     const fetchUsers = async () => {
-//       try {
-//         setCompLoading(true)
-//         var userid = localStorage.getItem('__react_session__');
-//         userid = await JSON.parse(userid)
-//         userid = userid['userid']
-//         const responseData = await sendRequest(
-//           `http://stool-back.herokuapp.com/api/users/account/${userid}`
-//         );
-//         console.log(responseData.data)
-//         const dataResponse = responseData.data;
-//         setLoadedUsers(dataResponse);
-//         setCompLoading(false)
-//       } catch (err) {}
-//     };
-//     fetchUsers();
-//   }, []);
-//   var USERS =""
-//   if(!compLoading){
-//    USERS = [
-//     {
-//       name:loadedUsers.name,
-//       username:ReactSession.get("username"), 
-//       number:loadedUsers.number,
-//       email:loadedUsers.email,
-//       panNumber:loadedUsers.panNumber,
-//       aadhar:loadedUsers.aadhar,
-//       image:
-//         'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-//       groups: loadedUsers.groups.length
-//     }
-//   ];}
+const Group = () => {
+    const {sendRequest} = useHttpClient();
+    const [compLoading, setCompLoading] = useState(true);
+    const [loadedgroup, setLoadedGroup] = useState();
+    const gid = useParams().gid;
+    useEffect(() => {
+        const fetchGroup = async () => {
+        try {
+            setCompLoading(true)
+            const responseData = await sendRequest(
+            `http://stool-back.herokuapp.com/api/groups/${gid}`,"POST"
+            );
+            console.log(responseData.data)
+            const dataResponse = responseData.data;
+            setLoadedGroup(dataResponse);
+            setCompLoading(false)
+        } catch (err) {}
+        };
+        fetchGroup();
+    }, []);
+    var GROUP =""
+    if(!compLoading){
+    GROUP = [
+        {
+        groupName:loadedgroup.groupName,
+            description:loadedgroup.description,
+            genre:loadedgroup.genere,
+            duration:loadedgroup.duration,
+            amount:loadedgroup.amount
+        }
+    ];}
   return (
   <Fragment>
-          {/* {compLoading ?<LoadingSpinner asOverlay /> : (
-            <UsersList items={USERS} />
-          )} */}
-          group detail
+          {compLoading ?<LoadingSpinner asOverlay /> : (
+            <GroupList items={GROUP} />
+          )}
         </Fragment>);
 };
 
-export default Users;
+export default Group;
