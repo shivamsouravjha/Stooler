@@ -61,10 +61,22 @@ export default class AccountService{
 
     async getGroups(uid,args){
         try {
+            function clean(obj) {
+                for (var propName in obj) {
+                  if (obj[propName] === null || obj[propName] === '') {
+                    delete obj[propName];
+                  }
+                }
+                return obj
+            }
+            args = clean(args);
             let groupsInfo = await this.repository.findGroup(args);
             function checkUid(uids) {
                 return !uids.members.includes(uid);
             };
+            if(groupsInfo.length ===1 ){
+                return groupsInfo;
+            }
             groupsInfo = groupsInfo.filter(checkUid);
             groupsInfo.sort(function(a,b){
                 return (b.members).length-(a.members).length;
