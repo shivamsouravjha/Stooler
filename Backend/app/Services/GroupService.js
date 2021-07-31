@@ -71,13 +71,16 @@ export default class AccountService{
                 return obj
             }
             args = clean(args);
+
             let groupsInfo = await this.repository.findGroup(args);
             function checkUid(uids) {
                 return !uids.members.includes(uid);
             };
-            if(groupsInfo.length ===1 ){
-                return groupsInfo;
-            }
+            console.log(groupsInfo)
+
+            // if(groupsInfo.length ==1 ){
+            //     return groupsInfo;
+            // }
             groupsInfo = groupsInfo.filter(checkUid);
             groupsInfo.sort(function(a,b){
                 return (b.members).length-(a.members).length;

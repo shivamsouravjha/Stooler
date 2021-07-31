@@ -119,7 +119,7 @@ function JoinGroup() {
         userid = userid['userid']
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
-        );
+                    );
         console.log(responseData)
         setLoadedUsers(responseData.data);
         setCompLoading(false)
