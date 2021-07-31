@@ -2,6 +2,7 @@ import React,{useEffect,useState,Fragment} from 'react'
 import styled from 'styled-components'
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
+import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const Styles = styled.div`
@@ -84,6 +85,7 @@ function Group() {
           {
             Header: 'ID',
             accessor: '_id',
+            Cell: e => <button><NavLink to={`/groupdetail/${e.value}`}>{e.value} </NavLink></button>
           },  
           {
             Header: ' Group Name',
@@ -93,10 +95,6 @@ function Group() {
             Header: 'My Groups',
             accessor: 'groupOwner',
           }, 
-          {
-            Header: 'Genre',
-            accessor: 'genre',
-          }, 
         ],
       },
     ],
@@ -105,11 +103,9 @@ function Group() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [groupName,setName]=useState("");
-  const [description,setDesc]=useState("");
   const [genre,setGenre]=useState("");
   const [duration,setDuration]=useState("");
   const [amount,setAmount]=useState("");
-  const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
   const {sendRequest} = useHttpClient();
@@ -129,6 +125,8 @@ function Group() {
         setCompLoading(false)
       } catch (err) {
         console.log(err)
+        setCompLoading(false);
+        setError(err.message || 'Something went wrong, please try again.');
       }
     };
     fetchUsers();
@@ -160,43 +158,34 @@ function Group() {
 }
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
   return (
-        <Fragment>
-
-          
+        <Fragment>          
           <div className="group_form_div">
 		<center>
             <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
-                <h2 className="form_heading">
-                    Create a New Group 
-                </h2> 
+                <h4>
+                    Search Group 
+                </h4> 
                 <hr/>
-                <label for="groupName" className="labels">
-                    Group Name<span > * </span> 
+                <label for="groupName">
+                    By Group Name<span > * </span> 
                 </label>
+                <input type="text" name="groupName"  value={groupName} placeholder="Enter a Unique group name" onChange={e =>setName(e.target.value)}  />
                 <br/>
-                <input type="text" name="groupName" className="inputs" value={groupName} placeholder="Enter a Unique group name" onChange={e =>setName(e.target.value)}  />
-                <br/><br/>
-                <label for="description" className="labels">
-                    Description <span > * </span>
-                </label> 
-                <br/>
-                <br/><br/>
-                <label for="genre" className="labels">
-                    Genre <span > * </span> 
-                </label><br/>
-                <select name="genre" className="select" onChange={e =>setGenre(e.target.value)}>
+                <label for="genre">
+                    By Genre <span > * </span> 
+                </label>
+                <select name="genre" onChange={e =>setGenre(e.target.value)}>
                     <option></option>
                     <option value="Gold/Silver" className="options">Gold/Silver</option>
                     <option value="Stock" className="options">Stock</option>
                     <option value="Cryptocurrency" className="options">Cryptocurrency</option>
                     <option value="Currency Exchange" className="options">Currency Exchange</option>
                 </select>
-                <br/><br/> 
-                <label for="duration" className="labels">
+                <br/>
+                <label for="duration">
                     Minimum Duration of Investment <span > * </span> 
                 </label>
-                <br/>
-                <select name="duration" className="select" onChange={e =>setDuration(e.target.value)}>
+                <select name="duration" onChange={e =>setDuration(e.target.value)}>
                     <option></option>
                     <option value="1" className="options">1 Month</option>
                     <option value="3" className="options">3 Months</option>
@@ -204,15 +193,14 @@ function Group() {
                     <option value="12" className="options">1 Year</option>
                     <option value="60" className="options">5 Years</option>
                 </select>  
-                <br/><br/> 
-                <label for="amount" className="labels">
-                    Minimum Amount<span > * </span> 
-                </label>
                 <br/>
-                <input type="number" name="amount" className="inputs" value={amount} placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)}  />
-                <br/><br/>
-                <button type="submit" className="confirm_btns" >
-                    Create Group
+                <label for="amount" >
+                    By Minimum Amount<span > * </span> 
+                </label>
+                <input type="number" name="amount" value={amount} placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)}  />
+                <br/>
+                <button type="submit">
+                    Search
                 </button>
             </form> 
         </center>
