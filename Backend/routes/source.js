@@ -13,12 +13,12 @@ SourceApiRouter.post('/remove/:gid/:uid/:sid', (request, response) => {
   groupController.removeSource(request);
 });
 
-SourceApiRouter.get('/getcompany/:gid', (request, response) => {
+SourceApiRouter.post('/getcompany/:gid', (request, response) => {
   const groupController = new SourceController(response);
   groupController.getSources(request);
 });
 
-SourceApiRouter.get('/getcompanydetails/:gid', (request, response) => {
+SourceApiRouter.post('/getcompanydetails/:gid', (request, response) => {
   const groupController = new SourceController(response);
   groupController.getSource(request);
 });
