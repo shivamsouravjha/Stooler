@@ -68,4 +68,19 @@ export default class AccountService{
             throw (new Exceptions.ValidationException("Error finding sources"));
         }
     }
+    
+    async setAprroval(args){
+        try {
+            let sourceInfo = await this.repository.findSource(args.sid);
+            let groupInfo  = await this.repository.findGroup(sourceInfo.group)
+            if(args.set){
+                await this.repository.saveSource(groupInfo,sourceInfo);
+            }else{
+                await this.repository.deleteSourceSet(sourceInfo);
+            }
+            return {'success':true};
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
 }

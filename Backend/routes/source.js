@@ -28,4 +28,9 @@ SourceApiRouter.post('/approve/:uid', (request, response) => {
   groupController.getApproval(request);
 });
 
+SourceApiRouter.post('/setapproval/:sid', (request, response) => {
+  const groupController = new SourceController(response);
+  groupController.setApproval(request);
+});
+
 export default SourceApiRouter;

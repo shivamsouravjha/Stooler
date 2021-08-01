@@ -90,4 +90,18 @@ export default class CompanyController extends Controller {
         this.handleException(error);
       } 
     }
+
+    setApproval (request) {
+      try {
+        request.body['sid'] = request.params.sid;
+        const promise  = this.service.setAprroval(request.body);
+        promise.then(res=>{
+          this.sendResponse(res);
+        }).catch(error =>{
+          this.handleException(error);
+        })
+      } catch(error){
+        this.handleException(error);
+      } 
+    }
 }
