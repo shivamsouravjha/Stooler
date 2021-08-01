@@ -85,7 +85,7 @@ function Group() {
           {
             Header: 'ID',
             accessor: '_id',
-            Cell: e => <button><NavLink to={`/groupdetail/${e.value}`}>{e.value} </NavLink></button>
+            Cell: e => <button><NavLink to={`/yourgroup/${e.value}`}>{e.value} </NavLink></button>
           },  
           {
             Header: ' Group Name',
