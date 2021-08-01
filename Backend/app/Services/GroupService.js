@@ -70,9 +70,8 @@ export default class AccountService{
                 return obj
             }
             args = clean(args);
-            console.log(args,uid)
             let groupsInfo = await this.repository.findGroup(args);
-            // console.log(groupsInfo)
+            console.log(groupsInfo)
             function checkUid(uids) {
                 return !uids.members.includes(uid);
             };
@@ -82,7 +81,7 @@ export default class AccountService{
             })
             return groupsInfo;
         } catch (error) {
-            throw (new Exceptions.ValidationException("Error finding groups"));
+            throw (new Exceptions.ValidationException(error.message));
         }
     }
 

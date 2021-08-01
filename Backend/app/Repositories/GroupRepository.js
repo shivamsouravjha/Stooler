@@ -1,5 +1,6 @@
 import GroupModel from "../Models/groupModel";
 import UserModel from "../Models/userModel";
+import SourceModel from "../Models/sourceModel";
 import Transaction from "../Models/transaction";
 import mongoose from 'mongoose';
 mongoose.models = {GroupModel,UserModel}
@@ -17,7 +18,7 @@ export default class GroupRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.find(obj);
+            const found = await GroupModel.find(obj).populate('sources');
             return found;
         } catch (error) {
             throw error

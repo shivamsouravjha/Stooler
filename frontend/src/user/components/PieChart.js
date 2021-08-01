@@ -18,16 +18,21 @@ const PieChart = () => {
         var userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
+        console.log("Fd")
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/users/data/account/${userid}`,"POST"
+          `http://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
         );
+        console.log("responseData")
+
         const dataResponse = responseData.data.shares.map((val)=>{
             return val.amount;
         });
         setLoadedUsers(dataResponse);
         setCompLoading(false)
         console.log(loadedUsers)
-      } catch (err) {}
+      } catch (err) {
+        console.log(err)
+      }
     };
     fetchUsers();
   }, []);
