@@ -55,4 +55,17 @@ export default class AccountService{
             throw (new Exceptions.ValidationException("Error finding sources"));
         }
     }
+
+    async getAprroval(uid){
+        try {
+            let sourceInfo = await this.repository.findGroupApproval();
+            function checkUid(args) {
+                return args.group.groupOwner==uid;
+            };
+            sourceInfo = sourceInfo.filter(checkUid);
+            return {'groups':sourceInfo};
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
 }

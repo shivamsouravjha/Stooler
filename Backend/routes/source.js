@@ -23,4 +23,9 @@ SourceApiRouter.post('/getcompanydetails/:sid', (request, response) => {
   groupController.getSource(request);
 });
 
+SourceApiRouter.post('/approve/:uid', (request, response) => {
+  const groupController = new SourceController(response);
+  groupController.getApproval(request);
+});
+
 export default SourceApiRouter;
