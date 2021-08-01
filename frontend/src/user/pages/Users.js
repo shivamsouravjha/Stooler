@@ -22,7 +22,9 @@ const Users = () => {
         const dataResponse = responseData.data;
         setLoadedUsers(dataResponse);
         setCompLoading(false)
-      } catch (err) {}
+      } catch (err) {    
+            console.log(err)
+      }
     };
     fetchUsers();
   }, []);
