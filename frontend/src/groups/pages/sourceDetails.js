@@ -3,22 +3,22 @@ import { useParams } from 'react-router-dom';
 import ReactSession from '../../Reactsession';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import GroupList from '../components/grouplist';
-import SourceLists from './sourceLists';
+import Sourcelist from '../components/sourcelist';
 const Group = () => {
     const {sendRequest} = useHttpClient();
     const [compLoading, setCompLoading] = useState(true);
     const [loadedgroup, setLoadedGroup] = useState();
-    const gid = useParams().gid;
+    const sid = useParams().sid;
     useEffect(() => {
         const fetchGroup = async () => {
         try {
             setCompLoading(true)
+            console.log(sid)
             const responseData = await sendRequest(
-            `http://stool-back.herokuapp.com/api/groups/${gid}`,"POST"
+            `http://stool-back.herokuapp.com/api/source/getcompanydetails/${sid}`,"POST"
             );
             console.log(responseData.data)
-            const dataResponse = responseData.data;
+            const dataResponse = responseData.data.source;
             setLoadedGroup(dataResponse);
             setCompLoading(false)
         } catch (err) {}
@@ -27,22 +27,22 @@ const Group = () => {
     }, []);
     var GROUP =""
     if(!compLoading){
-        // console.log("loadedgroup")
+        console.log(loadedgroup)
     GROUP = [
         {
-            groupName:loadedgroup.groupName,
-            description:loadedgroup.description,
-            genre:loadedgroup.genre,
+            name:loadedgroup.name,
+            details:loadedgroup.details,
+            targetPrice:loadedgroup.targetPrice,
             duration:loadedgroup.duration,
-            amount:loadedgroup.amount
+            price:loadedgroup.price,
+            unitsPurchase:loadedgroup.unitsPurchase,
         }
     ];}
   return (
   <Fragment>
           {compLoading ?<LoadingSpinner asOverlay /> : (
-            <GroupList items={GROUP} />
+            <Sourcelist items={GROUP} />
           )}
-           <SourceLists />
         </Fragment>);
 };
 

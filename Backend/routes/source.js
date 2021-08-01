@@ -18,7 +18,7 @@ SourceApiRouter.post('/getcompany/:gid', (request, response) => {
   groupController.getSources(request);
 });
 
-SourceApiRouter.post('/getcompanydetails/:gid', (request, response) => {
+SourceApiRouter.post('/getcompanydetails/:sid', (request, response) => {
   const groupController = new SourceController(response);
   groupController.getSource(request);
 });

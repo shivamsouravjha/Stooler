@@ -17,7 +17,7 @@ export default class SourceRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.findById(obj,'-groupPayment');
+            const found = (await GroupModel.findById(obj,'-groupPayment').populate('sources'));
             return found;
         } catch (error) {
             throw error
@@ -26,7 +26,7 @@ export default class SourceRepository {
 
 
     async findSource (obj) {
-        try {
+        try {            
             const found = await SourceModel.findById(obj);
             return found;
         } catch (error) {

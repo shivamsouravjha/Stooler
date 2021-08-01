@@ -49,7 +49,6 @@ export default class AccountService{
 
     async getSourceDetails(args){
         try {
-            console.log(args)
             let sourceInfo = await this.repository.findSource(args);
             return {'source':sourceInfo};
         } catch (error) {

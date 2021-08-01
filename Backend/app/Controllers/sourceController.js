@@ -52,7 +52,7 @@ export default class CompanyController extends Controller {
 
     getSource (request) {
       try {
-        const value = request.params.gid;
+        const value = request.params.sid;
         const promise  = this.service.getSourceDetails(value);
         promise.then(res=>{
           this.sendResponse(res);
