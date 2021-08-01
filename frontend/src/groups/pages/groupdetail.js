@@ -31,7 +31,7 @@ const Group = () => {
         {
         groupName:loadedgroup.groupName,
             description:loadedgroup.description,
-            genre:loadedgroup.genere,
+            genre:loadedgroup.genre,
             duration:loadedgroup.duration,
             amount:loadedgroup.amount
         }
