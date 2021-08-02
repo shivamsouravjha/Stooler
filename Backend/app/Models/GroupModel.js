@@ -9,6 +9,7 @@ const groupSchema = new schema({
     genre: {type :String},
     duration: {type :String },
     amount: {type :Number},
+    fund: {type:Number},
     profit: [{type: Number,required: false}],
     members: [{type :mongoose.Types.ObjectId,required:false,ref:'User'}],
     groupOwner: {type :mongoose.Types.ObjectId,required:false,ref:'User'},

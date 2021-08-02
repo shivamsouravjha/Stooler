@@ -20,8 +20,9 @@ export default class AccountService{
             if(!verifyGroupId){
                 throw (new Exceptions.ConflictException("No Group found"));
             } 
+           
             let accountInfo = await this.repository.addUserToGroup(args,verifyGroupId,verifyUserId);
-            return {'message':'Group Joined','success':true}
+            return accountInfo;
         } catch (error) {
             throw error;
         }
@@ -69,9 +70,10 @@ export default class AccountService{
                 }
                 return obj
             }
-            args = clean(args);
+            args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
             console.log(groupsInfo)
+
             function checkUid(uids) {
                 return !uids.members.includes(uid);
             };

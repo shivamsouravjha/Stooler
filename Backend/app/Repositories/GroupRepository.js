@@ -37,6 +37,10 @@ export default class GroupRepository {
             } if(verifyGroupId.genre == 'Currency Exchange'){
                 verifyUserId.shares[3]['amount']+=args.amount
             }
+            if(args.amount < verifyGroupId.amount){
+                return {'message':`Amount less than group minimum,add more ${verifyGroupId.amount - args.amount}`,'success':false};
+            }
+            verifyGroupId['fund']+=args.amount;
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
@@ -48,7 +52,7 @@ export default class GroupRepository {
             await verifyGroupId.save({ session: sess }); 
             await verifyUserId.save({ session: sess }); 
             await sess.commitTransaction(); 
-            return "Joined";
+            return {'message':'Group Joined','success':true};
         } catch (error) {
             throw error
         }
@@ -62,6 +66,7 @@ export default class GroupRepository {
             genre,
             duration,
             amount,
+            fund: amount,
             profit:[],
             members:[userId],
             groupOwner: userId,
