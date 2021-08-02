@@ -21,9 +21,9 @@ export default class AccountService{
     async createSource(args) {
         try {
             await this.repository.createSource(args);
-            return {message: 'Group Created!',success: true}
+            return {message: 'Source Created!',success: true}
         } catch (error) {
-            throw (new Exceptions.ValidationException("Error finding creating source"));
+            throw error;
         }
     }
 

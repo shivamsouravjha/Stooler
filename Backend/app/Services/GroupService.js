@@ -72,8 +72,6 @@ export default class AccountService{
             }
             args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
-            console.log(groupsInfo)
-
             function checkUid(uids) {
                 return !uids.members.includes(uid);
             };

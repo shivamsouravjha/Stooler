@@ -72,7 +72,12 @@ export default class SourceRepository {
             const sourceModel = new SourceModel({
                 name,details,targetPrice,duration,price,unitsPurchase,approved:approved,suggestorName,group:groupId
             })
-            if(approved){
+            groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
+            if(groupInfo['fund']<0){
+                throw {"message":`Source price more than current fund of group, exceeds by = ${price*unitsPurchase-groupInfo['fund']}`}
+            }
+            console.log("rte")
+            if(approved){                
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
                 await sourceModel.save({ session: sess });

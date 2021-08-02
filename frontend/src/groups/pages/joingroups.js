@@ -12,7 +12,6 @@ const  JoinGroupAuth = ()=>{
    const [isLoading, setIsLoading] = useState(false);
    const [success, setSuccess] = useState();
    const [error, setError] = useState();
- 
     const [amount,setAmount]=useState("");
     const gid = useParams().gid;
     const onSubmitform = async e =>{
@@ -28,13 +27,15 @@ const  JoinGroupAuth = ()=>{
             const responseData = await sendRequest(
                 `http://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body,{
                     'Content-Type': 'application/json'
+                }
+            );
+            if(responseData['status']!=200){
+                throw responseData.error;
             }
-              );
-              console.log(responseData)
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
             setError(false);
-            window.location="/";
+            // window.location="/";
         }catch(err){
             setIsLoading(false);
             setSuccess(err.message || 'Something went wrong, please try again.');
