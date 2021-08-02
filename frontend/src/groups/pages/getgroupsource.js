@@ -76,24 +76,10 @@ function Table({ columns, data }) {
   )
 }
 
-function fetch() {
-  return new Promise(resolve => setTimeout(() => resolve(42), 1000));
-}
 
-function fetchAPI(sid) {
-  return fetch(`http://stool-back.herokuapp.com/source/setapproval/${sid}`,"POST");
-}
 
-function onclick(sid){
-  let selectedWord = sid
-  fetchAPI(selectedWord).then(result => {
-    
-  });
-}
-
-function Group() {
-    const [compLoading, setCompLoading] = useState(true);
-
+function GroupSource() {
+    const [compLoading, setCompLoading] = useState(true); 
     const columns = React.useMemo(
       () => [
         {
@@ -118,10 +104,10 @@ function Group() {
             {
                 Header: 'Aceept',
                 accessor: '_id',
-                Cell: e => (
-                    <button onClick={onclick(e.value)}>
-                        ACEEPT
-                    </button> 
+                Cell: ({ cell }) => (
+                  <button>
+                   <NavLink to={`/request/${cell.row.values._id}`}>Accept </NavLink>
+                  </button>
                 )
             }
           ],
@@ -169,4 +155,4 @@ function Group() {
         );
   }
   
-  export default Group
+  export default GroupSource;
