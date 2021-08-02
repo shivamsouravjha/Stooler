@@ -73,7 +73,7 @@ const App = () => {
         <Route path="/getgroupsource/:uid" exact>
           <GetGroupSource/>
         </Route>
-        <Route path="/request/:sid" exact>
+        <Route path="/request/:sid/:status" exact>
           <Process/>
         </Route>
         <Redirect to="/" />       

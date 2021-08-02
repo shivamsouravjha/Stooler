@@ -11,11 +11,14 @@ const Process = () => {
     const {sendRequest} = useHttpClient();
     const [compLoading, setCompLoading] = useState(true);
     const sid = useParams().sid;
+    const status = useParams().status;
     useEffect(() => {
         const fetchGroup = async () => {
         try {
             setCompLoading(true)
-        var body = {"set":true};
+        var body = {"set":status};
+        console.log(status);
+        console.log(body);
         body = JSON.stringify(body)
         const responseData = await sendRequest(
             `http://stool-back.herokuapp.com/api/source/setapproval/${sid}`,"POST",body,{
@@ -32,7 +35,7 @@ const Process = () => {
           {compLoading ?<LoadingSpinner asOverlay /> :(
              <div>
                 <center>
-                    <h1>Request added Successfuly</h1>
+                    <h1>Request {status=="true"? 'added': 'rejected' } Successfuly</h1>
                 </center>
              </div>
           )}
