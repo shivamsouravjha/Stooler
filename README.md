@@ -68,7 +68,7 @@ To run this project, you will need to add the following environment variables to
 
 ## Source Schema
 
-![Screenshot (297)](https://user-images.githubusercontent.com/60891544/127903299-77f3b9f0-2dba-4cc7-9d03-78a7b4e518b9.png)
+![Blank diagram](https://user-images.githubusercontent.com/60891544/127903441-a1b493b9-f071-40da-b502-e17ed7467a29.png)
 
     
 ## Authors
