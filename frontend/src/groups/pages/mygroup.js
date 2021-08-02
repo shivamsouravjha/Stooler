@@ -1,5 +1,7 @@
 import React,{useEffect,useState,Fragment} from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
+import "./main.css";
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { NavLink } from 'react-router-dom';
@@ -110,12 +112,12 @@ function Group() {
 
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
+  var userid = localStorage.getItem('__react_session__');
+  userid = JSON.parse(userid)
+  userid = userid['userid']
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST"
         );
@@ -210,6 +212,9 @@ function Group() {
               <Table columns={columns} data={data} />
             </Styles>
     ))}
+    <ul className="group-links">
+    <Link to={`/getgroupsource/${userid}`} ><button className="group_button">Manage Group Source</button></Link>
+    </ul>
         </Fragment>
       );
 }
