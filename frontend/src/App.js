@@ -20,6 +20,7 @@ import JoinGroupAuth from './groups/pages/joingroups';
 import YourGroup from './groups/pages/groupSource';
 import SourceDetails from './groups/pages/sourceDetails';
 import GetGroupSource from './groups/pages/getgroupsource';
+import Process from './groups/pages/process';
 const App = () => {
   ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,6 +72,9 @@ const App = () => {
         </Route>
         <Route path="/getgroupsource/:uid" exact>
           <GetGroupSource/>
+        </Route>
+        <Route path="/request/:sid" exact>
+          <Process/>
         </Route>
         <Redirect to="/" />       
       </Switch>

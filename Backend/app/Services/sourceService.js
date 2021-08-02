@@ -71,6 +71,7 @@ export default class AccountService{
     
     async setAprroval(args){
         try {
+            console.log(args)
             let sourceInfo = await this.repository.findSource(args.sid);
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
             if(args.set){
