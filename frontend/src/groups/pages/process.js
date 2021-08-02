@@ -1,6 +1,7 @@
 import React,{useEffect,useState,Fragment} from 'react';
+import "./main.css";
 import { useParams } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 const Process = () => {
@@ -17,7 +18,7 @@ const Process = () => {
         var body = {"set":true};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `http://localhost:5000/api/source/setapproval/${sid}`,"POST",body,{
+            `http://stool-back.herokuapp.com/api/source/setapproval/${sid}`,"POST",body,{
                 'Content-Type': 'application/json'
         }
         );
@@ -28,8 +29,18 @@ const Process = () => {
     }, []);
   return (
   <Fragment>
-          {compLoading ?<LoadingSpinner asOverlay /> : <do here></do>}
-        </Fragment>);
+          {compLoading ?<LoadingSpinner asOverlay /> :(
+             <div>
+                <center>
+                    <h1>Request added Successfuly</h1>
+                </center>
+             </div>
+          )}
+        <ul className="group-links">
+            <Link to={`/getgroupsource/${userid}`} ><button className="group_button">Manage Group Source</button></Link>
+        </ul>
+    </Fragment>
+  );
 };
 
 export default Process;
