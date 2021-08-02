@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 export default class AccountRepository {
     async findUserDetail(obj){
         try {
-            const found = await UserModel.findOne({username:obj.username,panCard:obj.panCard,email:obj.email,number:obj.number,aadhar:obj.aadhar})
+            const found = await UserModel.findOne(obj)
             return found;
         } catch (error) {
             return "error at finding"
@@ -12,14 +12,14 @@ export default class AccountRepository {
     }
     async findUid (obj) {
         try {
-            return await UserModel.findById(obj,'-password -_id').populate('groups');;
+            return await UserModel.findById(obj,'-password -_id').populate('groups');
         } catch (error) {
             return "error finding User"
         }
     }
     async findUsername(obj){
         try {
-            const found = await UserModel.findOne({username:obj.username})
+            const found = await UserModel.findOne(obj)
             return found;
         } catch (error) {
             return "error at finding"
@@ -35,7 +35,11 @@ export default class AccountRepository {
             password,
             number,
             groups:[],
-            portfolio:[]
+            shares:[{genre:'Gold/Silver',amount:0},
+            {genre:'Stock',amount:0},
+            {genre:'Cryptocurrency',amount:0},           
+            {genre:'Currency Exchange',amount:0},           
+        ],
         })
         let userDetails;
         let token;
@@ -45,7 +49,7 @@ export default class AccountRepository {
         } catch (error) {
             return "error at adding"
         }
-        return {"success":true,"token":token};
+        return {"success":true,"token":token,"userid":userDetails._id};
     }
 
 }

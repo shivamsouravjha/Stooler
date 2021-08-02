@@ -1,24 +1,54 @@
-import React from 'react';
+import React,{useEffect,useState,Fragment} from 'react'
 import ReactSession from '../../Reactsession';
-
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import UsersList from '../components/UsersList';
 
 const Users = () => {
-  const USERS = [
+  const {sendRequest} = useHttpClient();
+  const [compLoading, setCompLoading] = useState(true);
+  const [loadedUsers, setLoadedUsers] = useState();
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        setCompLoading(true)
+        var userid = localStorage.getItem('__react_session__');
+        userid = await JSON.parse(userid)
+        userid = userid['userid']
+        const responseData = await sendRequest(
+          `http://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
+        );
+        console.log(responseData.data)
+        const dataResponse = responseData.data;
+        setLoadedUsers(dataResponse);
+        setCompLoading(false)
+      } catch (err) {    
+            console.log(err)
+      }
+    };
+    fetchUsers();
+  }, []);
+  var USERS =""
+  if(!compLoading){
+   USERS = [
     {
-      name:"shivam",
+      name:loadedUsers.name,
       username:ReactSession.get("username"), 
-      number:"32424234324",
-      email:"hfeegn35bgdfb@gmail.com",
-      panNumber:"1125bdhdgf92afh2",
-      aadhar:"1252543eghfd132a82",
+      number:loadedUsers.number,
+      email:loadedUsers.email,
+      panNumber:loadedUsers.panNumber,
+      aadhar:loadedUsers.aadhar,
       image:
         'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-      places: 6
+      groups: loadedUsers.groups.length
     }
-  ];
-
-  return <UsersList items={USERS} />;
+  ];}
+  return (
+  <Fragment>
+          {compLoading ?<LoadingSpinner asOverlay /> : (
+            <UsersList items={USERS} />
+          )}
+        </Fragment>);
 };
 
 export default Users;

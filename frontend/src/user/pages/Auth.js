@@ -8,7 +8,9 @@ import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
-  VALIDATOR_REQUIRE
+  VALIDATOR_REQUIRE,
+  VALIDATOR_FIXLENGTH,
+  VALIDATOR_PASSWORD
 } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import { AuthContext } from '../../shared/context/auth-context';
@@ -85,12 +87,18 @@ const Auth = () => {
         auth.login();
         ReactSession.set("username", formState.inputs.username.value);
         ReactSession.set("userid",responseData['data']['userid'] );
+        ReactSession.set("token",responseData['data']['token'] );
       } catch (err) {
         setIsLoading(false);
         setError(err.message || 'Something went wrong, please try again.');
       }
     } else {
       try {
+        var checkuser=formState.inputs.username.value.slice(-4);
+        var checkpan=formState.inputs.panNumber.value.slice(-4);
+        if(checkpan != checkuser){
+          throw new Error("Use 4 last character of pan");
+        }
         const response = await fetch('http://stool-back.herokuapp.com/api/users/account/signup', {
           method: 'POST',
           headers: {
@@ -115,6 +123,8 @@ const Auth = () => {
         setIsLoading(false);
         auth.login();
         ReactSession.set("username", formState.inputs.username.value);
+        ReactSession.set("userid",responseData['data']['userid'] );
+        ReactSession.set("token",responseData['data']['token'] );
       } catch (err) {
         setIsLoading(false);
         setError(err.message || 'Something went wrong, please try again.');
@@ -163,8 +173,8 @@ const Auth = () => {
                 id="number"
                 type="text"
                 label="Your Mobile Number"
-                validators={[VALIDATOR_MINLENGTH(10)]}
-                errorText="Please enter a Mobile number."
+                validators={[VALIDATOR_FIXLENGTH(10)]}
+                errorText="Please enter exact 10 digit Mobile number."
                 onInput={inputHandler}
               />)
           }  
@@ -173,9 +183,9 @@ const Auth = () => {
               element="input"
               id="panNumber"
               type="text"
-              label="Your pancard Number"
-              validators={[VALIDATOR_MINLENGTH(10)]}
-              errorText="Please enter Pancard number."
+              label="Your 10 digit pancard Number"
+              validators={[VALIDATOR_FIXLENGTH(10)]}
+              errorText="Please enter exact 10 digit Pancard number."
               onInput={inputHandler}
             />)
           }
@@ -184,30 +194,56 @@ const Auth = () => {
               element="input"
               id="aadhar"
               type="text"
-              label="Your aadhar Number"
-              validators={[VALIDATOR_MINLENGTH(12)]}
-              errorText="Please enter valid aadhar number."
+              label="Your 12 digit aadhar Number"
+              validators={[VALIDATOR_FIXLENGTH(12)]}
+              errorText="Please enter exact 12 digit aadhar number."
               onInput={inputHandler}
             />)
           }
-          <Input
-            element="input"
-            id="username"
-            type="text"
-            label="Your User Name"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Please enter user Name."
-            onInput={inputHandler}
-          />
-          <Input
-            element="input"
-            id="password"
-            type="password"
-            label="Password"
-            validators={[VALIDATOR_MINLENGTH(5)]}
-            errorText="Please enter a valid password, at least 5 characters."
-            onInput={inputHandler}
-          />
+          {!isLoginMode && (
+            <Input
+              element="input"
+              id="username"
+              type="text"
+              label = "Create User name having 4 last digit characteras same as of Pancard"
+              validators={[VALIDATOR_MINLENGTH(7)]}
+              errorText="Create a user Name of length at least 7"
+              onInput={inputHandler}
+            />)
+          }
+          {isLoginMode && (
+            <Input
+              element="input"
+              id="username"
+              type="text"
+              label = "Username"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a username"
+              onInput={inputHandler}
+            />)
+          }
+          {!isLoginMode && (
+            <Input
+              element="input"
+              id="password"
+              type="password"
+              label="Create Password having 1 number,1 small and 1 capital character of length at least 8"
+              validators={[VALIDATOR_PASSWORD()]}
+              errorText="Please enter a valid password"
+              onInput={inputHandler}
+            />)
+          }
+          {isLoginMode && (
+            <Input
+              element="input"
+              id="password"
+              type="password"
+              label="Password"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a password."
+              onInput={inputHandler}
+            />)
+          }
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? 'LOGIN' : 'SIGNUP'}
           </Button>

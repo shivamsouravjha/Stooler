@@ -13,7 +13,7 @@ const userschema = new schema({
     number:{type :String},
     groups: [{type :mongoose.Types.ObjectId,required:true,ref:'Group'}],
     transaction: [{type :mongoose.Types.ObjectId,required:true,ref:'Transaction'}],
-    portfolio:[{type: Map}],
+    shares: [{genre:String,amount:Number}],
 },{
     versionKey: false 
   });

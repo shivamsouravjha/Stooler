@@ -49,9 +49,36 @@ export default class AccountService{
 
     async getSourceDetails(args){
         try {
-            console.log(args)
             let sourceInfo = await this.repository.findSource(args);
             return {'source':sourceInfo};
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
+
+    async getAprroval(uid){
+        try {
+            let sourceInfo = await this.repository.findGroupApproval();
+            function checkUid(args) {
+                return args.group.groupOwner==uid;
+            };
+            sourceInfo = sourceInfo.filter(checkUid);
+            return {'groups':sourceInfo};
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
+    
+    async setAprroval(args){
+        try {
+            let sourceInfo = await this.repository.findSource(args.sid);
+            let groupInfo  = await this.repository.findGroup(sourceInfo.group)
+            if(args.set){
+                await this.repository.saveSource(groupInfo,sourceInfo);
+            }else{
+                await this.repository.deleteSourceSet(sourceInfo);
+            }
+            return {'success':true};
         } catch (error) {
             throw (new Exceptions.ValidationException("Error finding sources"));
         }

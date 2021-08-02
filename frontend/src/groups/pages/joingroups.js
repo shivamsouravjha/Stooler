@@ -5,7 +5,7 @@ import "./auth.css";
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import SuccessModal from '../../shared/components/UIElements/Success';
-
+import GroupDetail from './groupdetail';
 
 const  JoinGroupAuth = ()=>{
    const {sendRequest} = useHttpClient();
@@ -26,7 +26,7 @@ const  JoinGroupAuth = ()=>{
             var body={"amount":amount,"groupId":gid};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `http://localhost:5000/api/groups/join/${userid}`,"POST",body,{
+                `http://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body,{
                     'Content-Type': 'application/json'
             }
               );
@@ -34,10 +34,10 @@ const  JoinGroupAuth = ()=>{
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
             setError(false);
-
+            window.location="/";
         }catch(err){
             setIsLoading(false);
-            setError(err.message || 'Something went wrong, please try again.');
+            setSuccess(err.message || 'Something went wrong, please try again.');
         }
     }
     const successHandler = () => {
@@ -48,13 +48,13 @@ const  JoinGroupAuth = ()=>{
         <React.Fragment>
         <SuccessModal error={success} onClear={successHandler} />
         {isLoading && <LoadingSpinner asOverlay />}
-
+        <GroupDetail/>
     <div className="group_form_div">
 		<center>
             <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
                                     {/* form header */}
                 <h2 className="form_heading">
-                    Join a New Group 
+                    Join this Group 
                 </h2> 
                 <input type="number" name="amount" className="inputs" value={amount} step="50" min="50"placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)} required />
                 <br/><br/>

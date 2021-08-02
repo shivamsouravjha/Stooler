@@ -52,7 +52,7 @@ export default class CompanyController extends Controller {
 
     getSource (request) {
       try {
-        const value = request.params.gid;
+        const value = request.params.sid;
         const promise  = this.service.getSourceDetails(value);
         promise.then(res=>{
           this.sendResponse(res);
@@ -78,4 +78,30 @@ export default class CompanyController extends Controller {
       } 
     }
 
+    getApproval (request) {
+      try {
+        const promise  = this.service.getAprroval(request.params.uid);
+        promise.then(res=>{
+          this.sendResponse(res);
+        }).catch(error =>{
+          this.handleException(error);
+        })
+      } catch(error){
+        this.handleException(error);
+      } 
+    }
+
+    setApproval (request) {
+      try {
+        request.body['sid'] = request.params.sid;
+        const promise  = this.service.setAprroval(request.body);
+        promise.then(res=>{
+          this.sendResponse(res);
+        }).catch(error =>{
+          this.handleException(error);
+        })
+      } catch(error){
+        this.handleException(error);
+      } 
+    }
 }

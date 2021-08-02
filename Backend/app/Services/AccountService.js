@@ -10,10 +10,22 @@ export default class AccountService{
     async addAccount(args) {
         try {
             const {panNumber,aadhar,username,email,number}=args
-            let verifyUsername =  await this.verifyUserDetail({panNumber,aadhar,username,email,number})
+            let verifyUsername =  await this.verifyUsername({username:username})
+            let verifyNumber =  await this.verifyUserDetail({number:number})
+            let verifyEmail =  await this.verifyUserDetail({email:email})
+            let verifyPanNumber =  await this.verifyUserDetail({panNumber:panNumber})
+            let verifyAadhar =  await this.verifyUserDetail({aadhar:aadhar})
             if(verifyUsername){
-                throw (new Exceptions.ConflictException("details already exist"));
-            } 
+                throw (new Exceptions.ConflictException("Username already exist"));
+            } if(verifyNumber){
+                throw (new Exceptions.ConflictException("NUmber already exist"));
+            } if(verifyEmail){
+                throw (new Exceptions.ConflictException("Email already exist"));
+            } if(verifyPanNumber){
+                throw (new Exceptions.ConflictException("Pannumber already exist"));
+            } if(verifyAadhar){
+                throw (new Exceptions.ConflictException("Aadhar already exist"));
+            }  
             let hasedPassword = await bycrypt.hash(args.password,12)
             args.password = hasedPassword
             let accountInfo = await this.repository.addUser(args);
@@ -50,10 +62,40 @@ export default class AccountService{
         }
     }
 
-    async findUid (args) {
+    async findUid (uid,args) {
         try {
-            console.log("fsdf")
-            return await this.repository.findUid(args);
+            function clean(obj) {
+                for (var propName in obj) {
+                    if (obj[propName] === null || obj[propName] === '') {
+                        delete obj[propName];
+                    }
+                }
+                return obj
+            }
+            function search(obj) {
+                for (var propName in obj) {
+                    if (obj[propName] === null || obj[propName] === '') {
+                        delete obj[propName];
+                    }
+                    for( var tick in args) {
+                        if(obj[propName][tick] != args[tick]){
+                            delete obj[propName];
+                        }   
+                    }
+                }
+                return obj
+            }
+            args = clean(args);
+            let groupsInfo = await this.repository.findUid(uid);
+            if(!Object.keys(args).length){
+                return groupsInfo 
+            }
+            let groupsInfos = groupsInfo.groups;
+            search(groupsInfos);            
+            groupsInfos = groupsInfos.filter(function (el) {
+                return el != null;
+            });
+            return groupsInfos;
         } catch(error){
             throw error;
         }

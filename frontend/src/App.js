@@ -17,6 +17,8 @@ import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
 import JoinGroup from './groups/pages/getjoinGroups';
 import JoinGroupAuth from './groups/pages/joingroups';
+import YourGroup from './groups/pages/groupSource';
+import SourceDetails from './groups/pages/sourceDetails';
 const App = () => {
   ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,7 +29,9 @@ const App = () => {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
-    ReactSession.remove("username");
+    ReactSession.remove('username');
+    ReactSession.remove('userid');
+    ReactSession.remove('token');
   }, []);
   
   useEffect(() => {
@@ -58,7 +62,12 @@ const App = () => {
         <Route path="/portfolio" exact>
           <MyGroup />
         </Route>
-        
+        <Route path="/yourgroup/:gid" exact>
+          <YourGroup/>
+        </Route>
+        <Route path="/source/:sid" exact>
+          <SourceDetails/>
+        </Route>
         <Redirect to="/" />       
       </Switch>
     );

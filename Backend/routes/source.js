@@ -13,14 +13,24 @@ SourceApiRouter.post('/remove/:gid/:uid/:sid', (request, response) => {
   groupController.removeSource(request);
 });
 
-SourceApiRouter.get('/getcompany/:gid', (request, response) => {
+SourceApiRouter.post('/getcompany/:gid', (request, response) => {
   const groupController = new SourceController(response);
   groupController.getSources(request);
 });
 
-SourceApiRouter.get('/getcompanydetails/:gid', (request, response) => {
+SourceApiRouter.post('/getcompanydetails/:sid', (request, response) => {
   const groupController = new SourceController(response);
   groupController.getSource(request);
+});
+
+SourceApiRouter.post('/approve/:uid', (request, response) => {
+  const groupController = new SourceController(response);
+  groupController.getApproval(request);
+});
+
+SourceApiRouter.post('/setapproval/:sid', (request, response) => {
+  const groupController = new SourceController(response);
+  groupController.setApproval(request);
 });
 
 export default SourceApiRouter;

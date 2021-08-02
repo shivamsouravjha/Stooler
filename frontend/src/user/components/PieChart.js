@@ -1,15 +1,54 @@
-import React from 'react';
 import {Pie} from 'react-chartjs-2';
+import React,{useEffect,useState,Fragment} from 'react'
+import ReactSession from '../../Reactsession';
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import UsersList from '../components/UsersList';  
+
+// export default Users;
+
 const PieChart = () => {
+    const {sendRequest} = useHttpClient();
+  const [compLoading, setCompLoading] = useState(true);
+  const [loadedUsers, setLoadedUsers] = useState();
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        setCompLoading(true)
+        var userid = localStorage.getItem('__react_session__');
+        userid = await JSON.parse(userid)
+        userid = userid['userid']
+        console.log("Fd")
+        const responseData = await sendRequest(
+          `http://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
+        );
+        console.log("responseData")
+
+        const dataResponse = responseData.data.shares.map((val)=>{
+            return val.amount;
+        });
+        setLoadedUsers(dataResponse);
+        setCompLoading(false)
+        console.log(loadedUsers)
+      } catch (err) {
+        console.log(err)
+      }
+    };
+    fetchUsers();
+  }, []);
+  var data = [];
+  if(!compLoading){
+    data = loadedUsers
+    }
     return (
         <div>
             <Pie
                 data={{
-                    labels: ['Adani', 'Birla', 'Tata', 'Modi', 'Ambani', 'MotaBahi'],
+                    labels: ['Gold/Silver', 'Stock', 'Cryptocurrency', 'Currency Exchange'],
                     datasets: [
                         {
                         label: '# of votes',
-                        data: [12, 19, 3, 5, 2, 3],
+                        data: data,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

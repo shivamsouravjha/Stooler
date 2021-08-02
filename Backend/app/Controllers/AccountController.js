@@ -55,7 +55,7 @@ export default class AccountController extends Controller {
     getData (request) {
       try{
         const value = request.params.uid;
-        const user = this.service.findUid(value);
+        const user = this.service.findUid(value,request.body);
         user.then(res => {
             this.sendResponse(res);
           })
@@ -67,13 +67,18 @@ export default class AccountController extends Controller {
         this.handleException(error)
     }
     }
-    //  verifyUsername (request) {
-    //     try{
-    //         const exist =  this.service.verifyUsername(request);
-    //         return exist
-    //     } catch (error) {
-    //         Logger.error("Error at finding account",error);
-    //         this.handleException(error)
-    //     }
-    // }
+      verifyUsername (request) {
+          try{
+              const exist =  this.service.verifyUsername(request);
+              exist.then(res => {
+                this.sendResponse(res);
+              })
+              .catch (error => {
+                this.handleException(error);
+              }) 
+          } catch (error) {
+              Logger.error("Error at finding account",error);
+              this.handleException(error)
+          }
+      }
 }

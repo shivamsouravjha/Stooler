@@ -17,16 +17,24 @@ export default class SourceRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.findById(obj,'-groupPayment');
+            const found = await GroupModel.findById(obj,'-groupPayment').populate('sources');
             return found;
         } catch (error) {
             throw error
         }
     }
 
+    async findGroupApproval (obj) {
+        try {
+            const found = await SourceModel.find({approved:false}).populate('group');
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
 
     async findSource (obj) {
-        try {
+        try {            
             const found = await SourceModel.findById(obj);
             return found;
         } catch (error) {
@@ -64,21 +72,54 @@ export default class SourceRepository {
             const sourceModel = new SourceModel({
                 name,details,targetPrice,duration,price,unitsPurchase,approved:approved,suggestorName,group:groupId
             })
-            await sourceModel.save({ session: sess });
-            const sess = await mongoose.startSession();
-            sess.startTransaction();
-            groupInfo.sources.push(sourceModel._id); 
-            await groupInfo.save({ session: sess }); 
-            await sess.commitTransaction(); 
+            if(approved){
+                const sess = await mongoose.startSession();
+                sess.startTransaction();
+                await sourceModel.save({ session: sess });
+                groupInfo.sources.push(sourceModel._id); 
+                groupInfo.sources.push(sourceModel._id);
+                await groupInfo.save({ session: sess }); 
+                await sess.commitTransaction(); 
+            }
+            await sourceModel.save();
+            // console.log(sourceModel,groupInfo)
+            // const sess = await mongoose.startSession();
+            // sess.startTransaction();
+            // // await sourceModel.save({ session: sess });
+
+            // groupInfo.sources.push(sourceModel._id); 
+            // // await groupInfo.save({ session: sess }); 
+            // await sess.commitTransaction(); 
             return {"success":true};
         } catch (error) {
             throw error
         }
     }
-
+    async saveSource(groupInfo,sourceInfo){
+        try{
+            sourceInfo.approved = true;
+            const sess = await mongoose.startSession();
+            sess.startTransaction();
+            console.log(groupInfo,sourceInfo);
+            await sourceInfo.save({ session: sess });
+            groupInfo.sources.push(sourceInfo._id); 
+            await groupInfo.save({ session: sess }); 
+            await sess.commitTransaction(); 
+            console.log(groupInfo,sourceInfo);
+            return true;
+        }catch (error){
+            throw error
+        }
+    }
+    async deleteSourceSet(obj){
+        try{    
+            await obj.remove();
+        } catch (error){
+            throw error;
+        }
+    }
     async deleteSource (obj) {
         try{
-            console.log(obj)
             const groupInfo = await this.findGroup(obj.groupId);
             const sourceInfo = await this.findSource(obj.sourceId);
             const sess = await mongoose.startSession();

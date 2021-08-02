@@ -54,7 +54,8 @@ export default class AccountController extends Controller {
 
     getGroups (request) {
       try {
-        const promise  = this.service.getGroups(request.body);
+        const uid = request.params.uid;
+        const promise  = this.service.getGroups(uid,request.body);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
@@ -68,7 +69,7 @@ export default class AccountController extends Controller {
     getGroup (request) {
       try {
         let value = {_id:request.params.groupId};
-        const promise  = this.service.getGroups(value);
+        const promise  = this.service.getOwnGroup(value);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

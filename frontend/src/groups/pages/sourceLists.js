@@ -4,6 +4,7 @@ import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import { useParams } from 'react-router-dom';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -75,91 +76,96 @@ function Table({ columns, data }) {
   )
 }
 
-function Group() {
+function SourceDetails() {
   const [compLoading, setCompLoading] = useState(true);
   const columns = React.useMemo(
     () => [
       {
-        Header: 'My Groups',
+        Header: 'Group Sources',
         columns: [
           {
             Header: 'ID',
             accessor: '_id',
-            Cell: e => <button><NavLink to={`/yourgroup/${e.value}`}>{e.value} </NavLink></button>
+            Cell: e => <button><NavLink to={`/source/${e.value}`}>{e.value} </NavLink></button>
           },  
           {
-            Header: ' Group Name',
-            accessor: 'groupName',
+            Header: 'Source Name',
+            accessor: 'name',
           },
           {
-            Header: 'My Groups',
-            accessor: 'groupOwner',
-          }, 
+            Header: 'TargetPrice',
+            accessor: 'targetPrice',
+          }, {
+            Header: 'Prices',
+            accessor: 'price',
+          },
         ],
       },
     ],
     []
   );
-  const [isLoading, setIsLoading] = useState(false);
+//   const [isLoading, setIsLoading] = useState(false);
 
-  const [groupName,setName]=useState("");
-  const [genre,setGenre]=useState("");
-  const [duration,setDuration]=useState("");
-  const [amount,setAmount]=useState("");
-  const [error, setError] = useState();
+//   const [groupName,setName]=useState("");
+//   const [genre,setGenre]=useState("");
+//   const [duration,setDuration]=useState("");
+//   const [amount,setAmount]=useState("");
+//   const [error, setError] = useState();
 
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
+  const gid= useParams().gid;
+  console.log(useParams())
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         var userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
+        console.log("gid");
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST"
+          `http://stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"
         );
-        console.log(responseData.data.groups)
-        const dataResponse = responseData.data.groups;
+        console.log(responseData.data.source)
+        const dataResponse = responseData.data.source;
         setLoadedUsers(dataResponse);
         setCompLoading(false)
       } catch (err) {
         console.log(err)
         setCompLoading(false);
-        setError(err.message || 'Something went wrong, please try again.');
       }
     };
     fetchUsers();
   }, []);
-  const onSubmitform = async e =>{
-    e.preventDefault();
-    try{   
-      setCompLoading(true);
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
-        var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
-        body = JSON.stringify(body)
-        const responseData = await sendRequest(
-            `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
-                'Content-Type': 'application/json'
-        });
-        const dataResponse = responseData.data;
+//   const onSubmitform = async e =>{
+//     e.preventDefault();
+//     try{   
+//       setCompLoading(true);
+//         var userid = localStorage.getItem('__react_session__');
+//         userid = await JSON.parse(userid)
+//         userid = userid['userid']
+//         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
+//         body = JSON.stringify(body)
+//         const responseData = await sendRequest(
+//             `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
+//                 'Content-Type': 'application/json'
+//         });
+//         const dataResponse = responseData.data;
 
-        setLoadedUsers(dataResponse);
+//         setLoadedUsers(dataResponse);
 
-        console.log(responseData.data)
-        setCompLoading(false);        
-    }catch(err){
-      console.log(err)
-      setCompLoading(false);
-        setError(err.message || 'Something went wrong, please try again.');
-    }
-}
+//         console.log(responseData.data)
+//         setCompLoading(false);        
+//     }catch(err){
+//       console.log(err)
+//       setCompLoading(false);
+//         setError(err.message || 'Something went wrong, please try again.');
+//     }
+// }
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
   return (
         <Fragment>          
-          <div className="group_form_div">
+          {/* <div className="group_form_div">
 		<center>
             <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
                 <h4>
@@ -204,7 +210,7 @@ function Group() {
                 </button>
             </form> 
         </center>
-    </div>
+    </div> */}
     {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data </h1>:(
             <Styles>
               <Table columns={columns} data={data} />
@@ -214,4 +220,4 @@ function Group() {
       );
 }
 
-export default Group
+export default SourceDetails;

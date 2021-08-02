@@ -11,9 +11,9 @@ export default class AccountService{
 
     async addUserToGroup(args) {
         try {
-            const {userId,amount,groupId}=args
+            const {userId,groupId}=args
             let verifyUserId =  await this.verifyUserDetail({_id:userId})
-            let verifyGroupId =  (await this.getGroups({_id:groupId}))[0];
+            let verifyGroupId =  (await this.getGroups({_id:userId},{_id:groupId}))[0];
             if(!verifyUserId){
                 throw (new Exceptions.ConflictException("No user found"));
             }
@@ -59,13 +59,37 @@ export default class AccountService{
     }
 
 
-    async getGroups(args){
+    async getGroups(uid,args){
         try {
+            function clean(obj) {
+                for (var propName in obj) {
+                  if (obj[propName] === null || obj[propName] === '') {
+                    delete obj[propName];
+                  }
+                }
+                return obj
+            }
+            args = clean(args);
             let groupsInfo = await this.repository.findGroup(args);
+            console.log(groupsInfo)
+            function checkUid(uids) {
+                return !uids.members.includes(uid);
+            };
+            groupsInfo = groupsInfo.filter(checkUid);
             groupsInfo.sort(function(a,b){
                 return (b.members).length-(a.members).length;
             })
             return groupsInfo;
+        } catch (error) {
+            throw (new Exceptions.ValidationException(error.message));
+        }
+    }
+
+    async getOwnGroup(args) {
+        try {
+
+            let groupsInfo = await this.repository.findGroup(args);
+            return groupsInfo[0];
         } catch (error) {
             throw (new Exceptions.ValidationException("Error finding groups"));
         }
