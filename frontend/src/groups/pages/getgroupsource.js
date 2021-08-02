@@ -101,13 +101,19 @@ function GroupSource() {
               Header: 'Unit Purchase',
               accessor: 'unitsPurchase',
             },
-            {
-                Header: 'Aceept',
+            {   
+                width:30,
+                Header: 'Aceept/Reject',
                 accessor: '_id',
                 Cell: ({ cell }) => (
+                  <Fragment>
                   <button>
-                   <NavLink to={`/request/${cell.row.values._id}`}>Accept </NavLink>
+                   <NavLink to={`/request/${cell.row.values._id}/${true}`}>Accept </NavLink>
                   </button>
+                  <button>
+                  <NavLink to={`/request/${cell.row.values._id}/${false}`}>Reject </NavLink>
+                 </button>
+                 </Fragment>
                 )
             }
           ],
