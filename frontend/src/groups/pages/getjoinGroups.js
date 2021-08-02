@@ -92,6 +92,14 @@ function JoinGroup() {
             accessor: 'description',
           },
           {
+            Header: 'Type of Group',
+            accessor: 'genre',
+          },
+          {
+            Header: 'Total Cash Flow',
+            accessor: 'totalsum',
+          },
+          {
             Header: 'Group ID',
             accessor: '_id',
             Cell: e => <button><NavLink to={`/group/${e.value}`}>{e.value} </NavLink></button>
