@@ -68,8 +68,8 @@ color:rgb(165, 7, 7);
     width:16rem;
     height:3rem;
     background-color:white;
-   color:#ff0055;
-   border-color: #ff0055;
+   color:#0a657e;
+   border-color: #0a657e;
    border-radius:5px;
     margin: auto 10%;
     font-size: 1.5rem;
@@ -78,11 +78,11 @@ color:rgb(165, 7, 7);
 .confirm_btns:hover{
   
   color:white;
- background-color:#ff0055;
+ background-color:#0a657e;
  }
 
 /* css for mobile view*/
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 650px) {
   .auth_form {
   border-radius: 5px;
   width:fit-content;

@@ -5,7 +5,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { useParams } from 'react-router-dom';
-
+import './sourceLists.css';
 const Styles = styled.div`
   padding: 1rem;
 
@@ -50,8 +50,8 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <table className="source_list_table" {...getTableProps()}>
+      <thead className="join_group_header">
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
@@ -64,7 +64,7 @@ function Table({ columns, data }) {
         {rows.map((row, i) => {
           prepareRow(row)
           return (
-            <tr {...row.getRowProps()}>
+            <tr className="join_group_data" {...row.getRowProps()}>
               {row.cells.map(cell => {
                 return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
               })}
@@ -81,24 +81,25 @@ function SourceDetails() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Group Sources',
+        Header: 'GROUP SOURCES',
         columns: [
-          {
-            Header: 'ID',
-            accessor: '_id',
-            Cell: e => <button><NavLink to={`/source/${e.value}`}>{e.value} </NavLink></button>
-          },  
+          
           {
             Header: 'Source Name',
             accessor: 'name',
           },
           {
-            Header: 'TargetPrice',
+            Header: 'Target Price',
             accessor: 'targetPrice',
           }, {
             Header: 'Prices',
             accessor: 'price',
           },
+          {
+            Header: 'Source Link',
+            accessor: '_id',
+            Cell: e => <NavLink className="join_group_link" to={`/source/${e.value}`}>View Source </NavLink>
+          },  
         ],
       },
     ],
@@ -211,7 +212,7 @@ function SourceDetails() {
             </form> 
         </center>
     </div> */}
-    {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data </h1>:(
+    {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data found </h1>:(
             <Styles>
               <Table columns={columns} data={data} />
             </Styles>

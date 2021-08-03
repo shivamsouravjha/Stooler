@@ -141,7 +141,8 @@ const Auth = () => {
       <ErrorModal error={error} onClear={errorHandler} />
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
-        <h2>Login Required</h2>
+        <h1>Login Required</h1>
+        <h4>It is mandatory to fill all the fields<span>*</span></h4>
         <hr />
         <form onSubmit={authSubmitHandler}>
           {!isLoginMode && (
@@ -183,7 +184,7 @@ const Auth = () => {
               element="input"
               id="panNumber"
               type="text"
-              label="Your 10 digit pancard Number"
+              label="Your 10 digit PAN Card Number"
               validators={[VALIDATOR_FIXLENGTH(10)]}
               errorText="Please enter exact 10 digit Pancard number."
               onInput={inputHandler}
@@ -194,7 +195,7 @@ const Auth = () => {
               element="input"
               id="aadhar"
               type="text"
-              label="Your 12 digit aadhar Number"
+              label="Your 12 digit AADHAR Number"
               validators={[VALIDATOR_FIXLENGTH(12)]}
               errorText="Please enter exact 12 digit aadhar number."
               onInput={inputHandler}
@@ -205,7 +206,8 @@ const Auth = () => {
               element="input"
               id="username"
               type="text"
-              label = "Create User name having 4 last digit characteras same as of Pancard"
+              label = "Create a Username"
+              placeholder=" Username must've last 4 digits of PAN number"
               validators={[VALIDATOR_MINLENGTH(7)]}
               errorText="Create a user Name of length at least 7"
               onInput={inputHandler}
@@ -227,9 +229,10 @@ const Auth = () => {
               element="input"
               id="password"
               type="password"
-              label="Create Password having 1 number,1 small and 1 capital character of length at least 8"
+              label="Create a Password"
+              placeholder="using Combination of {0-9},{a-z},{A-Z}"
               validators={[VALIDATOR_PASSWORD()]}
-              errorText="Please enter a valid password"
+              errorText="Please enter a valid password: Min length= 8"
               onInput={inputHandler}
             />)
           }
