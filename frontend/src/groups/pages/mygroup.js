@@ -133,6 +133,9 @@ function Group() {
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
         );
+        if(responseData['status']!=200 && responseData['status']!=202){
+          throw responseData.error;
+      }
         console.log(responseData.data)
         const dataResponse = responseData.data;
         setLoadedUsers(dataResponse);
@@ -158,11 +161,14 @@ function Group() {
             `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
+        if(responseData['status']!=200 && responseData['status']!=202){
+          throw responseData.error;
+        }
         const dataResponse = responseData.data;
 
         setLoadedUsers(dataResponse);
 
-        console.log(responseData.data)
+        console.log(responseData.data);
         setCompLoading(false);        
     }catch(err){
       console.log(err)

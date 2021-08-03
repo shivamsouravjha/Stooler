@@ -17,6 +17,9 @@ const Group = () => {
             const responseData = await sendRequest(
             `http://stool-back.herokuapp.com/api/source/getcompanydetails/${sid}`,"POST"
             );
+            if(responseData['status']!=200 && responseData['status']!=202){
+                throw responseData.error;
+            }
             console.log(responseData.data)
             const dataResponse = responseData.data.source;
             setLoadedGroup(dataResponse);

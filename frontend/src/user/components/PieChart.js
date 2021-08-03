@@ -23,7 +23,9 @@ const PieChart = () => {
           `http://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
         );
         console.log("responseData")
-
+        if(responseData['status']!=200 && responseData['status']!=202){
+          throw responseData.error;
+        }
         const dataResponse = responseData.data.shares.map((val)=>{
             return val.amount;
         });
