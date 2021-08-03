@@ -6,34 +6,45 @@ import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-
+import './searchgroup.css';
+import './getjoinGroups.css';
 const Styles = styled.div`
-  padding: 1rem;
+padding:0rem;
+table {
+  border-spacing: 0;
+  border: 1px solid black;
 
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
+  tr {
+    :last-child {
+      td {
+        border-bottom: 0;
       }
     }
   }
+
+  th{
+    
+    text-align:center;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    :last-child {
+      border-right: 0;
+    }
+    
+  }
+  tbody td {
+    
+    text-align:center;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+
+    :last-child {
+      border-right: 0;
+    }
+  }
+}
 `
 
 function Table({ columns, data }) {
@@ -51,23 +62,23 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <table {...getTableProps()} className="join_group_table">
+      <thead className="join_group_header">
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              <th className="join_group_head" {...column.getHeaderProps()}>{column.render('Header')}</th>
             ))}
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()}>
+      <tbody className="join_group_body" {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row)
           return (
-            <tr {...row.getRowProps()}>
+            <tr className="join_group_row" {...row.getRowProps()}>
               {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                return <td className="join_group_data" {...cell.getCellProps()}>{cell.render('Cell')}</td>
               })}
             </tr>
           )
@@ -82,13 +93,9 @@ function Group() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'My Groups',
+        Header: 'MY GROUPS',
         columns: [
-          {
-            Header: 'ID',
-            accessor: '_id',
-            Cell: e => <button><NavLink to={`/yourgroup/${e.value}`}>{e.value} </NavLink></button>
-          },  
+            
           {
             Header: ' Group Name',
             accessor: 'groupName',
@@ -97,6 +104,11 @@ function Group() {
             Header: 'My Groups',
             accessor: 'groupOwner.name',
           }, 
+          {
+            Header: 'Group Details',
+            accessor: '_id',
+            Cell: e => <NavLink className="join_group_link" to={`/group/${e.value}`}> Click here </NavLink>
+          },
         ],
       },
     ],
@@ -163,31 +175,31 @@ function Group() {
         <Fragment>          
           <div className="group_form_div">
 		<center>
-            <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
-                <h4>
-                    Search Group 
-                </h4> 
+            <form  action="/" id="event_form"  name="event_form" className="search_form" onSubmit={onSubmitform}>
+                <h2 className="search_header">
+                    Filter Groups by 
+                </h2> 
                 <hr/>
-                <label for="groupName">
-                    By Group Name<span > * </span> 
+                <label for="groupName" className="search_label">
+                   Group Name :
                 </label>
-                <input type="text" name="groupName"  value={groupName} placeholder="Enter a Unique group name" onChange={e =>setName(e.target.value)}  />
-                <br/>
-                <label for="genre">
-                    By Genre <span > * </span> 
+                <input type="text" name="groupName" className="search_input"  value={groupName} placeholder="Enter the GroupName" onChange={e =>setName(e.target.value)}  />
+                &nbsp; 
+                <label for="genre" className="search_label">
+                    Genre :
                 </label>
-                <select name="genre" onChange={e =>setGenre(e.target.value)}>
+                <select className="search_input" name="genre" onChange={e =>setGenre(e.target.value)}>
                     <option></option>
                     <option value="Gold/Silver" className="options">Gold/Silver</option>
                     <option value="Stock" className="options">Stock</option>
                     <option value="Cryptocurrency" className="options">Cryptocurrency</option>
                     <option value="Currency Exchange" className="options">Currency Exchange</option>
                 </select>
-                <br/>
-                <label for="duration">
-                    Minimum Duration of Investment <span > * </span> 
+                &nbsp; 
+                <label for="duration" className="search_label">
+                    Minimum Duration of Investment :
                 </label>
-                <select name="duration" onChange={e =>setDuration(e.target.value)}>
+                <select className="search_input" name="duration" onChange={e =>setDuration(e.target.value)}>
                     <option></option>
                     <option value="1" className="options">1 Month</option>
                     <option value="3" className="options">3 Months</option>
@@ -195,13 +207,13 @@ function Group() {
                     <option value="12" className="options">1 Year</option>
                     <option value="60" className="options">5 Years</option>
                 </select>  
-                <br/>
-                <label for="amount" >
-                    By Minimum Amount<span > * </span> 
+                &nbsp; 
+                <label for="amount" className="search_label" >
+                    Minimum Amount :
                 </label>
-                <input type="number" name="amount" value={amount} placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)}  />
-                <br/>
-                <button type="submit">
+                <input className="search_input" type="number" name="amount" value={amount} placeholder="Enter Min Amount" onChange={e =>setAmount(e.target.value)}  />
+                <br/><br/>
+                <button type="submit" className="search_button">
                     Search
                 </button>
             </form> 
