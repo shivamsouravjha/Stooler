@@ -7,11 +7,11 @@
 html {
   font-family: 'Open Sans', sans-serif;
 }
-
-body {
+body{
   margin: 0;
-  background: #4d4d4d;
+  background:#c5d7dc;
 }
+
 
 .slide-in-left-enter {
   transform: translateX(-100%);

@@ -8,7 +8,7 @@ const Main = props => {
     const auth = useContext(AuthContext);
   
     return (
-       
+      <div className="group">
       <ul className="group-links">
         
         <li> <Link to={`/group_auth`}> 
@@ -22,6 +22,7 @@ const Main = props => {
         
         
       </ul>
+      </div>
     );
   };
   

@@ -14,6 +14,11 @@ const NavLinks = props => {
           HOME
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/aboutus" exact>
+          ABOUT US
+        </NavLink>
+      </li>
       {auth.isLoggedIn && (
         <li>
           <NavLink to="/portfolio">PORTFOLIO</NavLink>
