@@ -31,7 +31,7 @@ tr:nth-child(2n+1){
     font-size:1.3rem;
 }
 
-@media only screen and (max-width: 1050px) {
+@media only screen and (max-width: 1250px) {
 
     .source_list_table{
         width:28rem;
@@ -43,8 +43,8 @@ th{
 tbody td{
     height: 45px;
 }
-.join_group_header{
-    font-size:1.2rem;
+.source_group_header{
+    font-size:1.1rem;
 
 }
 .join_group_data{
@@ -54,8 +54,8 @@ tbody td{
 .join_group_link{
     margin:auto;
     height:3.8rem;
-    padding: 0.2rem 0.4rem;
-    font-size:0.8rem;
+    padding: 0.2rem 0.3rem;
+    font-size:1rem;
 }
 
 }
@@ -82,7 +82,7 @@ tbody td{
 .join_group_link{
     margin:auto;
     height:2.5rem;
-    padding: 0.1rem 0.4rem;
+    padding: 0.3rem 0.1rem;
     font-size:0.7rem;
 }
 
