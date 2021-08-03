@@ -107,7 +107,7 @@ function Group() {
           {
             Header: 'Group Details',
             accessor: '_id',
-            Cell: e => <NavLink className="join_group_link" to={`/group/${e.value}`}> Click here </NavLink>
+            Cell: e => <NavLink className="join_group_link" to={`/yourgroup/${e.value}`}> Click here </NavLink>
           },
         ],
       },
