@@ -66,7 +66,8 @@ export default class CompanyController extends Controller {
     
     editSource (request) {
       try {
-        const value = request.params.sid;
+        const value={'sid':request.params.sid};
+        value['uid'] = request.params.uid;
         const promise  = this.service.editSourceDetails(value,request.body);
         promise.then(res=>{
           this.sendResponse(res);
@@ -92,9 +93,9 @@ export default class CompanyController extends Controller {
       } 
     }
 
-    getApproval (request) {
+    getAprrovalAdd (request) {
       try {
-        const promise  = this.service.getAprroval(request.params.uid);
+        const promise  = this.service.getAprrovalAdd(request.params.uid);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
@@ -105,10 +106,10 @@ export default class CompanyController extends Controller {
       } 
     }
 
-    setApproval (request) {
+    setApprovalAdd (request) {
       try {
         request.body['sid'] = request.params.sid;
-        const promise  = this.service.setAprroval(request.body);
+        const promise  = this.service.setAprrovalAdd(request.body);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

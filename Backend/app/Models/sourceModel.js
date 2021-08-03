@@ -11,6 +11,8 @@ const sourceSchema = new schema({
     price: {type :Number,required: true},
     unitsPurchase: {type: Number,required: true},
     approved: {type: Boolean},
+    type: {type: String},
+    editsuggestion: {type: Number},
     suggestorName: {type: String},
     group:{type :mongoose.Types.ObjectId,required:false,ref:'Group'},
 },{
