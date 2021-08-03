@@ -58,18 +58,24 @@ export default class AccountService{
     async getSources(args){
         try {
             let sourceInfo = await this.repository.findGroup(args);
-            return {'source':sourceInfo.sources};
+           return {'source':sourceInfo.sources};
+            
         } catch (error) {
             throw (new Exceptions.ValidationException("Error finding sources"));
         }
     }
 
-    async getSourceDetails(args){
+    async getSourceDetails(args,bool,value){
         try {
             let sourceInfo = await this.repository.findSource(args);
-            return {'source':sourceInfo};
+            if(!bool)return {'source':sourceInfo};
+            else{
+                console.log(sourceInfo);
+                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion}); 
+                return promise;
+            }
         } catch (error) {
-            throw (new Exceptions.ValidationException("Error finding sources"));
+            throw error
         }
     }
 
@@ -89,6 +95,10 @@ export default class AccountService{
             }
             if(groupInfo.groupOwner == value.uid){
                 sourceInfo['unitsPurchase'] = args.unitsPurchase; 
+                sourceInfo.type = "APPROVED";
+                sourceInfo.approved= true;
+                sourceInfo['editsuggestion']=0;
+                console.log(sourceInfo.editsuggestion)
                 await this.repository.editSource(groupInfo);
                 await this.repository.editSource(sourceInfo);
                 return {'success':true,message:"Source quantity edited"};
@@ -99,7 +109,7 @@ export default class AccountService{
                 return {'success':true,message:"Edit suggestion sent to Group Owner"};
             }           
         } catch (error) {
-            throw (new Exceptions.ValidationException("Error finding sources"));
+            throw error;
         }
     }
 

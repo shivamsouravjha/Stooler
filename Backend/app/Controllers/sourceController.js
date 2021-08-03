@@ -53,7 +53,7 @@ export default class CompanyController extends Controller {
     getSource (request) {
       try {
         const value = request.params.sid;
-        const promise  = this.service.getSourceDetails(value);
+        const promise  = this.service.getSourceDetails(value,false,null);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
@@ -106,10 +106,19 @@ export default class CompanyController extends Controller {
       } 
     }
 
-    setApprovalAdd (request) {
+    setApproval (request) {
       try {
         request.body['sid'] = request.params.sid;
-        const promise  = this.service.setAprrovalAdd(request.body);
+        let promise;
+        if(request.params.type == "ADD"){
+          promise = this.service.setAprrovalAdd(request.body);
+        }else if(request.params.type == "EDIT"){
+          const value={'sid':request.params.sid};
+          value['uid'] = request.params.uid;
+          promise  =  this.service.getSourceDetails(request.params.sid,true,value)
+        }else if(request.params.type == "REMOVE"){
+
+        }
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
