@@ -82,11 +82,11 @@ export default class SourceRepository {
                 sess.startTransaction();
                 await sourceModel.save({ session: sess });
                 groupInfo.sources.push(sourceModel._id); 
-                groupInfo.sources.push(sourceModel._id);
                 await groupInfo.save({ session: sess }); 
                 await sess.commitTransaction(); 
-            }
+            }else{
             await sourceModel.save();
+            }
             // console.log(sourceModel,groupInfo)
             // const sess = await mongoose.startSession();
             // sess.startTransaction();
@@ -117,6 +117,14 @@ export default class SourceRepository {
     async deleteSourceSet(obj){
         try{    
             await obj.remove();
+        } catch (error){
+            throw error;
+        }
+    }
+    
+    async editSource(obj){
+        try{    
+            await obj.save();
         } catch (error){
             throw error;
         }

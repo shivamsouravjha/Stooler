@@ -56,6 +56,29 @@ export default class AccountService{
         }
     }
 
+    async editSourceDetails(sid,args){
+        try {
+            let sourceInfo = await this.repository.findSource(sid);
+            if(!sourceInfo){
+                throw (new Exceptions.NotFoundException("No such user found"))
+            }            
+            let groupInfo  = await this.repository.findGroup(sourceInfo.group)
+            if(!groupInfo){
+                throw (new Exceptions.NotFoundException("No such group found"))
+            } 
+            groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*sourceInfo['price']);
+            if(groupInfo['fund']<0){
+                throw (new Exceptions.ConflictException("Source funds less than group amount"));
+            }
+            sourceInfo['unitsPurchase'] = args.unitsPurchase;
+            await this.repository.editSource(groupInfo);
+            await this.repository.editSource(sourceInfo);
+            return {'success':true,message:"Source quantity edited"};
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
+
     async getAprroval(uid){
         try {
             let sourceInfo = await this.repository.findGroupApproval();

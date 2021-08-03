@@ -63,6 +63,20 @@ export default class CompanyController extends Controller {
         this.handleException(error);
       }
     }
+    
+    editSource (request) {
+      try {
+        const value = request.params.sid;
+        const promise  = this.service.editSourceDetails(value,request.body);
+        promise.then(res=>{
+          this.sendResponse(res);
+        }).catch(error =>{
+          this.handleException(error);
+        })
+      } catch(error){
+        this.handleException(error);
+      }
+    }
 
     getSources (request) {
       try {
