@@ -95,7 +95,7 @@ function Group() {
           },
           {
             Header: 'My Groups',
-            accessor: 'groupOwner',
+            accessor: 'groupOwner.name',
           }, 
         ],
       },

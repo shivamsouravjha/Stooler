@@ -18,7 +18,7 @@ export default class GroupRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.find(obj).populate('sources');
+            const found = await GroupModel.find(obj).populate('sources').populate('groupOwner');
             return found;
         } catch (error) {
             throw error
