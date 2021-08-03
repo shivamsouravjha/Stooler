@@ -24,9 +24,9 @@ export default class SourceRepository {
         }
     }
 
-    async findGroupApproval (obj) {
+    async findGroupApprovalAdd (obj) {
         try {
-            const found = await SourceModel.find({approved:false}).populate('group');
+            const found = await SourceModel.find({approved:false,type:obj}).populate('group');
             return found;
         } catch (error) {
             throw error
@@ -62,58 +62,41 @@ export default class SourceRepository {
     }
 
 
-    async createSource (obj) {
+    async createSource(sourceModel,groupInfo,approved) {
         try{
-            const groupInfo = await this.findGroup(obj.groupId);
-            const accountInfo = await this.findUser(obj.userId);
-            const suggestorName = accountInfo.name;
-            const {name,details,targetPrice,duration,price,unitsPurchase,groupId}=obj
-            const approved = groupInfo.groupOwner == obj.userId?true:false;
-            const sourceModel = new SourceModel({
-                name,details,targetPrice,duration,price,unitsPurchase,approved:approved,suggestorName,group:groupId
-            })
-            groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
-            if(groupInfo['fund']<0){
-                throw {"message":`Source price more than current fund of group, exceeds by = ${price*unitsPurchase-groupInfo['fund']}`}
-            }
-            console.log("rte")
-            if(approved){                
+            if(approved){    
+                console.log(sourceModel,groupInfo,approved)            
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
                 await sourceModel.save({ session: sess });
-                groupInfo.sources.push(sourceModel._id); 
+                groupInfo.sources.push(sourceModel); 
                 await groupInfo.save({ session: sess }); 
                 await sess.commitTransaction(); 
+                return {"success":true,"message":"Source Added"};
             }else{
-            await sourceModel.save();
+                await sourceModel.save();
+                return {"success":true,"message":"Source sent to Group Owner for approval"};
             }
-            // console.log(sourceModel,groupInfo)
-            // const sess = await mongoose.startSession();
-            // sess.startTransaction();
-            // // await sourceModel.save({ session: sess });
-
-            // groupInfo.sources.push(sourceModel._id); 
-            // // await groupInfo.save({ session: sess }); 
-            // await sess.commitTransaction(); 
-            return {"success":true};
+            
         } catch (error) {
+            console.log(error)
             throw error
         }
     }
-    async saveSource(groupInfo,sourceInfo){
-        try{
-            sourceInfo.approved = true;
-            const sess = await mongoose.startSession();
-            sess.startTransaction();
-            await sourceInfo.save({ session: sess });
-            groupInfo.sources.push(sourceInfo._id); 
-            await groupInfo.save({ session: sess }); 
-            await sess.commitTransaction(); 
-            return true;
-        }catch (error){
-            throw error
-        }
-    }
+    // async saveSource(groupInfo,sourceInfo){
+    //     try{
+    //         sourceInfo.approved = true;
+    //         const sess = await mongoose.startSession();
+    //         sess.startTransaction();
+    //         await sourceInfo.save({ session: sess });
+    //         groupInfo.sources.push(sourceInfo._id); 
+    //         await groupInfo.save({ session: sess }); 
+    //         await sess.commitTransaction(); 
+    //         return true;
+    //     }catch (error){
+    //         throw error
+    //     }
+    // }
     async deleteSourceSet(obj){
         try{    
             await obj.remove();
@@ -129,10 +112,8 @@ export default class SourceRepository {
             throw error;
         }
     }
-    async deleteSource (obj) {
+    async deleteSource (groupInfo,sourceInfo) {
         try{
-            const groupInfo = await this.findGroup(obj.groupId);
-            const sourceInfo = await this.findSource(obj.sourceId);
             const sess = await mongoose.startSession();
             sess.startTransaction();
             await sourceInfo.remove({session:sess});
