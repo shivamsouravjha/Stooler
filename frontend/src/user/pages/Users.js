@@ -18,7 +18,6 @@ const Users = () => {
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
         );
-        console.log(responseData.data)
         const dataResponse = responseData.data;
         setLoadedUsers(dataResponse);
         setCompLoading(false)

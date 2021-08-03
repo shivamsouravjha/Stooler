@@ -23,6 +23,11 @@ SourceApiRouter.post('/getcompanydetails/:sid', (request, response) => {
   groupController.getSource(request);
 });
 
+SourceApiRouter.post('/edit/sources/:sid', (request, response) => {
+  const groupController = new SourceController(response);
+  groupController.editSource(request);
+});
+
 SourceApiRouter.post('/approve/:uid', (request, response) => {
   const groupController = new SourceController(response);
   groupController.getApproval(request);

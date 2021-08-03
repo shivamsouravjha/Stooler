@@ -21,9 +21,9 @@ export default class AccountService{
     async createSource(args) {
         try {
             await this.repository.createSource(args);
-            return {message: 'Group Created!',success: true}
+            return {message: 'Source Created!',success: true}
         } catch (error) {
-            throw (new Exceptions.ValidationException("Error finding creating source"));
+            throw error;
         }
     }
 
@@ -56,6 +56,29 @@ export default class AccountService{
         }
     }
 
+    async editSourceDetails(sid,args){
+        try {
+            let sourceInfo = await this.repository.findSource(sid);
+            if(!sourceInfo){
+                throw (new Exceptions.NotFoundException("No such user found"))
+            }            
+            let groupInfo  = await this.repository.findGroup(sourceInfo.group)
+            if(!groupInfo){
+                throw (new Exceptions.NotFoundException("No such group found"))
+            } 
+            groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*sourceInfo['price']);
+            if(groupInfo['fund']<0){
+                throw (new Exceptions.ConflictException("Source funds less than group amount"));
+            }
+            sourceInfo['unitsPurchase'] = args.unitsPurchase;
+            await this.repository.editSource(groupInfo);
+            await this.repository.editSource(sourceInfo);
+            return {'success':true,message:"Source quantity edited"};
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding sources"));
+        }
+    }
+
     async getAprroval(uid){
         try {
             let sourceInfo = await this.repository.findGroupApproval();
@@ -71,12 +94,14 @@ export default class AccountService{
     
     async setAprroval(args){
         try {
-            console.log(args)
             let sourceInfo = await this.repository.findSource(args.sid);
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
-            if(args.set){
+            if(args.set == "true"){
+                console.log(args.set)
+
                 await this.repository.saveSource(groupInfo,sourceInfo);
             }else{
+                console.log(args.set)
                 await this.repository.deleteSourceSet(sourceInfo);
             }
             return {'success':true};

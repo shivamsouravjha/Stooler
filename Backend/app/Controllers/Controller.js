@@ -62,7 +62,7 @@ export default class Contoller {
             break;
           default:
             // Logger.error(error.message);
-            this.response.status(501).json({ error: 'unable to process request!, please try later' });
+            this.response.status(501).json({ error: error.message });
             break;
         }
       }

@@ -66,6 +66,24 @@ To run this project, you will need to add the following environment variables to
 `cloudinary_api_secret`
 
 
+## Source Schema
+
+![Blank diagram](https://user-images.githubusercontent.com/60891544/127903441-a1b493b9-f071-40da-b502-e17ed7467a29.png)
+
+    
+## Authors
+
+- [@shivamsouravjha](https://github.com/shivamsouravjha)
+- [@SAKSHIRAMWANI](https://github.com/SAKSHIRAMWANI)
+- [@Shrestha25](https://github.com/Shrestha25)
+  
+  
+  
+## [Backend Link](https://stool-back.herokuapp.com/)
+
+## [Postman Requests](https://www.getpostman.com/collections/a6cc1f044a023f89a5d8)
+
+
 ## Tech Stack
 
 **Client:** React
@@ -79,15 +97,3 @@ To run this project, you will need to add the following environment variables to
 ![Logo](https://miro.medium.com/max/1400/0*iqBTxMY36028Eayz.jpg)
 ![Logo](https://techcrunch.com/wp-content/uploads/2019/06/MongoDB_Logo_FullColorBlack_RGB.png)
 ![Logo](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/1200px-Redis_Logo.svg.png)
-    
-## Authors
-
-- [@shivamsouravjha](https://github.com/shivamsouravjha)
-- [@SAKSHIRAMWANI](https://github.com/SAKSHIRAMWANI)
-- [@Shrestha25](https://github.com/Shrestha25)
-  
-  
-  
-## [Backend Link](https://stool-back.herokuapp.com/)
-
-## [Postman Requests](https://www.getpostman.com/collections/a6cc1f044a023f89a5d8)

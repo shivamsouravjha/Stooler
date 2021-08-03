@@ -37,9 +37,7 @@ const  Newgroup = ()=>{
             console.log(responseData)
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
-            setError(false);
-            window.location="/";
-            
+            setError(false);            
         }catch(err){
             setIsLoading(false);
             setError(err.message || 'Something went wrong, please try again.');

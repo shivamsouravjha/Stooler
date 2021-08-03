@@ -72,16 +72,21 @@ export default class SourceRepository {
             const sourceModel = new SourceModel({
                 name,details,targetPrice,duration,price,unitsPurchase,approved:approved,suggestorName,group:groupId
             })
-            if(approved){
+            groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
+            if(groupInfo['fund']<0){
+                throw {"message":`Source price more than current fund of group, exceeds by = ${price*unitsPurchase-groupInfo['fund']}`}
+            }
+            console.log("rte")
+            if(approved){                
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
                 await sourceModel.save({ session: sess });
                 groupInfo.sources.push(sourceModel._id); 
-                groupInfo.sources.push(sourceModel._id);
                 await groupInfo.save({ session: sess }); 
                 await sess.commitTransaction(); 
-            }
+            }else{
             await sourceModel.save();
+            }
             // console.log(sourceModel,groupInfo)
             // const sess = await mongoose.startSession();
             // sess.startTransaction();
@@ -100,12 +105,10 @@ export default class SourceRepository {
             sourceInfo.approved = true;
             const sess = await mongoose.startSession();
             sess.startTransaction();
-            console.log(groupInfo,sourceInfo);
             await sourceInfo.save({ session: sess });
             groupInfo.sources.push(sourceInfo._id); 
             await groupInfo.save({ session: sess }); 
             await sess.commitTransaction(); 
-            console.log(groupInfo,sourceInfo);
             return true;
         }catch (error){
             throw error
@@ -114,6 +117,14 @@ export default class SourceRepository {
     async deleteSourceSet(obj){
         try{    
             await obj.remove();
+        } catch (error){
+            throw error;
+        }
+    }
+    
+    async editSource(obj){
+        try{    
+            await obj.save();
         } catch (error){
             throw error;
         }
