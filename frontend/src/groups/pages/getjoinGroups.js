@@ -7,8 +7,8 @@ import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import './searchgroup.css';
 import './getjoinGroups.css';
 const Styles = styled.div`
-  padding: 1rem;
-
+  
+padding:0rem;
   table {
     border-spacing: 0;
     border: 1px solid black;
@@ -61,6 +61,7 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
+    
     <table {...getTableProps()} className="join_group_table">
       <thead className="join_group_header">
         {headerGroups.map(headerGroup => (
@@ -102,20 +103,17 @@ function JoinGroup() {
             accessor: 'groupName',
             
           },
+         
           {
-            Header: 'Group detaiss',
-            accessor: 'description',
-          },
-          {
-            Header: 'Type of Group',
+            Header: 'Group Type',
             accessor: 'genre',
           },
           {
-            Header: 'Total Cash Flow',
+            Header: 'Total Cash-Flow',
             accessor: 'totalsum',
           },
           {
-            Header: 'Group ID',
+            Header: 'Group Details',
             accessor: '_id',
             Cell: e => <NavLink className="join_group_link" to={`/group/${e.value}`}> Click here </NavLink>
           },
