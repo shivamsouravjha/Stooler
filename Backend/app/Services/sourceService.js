@@ -70,7 +70,6 @@ export default class AccountService{
             let sourceInfo = await this.repository.findSource(args);
             if(!bool)return {'source':sourceInfo};
             else{
-                console.log(sourceInfo);
                 const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion}); 
                 return promise;
             }
@@ -98,7 +97,6 @@ export default class AccountService{
                 sourceInfo.type = "APPROVED";
                 sourceInfo.approved= true;
                 sourceInfo['editsuggestion']=0;
-                console.log(sourceInfo.editsuggestion)
                 await this.repository.editSource(groupInfo);
                 await this.repository.editSource(sourceInfo);
                 return {'success':true,message:"Source quantity edited"};
