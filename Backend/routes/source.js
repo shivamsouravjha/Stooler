@@ -28,9 +28,9 @@ SourceApiRouter.post('/edit/sources/:sid/:uid', (request, response) => {
   groupController.editSource(request);
 });
 
-SourceApiRouter.post('/approve/:uid', (request, response) => {
+SourceApiRouter.post('/approve/:uid/:type', (request, response) => {
   const groupController = new SourceController(response);
-  groupController.getAprrovalAdd(request);
+  groupController.getAprroval(request);
 });
 
 SourceApiRouter.post('/setapproval/:sid', (request, response) => {

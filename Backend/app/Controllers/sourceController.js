@@ -93,9 +93,9 @@ export default class CompanyController extends Controller {
       } 
     }
 
-    getAprrovalAdd (request) {
+    getAprroval (request) {
       try {
-        const promise  = this.service.getAprrovalAdd(request.params.uid);
+        const promise  = this.service.getAprroval(request.params.uid,request.params.type);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

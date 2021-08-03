@@ -103,9 +103,9 @@ export default class AccountService{
         }
     }
 
-    async getAprrovalAdd(uid){
+    async getAprroval(uid,type){
         try {
-            let sourceInfo = await this.repository.findGroupApprovalAdd("ADD");
+            let sourceInfo = await this.repository.findGroupApprovalAdd(type);
             function checkUid(args) {
                 return args.group.groupOwner==uid;
             };
