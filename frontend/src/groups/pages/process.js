@@ -25,6 +25,9 @@ const Process = () => {
                 'Content-Type': 'application/json'
         }
         );
+        if(responseData['status']!=200 && responseData['status']!=202){
+            throw responseData.error;
+        }
         setCompLoading(false)
         } catch (err) {}
         };

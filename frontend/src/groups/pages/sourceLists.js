@@ -127,6 +127,9 @@ function SourceDetails() {
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"
         );
+        if(responseData['status']!=200 && responseData['status']!=202){
+          throw responseData.error;
+        }
         console.log(responseData.data.source)
         const dataResponse = responseData.data.source;
         setLoadedUsers(dataResponse);

@@ -136,6 +136,9 @@ function GroupSource() {
           const responseData = await sendRequest(
             `http://stool-back.herokuapp.com/api/source/approve/${userid}`,"POST"
           );
+          if(responseData['status']!=200 && responseData['status']!=202){
+            throw responseData.error;
+          }
           console.log(responseData.data.groups)
           const dataResponse = responseData.data.groups;
           setLoadedUsers(dataResponse);
