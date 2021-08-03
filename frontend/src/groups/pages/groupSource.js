@@ -35,6 +35,9 @@ const  JoinGroupAuth = ()=>{
                     'Content-Type': 'application/json'
             }
               );
+              if(responseData['status']!=200 && responseData['status']!=202){
+                throw responseData.error;
+            }
               console.log(responseData)
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
