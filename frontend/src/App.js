@@ -21,6 +21,7 @@ import YourGroup from './groups/pages/groupSource';
 import SourceDetails from './groups/pages/sourceDetails';
 import GetGroupSource from './groups/pages/getgroupsource';
 import Process from './groups/pages/process';
+import EditSource from './groups/pages/editsource';
 const App = () => {
   ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -75,6 +76,9 @@ const App = () => {
         </Route>
         <Route path="/request/:sid/:status" exact>
           <Process/>
+        </Route>
+        <Route path="/editsource/:sid/:userid" exact>
+          <EditSource/>
         </Route>
         <Redirect to="/" />       
       </Switch>

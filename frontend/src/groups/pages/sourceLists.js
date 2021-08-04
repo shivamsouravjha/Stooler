@@ -76,7 +76,7 @@ function Table({ columns, data }) {
   )
 }
 
-function SourceDetails() {
+function SourceDetails(props) {
   const [compLoading, setCompLoading] = useState(true);
   const columns = React.useMemo(
     () => [
@@ -98,8 +98,19 @@ function SourceDetails() {
           {
             Header: 'Source Link',
             accessor: '_id',
-            Cell: e => <NavLink className="join_group_link" to={`/source/${e.value}`}>View Source </NavLink>
-          },  
+            Cell: ({ cell }) =>(
+            <Fragment>
+              <NavLink className="join_group_link" to={`/source/${cell.value}`}>View Source </NavLink>
+              {props.valid ? (
+                  <button>
+                    <NavLink to={`/editsource/${cell.row.values._id}/${userid}`}>Edit/Delete </NavLink>
+                  </button>
+                ):
+                <p>Join to invest</p>
+              }
+            </Fragment>
+            )
+          }
         ],
       },
     ],
@@ -117,10 +128,11 @@ function SourceDetails() {
   const [loadedUsers, setLoadedUsers] = useState();
   const gid= useParams().gid;
   console.log(useParams())
+  var userid;
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        var userid = localStorage.getItem('__react_session__');
+        userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
         console.log("gid");
