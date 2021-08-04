@@ -101,9 +101,9 @@ function SourceDetails(props) {
             Cell: ({ cell }) =>(
             <Fragment>
               <NavLink className="join_group_link" to={`/source/${cell.value}`}>View Source </NavLink>
-              {props.valid ? (
+              {props.valid=='true' ? (
                   <button>
-                    <NavLink to={`/editsource/${cell.row.values._id}/${userid}`}>Edit/Delete </NavLink>
+                    <NavLink to={`/editsource/${cell.row.values._id}`}>Edit/Delete </NavLink>
                   </button>
                 ):
                 <p>Join to invest</p>

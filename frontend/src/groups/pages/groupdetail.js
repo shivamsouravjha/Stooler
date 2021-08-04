@@ -10,7 +10,7 @@ const Group = () => {
     const [compLoading, setCompLoading] = useState(true);
     const [loadedgroup, setLoadedGroup] = useState();
     const gid = useParams().gid;
-    var valid;
+    const [valid,setValid]=useState('true');
     useEffect(() => {
         const fetchGroup = async () => {
         try {
@@ -28,8 +28,7 @@ const Group = () => {
             console.log(responseData.data)
             const dataResponse = responseData.data;
             var arr = dataResponse.members;
-            console.log(arr,userid);
-            valid = arr.indexOf(userid) > -1;
+            if(arr.indexOf(userid)==-1) setValid('flase');
             console.log(valid); //true
             setLoadedGroup(dataResponse);
             setCompLoading(false)

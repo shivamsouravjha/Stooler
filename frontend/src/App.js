@@ -77,7 +77,7 @@ const App = () => {
         <Route path="/request/:sid/:status" exact>
           <Process/>
         </Route>
-        <Route path="/editsource/:sid/:userid" exact>
+        <Route path="/editsource/:sid" exact>
           <EditSource/>
         </Route>
         <Redirect to="/" />       

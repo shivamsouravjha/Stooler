@@ -11,8 +11,8 @@ const  EditSource = ()=>{
    const [isLoading, setIsLoading] = useState(false);
    const [success, setSuccess] = useState();
    const [error, setError] = useState();
-    const [amount,setAmount]=useState("");
-    const gid = useParams().gid;
+    const [unitPurchase,setUnitpurchase]=useState();
+    const sid = useParams().sid;
     const onSubmitform = async e =>{
         e.preventDefault();
         try{   
@@ -21,10 +21,10 @@ const  EditSource = ()=>{
             var userid = localStorage.getItem('__react_session__');
             userid = await JSON.parse(userid)
             userid = userid['userid']
-            var body={"amount":amount,"groupId":gid};
-            body = JSON.stringify(body)
+            var body={"unitPurchase":unitPurchase};
+            //body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `http://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body,{
+                `http://stool-back.herokuapp.com/api/source/edit/sources/${sid}/${userid}`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );
@@ -52,10 +52,10 @@ const  EditSource = ()=>{
                     <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
                                             {/* form header */}
                         <h2 className="form_heading">
-                            Edit this Group 
+                            Edit the Group Stock 
                         </h2> 
                         <br/>
-                        <input type="number" name="amount" className="inputs" value={amount} step="50" min="50"placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)} />
+                        <input type="number" name="amount" className="inputs" value={unitPurchase} placeholder="New Units" onChange={e =>setUnitpurchase(e.target.value)} />
                         <br/><br/>
                         <button type="submit" className="confirm_btns">
                             Done
