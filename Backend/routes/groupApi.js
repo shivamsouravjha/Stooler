@@ -15,8 +15,15 @@ GroupApiRouter.post('/join/:uid', (request, response) => {
 
 GroupApiRouter.post('/getgroups/:uid', (request, response) => {
   const groupController = new GroupCpntroller(response);
-  groupController.getGroups(request);
+  groupController.getGroups(request,true);
 });
+
+
+GroupApiRouter.post('/getjoingroups/:uid', (request, response) => {
+  const groupController = new GroupCpntroller(response);
+  groupController.getGroups(request,false);
+});
+
 
 GroupApiRouter.post('/:groupId', (request, response) => {
   const groupController = new GroupCpntroller(response);

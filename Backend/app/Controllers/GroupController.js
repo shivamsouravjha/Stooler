@@ -52,10 +52,10 @@ export default class AccountController extends Controller {
       }
   }
 
-    getGroups (request) {
+    getGroups (request,obj) {
       try {
         const uid = request.params.uid;
-        const promise  = this.service.getGroups(uid,request.body);
+        const promise  = this.service.getGroups(uid,request.body,obj);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

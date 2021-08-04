@@ -60,7 +60,7 @@ export default class AccountService{
     }
 
 
-    async getGroups(uid,args){
+    async getGroups(uid,args,objj){
         try {
             function clean(obj) {
                 for (var propName in obj) {
@@ -73,7 +73,7 @@ export default class AccountService{
             args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
             function checkUid(uids) {
-                return uids.members.includes(uid);
+                return objj == uids.members.includes(uid);
             };
             groupsInfo = groupsInfo.filter(checkUid);
             groupsInfo.sort(function(a,b){
