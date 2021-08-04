@@ -131,13 +131,12 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
+          `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
       }
-        console.log(responseData.data)
-        const dataResponse = responseData.data;
+        const dataResponse = responseData.data.groups;
         setLoadedUsers(dataResponse);
         setCompLoading(false)
       } catch (err) {
