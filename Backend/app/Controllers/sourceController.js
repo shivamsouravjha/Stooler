@@ -68,7 +68,12 @@ export default class CompanyController extends Controller {
       try {
         const value={'sid':request.params.sid};
         value['uid'] = request.params.uid;
-        const promise  = this.service.editSourceDetails(value,request.body);
+        let promise;
+        if(request.params.edit == "edit"){
+           promise  = this.service.editSourceDetails(value,request.body);
+        }else{
+           promise  = this.service.deleteSource(request.body);
+        }
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

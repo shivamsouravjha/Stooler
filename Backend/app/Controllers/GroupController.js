@@ -48,7 +48,7 @@ export default class AccountController extends Controller {
             }) 
       } catch (error) {
           // Logger.error("Error at joining error",error);
-          this.handleException(error)
+          this.handleException({message:"Already a group member"})
       }
   }
 
