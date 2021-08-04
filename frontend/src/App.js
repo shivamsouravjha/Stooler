@@ -106,8 +106,7 @@ const App = () => {
         <MainNavigation />
         <main>{routes}</main>
       </Router>  
-     <Chatbot config = {Config} messageParser={MessageParser} actionProvider={ActionProvider}>
-</Chatbot>
+     {/* <Chatbot config = {Config} messageParser={MessageParser} actionProvider={ActionProvider}></Chatbot> */}
     </AuthContext.Provider>
   );
 };
