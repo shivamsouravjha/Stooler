@@ -21,10 +21,11 @@ import YourGroup from './groups/pages/groupSource';
 import SourceDetails from './groups/pages/sourceDetails';
 import GetGroupSource from './groups/pages/getgroupsource';
 import Process from './groups/pages/process';
-import Chatbot from 'react-chatbot-kit';
+// import Chatbot from 'react-chatbot-kit';
 import MessageParser from './chatbot/MessageParser';
 import ActionProvider from './chatbot/ActionProvider';
 import Config from './chatbot/config';
+import Chatbot from '../src/chatbot/chatbot';
 const App = () => {
   ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -105,8 +106,11 @@ const App = () => {
       <Router>
         <MainNavigation />
         <main>{routes}</main>
+        <div className="bot">
+            <Route path="/" component={Chatbot} exact />
+       </div>
       </Router>  
-     {/* <Chatbot config = {Config} messageParser={MessageParser} actionProvider={ActionProvider}></Chatbot> */}
+      
     </AuthContext.Provider>
   );
 };
