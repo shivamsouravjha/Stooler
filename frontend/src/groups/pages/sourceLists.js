@@ -75,7 +75,7 @@ function Table({ columns, data }) {
     </table>
   )
 }
-
+ 
 function SourceDetails(props) {
   const [compLoading, setCompLoading] = useState(true);
   const columns = React.useMemo(
@@ -102,9 +102,14 @@ function SourceDetails(props) {
             <Fragment>
               <NavLink className="join_group_link" to={`/source/${cell.value}`}>View Source </NavLink>
               {props.valid=='true' ? (
+                <Fragment>
                   <button>
-                    <NavLink to={`/editsource/${cell.row.values._id}`}>Edit/Delete </NavLink>
+                    <NavLink to={`/editsource/${cell.row.values._id}`}>Edit</NavLink>
                   </button>
+                  <button  onClick={letdel(`${cell.value}`)}>
+                    Delete
+                  </button>
+                </Fragment>
                 ):
                 <p>Join to invest</p>
               }
@@ -153,6 +158,11 @@ function SourceDetails(props) {
     };
     fetchUsers();
   }, []);
+  const letdel=(sid)=>{
+    const responseData = sendRequest(
+      `http://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST"
+    );
+  }
 //   const onSubmitform = async e =>{
 //     e.preventDefault();
 //     try{   

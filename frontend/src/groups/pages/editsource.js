@@ -11,20 +11,19 @@ const  EditSource = ()=>{
    const [isLoading, setIsLoading] = useState(false);
    const [success, setSuccess] = useState();
    const [error, setError] = useState();
-    const [unitPurchase,setUnitpurchase]=useState();
+    const [unitsPurchase,setUnitpurchase]=useState();
     const sid = useParams().sid;
+    var userid = localStorage.getItem('__react_session__');
+    userid = JSON.parse(userid)
+    userid = userid['userid']
     const onSubmitform = async e =>{
         e.preventDefault();
         try{   
             setIsLoading(true);
-
-            var userid = localStorage.getItem('__react_session__');
-            userid = await JSON.parse(userid)
-            userid = userid['userid']
-            var body={"unitPurchase":unitPurchase};
-            //body = JSON.stringify(body)
+            var body={"unitsPurchase":unitsPurchase};
+            body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `http://stool-back.herokuapp.com/api/source/edit/sources/${sid}/${userid}`,"POST",body,{
+                `http://stool-back.herokuapp.com/api/source/edit/sources/${sid}/${userid}/`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );
@@ -44,6 +43,7 @@ const  EditSource = ()=>{
         setSuccess(null);
         setError(null);
       };
+    
     return (   
         <React.Fragment>
         <SuccessModal error={success} onClear={successHandler} />
@@ -52,19 +52,23 @@ const  EditSource = ()=>{
                     <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
                                             {/* form header */}
                         <h2 className="form_heading">
-                            Edit the Group Stock 
+                            Edit the Units
                         </h2> 
                         <br/>
-                        <input type="number" name="amount" className="inputs" value={unitPurchase} placeholder="New Units" onChange={e =>setUnitpurchase(e.target.value)} />
+                        <input type="number" name="amount" className="inputs" value={unitsPurchase} placeholder="New Units" onChange={e =>setUnitpurchase(e.target.value)} required />
                         <br/><br/>
                         <button type="submit" className="confirm_btns">
                             Done
+                        </button>
+                        <br/><br/>
+                        <button type="submit" className="confirm_btns">
+                            Delete
                         </button>
                     </form> 
                         
 
                 </center>
-            </div>
+            </div>)
     </React.Fragment>
     );
   
