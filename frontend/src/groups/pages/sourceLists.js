@@ -78,10 +78,22 @@ function Table({ columns, data }) {
  
 function SourceDetails(props) {
   const [compLoading, setCompLoading] = useState(true);
+<<<<<<< HEAD
   const letdel= async (sid)=>{
     const responseData = sendRequest(
       `http://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST"
     );
+=======
+  const letdel = async sid =>{
+    setCompLoading(true)
+
+    const responseData = await sendRequest(
+      `http://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST"
+    );
+    console.log(responseData,sid)
+    setCompLoading(false)
+
+>>>>>>> 45f3b868efb302411139eddcc2cbcaa7e7e546a0
   }
   const columns = React.useMemo(
     () => [
@@ -111,7 +123,7 @@ function SourceDetails(props) {
                   <button>
                     <NavLink to={`/editsource/${cell.row.values._id}`}>Edit</NavLink>
                   </button>
-                  <button  onClick={letdel(`${cell.value}`)}>
+                  <button  onClick={() => letdel(cell.value)}>
                     Delete
                   </button>
                 </Fragment>
@@ -137,15 +149,15 @@ function SourceDetails(props) {
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
   const gid= useParams().gid;
-  console.log(useParams())
   var userid;
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setCompLoading(true)
+
         userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
-        console.log("gid");
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"
         );
@@ -163,11 +175,7 @@ function SourceDetails(props) {
     };
     fetchUsers();
   }, []);
-  const letdel=(sid)=>{
-    const responseData = sendRequest(
-      `http://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST"
-    );
-  }
+  
 //   const onSubmitform = async e =>{
 //     e.preventDefault();
 //     try{   
