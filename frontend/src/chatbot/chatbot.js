@@ -24,8 +24,8 @@ const config = {
   headerTitle: 'Stooler',
   floating: true,
   botAvatar: Botpic,
-  speechSynthesis: false,
-  recognitionEnable: false
+  speechSynthesis: true,
+  recognitionEnable: true
 }
 
 const Chatbot = (props) => {
