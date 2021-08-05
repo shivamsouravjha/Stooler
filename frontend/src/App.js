@@ -21,7 +21,7 @@ import YourGroup from './groups/pages/groupSource';
 import SourceDetails from './groups/pages/sourceDetails';
 import GetGroupSource from './groups/pages/getgroupsource';
 import Process from './groups/pages/process';
-import EditSource from './groups/pages/editsource';
+import EditSource from '../src/groups/pages/editsource';
 import Chatbot from '../src/chatbot/chatbot';
 const App = () => {
   ReactSession.setStoreType("localStorage");
