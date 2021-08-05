@@ -34,9 +34,9 @@ export default class CompanyController extends Controller {
       // Logger.info("Joining Group");
       try{              
           const value ={};
-          value.userId = request.params.uid;
-          value.groupId = request.params.gid;
-          value.sourceId = request.params.sid;
+          value.uid = request.params.uid;
+          value.gid = request.params.gid;
+          value.sid = request.params.sid;
           const addUser = this.service.deleteSource(value);
           addUser.then(res => {
               this.sendResponse(res);
@@ -69,10 +69,12 @@ export default class CompanyController extends Controller {
         const value={'sid':request.params.sid};
         value['uid'] = request.params.uid;
         let promise;
+        // console.log(request.params)
         if(request.params.edit == "edit"){
            promise  = this.service.editSourceDetails(value,request.body);
         }else{
-           promise  = this.service.deleteSource(request.body);
+          // console.log("in delete")
+          promise  = this.service.deleteSource(request.params);
         }
         promise.then(res=>{
           this.sendResponse(res);

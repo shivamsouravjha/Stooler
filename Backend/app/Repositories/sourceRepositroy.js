@@ -117,9 +117,10 @@ export default class SourceRepository {
             const sess = await mongoose.startSession();
             sess.startTransaction();
             await sourceInfo.remove({session:sess});
-            groupInfo.sources.pull(obj.sourceId); 
+            groupInfo.sources.pull(sourceInfo._id); 
             await groupInfo.save({ session: sess }); 
             await sess.commitTransaction();; 
+            // console.log("success")
         } catch (error) {
             throw error
         }
