@@ -11,8 +11,15 @@ export default class AccountService{
 
     async deleteSource(args) {
         try {
-            const groupInfo = await this.findGroup(args.groupId);
-            const sourceInfo = await this.findSource(args.sourceId);
+            let sourceInfo = await this.repository.findSource(args.sid);
+            if(!sourceInfo){
+                throw (new Exceptions.NotFoundException("No such source found"));
+            }            
+            let groupInfo  = await this.repository.findGroup(sourceInfo.group); 
+            if(!groupInfo){
+                throw (new Exceptions.NotFoundException("No such group found"));
+            } 
+            groupInfo['fund'] += sourceInfo['price']*sourceInfo['unitsPurchase'];
             const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
             return reply;
         } catch (error) {

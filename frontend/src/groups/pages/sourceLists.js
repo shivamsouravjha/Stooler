@@ -78,6 +78,11 @@ function Table({ columns, data }) {
  
 function SourceDetails(props) {
   const [compLoading, setCompLoading] = useState(true);
+  const letdel= async (sid)=>{
+    const responseData = sendRequest(
+      `http://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST"
+    );
+  }
   const columns = React.useMemo(
     () => [
       {
