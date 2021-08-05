@@ -27,7 +27,6 @@ const  Newgroup = ()=>{
             var userid = localStorage.getItem('__react_session__');
             userid = await JSON.parse(userid)
             userid = userid['userid']
-            console.log(userid,groupName,description,genre,duration,amount)
             var body={"groupName":groupName,"description":description,"genre":genre,"duration":duration,"amount":amount};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
@@ -37,7 +36,6 @@ const  Newgroup = ()=>{
             if(responseData['status']!=200 && responseData['status']!=202){
                 throw responseData.error;
             }
-            console.log(responseData)
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
             setError(false);            
