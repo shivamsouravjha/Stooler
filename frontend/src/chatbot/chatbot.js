@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import ChatBot from 'react-simple-chatbot'
 import Botpic from './Full-HD-Mobile-Minimal-Wallpaper-HD11-1080X1920.jpg'
-import BotCallingpic from './kisspng-chatbot-clip-art-computer-icons-internet-bot-openc-clipart-bot-5c72479d22fb55.3012787315509933091433.jpg'
 import { ThemeProvider } from 'styled-components'
 import '../App.css'
 const theme = {
