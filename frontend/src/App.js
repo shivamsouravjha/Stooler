@@ -110,7 +110,6 @@ const App = () => {
             <Route path="/" component={Chatbot} exact />
        </div>
       </Router>  
-      
     </AuthContext.Provider>
   );
 };

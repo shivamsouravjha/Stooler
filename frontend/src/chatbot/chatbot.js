@@ -132,6 +132,7 @@ const Chatbot = (props) => {
         />
       </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <div>
         {!showChat ? (
           <button className="btn" onClick={() => startChat()}>
@@ -145,6 +146,8 @@ const Chatbot = (props) => {
       </div>
 =======
 >>>>>>> 45f3b868efb302411139eddcc2cbcaa7e7e546a0
+=======
+>>>>>>> 1f78987c89ef5fb75f738bb957f883ca58cd996c
     </ThemeProvider>
   )
 }
