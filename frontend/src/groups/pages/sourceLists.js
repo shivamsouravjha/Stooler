@@ -116,7 +116,7 @@ function SourceDetails(props) {
                   <button>
                     <NavLink to={`/editsource/${cell.row.values._id}`}>Edit</NavLink>
                   </button>
-                  <button  onClick={() => letdel(cell.value)}>
+                  <button button  onClick={() => letdel(cell.value)}>
                     Delete
                   </button>
                 </Fragment>
@@ -142,15 +142,15 @@ function SourceDetails(props) {
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
   const gid= useParams().gid;
+  console.log(useParams())
   var userid;
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setCompLoading(true)
-
         userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
+        console.log("gid");
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"
         );

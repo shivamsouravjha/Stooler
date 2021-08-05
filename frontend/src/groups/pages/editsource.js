@@ -60,10 +60,6 @@ const  EditSource = ()=>{
                         <button type="submit" className="confirm_btns">
                             Done
                         </button>
-                        <br/><br/>
-                        <button type="submit" className="confirm_btns">
-                            Delete
-                        </button>
                     </form> 
                         
 
