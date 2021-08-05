@@ -10,18 +10,26 @@ const Group = () => {
     const [compLoading, setCompLoading] = useState(true);
     const [loadedgroup, setLoadedGroup] = useState();
     const gid = useParams().gid;
+    const [valid,setValid]=useState('true');
     useEffect(() => {
         const fetchGroup = async () => {
         try {
             setCompLoading(true)
+            var userid = localStorage.getItem('__react_session__');
+            userid = await JSON.parse(userid)
+            userid = userid['userid']
             const responseData = await sendRequest(
             `http://stool-back.herokuapp.com/api/groups/${gid}`,"POST"
             );
+        
             if(responseData['status']!=200 && responseData['status']!=202){
                 throw responseData.error;
             }
             console.log(responseData.data)
             const dataResponse = responseData.data;
+            var arr = dataResponse.members;
+            if(arr.indexOf(userid)==-1) setValid('flase');
+            console.log(valid); //true
             setLoadedGroup(dataResponse);
             setCompLoading(false)
         } catch (err) {}
@@ -45,7 +53,7 @@ const Group = () => {
           {compLoading ?<LoadingSpinner asOverlay /> : (
             <GroupList items={GROUP} />
           )}
-           <SourceLists />
+           <SourceLists valid={valid}/>
         </Fragment>);
 };
 

@@ -75,9 +75,19 @@ function Table({ columns, data }) {
     </table>
   )
 }
-
-function SourceDetails() {
+ 
+function SourceDetails(props) {
   const [compLoading, setCompLoading] = useState(true);
+  const letdel = async sid =>{
+    setCompLoading(true)
+
+    const responseData = await sendRequest(
+      `http://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST"
+    );
+    console.log(responseData,sid)
+    setCompLoading(false)
+
+  }
   const columns = React.useMemo(
     () => [
       {
@@ -98,8 +108,24 @@ function SourceDetails() {
           {
             Header: 'Source Link',
             accessor: '_id',
-            Cell: e => <NavLink className="join_group_link" to={`/source/${e.value}`}>View Source </NavLink>
-          },  
+            Cell: ({ cell }) =>(
+            <Fragment>
+              <NavLink className="join_group_link" to={`/source/${cell.value}`}>View Source </NavLink>
+              {props.valid=='true' ? (
+                <Fragment>
+                  <button>
+                    <NavLink to={`/editsource/${cell.row.values._id}`}>Edit</NavLink>
+                  </button>
+                  <button  onClick={() => letdel(cell.value)}>
+                    Delete
+                  </button>
+                </Fragment>
+                ):
+                <p>Join to invest</p>
+              }
+            </Fragment>
+            )
+          }
         ],
       },
     ],
@@ -116,14 +142,15 @@ function SourceDetails() {
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
   const gid= useParams().gid;
-  console.log(useParams())
+  var userid;
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        var userid = localStorage.getItem('__react_session__');
+        setCompLoading(true)
+
+        userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
-        console.log("gid");
         const responseData = await sendRequest(
           `http://stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"
         );
@@ -141,6 +168,7 @@ function SourceDetails() {
     };
     fetchUsers();
   }, []);
+  
 //   const onSubmitform = async e =>{
 //     e.preventDefault();
 //     try{   
