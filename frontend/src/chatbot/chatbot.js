@@ -131,9 +131,6 @@ const Chatbot = (props) => {
           {...config}
         />
       </div>
-      <div>
-        
-      </div>
     </ThemeProvider>
   )
 }
