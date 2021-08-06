@@ -23,6 +23,7 @@ import GetGroupSource from './groups/pages/getgroupsource';
 import Process from './groups/pages/process';
 import EditSource from '../src/groups/pages/editsource';
 import Chatbot from '../src/chatbot/chatbot';
+import Crypto from './crypto/crypto';
 const App = () => {
   ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -80,6 +81,9 @@ const App = () => {
         </Route>
         <Route path="/editsource/:sid" exact>
           <EditSource/>
+        </Route>
+        <Route path="/crypto" exact>
+          <Crypto/>
         </Route>
         <Redirect to="/" />       
       </Switch>

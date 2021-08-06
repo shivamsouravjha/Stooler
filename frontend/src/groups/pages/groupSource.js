@@ -21,6 +21,7 @@ const  JoinGroupAuth = ()=>{
     const [details,setDetails]=useState("");
     const [duration,setDuration]=useState("");
     const gid = useParams().gid;
+    
     const onSubmitform = async e =>{
         e.preventDefault();
         try{   
@@ -52,6 +53,18 @@ const  JoinGroupAuth = ()=>{
         setSuccess(null);
         setError(null);
       };
+    const letlev = async e =>{
+        e.preventDefault();
+        setIsLoading(true)
+        var userid = localStorage.getItem('__react_session__');
+        userid = await JSON.parse(userid)
+        userid = userid['userid']
+        const responseData = await sendRequest(
+            `http://stool-back.herokuapp.com/api/source/delete/sources/${gid}/${userid}/`,"POST"
+        );
+        console.log(responseData,gid)
+        setIsLoading(false)
+    }
     return (   
         <React.Fragment>
         <SuccessModal error={success} onClear={successHandler} />
@@ -59,6 +72,9 @@ const  JoinGroupAuth = ()=>{
         <GroupDetail/>
     <div className="group_form_div">
 		<center>
+            <button className="confirm_btns" button  onClick={() => letlev()}>
+                Leave Group
+            </button>
             <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
                                     {/* form header */}
                 <h2 className="form_heading">
