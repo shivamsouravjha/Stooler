@@ -88,7 +88,7 @@ export default class AccountService{
             args = clean(args);
             let groupsInfo = await this.repository.findUid(uid);
             if(!Object.keys(args).length){
-                return groupsInfo 
+                return groupsInfo;
             }
             let groupsInfos = groupsInfo.groups;
             search(groupsInfos);            

@@ -31,7 +31,7 @@ export default class AccountController extends Controller {
         }
     }
 
-    joinGroup (request) {
+    userGroup (request) {
       // Logger.info("Joining Group");
       try{
           let {value,error} = Validators.groupJoin.validate(request.body);
@@ -39,7 +39,8 @@ export default class AccountController extends Controller {
               throw (new Exceptions.ValidationException(error.details[0].message));
           }     
           value.userId = request.params.uid;
-          const addUser = this.service.addUserToGroup(value);
+          value.context = request.params.context;
+          const addUser = this.service.userToGroup(value);
           addUser.then(res => {
               this.sendResponse(res);
             })

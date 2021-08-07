@@ -14,6 +14,15 @@ export default class GroupRepository {
             throw error
         }
     }
+    
+    async findTransaction (obj) {
+        try {
+            const found = await Transaction.findOne(obj);
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
 
 
     async findGroup (obj) {
@@ -28,20 +37,34 @@ export default class GroupRepository {
 
     async addUserToGroup (args,verifyGroupId,verifyUserId) {
         try {
-            if(verifyGroupId.genre == 'Gold/Silver'){
-                verifyUserId.shares[0]['amount']+=args.amount
-            } if(verifyGroupId.genre == 'Stock'){
-                verifyUserId.shares[1]['amount']+=args.amount
-            } if(verifyGroupId.genre == 'Cryptocurrency'){
-                verifyUserId.shares[2]['amount']+=args.amount
-            } if(verifyGroupId.genre == 'Currency Exchange'){
-                verifyUserId.shares[3]['amount']+=args.amount
-            }
-            if(args.amount < verifyGroupId.amount){
-                throw {'message':`Amount less than group minimum,add more ${verifyGroupId.amount - args.amount}`,'success':false};
-            }
-            verifyGroupId['fund']+=args.amount;
-            verifyGroupId['totalsum']+=args.amount;
+            args['type'] = 'ACTIVE';
+            args['deposited_amount'] = args.amount;
+            args['returned_amount'] = 0;
+            args['due_amount'] = 0;
+            delete args.amount;
+            const newTransaction = new Transaction(args);
+            const sess = await mongoose.startSession();
+            sess.startTransaction();      
+            await newTransaction.save(); 
+            verifyGroupId.groupPayment.push(newTransaction._id); 
+            verifyGroupId.members.push(verifyUserId._id);          
+            verifyUserId.groups.push(verifyGroupId._id); 
+            verifyUserId.transaction.push(newTransaction._id);
+            await verifyUserId.save({ session: sess }); 
+
+            await verifyGroupId.save({ session: sess }); 
+
+            await sess.commitTransaction(); 
+            console.log("Pass")
+            return {'message':'Group Joined','success':true};
+        } catch (error) {
+            throw error;
+        }
+    }
+    
+    
+    async removeUserFromGroup (args,verifyGroupId,verifyUserId) {
+        try {
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
@@ -72,18 +95,25 @@ export default class GroupRepository {
             amount,
             fund: amount,
             totalsum: amount,
-            profit:[],
+            loss:0,
+            profit_deal:[],
+            loss_deal:[],
             members:[userId],
             groupOwner: userId,
             groupPayment:[],
-            sources: []
+            sources: [],
+            dues:[],
         })
         let ownerDetails;
         try{
             ownerDetails = await UserModel.findById(userId);
+            const newTransaction = new Transaction({deposited_amount:amount,returned_amount:0,due_amount:amount,result:0,groupId:groupModel['_id'],userId:ownerDetails['_id'],type:"ACTIVE"})
+            groupModel.groupPayment.push(newTransaction._id);
+            ownerDetails.transaction.push(newTransaction._id);
             const sess = await mongoose.startSession();
             sess.startTransaction();
             await groupModel.save({ session: sess }); 
+            await newTransaction.save({ session: sess }); 
             ownerDetails.groups.push(groupModel._id); 
             await ownerDetails.save({ session: sess }); 
             await sess.commitTransaction(); 
