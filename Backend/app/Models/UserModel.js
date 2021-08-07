@@ -10,7 +10,7 @@ const userschema = new schema({
     username: {type :String },
     email: {type :String,},
     password: {type :String },
-    number:{type :String},
+    number:{type :Number},
     funds:{type :Number},
     loss:{type :Number},
     dues:{type :Number},
