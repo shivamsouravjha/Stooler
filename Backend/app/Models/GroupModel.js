@@ -10,12 +10,14 @@ const groupSchema = new schema({
     duration: {type :String },
     amount: {type :Number},
     fund: {type:Number},
+    loss: {type:Number},
     totalsum: {type:Number},
     profit: [{type: Number,required: false}],
     members: [{type :mongoose.Types.ObjectId,required:false,ref:'User'}],
     groupOwner: {type :mongoose.Types.ObjectId,required:false,ref:'User'},
-    groupPayment: [{type :mongoose.Types.ObjectId,required:false,ref:'User'}],
+    groupPayment: [{type :mongoose.Types.ObjectId,required:false,ref:'Transaction'}],
     sources: [{type :mongoose.Types.ObjectId,required:false,ref:'Source'}],
+    dues: [{type :mongoose.Types.ObjectId,required:true,ref:'Transaction'}],
 },{
     versionKey: false 
   });

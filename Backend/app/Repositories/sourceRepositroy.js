@@ -64,7 +64,8 @@ export default class SourceRepository {
 
     async createSource(sourceModel,groupInfo,approved) {
         try{
-            if(approved){    
+            if(approved){
+                sourceModel['sellPrice'] =0;    
                 console.log(sourceModel,groupInfo,approved)            
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
