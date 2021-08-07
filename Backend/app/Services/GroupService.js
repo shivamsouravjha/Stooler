@@ -10,10 +10,10 @@ export default class AccountService{
 
 
     async addUserToGroup(args) {
-        try {
+        try {        
             const {userId,groupId}=args
             let verifyUserId =  await this.verifyUserDetail({_id:userId})
-            let verifyGroupId =  (await this.getGroups({_id:userId},{_id:groupId}))[0];
+            let verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];
             if(!verifyUserId){
                 throw (new Exceptions.ConflictException("No user found"));
             }
@@ -60,7 +60,7 @@ export default class AccountService{
     }
 
 
-    async getGroups(uid,args){
+    async getGroups(uid,args,objj){
         try {
             function clean(obj) {
                 for (var propName in obj) {
@@ -70,12 +70,15 @@ export default class AccountService{
                 }
                 return obj
             }
+            
             args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
             function checkUid(uids) {
-                return !uids.members.includes(uid);
+                console.log(uid,args,objj,uids.members.includes(uid))
+                return objj == uids.members.includes(uid);
             };
-            groupsInfo = groupsInfo.filter(checkUid);
+            groupsInfo = groupsInfo.filter(checkUid);           
+
             groupsInfo.sort(function(a,b){
                 return (b.members).length-(a.members).length;
             })

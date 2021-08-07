@@ -48,14 +48,14 @@ export default class AccountController extends Controller {
             }) 
       } catch (error) {
           // Logger.error("Error at joining error",error);
-          this.handleException(error)
+          this.handleException({message:"Already a group member"})
       }
   }
 
-    getGroups (request) {
+    getGroups (request,obj) {
       try {
         const uid = request.params.uid;
-        const promise  = this.service.getGroups(uid,request.body);
+        const promise  = this.service.getGroups(uid,request.body,obj);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

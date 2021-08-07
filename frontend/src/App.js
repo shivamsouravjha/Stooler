@@ -21,6 +21,9 @@ import YourGroup from './groups/pages/groupSource';
 import SourceDetails from './groups/pages/sourceDetails';
 import GetGroupSource from './groups/pages/getgroupsource';
 import Process from './groups/pages/process';
+import EditSource from '../src/groups/pages/editsource';
+import Chatbot from '../src/chatbot/chatbot';
+import Crypto from './crypto/crypto';
 const App = () => {
   ReactSession.setStoreType("localStorage");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -76,6 +79,12 @@ const App = () => {
         <Route path="/request/:sid/:status" exact>
           <Process/>
         </Route>
+        <Route path="/editsource/:sid" exact>
+          <EditSource/>
+        </Route>
+        <Route path="/crypto" exact>
+          <Crypto/>
+        </Route>
         <Redirect to="/" />       
       </Switch>
     );
@@ -101,7 +110,10 @@ const App = () => {
       <Router>
         <MainNavigation />
         <main>{routes}</main>
-      </Router>      
+        <div className="bot">
+            <Route path="/" component={Chatbot} exact />
+       </div>
+      </Router>  
     </AuthContext.Provider>
   );
 };

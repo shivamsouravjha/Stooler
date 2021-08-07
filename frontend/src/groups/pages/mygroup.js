@@ -107,7 +107,7 @@ function Group() {
           {
             Header: 'Group Details',
             accessor: '_id',
-            Cell: e => <NavLink className="join_group_link" to={`/group/${e.value}`}> Click here </NavLink>
+            Cell: e => <NavLink className="join_group_link" to={`/yourgroup/${e.value}`}> Click here </NavLink>
           },
         ],
       },
@@ -131,13 +131,12 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
+          `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
       }
-        console.log(responseData.data)
-        const dataResponse = responseData.data;
+        const dataResponse = responseData.data.groups;
         setLoadedUsers(dataResponse);
         setCompLoading(false)
       } catch (err) {

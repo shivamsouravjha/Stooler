@@ -23,17 +23,17 @@ SourceApiRouter.post('/getcompanydetails/:sid', (request, response) => {
   groupController.getSource(request);
 });
 
-SourceApiRouter.post('/edit/sources/:sid', (request, response) => {
+SourceApiRouter.post('/:edit/sources/:sid/:uid', (request, response) => {
   const groupController = new SourceController(response);
   groupController.editSource(request);
 });
 
-SourceApiRouter.post('/approve/:uid', (request, response) => {
+SourceApiRouter.post('/approve/:uid/:type', (request, response) => {
   const groupController = new SourceController(response);
-  groupController.getApproval(request);
+  groupController.getAprroval(request);
 });
 
-SourceApiRouter.post('/setapproval/:sid', (request, response) => {
+SourceApiRouter.post('/setapproval/:sid/:uid/:type', (request, response) => {
   const groupController = new SourceController(response);
   groupController.setApproval(request);
 });
