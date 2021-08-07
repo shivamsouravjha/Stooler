@@ -4,7 +4,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 const schema=  mongoose.Schema;
 
 const transactionSchema = new schema({
-    deposited_amount:{type : schema.Types.Mixed},
+    deposited_amount:{type : Number},
     returned_amount:{type : Number},
     due_amount:{type : Number},
     result:{type : Number},

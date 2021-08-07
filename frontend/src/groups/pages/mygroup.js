@@ -101,8 +101,20 @@ function Group() {
             accessor: 'groupName',
           },
           {
-            Header: 'My Groups',
+            Header: 'Group Owner',
             accessor: 'groupOwner.name',
+          },
+          {
+            Header: 'Group Type',
+            accessor: 'genre',
+          }, 
+          {
+            Header: 'Entry Fee',
+            accessor: 'amount',
+          },
+          {
+            Header: 'Group Cashflow',
+            accessor: 'totalsum',
           }, 
           {
             Header: 'Group Details',
@@ -131,12 +143,13 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST"
+          `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
       }
-        const dataResponse = responseData.data.groups;
+      console.log(responseData.data)
+        const dataResponse = responseData.data;
         setLoadedUsers(dataResponse);
         setCompLoading(false)
       } catch (err) {
