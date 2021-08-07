@@ -19,7 +19,10 @@ export default class AccountService{
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"));
             } 
-            groupInfo['fund'] += sourceInfo['price']*sourceInfo['unitsPurchase'];
+            groupInfo['fund'] += sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
+            if(sourceInfo['price']*sourceInfo['unitsPurchase'] > sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']){
+                groupInfo['loss'] +=sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
+            }
             const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
             return reply;
         } catch (error) {
