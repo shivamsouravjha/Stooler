@@ -6,10 +6,10 @@ import '../App.css'
 const theme = {
   background: '#f5f8fb',
   fontFamily: 'Helvetica Neue',
-  headerBgColor: '#0f4d4a',
+  headerBgColor: '#0a657e',
   headerFontColor: '#fff',
   headerFontSize: '15px',
-  botBubbleColor: '#0f4d4a',
+  botBubbleColor: '#0a657e',
   botFontColor: '#fff',
   userBubbleColor: '#fff',
   userFontColor: '#4a4a4a',

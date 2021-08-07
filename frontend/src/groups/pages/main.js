@@ -18,7 +18,7 @@ const Main = props => {
         <button className="group_button">JOIN A GROUP</button></Link>
         </li>
         <li > <Link to={`/crypto`} > 
-        <button className="group_button">View Crypto</button></Link>
+        <button className="group_button">VIEW CRYPTO</button></Link>
         </li>
           
         

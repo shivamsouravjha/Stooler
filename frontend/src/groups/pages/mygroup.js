@@ -223,7 +223,7 @@ function Group() {
                 </button>
                 <ul className="group_source_links">
                 
-                <Link to={`/getgroupsource/${userid}`} ><button className="search_button">Manage Group Source</button></Link>
+                <Link to={`/getgroupsource/${userid}`} ><button className="group_source_button">Manage Group Source</button></Link>
                 </ul>
                 </form>
              
