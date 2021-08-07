@@ -18,8 +18,15 @@ export default class AccountService{
             let groupInfo  = await this.repository.findGroup(sourceInfo.group); 
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"));
+            }
+            if(args.uid != groupInfo.groupOwner){
+                throw (new Exceptions.NotFoundException("Your'e not the group owner"));
             } 
-            groupInfo['fund'] += sourceInfo['price']*sourceInfo['unitsPurchase'];
+            sourceInfo['sellingPrice'] = args['sellingPrice']
+            groupInfo['fund'] += sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
+            if(sourceInfo['price']*sourceInfo['unitsPurchase'] > sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']){
+                groupInfo['loss'] +=sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
+            }
             const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
             return reply;
         } catch (error) {

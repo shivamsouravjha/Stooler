@@ -25,7 +25,7 @@ table {
   th{
     
     text-align:center;
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     :last-child {
@@ -36,7 +36,7 @@ table {
   tbody td {
     
     text-align:center;
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
 
@@ -101,8 +101,20 @@ function Group() {
             accessor: 'groupName',
           },
           {
-            Header: 'My Groups',
+            Header: 'Group Owner',
             accessor: 'groupOwner.name',
+          },
+          {
+            Header: 'Group Type',
+            accessor: 'genre',
+          }, 
+          {
+            Header: 'Entry Fee',
+            accessor: 'amount',
+          },
+          {
+            Header: 'Group Cashflow',
+            accessor: 'totalsum',
           }, 
           {
             Header: 'Group Details',
@@ -131,12 +143,13 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/users/account/${userid}`,"POST"
+          `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
       }
-        const dataResponse = responseData.data.groups;
+      console.log(responseData.data)
+        const dataResponse = responseData.data;
         setLoadedUsers(dataResponse);
         setCompLoading(false)
       } catch (err) {
@@ -221,7 +234,13 @@ function Group() {
                 <button type="submit" className="search_button">
                     Search
                 </button>
-            </form> 
+                <ul className="group_source_links">
+                
+                <Link to={`/getgroupsource/${userid}`} ><button className="group_source_button">Manage Group Source</button></Link>
+                </ul>
+                </form>
+             
+             
         </center>
     </div>
     {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data </h1>:(
@@ -229,9 +248,7 @@ function Group() {
               <Table columns={columns} data={data} />
             </Styles>
     ))}
-    <ul className="group-links">
-    <Link to={`/getgroupsource/${userid}`} ><button className="group_button">Manage Group Source</button></Link>
-    </ul>
+    
         </Fragment>
       );
 }

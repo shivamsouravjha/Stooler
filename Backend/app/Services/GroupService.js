@@ -9,19 +9,63 @@ export default class AccountService{
     }
 
 
-    async addUserToGroup(args) {
+    async userToGroup(args) {
         try {        
             const {userId,groupId}=args
             let verifyUserId =  await this.verifyUserDetail({_id:userId})
-            let verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];
             if(!verifyUserId){
                 throw (new Exceptions.ConflictException("No user found"));
             }
-            if(!verifyGroupId){
-                throw (new Exceptions.ConflictException("No Group found"));
-            } 
-           
-            let accountInfo = await this.repository.addUserToGroup(args,verifyGroupId,verifyUserId);
+            let verifyGroupId;
+            let accountInfo;
+            if(args.context=="join"){
+                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];            
+                if(!verifyGroupId){
+                    throw (new Exceptions.ConflictException("No Group found"));
+                } 
+                if(verifyGroupId.genre == 'Gold/Silver'){
+                    verifyUserId.shares[0]['amount']+=args.amount
+                } if(verifyGroupId.genre == 'Stock'){
+                    verifyUserId.shares[1]['amount']+=args.amount
+                } if(verifyGroupId.genre == 'Cryptocurrency'){
+                    verifyUserId.shares[2]['amount']+=args.amount
+                } if(verifyGroupId.genre == 'Currency Exchange'){
+                    verifyUserId.shares[3]['amount']+=args.amount
+                }
+                if(args.amount < verifyGroupId.amount){
+                    throw {'message':`Amount less than group minimum,add more ${verifyGroupId.amount - args.amount}`,'success':false};
+                }
+                verifyGroupId['fund']+=args.amount;
+                verifyGroupId['totalsum']+=args.amount; 
+                accountInfo = await this.repository.addUserToGroup(args,verifyGroupId,verifyUserId);
+            }else{
+                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},true))[0];            
+                if(!verifyGroupId){
+                    throw (new Exceptions.ConflictException("No Group found"));
+                } 
+                const refund_amount = verifyGroupId.fund/verifyGroupId.members.length + verifyGroupId.loss/verifyGroupId.members.length;
+                const transaction = await  this.repository.findTransaction({userId:verifyUserId['_id'],groupId:verifyGroupId['_id']});
+               
+                verifyUserId['funds'] += verifyGroupId.fund/verifyGroupId.members.length;
+                verifyUserId['loss'] += verifyGroupId.loss/verifyGroupId.members.length;
+                transaction['returned_amount'] = verifyGroupId.fund/verifyGroupId.members.length;
+                transaction['result'] = transaction['returned_amount'] - transaction['deposited_amount'] - verifyGroupId.loss/verifyGroupId.members.length;
+                transaction['type']= "LEFT";
+                verifyGroupId['fund'] -= verifyGroupId.fund/verifyGroupId.members.length;
+                verifyGroupId['loss'] -= verifyGroupId.loss/verifyGroupId.members.length;
+                verifyGroupId.groupPayment.pull(transaction._id)
+                
+                if(transaction.deposited_amount>refund_amount){
+                    transaction['due_amount']= transaction.deposited_amount-refund_amount;
+                    verifyUserId['dues']+=transaction.deposited_amount-refund_amount;
+                    transaction['type']= "DUES";
+                    transaction['result'] =  "Unclear"
+                    verifyGroupId.dues.push(transaction._id)
+                }
+                console.log(refund_amount,transaction,{userId:verifyUserId['_id'],groupId:verifyGroupId['_id']})
+
+                accountInfo = await this.repository.removeUserFromGroup(args,verifyGroupId,verifyUserId);
+            }
             return accountInfo;
         } catch (error) {
             throw error;
@@ -74,7 +118,6 @@ export default class AccountService{
             args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
             function checkUid(uids) {
-                console.log(uid,args,objj,uids.members.includes(uid))
                 return objj == uids.members.includes(uid);
             };
             groupsInfo = groupsInfo.filter(checkUid);           
