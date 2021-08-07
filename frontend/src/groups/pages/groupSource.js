@@ -72,7 +72,7 @@ const  JoinGroupAuth = ()=>{
         <GroupDetail/>
     <div className="group_form_div">
 		<center>
-            <button className="confirm_btns" button  onClick={() => letlev()}>
+            <button className="leave_group_btn" button  onClick={() => letlev()}>
                 Leave Group
             </button>
             <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>

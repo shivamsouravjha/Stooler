@@ -74,11 +74,28 @@ color:rgb(165, 7, 7);
     margin: auto 10%;
     font-size: 1.5rem;
 }
-
 .confirm_btns:hover{
   
   color:white;
  background-color:#0a657e;
+ }
+
+.leave_group_btn{
+  width:12rem;
+  height:3rem;
+  color:white;
+  background-color:#700d0d;
+  border-color: #700d0d;
+  border-radius:5px;
+  margin: 2rem;
+  font-size: 1.5rem;
+
+}
+
+.leave_group_btn:hover{
+  
+transform: translate(-3px,-2px);
+box-shadow:  3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 #700d0d;
  }
 
 /* css for mobile view*/
@@ -117,6 +134,13 @@ color:rgb(165, 7, 7);
   width:12rem;
   height:2.5rem;
   font-size: 1.4rem;
+}
+.leave_group_btn{
+  width:12rem;
+  height:3rem;
+  margin: 1.5rem;
+  font-size: 1.4rem;
+
 }
 .select{
   width:140px;

@@ -25,7 +25,7 @@ table {
   th{
     
     text-align:center;
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     :last-child {
@@ -36,7 +36,7 @@ table {
   tbody td {
     
     text-align:center;
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
 
