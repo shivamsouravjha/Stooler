@@ -101,7 +101,7 @@ function Group() {
             accessor: 'groupName',
           },
           {
-            Header: 'My Groups',
+            Header: 'Group Owner',
             accessor: 'groupOwner.name',
           }, 
           {
@@ -222,7 +222,13 @@ function Group() {
                 <button type="submit" className="search_button">
                     Search
                 </button>
-            </form> 
+                <ul className="group_source_links">
+                
+                <Link to={`/getgroupsource/${userid}`} ><button className="search_button">Manage Group Source</button></Link>
+                </ul>
+                </form>
+             
+             
         </center>
     </div>
     {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data </h1>:(
@@ -230,9 +236,7 @@ function Group() {
               <Table columns={columns} data={data} />
             </Styles>
     ))}
-    <ul className="group-links">
-    <Link to={`/getgroupsource/${userid}`} ><button className="group_button">Manage Group Source</button></Link>
-    </ul>
+    
         </Fragment>
       );
 }
