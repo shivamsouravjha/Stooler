@@ -8,10 +8,10 @@ SourceApiRouter.post('/add/:gid/:uid', (request, response) => {
   groupController.addSource(request);
 });
 
-SourceApiRouter.post('/remove/:gid/:uid/:sid', (request, response) => {
-  const groupController = new SourceController(response);
-  groupController.removeSource(request);
-});
+// SourceApiRouter.post('/remove/:gid/:uid/:sid', (request, response) => {
+//   const groupController = new SourceController(response);
+//   groupController.removeSource(request);
+// });
 
 SourceApiRouter.post('/getcompany/:gid', (request, response) => {
   const groupController = new SourceController(response);
