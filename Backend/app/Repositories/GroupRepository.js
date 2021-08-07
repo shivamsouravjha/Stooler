@@ -107,7 +107,7 @@ export default class GroupRepository {
         let ownerDetails;
         try{
             ownerDetails = await UserModel.findById(userId);
-            const newTransaction = new Transaction({deposited_amount:amount,returned_amount=0,due_amount=amount,result:0,groupId:groupModel['_id'],userId:ownerDetails['_id'],type:"ACTIVE"})
+            const newTransaction = new Transaction({deposited_amount:amount,returned_amount:0,due_amount:amount,result:0,groupId:groupModel['_id'],userId:ownerDetails['_id'],type:"ACTIVE"})
             groupModel.groupPayment.push(ownerDetails._id);
             const sess = await mongoose.startSession();
             sess.startTransaction();
