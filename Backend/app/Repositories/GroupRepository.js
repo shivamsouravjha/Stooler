@@ -95,11 +95,14 @@ export default class GroupRepository {
             amount,
             fund: amount,
             totalsum: amount,
-            profit:[],
+            loss:0,
+            profit_deal:[],
+            loss_deal:[],
             members:[userId],
             groupOwner: userId,
             groupPayment:[],
-            sources: []
+            sources: [],
+            dues:[],
         })
         let ownerDetails;
         try{
