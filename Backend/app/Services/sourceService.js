@@ -20,13 +20,21 @@ export default class AccountService{
                 throw (new Exceptions.NotFoundException("No such group found"));
             }
             if(args.uid != groupInfo.groupOwner){
-                throw (new Exceptions.NotFoundException("Your'e not the group owner"));
+                sourceInfo.sellingPrice =args['sellingPrice'] ;
+                sourceInfo.type = "REMOVE";
+                sourceInfo.approved = false;
+                await this.repository.editSource(sourceInfo);
+                return {"message":"Sent to admin for removal"};
             } 
-            sourceInfo['sellingPrice'] = args['sellingPrice']
+            sourceInfo['sellingPrice'] = args['sellingPrice'];
             groupInfo['fund'] += sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
             if(sourceInfo['price']*sourceInfo['unitsPurchase'] > sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']){
                 groupInfo['loss'] +=sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
-            }
+                groupInfo.loss_deal.push(sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
+            }else{
+                groupInfo.profit_deal.push(-sourceInfo['price']*sourceInfo['unitsPurchase'] + sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
+
+            } 
             const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
             return reply;
         } catch (error) {
@@ -45,7 +53,7 @@ export default class AccountService{
             const approved = groupInfo.groupOwner == args.userId?true:false;
             const type = approved? "APPROVED":"ADD";
             const sourceModel = new SourceModel({
-                name,details,targetPrice,duration,price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
+                name,details,targetPrice,duration,price,editPrice:price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
             })
             groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
             if(groupInfo['fund']<0){
@@ -84,7 +92,16 @@ export default class AccountService{
             let sourceInfo = await this.repository.findSource(args);
             if(!bool)return {'source':sourceInfo};
             else{
-                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion}); 
+                let approved = value.set == "true"?true:false;
+                if(!approved){
+                    sourceInfo.approved = true;
+                    sourceInfo.editPrice = 0;
+                    sourceInfo.editsuggestion =0;
+                    sourceInfo.type = "APPROVED";
+                     await this.repository.editSource(sourceInfo);
+                     return {"message":"Edit Request Removed"}
+                }
+                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion,'price':sourceInfo.editPrice}); 
                 return promise;
             }
         } catch (error) {
@@ -102,21 +119,33 @@ export default class AccountService{
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"))
             } 
-            groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*sourceInfo['price']);
+            groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*args['price']);
             if(groupInfo['fund']<0){
                 throw (new Exceptions.ConflictException("Source funds less than group amount"));
             }
             if(groupInfo.groupOwner == value.uid){
-                sourceInfo['unitsPurchase'] = args.unitsPurchase; 
                 sourceInfo.type = "APPROVED";
                 sourceInfo.approved= true;
                 sourceInfo['editsuggestion']=0;
-                await this.repository.editSource(groupInfo);
+                if(args['unitsPurchase']<sourceInfo['unitsPurchase']){
+                    const deal = ((args['unitsPurchase']-sourceInfo['unitsPurchase'])*(args['price']-sourceInfo['price']));
+                    if(deal>0){
+                        groupInfo.loss += deal;
+                        groupInfo.loss_deal.push(deal);
+                    }else{
+                        groupInfo.profit_deal.push(-deal);
+                    }
+                }
+                sourceInfo['unitsPurchase'] = args.unitsPurchase; 
+                sourceInfo['price'] = args['price'];
                 await this.repository.editSource(sourceInfo);
+                await this.repository.editSource(groupInfo);
                 return {'success':true,message:"Source quantity edited"};
             }else{
                 sourceInfo.type = "EDIT";
                 sourceInfo['editsuggestion'] = args.unitsPurchase;
+                sourceInfo['editPrice'] = args.price;
+                sourceInfo['approved'] = false;
                 await this.repository.editSource(sourceInfo);
                 return {'success':true,message:"Edit suggestion sent to Group Owner"};
             }           
@@ -125,9 +154,9 @@ export default class AccountService{
         }
     }
 
-    async getAprroval(uid,type){
+    async getAprroval(uid){
         try {
-            let sourceInfo = await this.repository.findGroupApprovalAdd(type);
+            let sourceInfo = await this.repository.findGroupApprovalAdd();
             function checkUid(args) {
                 return args.group.groupOwner==uid;
             };
@@ -142,7 +171,7 @@ export default class AccountService{
         try {
             let sourceInfo = await this.repository.findSource(args.sid);
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
-            groupInfo['fund'] = groupInfo['fund']-sourceInfo["price"]*sourceInfo['unitsPurchase'];
+            groupInfo['fund'] = groupInfo['fund']-sourceInfo["editPrice"]*sourceInfo['unitsPurchase'];
             if(groupInfo['fund']<0){
                 throw {"message":`Source price more than current fund of group, exceeds by = ${sourceInfo["price"]*sourceInfo['unitsPurchase']-groupInfo['fund']}`}
             }
@@ -150,6 +179,8 @@ export default class AccountService{
             if(approved){
                 sourceInfo.approved = true;
                 sourceInfo.type = "APPROVED";
+                sourceInfo.price = sourceInfo.editPrice;
+                sourceInfo.editPrice = 0;
                 await this.repository.createSource(sourceInfo,groupInfo,approved);
                 return {'success':true,"message":"Source Added to group"};
             }else{
@@ -161,5 +192,33 @@ export default class AccountService{
             console.log(error)
             throw (new Exceptions.ValidationException(error.message));
         }
+    }
+
+
+    async setApproval(request) {
+        try {
+            let sourceInfo = await this.repository.findSource(request.params.sid);
+            let promise;
+            if(request.params.uid != sourceInfo.group.groupOwner){
+                throw (new Exceptions.ValidationException({"message":"No authorization"}));
+            }
+            if(sourceInfo.type == "ADD"){
+              promise = await this.setAprrovalAdd(request.body);
+            }else if(sourceInfo.type == "EDIT"){
+              const value={'sid':request.params.sid};
+              value['uid'] = request.params.uid;
+              value['set'] = request.body.set;
+              promise  =  await this.getSourceDetails(request.params.sid,true,value)
+            }else if(sourceInfo.type == "REMOVE"){
+                const value={'sid':request.params.sid};
+                value['uid'] = request.params.uid;  
+                value['sellingPrice'] = sourceInfo.sellingPrice;  
+                promise = await this.deleteSource(value);
+            }
+            return promise;
+
+          } catch(error){
+            throw (new Exceptions.ValidationException(error.message));
+          }
     }
 }

@@ -24,9 +24,9 @@ export default class SourceRepository {
         }
     }
 
-    async findGroupApprovalAdd (obj) {
+    async findGroupApprovalAdd () {
         try {
-            const found = await SourceModel.find({approved:false,type:obj}).populate('group');
+            const found = await SourceModel.find({approved:false}).populate('group');
             return found;
         } catch (error) {
             throw error
@@ -35,7 +35,7 @@ export default class SourceRepository {
 
     async findSource (obj) {
         try {            
-            const found = await SourceModel.findById(obj);
+            const found = await SourceModel.findById(obj).populate('group');
             return found;
         } catch (error) {
             throw error
@@ -70,7 +70,7 @@ export default class SourceRepository {
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
                 await sourceModel.save({ session: sess });
-                groupInfo.sources.push(sourceModel); 
+                groupInfo.sources.push(sourceModel._id); 
                 await groupInfo.save({ session: sess }); 
                 await sess.commitTransaction(); 
                 return {"success":true,"message":"Source Added"};
@@ -121,10 +121,9 @@ export default class SourceRepository {
             groupInfo.sources.pull(sourceInfo._id); 
             await groupInfo.save({ session: sess }); 
             await sess.commitTransaction();; 
-            // console.log("success")
         } catch (error) {
             throw error
         }
-        return {"success":true};
+        return {"success":true,"message":"Source Deleted"};
     }
 }

@@ -28,12 +28,12 @@ SourceApiRouter.post('/:edit/sources/:sid/:uid', (request, response) => {
   groupController.editSource(request);
 });
 
-SourceApiRouter.post('/approve/:uid/:type', (request, response) => {
+SourceApiRouter.post('/approve/:uid/', (request, response) => {
   const groupController = new SourceController(response);
   groupController.getAprroval(request);
 });
 
-SourceApiRouter.post('/setapproval/:sid/:uid/:type', (request, response) => {
+SourceApiRouter.post('/setapproval/:sid/:uid/', (request, response) => {
   const groupController = new SourceController(response);
   groupController.setApproval(request);
 });

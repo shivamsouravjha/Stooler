@@ -53,13 +53,15 @@ export default class CompanyController extends Controller {
     getSource (request) {
       try {
         const value = request.params.sid;
-        const promise  = this.service.getSourceDetails(value,false,null);
+        const promise  = this.service.getSourceDetails(value,false,null);        console.log("DSf")
+
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
           this.handleException(error);
         })
       } catch(error){
+        console.log(error)
         this.handleException(error);
       }
     }
@@ -74,7 +76,7 @@ export default class CompanyController extends Controller {
            promise  = this.service.editSourceDetails(value,request.body);
         }else{
           // console.log("in delete")
-          request.params['sellingPrice'] = request.body;
+          request.params['sellingPrice'] = request.body.sellingPrice;
           promise  = this.service.deleteSource(request.params);
         }
         promise.then(res=>{
@@ -103,7 +105,7 @@ export default class CompanyController extends Controller {
 
     getAprroval (request) {
       try {
-        const promise  = this.service.getAprroval(request.params.uid,request.params.type);
+        const promise  = this.service.getAprroval(request.params.uid);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
@@ -116,17 +118,8 @@ export default class CompanyController extends Controller {
 
     setApproval (request) {
       try {
-        request.body['sid'] = request.params.sid;
         let promise;
-        if(request.params.type == "ADD"){
-          promise = this.service.setAprrovalAdd(request.body);
-        }else if(request.params.type == "EDIT"){
-          const value={'sid':request.params.sid};
-          value['uid'] = request.params.uid;
-          promise  =  this.service.getSourceDetails(request.params.sid,true,value)
-        }else if(request.params.type == "REMOVE"){
-
-        }
+        promise = this.service.setApproval(request);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

@@ -44,27 +44,26 @@ export default class AccountService{
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
                 const refund_amount = verifyGroupId.fund/verifyGroupId.members.length + verifyGroupId.loss/verifyGroupId.members.length;
-                const transaction = await  this.repository.findTransaction({userId:verifyUserId['_id'],groupId:verifyGroupId['_id']});
-               
+                const transaction = await  this.repository.findTransaction({userId:verifyUserId['_id'],groupId:verifyGroupId['_id'],type:"ACTIVE"});
                 verifyUserId['funds'] += verifyGroupId.fund/verifyGroupId.members.length;
                 verifyUserId['loss'] += verifyGroupId.loss/verifyGroupId.members.length;
                 transaction['returned_amount'] = verifyGroupId.fund/verifyGroupId.members.length;
-                transaction['result'] = transaction['returned_amount'] - transaction['deposited_amount'] - verifyGroupId.loss/verifyGroupId.members.length;
+                transaction['result'] = transaction['returned_amount'] - transaction['deposited_amount'];
                 transaction['type']= "LEFT";
                 verifyGroupId['fund'] -= verifyGroupId.fund/verifyGroupId.members.length;
                 verifyGroupId['loss'] -= verifyGroupId.loss/verifyGroupId.members.length;
+                verifyGroupId['totalsum'] -= transaction.deposited_amount;
                 verifyGroupId.groupPayment.pull(transaction._id)
-                
+                transaction['due_amount']= 0;
+
                 if(transaction.deposited_amount>refund_amount){
                     transaction['due_amount']= transaction.deposited_amount-refund_amount;
                     verifyUserId['dues']+=transaction.deposited_amount-refund_amount;
                     transaction['type']= "DUES";
-                    transaction['result'] =  "Unclear"
+                    transaction['result'] =  0;
                     verifyGroupId.dues.push(transaction._id)
                 }
-                console.log(refund_amount,transaction,{userId:verifyUserId['_id'],groupId:verifyGroupId['_id']})
-
-                accountInfo = await this.repository.removeUserFromGroup(args,verifyGroupId,verifyUserId);
+                accountInfo = await this.repository.removeUserFromGroup(transaction,verifyGroupId,verifyUserId);
             }
             return accountInfo;
         } catch (error) {
@@ -114,9 +113,9 @@ export default class AccountService{
                 }
                 return obj
             }
-            
             args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
+            console.log(groupsInfo)
             function checkUid(uids) {
                 return objj == uids.members.includes(uid);
             };

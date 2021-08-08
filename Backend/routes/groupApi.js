@@ -8,10 +8,6 @@ GroupApiRouter.post('/create/:uid', (request, response) => {
   groupController.createGroup(request);
 });
 
-GroupApiRouter.post('/:context/:uid', (request, response) => {
-  const groupController = new GroupCpntroller(response);
-  groupController.userGroup(request);
-});
 
 GroupApiRouter.post('/getgroups/:uid', (request, response) => {
   const groupController = new GroupCpntroller(response);
@@ -24,6 +20,10 @@ GroupApiRouter.post('/getjoingroups/:uid', (request, response) => {
   groupController.getGroups(request,false);
 });
 
+GroupApiRouter.post('/:context/:uid/', (request, response) => {
+  const groupController = new GroupCpntroller(response);
+  groupController.userGroup(request);
+});
 
 GroupApiRouter.post('/:groupId', (request, response) => {
   const groupController = new GroupCpntroller(response);
