@@ -33,7 +33,7 @@ SourceApiRouter.post('/approve/:uid/', (request, response) => {
   groupController.getAprroval(request);
 });
 
-SourceApiRouter.post('/setapproval/:sid/:uid/:type', (request, response) => {
+SourceApiRouter.post('/setapproval/:sid/:uid/', (request, response) => {
   const groupController = new SourceController(response);
   groupController.setApproval(request);
 });

@@ -35,7 +35,7 @@ export default class SourceRepository {
 
     async findSource (obj) {
         try {            
-            const found = await SourceModel.findById(obj);
+            const found = await SourceModel.findById(obj).populate('group');
             return found;
         } catch (error) {
             throw error

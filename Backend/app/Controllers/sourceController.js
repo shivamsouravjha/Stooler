@@ -116,18 +116,8 @@ export default class CompanyController extends Controller {
 
     setApproval (request) {
       try {
-        request.body['sid'] = request.params.sid;
         let promise;
-        if(request.params.type == "ADD"){
-          promise = this.service.setAprrovalAdd(request.body);
-        }else if(request.params.type == "EDIT"){
-          const value={'sid':request.params.sid};
-          value['uid'] = request.params.uid;
-          value['price'] = request.body.price;
-          promise  =  this.service.getSourceDetails(request.params.sid,true,value)
-        }else if(request.params.type == "REMOVE"){
-
-        }
+        promise = this.service.setApproval(request);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{

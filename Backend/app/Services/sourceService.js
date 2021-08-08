@@ -20,9 +20,13 @@ export default class AccountService{
                 throw (new Exceptions.NotFoundException("No such group found"));
             }
             if(args.uid != groupInfo.groupOwner){
-                throw (new Exceptions.NotFoundException("Your'e not the group owner"));
+                sourceInfo.sellingPrice =args['sellingPrice'] ;
+                sourceInfo.type = "REMOVE";
+                sourceInfo.approved = false;
+                await this.repository.editSource(sourceInfo);
+                return {"message":"Sent to admin for removal"};
             } 
-            sourceInfo['sellingPrice'] = args['sellingPrice']
+            sourceInfo['sellingPrice'] = args['sellingPrice'];
             groupInfo['fund'] += sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
             if(sourceInfo['price']*sourceInfo['unitsPurchase'] > sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']){
                 groupInfo['loss'] +=sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
@@ -30,8 +34,7 @@ export default class AccountService{
             }else{
                 groupInfo.profit_deal.push(-sourceInfo['price']*sourceInfo['unitsPurchase'] + sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
 
-            }            console.log(args, sourceInfo['sellingPrice'])
-
+            } 
             const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
             return reply;
         } catch (error) {
@@ -89,7 +92,7 @@ export default class AccountService{
             let sourceInfo = await this.repository.findSource(args);
             if(!bool)return {'source':sourceInfo};
             else{
-                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion},{'price':value.price}); 
+                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion},{'price':sourceInfo.editPrice}); 
                 return promise;
             }
         } catch (error) {
@@ -180,5 +183,27 @@ export default class AccountService{
             console.log(error)
             throw (new Exceptions.ValidationException(error.message));
         }
+    }
+
+
+    async setApproval(request) {
+        try {
+            let sourceInfo = await this.repository.findSource(request.params.sid);
+            let promise;
+            if(sourceInfo.type == "ADD"){
+              promise = await this.setAprrovalAdd(request.body);
+            }else if(sourceInfo.type == "EDIT"){
+              const value={'sid':request.params.sid};
+              value['uid'] = request.params.uid;
+              promise  =  await this.getSourceDetails(request.params.sid,true,value)
+            }else if(sourceInfo.type == "REMOVE"){
+                const value={'sid':request.params.sid};
+                value['uid'] = request.params.uid;  
+                value['sellingPrice'] = sourceInfo.sellingPrice;  
+                promise = await this.deleteSource(value);
+            }
+          } catch(error){
+            this.handleException(error);
+          }
     }
 }
