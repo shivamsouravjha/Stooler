@@ -92,7 +92,16 @@ export default class AccountService{
             let sourceInfo = await this.repository.findSource(args);
             if(!bool)return {'source':sourceInfo};
             else{
-                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion},{'price':sourceInfo.editPrice}); 
+                let approved = value.set == "true"?true:false;
+                if(!approved){
+                    sourceInfo.approved = true;
+                    sourceInfo.editPrice = 0;
+                    sourceInfo.editsuggestion =0;
+                    sourceInfo.type = "APPROVED";
+                     await this.repository.editSource(sourceInfo);
+                     return {"message":"Edit Request Removed"}
+                }
+                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion,'price':sourceInfo.editPrice}); 
                 return promise;
             }
         } catch (error) {
@@ -190,11 +199,15 @@ export default class AccountService{
         try {
             let sourceInfo = await this.repository.findSource(request.params.sid);
             let promise;
+            if(request.params.uid != sourceInfo.group.groupOwner){
+                throw (new Exceptions.ValidationException({"message":"No authorization"}));
+            }
             if(sourceInfo.type == "ADD"){
               promise = await this.setAprrovalAdd(request.body);
             }else if(sourceInfo.type == "EDIT"){
               const value={'sid':request.params.sid};
               value['uid'] = request.params.uid;
+              value['set'] = request.body.set;
               promise  =  await this.getSourceDetails(request.params.sid,true,value)
             }else if(sourceInfo.type == "REMOVE"){
                 const value={'sid':request.params.sid};
@@ -202,8 +215,10 @@ export default class AccountService{
                 value['sellingPrice'] = sourceInfo.sellingPrice;  
                 promise = await this.deleteSource(value);
             }
+            return promise;
+
           } catch(error){
-            this.handleException(error);
+            throw (new Exceptions.ValidationException(error.message));
           }
     }
 }

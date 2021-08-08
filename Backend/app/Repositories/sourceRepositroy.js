@@ -121,10 +121,9 @@ export default class SourceRepository {
             groupInfo.sources.pull(sourceInfo._id); 
             await groupInfo.save({ session: sess }); 
             await sess.commitTransaction();; 
-            // console.log("success")
         } catch (error) {
             throw error
         }
-        return {"success":true};
+        return {"success":true,"message":"Source Deleted"};
     }
 }

@@ -53,13 +53,15 @@ export default class CompanyController extends Controller {
     getSource (request) {
       try {
         const value = request.params.sid;
-        const promise  = this.service.getSourceDetails(value,false,null);
+        const promise  = this.service.getSourceDetails(value,false,null);        console.log("DSf")
+
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
           this.handleException(error);
         })
       } catch(error){
+        console.log(error)
         this.handleException(error);
       }
     }
