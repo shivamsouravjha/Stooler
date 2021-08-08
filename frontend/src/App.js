@@ -22,6 +22,7 @@ import SourceDetails from './groups/pages/sourceDetails';
 import GetGroupSource from './groups/pages/getgroupsource';
 import Process from './groups/pages/process';
 import EditSource from '../src/groups/pages/editsource';
+import DeleteSource from '../src/groups/pages/deletesource';
 import Chatbot from '../src/chatbot/chatbot';
 import Crypto from './crypto/crypto';
 const App = () => {
@@ -81,6 +82,9 @@ const App = () => {
         </Route>
         <Route path="/editsource/:sid" exact>
           <EditSource/>
+        </Route>
+        <Route path="/deletesource/:sid" exact>
+          <DeleteSource/>
         </Route>
         <Route path="/crypto" exact>
           <Crypto/>

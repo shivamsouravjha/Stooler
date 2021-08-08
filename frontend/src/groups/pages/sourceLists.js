@@ -78,16 +78,6 @@ function Table({ columns, data }) {
  
 function SourceDetails(props) {
   const [compLoading, setCompLoading] = useState(true);
-  const letdel = async sid =>{
-    setCompLoading(true)
-
-    const responseData = await sendRequest(
-      `http://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST"
-    );
-    console.log(responseData,sid)
-    setCompLoading(false)
-
-  }
   const columns = React.useMemo(
     () => [
       {
@@ -116,8 +106,8 @@ function SourceDetails(props) {
                   <button>
                     <NavLink to={`/editsource/${cell.row.values._id}`}>Edit</NavLink>
                   </button>
-                  <button button  onClick={() => letdel(cell.value)}>
-                    Delete
+                  <button>
+                    <NavLink to={`/deletesource/${cell.row.values._id}`}>Delete</NavLink>
                   </button>
                 </Fragment>
                 ):
