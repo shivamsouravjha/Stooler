@@ -26,7 +26,12 @@ export default class AccountService{
             groupInfo['fund'] += sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
             if(sourceInfo['price']*sourceInfo['unitsPurchase'] > sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']){
                 groupInfo['loss'] +=sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
-            }
+                groupInfo.loss_deal.push(sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
+            }else{
+                groupInfo.profit_deal.push(-sourceInfo['price']*sourceInfo['unitsPurchase'] + sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
+
+            }            console.log(args, sourceInfo['sellingPrice'])
+
             const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
             return reply;
         } catch (error) {
@@ -45,7 +50,7 @@ export default class AccountService{
             const approved = groupInfo.groupOwner == args.userId?true:false;
             const type = approved? "APPROVED":"ADD";
             const sourceModel = new SourceModel({
-                name,details,targetPrice,duration,price,entry_price:price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
+                name,details,targetPrice,duration,price,editPrice:price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
             })
             groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
             if(groupInfo['fund']<0){
@@ -84,7 +89,7 @@ export default class AccountService{
             let sourceInfo = await this.repository.findSource(args);
             if(!bool)return {'source':sourceInfo};
             else{
-                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion}); 
+                const promise = await this.editSourceDetails(value,{'unitsPurchase':sourceInfo.editsuggestion},{'price':value.price}); 
                 return promise;
             }
         } catch (error) {
@@ -127,6 +132,7 @@ export default class AccountService{
             }else{
                 sourceInfo.type = "EDIT";
                 sourceInfo['editsuggestion'] = args.unitsPurchase;
+                sourceInfo['editPrice'] = args.price;
                 sourceInfo['approved'] = false;
                 await this.repository.editSource(sourceInfo);
                 return {'success':true,message:"Edit suggestion sent to Group Owner"};
@@ -153,7 +159,7 @@ export default class AccountService{
         try {
             let sourceInfo = await this.repository.findSource(args.sid);
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
-            groupInfo['fund'] = groupInfo['fund']-sourceInfo["price"]*sourceInfo['unitsPurchase'];
+            groupInfo['fund'] = groupInfo['fund']-sourceInfo["editPrice"]*sourceInfo['unitsPurchase'];
             if(groupInfo['fund']<0){
                 throw {"message":`Source price more than current fund of group, exceeds by = ${sourceInfo["price"]*sourceInfo['unitsPurchase']-groupInfo['fund']}`}
             }
@@ -161,6 +167,8 @@ export default class AccountService{
             if(approved){
                 sourceInfo.approved = true;
                 sourceInfo.type = "APPROVED";
+                sourceInfo.price = sourceInfo.editPrice;
+                sourceInfo.editPrice = 0;
                 await this.repository.createSource(sourceInfo,groupInfo,approved);
                 return {'success':true,"message":"Source Added to group"};
             }else{

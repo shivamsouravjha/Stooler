@@ -70,7 +70,7 @@ export default class SourceRepository {
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
                 await sourceModel.save({ session: sess });
-                groupInfo.sources.push(sourceModel); 
+                groupInfo.sources.push(sourceModel._id); 
                 await groupInfo.save({ session: sess }); 
                 await sess.commitTransaction(); 
                 return {"success":true,"message":"Source Added"};

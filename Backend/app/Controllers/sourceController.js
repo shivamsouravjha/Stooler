@@ -74,7 +74,7 @@ export default class CompanyController extends Controller {
            promise  = this.service.editSourceDetails(value,request.body);
         }else{
           // console.log("in delete")
-          request.params['sellingPrice'] = request.body;
+          request.params['sellingPrice'] = request.body.sellingPrice;
           promise  = this.service.deleteSource(request.params);
         }
         promise.then(res=>{
@@ -123,6 +123,7 @@ export default class CompanyController extends Controller {
         }else if(request.params.type == "EDIT"){
           const value={'sid':request.params.sid};
           value['uid'] = request.params.uid;
+          value['price'] = request.body.price;
           promise  =  this.service.getSourceDetails(request.params.sid,true,value)
         }else if(request.params.type == "REMOVE"){
 
