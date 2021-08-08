@@ -11,8 +11,7 @@ const  EditSource = ()=>{
    const [isLoading, setIsLoading] = useState(false);
    const [success, setSuccess] = useState();
    const [error, setError] = useState();
-    const [unitsPurchase,setUnitpurchase]=useState();
-    const [price,setprice]=useState();
+    const [sellingPrice,setsellingPrice]=useState();
     const sid = useParams().sid;
     var userid = localStorage.getItem('__react_session__');
     userid = JSON.parse(userid)
@@ -21,10 +20,10 @@ const  EditSource = ()=>{
         e.preventDefault();
         try{   
             setIsLoading(true);
-            var body={"unitsPurchase":unitsPurchase,"price":price};
+            var body={"sellingPrice":sellingPrice};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `http://stool-back.herokuapp.com/api/source/edit/sources/${sid}/${userid}/`,"POST",body,{
+                `http://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );
@@ -53,13 +52,10 @@ const  EditSource = ()=>{
                     <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
                                             {/* form header */}
                         <h2 className="form_heading">
-                            Edit the Units
+                            Selling Price of  the source
                         </h2> 
                         <br/>
-                        <input type="number" name="amount" className="inputs" value={unitsPurchase} placeholder="New Units" onChange={e =>setUnitpurchase(e.target.value)} required />
-                        <br/><br/>
-                        <br/>
-                        <input type="number" name="price" className="inputs" value={price} placeholder="Present Price" onChange={e =>setprice(e.target.value)} required />
+                        <input type="number" name="sellingPric" className="inputs" value={sellingPrice} placeholder="SP of source" onChange={e =>setsellingPrice(e.target.value)} required />
                         <br/><br/>
                         <button type="submit" className="confirm_btns">
                             Done
