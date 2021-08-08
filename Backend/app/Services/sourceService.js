@@ -102,21 +102,32 @@ export default class AccountService{
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"))
             } 
-            groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*sourceInfo['price']);
+            groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*args['price']);
             if(groupInfo['fund']<0){
                 throw (new Exceptions.ConflictException("Source funds less than group amount"));
             }
             if(groupInfo.groupOwner == value.uid){
-                sourceInfo['unitsPurchase'] = args.unitsPurchase; 
                 sourceInfo.type = "APPROVED";
                 sourceInfo.approved= true;
                 sourceInfo['editsuggestion']=0;
-                await this.repository.editSource(groupInfo);
+                if(args['unitsPurchase']<sourceInfo['unitsPurchase']){
+                    const deal = ((args['unitsPurchase']-sourceInfo['unitsPurchase'])*(args['price']-sourceInfo['price']));
+                    if(deal>0){
+                        groupInfo.loss += deal;
+                        groupInfo.loss_deal.push(deal);
+                    }else{
+                        groupInfo.profit_deal.push(-deal);
+                    }
+                }
+                sourceInfo['unitsPurchase'] = args.unitsPurchase; 
+                sourceInfo['price'] = args['price'];
                 await this.repository.editSource(sourceInfo);
+                await this.repository.editSource(groupInfo);
                 return {'success':true,message:"Source quantity edited"};
             }else{
                 sourceInfo.type = "EDIT";
                 sourceInfo['editsuggestion'] = args.unitsPurchase;
+                sourceInfo['approved'] = false;
                 await this.repository.editSource(sourceInfo);
                 return {'success':true,message:"Edit suggestion sent to Group Owner"};
             }           
@@ -125,9 +136,9 @@ export default class AccountService{
         }
     }
 
-    async getAprroval(uid,type){
+    async getAprroval(uid){
         try {
-            let sourceInfo = await this.repository.findGroupApprovalAdd(type);
+            let sourceInfo = await this.repository.findGroupApprovalAdd();
             function checkUid(args) {
                 return args.group.groupOwner==uid;
             };

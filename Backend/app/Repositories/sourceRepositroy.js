@@ -24,9 +24,9 @@ export default class SourceRepository {
         }
     }
 
-    async findGroupApprovalAdd (obj) {
+    async findGroupApprovalAdd () {
         try {
-            const found = await SourceModel.find({approved:false,type:obj}).populate('group');
+            const found = await SourceModel.find({approved:false}).populate('group');
             return found;
         } catch (error) {
             throw error
