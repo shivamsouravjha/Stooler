@@ -9,6 +9,7 @@ const sourceSchema = new schema({
     targetPrice: {type : Number,required: true},
     duration: {type :String ,required: true},
     price: {type :Number,required: true},
+    entry_price: {type :Number,required: true},
     sellingPrice: {type :Number},
     unitsPurchase: {type: Number,required: true},
     approved: {type: Boolean},

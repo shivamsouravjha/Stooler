@@ -40,7 +40,7 @@ export default class GroupRepository {
             args['type'] = 'ACTIVE';
             args['deposited_amount'] = args.amount;
             args['returned_amount'] = 0;
-            args['due_amount'] = 0;
+            args['due_amount'] = args.amount;
             delete args.amount;
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
@@ -65,21 +65,15 @@ export default class GroupRepository {
     
     async removeUserFromGroup (args,verifyGroupId,verifyUserId) {
         try {
-            const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
-            await newTransaction.save(); 
-            verifyGroupId.groupPayment.push(newTransaction._id); 
-            verifyGroupId.members.push(verifyUserId._id);          
-            verifyUserId.groups.push(verifyGroupId._id); 
-            verifyUserId.transaction.push(newTransaction._id);
+            await args.save(); 
+            verifyGroupId.members.pull(verifyUserId._id);          
+            verifyUserId.groups.pull(verifyGroupId._id); 
             await verifyUserId.save({ session: sess }); 
-
             await verifyGroupId.save({ session: sess }); 
-
             await sess.commitTransaction(); 
-            console.log("Pass")
-            return {'message':'Group Joined','success':true};
+            return {'message':'Group Left','success':true};
         } catch (error) {
             throw error;
         }

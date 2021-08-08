@@ -45,7 +45,7 @@ export default class AccountService{
             const approved = groupInfo.groupOwner == args.userId?true:false;
             const type = approved? "APPROVED":"ADD";
             const sourceModel = new SourceModel({
-                name,details,targetPrice,duration,price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
+                name,details,targetPrice,duration,price,entry_price:price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
             })
             groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
             if(groupInfo['fund']<0){
