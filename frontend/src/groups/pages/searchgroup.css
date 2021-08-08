@@ -27,19 +27,39 @@ hr{
 .search_button{
     width:10rem;
     height:2.5rem;
+    color:white;
+ background-color:#0a657e;
+   border-color: #0a657e;
+   border-radius:5px;
+    margin: auto 10%;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.search_button:hover{
+  transform: translate(-3px,-2px);
+  cursor: pointer;
+ }
+
+ .group_source_button{
+    width:15rem;
+    height:3rem;
     background-color:white;
    color:#0a657e;
    border-color: #0a657e;
    border-radius:5px;
     margin: auto 10%;
-    font-size: 1.3rem;
-}
-
-.search_button:hover{
-  
-  color:white;
- background-color:#0a657e;
+    margin:20px;
+    font-size: 1.2rem;
+    font-weight:bold ;
  }
+
+ .group_source_button:hover{
+  
+    color:white;
+   background-color:#0a657e;
+   }
+
 
 /* css for mobile view*/
 @media only screen and (max-width: 1450px) {
@@ -58,6 +78,12 @@ hr{
     .search_input{
         margin:8px;
     }
+    .group_source_button{
+        width:14rem;
+        height:2.5rem;
+        font-size: 1.1rem;
+        font-weight:bold ;
+     }
 }
 
 @media only screen and (max-width: 900px) {
@@ -85,6 +111,15 @@ hr{
     width:6rem;
     height:1.8rem;
     margin: auto 10%;
+    margin-bottom: 10px;
     font-size: 1rem;
     }
+    .group_source_button{
+        width:12rem;
+        height:2rem;
+        margin: auto 10%;
+        margin:10px;
+        font-size: 0.9rem;
+        font-weight:bold ;
+     }
 }
