@@ -22,7 +22,7 @@ export default {
         amount: Joi.number().required(),
     }),
     groupJoin : Joi.object().keys({
-        amount: Joi.number().required(),
+        amount: Joi.number(),
         groupId: Joi.string().required(),
     }),
     createSource: Joi.object().keys({

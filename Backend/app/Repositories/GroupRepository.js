@@ -43,7 +43,7 @@ export default class GroupRepository {
             args['due_amount'] = args.amount;
             delete args.amount;
             if(verifyUserId.funds < args.deposited_amount){
-                throw {'message':'Insufficient funda','success':false};
+                throw {'message':'Insufficient funds','success':false};
             }
             verifyUserId.funds -= args.deposited_amount;
             const newTransaction = new Transaction(args);
