@@ -15,7 +15,7 @@ const Group = () => {
             setCompLoading(true)
             console.log(sid)
             const responseData = await sendRequest(
-            `https//stool-back.herokuapp.com/api/source/getcompanydetails/${sid}`,"POST"
+            `https://stool-back.herokuapp.com/api/source/getcompanydetails/${sid}`,"POST"
             );
             if(responseData['status']!=200 && responseData['status']!=202){
                 throw responseData.error;

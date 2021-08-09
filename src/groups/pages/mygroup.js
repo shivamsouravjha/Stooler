@@ -143,7 +143,7 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `https//stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
+          `https://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
@@ -170,7 +170,7 @@ function Group() {
         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `https//stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
+            `https://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         if(responseData['status']!=200 && responseData['status']!=202){

@@ -32,7 +32,7 @@ const  JoinGroupAuth = ()=>{
             var body={"name":name,"price":price,"unitsPurchase":unitsPurchase,"targetPrice":targetPrice,"details":details,"duration":duration};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https//stool-back.herokuapp.com/api/source/add/${gid}/${userid}`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/source/add/${gid}/${userid}`,"POST",body,{
                     'Content-Type': 'application/json'
             }
               );
@@ -60,7 +60,7 @@ const  JoinGroupAuth = ()=>{
         userid = await JSON.parse(userid)
         userid = userid['userid']
         const responseData = await sendRequest(
-            `https//stool-back.herokuapp.com/api/source/delete/sources/${gid}/${userid}/`,"POST"
+            `https://stool-back.herokuapp.com/api/source/delete/sources/${gid}/${userid}/`,"POST"
         );
         console.log(responseData,gid)
         setIsLoading(false)

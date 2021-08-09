@@ -20,7 +20,7 @@ const PieChart = () => {
         userid = userid['userid']
         console.log("Fd")
         const responseData = await sendRequest(
-          `https//stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
+          `https://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
         );
         console.log("responseData")
         if(responseData['status']!=200 && responseData['status']!=202){
