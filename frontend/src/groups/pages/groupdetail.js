@@ -18,7 +18,7 @@ const Group = () => {
             userid = await JSON.parse(userid)
             userid = userid['userid']
             const responseData = await sendRequest(
-            `http://stool-back.herokuapp.com/api/groups/${gid}`,"POST"
+            `https://stool-back.herokuapp.com/api/groups/${gid}`,"POST"
             );
         
             if(responseData['status']!=200 && responseData['status']!=202){
