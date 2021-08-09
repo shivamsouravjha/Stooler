@@ -115,6 +115,10 @@ function JoinGroup() {
             accessor: 'totalsum',
           },
           {
+            Header: 'Minimum Amount',
+            accessor: 'amount',
+          },
+          {
             Header: 'Group Details',
             accessor: '_id',
             Cell: e => <NavLink className="join_group_link" to={`/group/${e.value}`}> Click here </NavLink>
