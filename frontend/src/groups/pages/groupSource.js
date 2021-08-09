@@ -69,6 +69,7 @@ const  JoinGroupAuth = ()=>{
                 'Content-Type': 'application/json'}
         );
         setIsLoading(false)
+        SuccessModal(responseData.data.message);
     }catch(error){
         setIsLoading(false);
         setSuccess(error.message || 'Something went wrong, please try again.');
