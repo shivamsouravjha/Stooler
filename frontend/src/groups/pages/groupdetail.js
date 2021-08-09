@@ -29,6 +29,7 @@ const Group = () => {
             if(arr.indexOf(userid)==-1){
                 setValid(false);
             }
+            console.log(arr,userid,arr.indexOf(userid)); //true
             setLoadedGroup(dataResponse);
             setCompLoading(false)
         } catch (err) {}
@@ -48,12 +49,12 @@ const Group = () => {
         }
     ];}
   return (
-  <Fragment>
-          {compLoading ?<LoadingSpinner asOverlay /> : (
+        <Fragment>
+          {compLoading ?<LoadingSpinner asOverlay /> : (<Fragment>
             <GroupList items={GROUP} />,
             <SourceLists valid={valid}/>
-
-          )}
+            </Fragment>)
+          }
         </Fragment>);
 };
 
