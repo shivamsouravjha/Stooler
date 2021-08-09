@@ -121,7 +121,7 @@ function GroupSource() {
             userid = await JSON.parse(userid)
             userid = userid['userid']
             const responseData = await sendRequest(
-            `http://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
+            `https://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
             );
             const dataResponse = responseData.data;
             console.log(dataResponse);
