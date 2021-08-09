@@ -1,99 +1,70 @@
+# Getting Started with Create React App
 
-# Stool
- Imagine having an app that treats an investor with 1k 
-equally to an investor with 1lakh, where you can 
-invest money without any knowledge and without 
-the help of any broker.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Presenting you with a  **Stool** to make 
-our finance easier and life better.
+## Available Scripts
 
-A plan to invest in a stock via group pool. Friends and strangers come
-together to invest in stocks and cryptocurrency, for 
-sharing the investment strategy and profit. 
+In the project directory, you can run:
 
-*Invest Together Grow Together.*
+### `npm start`
 
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
+### `npm test`
 
-## How it Works ?
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Here you can join a group of investors, who together invest
-in a stock, fix a deadline to withdraw the amount, you can 
-request admin to add new stock in a group.
+### `npm run build`
 
-Or you can create your unique group and  add different stocks in
-it, and ask other users to join you and invest with you, where
-you can share ideas with each other and can grow together.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-## [To see live action](https://stool-front.herokuapp.com/)
-  
-## Deployment on Local System
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-To deploy this project run
+### `npm run eject`
 
-```bash
-  create an env file
-  create an empty folder called storage in backend
-  and in that create logs.
-  npm install
-  npm start in backend
-```
-```bash
-   In frontend folder
-   npm install
-   npm start
-```
-  
-## Environment Variables
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-To run this project, you will need to add the following environment variables to your .env file
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-`name (MongoDB_username)`
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-`password (MongoDB_password)`
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-`db (MongoDB_databasename)`
+## Learn More
 
-`secretcode (jwt_authentication_token)`
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-`cloudinary_cloud_name`
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-`cloudinary_api_key`
+### Code Splitting
 
-`cloudinary_api_secret`
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
+### Analyzing the Bundle Size
 
-## Source Schema
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-![Blank diagram](https://user-images.githubusercontent.com/60891544/127903441-a1b493b9-f071-40da-b502-e17ed7467a29.png)
+### Making a Progressive Web App
 
-    
-## Authors
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-- [@shivamsouravjha](https://github.com/shivamsouravjha)
-- [@SAKSHIRAMWANI](https://github.com/SAKSHIRAMWANI)
-- [@Shrestha25](https://github.com/Shrestha25)
-  
-  
-  
-## [Backend Link](https://stool-back.herokuapp.com/)
+### Advanced Configuration
 
-## [Postman Requests](https://www.getpostman.com/collections/a6cc1f044a023f89a5d8)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
+### Deployment
 
-## Tech Stack
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-**Client:** React
+### `npm run build` fails to minify
 
-**Server:** Node, Express
-
-**Database:** MongoDB, Redis
-
-  
-![Logo](https://miro.medium.com/max/2000/1*EVqCcmCPgpNKxU1wzcTHgw.png)
-![Logo](https://miro.medium.com/max/1400/0*iqBTxMY36028Eayz.jpg)
-![Logo](https://techcrunch.com/wp-content/uploads/2019/06/MongoDB_Logo_FullColorBlack_RGB.png)
-![Logo](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/1200px-Redis_Logo.svg.png)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
