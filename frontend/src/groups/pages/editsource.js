@@ -24,7 +24,7 @@ const  EditSource = ()=>{
             var body={"unitsPurchase":unitsPurchase,"price":price};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `http://stool-back.herokuapp.com/api/source/edit/sources/${sid}/${userid}/`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/source/edit/sources/${sid}/${userid}/`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );

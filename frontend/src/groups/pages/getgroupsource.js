@@ -134,7 +134,7 @@ function GroupSource() {
       const fetchUsers = async () => {
         try {
           const responseData = await sendRequest(
-            `http://stool-back.herokuapp.com/api/source/approve/${userid}`,"POST"
+            `https://stool-back.herokuapp.com/api/source/approve/${userid}`,"POST"
           );
           if(responseData['status']!=200 && responseData['status']!=202){
             throw responseData.error;
