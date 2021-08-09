@@ -42,10 +42,10 @@ export default class GroupRepository {
             args['returned_amount'] = 0;
             args['due_amount'] = args.amount;
             delete args.amount;
-            if(verifyUserId.funds < args.amount){
+            if(verifyUserId.funds < args.deposited_amount){
                 throw {'message':'Insufficient funda','success':false};
             }
-            verifyUserId.funds -= args.amount;
+            verifyUserId.funds -= args.deposited_amount;
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
@@ -104,10 +104,19 @@ export default class GroupRepository {
         let ownerDetails;
         try{
             ownerDetails = await UserModel.findById(userId);
-            if(ownerDetails.funds < args.amount){
+            if(genre == 'Gold/Silver'){
+                ownerDetails.shares[0]['amount']+=amount
+            } if(genre == 'Stock'){
+                ownerDetails.shares[1]['amount']+=amount
+            } if(genre == 'Cryptocurrency'){
+                ownerDetails.shares[2]['amount']+=amount
+            } if(genre == 'Currency Exchange'){
+                ownerDetails.shares[3]['amount']+=amount
+            }
+            if(ownerDetails.funds < amount){
                 throw {'message':'Insufficient funda','success':false};
             }
-            ownerDetails.funds -= args.amount;
+            ownerDetails.funds -= amount;
             const newTransaction = new Transaction({deposited_amount:amount,returned_amount:0,due_amount:amount,result:0,groupId:groupModel['_id'],userId:ownerDetails['_id'],type:"ACTIVE"})
             groupModel.groupPayment.push(newTransaction._id);
             ownerDetails.transaction.push(newTransaction._id);

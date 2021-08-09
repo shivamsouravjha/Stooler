@@ -144,7 +144,6 @@ function GroupSource() {
           setLoadedUsers(dataResponse);
           setCompLoading(false)
         } catch (err) {
-          console.log(err)
           setCompLoading(false);
           setError(err.message || 'Something went wrong, please try again.');
         }

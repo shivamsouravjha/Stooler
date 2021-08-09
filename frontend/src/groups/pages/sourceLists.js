@@ -101,7 +101,7 @@ function SourceDetails(props) {
             Cell: ({ cell }) =>(
             <Fragment>
               <NavLink className="join_group_link" to={`/source/${cell.value}`}>View Source </NavLink>
-              {props.valid=='true' ? (
+              {props.valid==true ? (
                 <Fragment>
                   <button>
                     <NavLink to={`/editsource/${cell.row.values._id}`}>Edit</NavLink>
@@ -111,7 +111,9 @@ function SourceDetails(props) {
                   </button>
                 </Fragment>
                 ):
-                <p>Join to invest</p>
+                (
+                  console.log(props)
+                )
               }
             </Fragment>
             )
@@ -147,7 +149,6 @@ function SourceDetails(props) {
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
         }
-        console.log(responseData.data.source)
         const dataResponse = responseData.data.source;
         setLoadedUsers(dataResponse);
         setCompLoading(false)

@@ -232,7 +232,7 @@ const Auth = () => {
               label="Create a Password"
               placeholder="using Combination of {0-9},{a-z},{A-Z}"
               validators={[VALIDATOR_PASSWORD()]}
-              errorText="Please enter a valid password: Min length= 8"
+              errorText="Must contain an uppercanse and lowercase character with a number"
               onInput={inputHandler}
             />)
           }
