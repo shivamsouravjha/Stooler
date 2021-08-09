@@ -2,7 +2,7 @@ import React, { useEffect, useState,Component} from 'react';
 import { useParams } from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import "./auth.css";
-
+import GroupDetail from './groupdetail';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import SuccessModal from '../../shared/components/UIElements/Success';
@@ -61,54 +61,55 @@ const  RequestSource = ()=>{
 
             <div className="group_form_div">
         <center>
-        <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
+        <form  action="/" id="event_form"  name="event_form" className="request_form" onSubmit={onSubmitform}>
                                     {/* form header */}
-                <h2 className="form_heading">
+                <h2 className="request_heading">
                     ADD SOURCE 
                 </h2> 
+                <hr/>
                 <label className="labels">
                     Name<span > * </span> 
                 </label>
                 <br/>
-                <input type="text" name="name" className="inputs" value={name} onChange={e =>setName(e.target.value)} required />
+                <input type="text" name="name" className="request_inputs" value={name} onChange={e =>setName(e.target.value)} required />
                 <br/><br/>
                 <label className="labels">
                     Market Place 
                 </label>
                 <br/>
-                <input type="text" name="marketplace" className="inputs" value={marketplace} onChange={e =>setMarketplace(e.target.value)} />
+                <input type="text" name="marketplace" className="request_inputs" value={marketplace} onChange={e =>setMarketplace(e.target.value)} />
                 <br/><br/>
                 <label className="labels">
                     Price<span > * </span> 
                 </label>
                 <br/>
-                <input type="number" name="price" className="inputs" value={price} onChange={e =>setPrice(e.target.value)} required />
+                <input type="number" name="price" className="request_inputs" value={price} onChange={e =>setPrice(e.target.value)} required />
                 <br/><br/>
                 <label className="labels">
                     Target Price<span > * </span> 
                 </label>
                 <br/>
-                <input type="number" name="targetPrice" className="inputs" value={targetPrice} onChange={e =>setTragetprice(e.target.value)} required />
+                <input type="number" name="targetPrice" className="request_inputs" value={targetPrice} onChange={e =>setTragetprice(e.target.value)} required />
                 <br/><br/>
                 <label className="labels">
                     Units Purchase<span > * </span> 
                 </label>
                 <br/>
-                <input type="number" name="unitsPurchase" className="inputs" value={unitsPurchase} onChange={e =>setUnitspurchase(e.target.value)} required />
+                <input type="number" name="unitsPurchase" className="request_inputs" value={unitsPurchase} onChange={e =>setUnitspurchase(e.target.value)} required />
                 <br/><br/>
                 <label className="labels">
                     Details<span > * </span> 
                 </label>
                 <br/>
-                <input type="text" name="details" className="inputs" value={details} onChange={e =>setDetails(e.target.value)} required />
+                <input type="text" name="details" className="request_inputs" value={details} onChange={e =>setDetails(e.target.value)} required />
                 <br/><br/>
                 <label className="labels">
-                    Duration time in month<span > * </span> 
+                    Duration (in months)<span > * </span> 
                 </label>
                 <br/>
-                <input type="number" name="duration" className="inputs" value={duration} onChange={e =>setDuration(e.target.value)} required />
+                <input type="number" name="duration" className="request_inputs" value={duration} onChange={e =>setDuration(e.target.value)} required />
                 <br/><br/>
-                <button type="submit" className="confirm_btns">
+                <button type="submit" className="request_btns">
                     REQUEST/ADD
                 </button>
             </form> </center>
