@@ -45,6 +45,7 @@ export default class GroupRepository {
             if(verifyUserId.funds < args.amount){
                 throw {'message':'Insufficient funda','success':false};
             }
+            verifyUserId.funds -= args.amount;
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
@@ -103,9 +104,10 @@ export default class GroupRepository {
         let ownerDetails;
         try{
             ownerDetails = await UserModel.findById(userId);
-            if(ownerDetails.funds < amount){
+            if(ownerDetails.funds < args.amount){
                 throw {'message':'Insufficient funda','success':false};
             }
+            ownerDetails.funds -= args.amount;
             const newTransaction = new Transaction({deposited_amount:amount,returned_amount:0,due_amount:amount,result:0,groupId:groupModel['_id'],userId:ownerDetails['_id'],type:"ACTIVE"})
             groupModel.groupPayment.push(newTransaction._id);
             ownerDetails.transaction.push(newTransaction._id);
