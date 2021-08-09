@@ -55,16 +55,26 @@ const  JoinGroupAuth = ()=>{
         setError(null);
       };
     const letlev = async e =>{
-        e.preventDefault();
+        // e.preventDefault();
+        try{
         setIsLoading(true)
         var userid = localStorage.getItem('__react_session__');
         userid = await JSON.parse(userid)
         userid = userid['userid']
+        var body={"groupId":gid};
+        console.log(body)
+        body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/source/delete/sources/${gid}/${userid}/`,"POST"
+            `https://stool-back.herokuapp.com/api/groups/remove/${userid}/`,"POST",body,{
+                'Content-Type': 'application/json'}
         );
-        console.log(responseData,gid)
         setIsLoading(false)
+        SuccessModal(responseData.data.message);
+    }catch(error){
+        setIsLoading(false);
+        setSuccess(error.message || 'Something went wrong, please try again.');
+
+    }
     }
 
     

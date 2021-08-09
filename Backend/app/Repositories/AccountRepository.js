@@ -34,7 +34,7 @@ export default class AccountRepository {
             email,
             password,
             number,
-            funds:0,
+            funds:10000,
             loss:0,
             dues:0,
             groups:[],
