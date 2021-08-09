@@ -37,7 +37,7 @@ const  EditSource = ()=>{
             // window.location="/";
         }catch(err){
             setIsLoading(false);
-            setSuccess(err.message || 'Something went wrong, please try again.');
+            setError(err.message || 'Something went wrong, please try again.');
         }
     }
     const successHandler = () => {
