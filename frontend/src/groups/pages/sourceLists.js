@@ -7,7 +7,7 @@ import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { useParams } from 'react-router-dom';
 import './sourceLists.css';
 const Styles = styled.div`
-  padding: 1rem;
+  padding: 0.5rem;
 
   table {
     border-spacing: 0;
@@ -24,7 +24,7 @@ const Styles = styled.div`
     th,
     td {
       margin: 0;
-      padding: 0.5rem;
+      padding: 0.4rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
 
@@ -100,15 +100,14 @@ function SourceDetails(props) {
             accessor: '_id',
             Cell: ({ cell }) =>(
             <Fragment>
-              <NavLink className="join_group_link" to={`/source/${cell.value}`}>View Source </NavLink>
+              <NavLink className="view_source_link" to={`/source/${cell.value}`}>View Source </NavLink> 
               {props.valid==true ? (
                 <Fragment>
-                  <button>
-                    <NavLink to={`/editsource/${cell.row.values._id}`}>Edit</NavLink>
-                  </button>
-                  <button>
-                    <NavLink to={`/deletesource/${cell.row.values._id}`}>Delete</NavLink>
-                  </button>
+                  
+                    <NavLink className="view_source_link edit_source_link" to={`/editsource/${cell.row.values._id}`}>Edit</NavLink>
+                  
+                    <NavLink className="view_source_link delete_source_link" to={`/deletesource/${cell.row.values._id}`}>Delete</NavLink>
+                  
                 </Fragment>
                 ):
                 (

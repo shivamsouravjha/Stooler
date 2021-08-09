@@ -1,5 +1,6 @@
 import React, { useEffect, useState,Component} from 'react';
 import { useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import "./auth.css";
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -65,6 +66,8 @@ const  JoinGroupAuth = ()=>{
         console.log(responseData,gid)
         setIsLoading(false)
     }
+
+    
     return (   
         <React.Fragment>
         <SuccessModal error={success} onClear={successHandler} />
@@ -75,59 +78,7 @@ const  JoinGroupAuth = ()=>{
             <button className="leave_group_btn" button  onClick={() => letlev()}>
                 Leave Group
             </button>
-            <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
-                                    {/* form header */}
-                <h2 className="form_heading">
-                    ADD SOURCE 
-                </h2> 
-                <label className="labels">
-                    Name<span > * </span> 
-                </label>
-                <br/>
-                <input type="text" name="name" className="inputs" value={name} onChange={e =>setName(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Market Place 
-                </label>
-                <br/>
-                <input type="text" name="marketplace" className="inputs" value={marketplace} onChange={e =>setMarketplace(e.target.value)} />
-                <br/><br/>
-                <label className="labels">
-                    Price<span > * </span> 
-                </label>
-                <br/>
-                <input type="number" name="price" className="inputs" value={price} onChange={e =>setPrice(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Target Price<span > * </span> 
-                </label>
-                <br/>
-                <input type="number" name="targetPrice" className="inputs" value={targetPrice} onChange={e =>setTragetprice(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Units Purchase<span > * </span> 
-                </label>
-                <br/>
-                <input type="number" name="unitsPurchase" className="inputs" value={unitsPurchase} onChange={e =>setUnitspurchase(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Details<span > * </span> 
-                </label>
-                <br/>
-                <input type="text" name="details" className="inputs" value={details} onChange={e =>setDetails(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Duration time in month<span > * </span> 
-                </label>
-                <br/>
-                <input type="number" name="duration" className="inputs" value={duration} onChange={e =>setDuration(e.target.value)} required />
-                <br/><br/>
-                <button type="submit" className="confirm_btns">
-                    REQUEST/ADD
-                </button>
-            </form> 
-                
-
+            <NavLink className="request_btn" to={`/requestsource`}>Request/Add Source</NavLink>
         </center>
     </div>
     </React.Fragment>
