@@ -158,6 +158,9 @@ export default class AccountService{
         try {
             let sourceInfo = await this.repository.findGroupApprovalAdd();
             function checkUid(args) {
+                if(!args.group)return false;
+                console.log(args.group)
+
                 return args.group.groupOwner==uid;
             };
             sourceInfo = sourceInfo.filter(checkUid);
