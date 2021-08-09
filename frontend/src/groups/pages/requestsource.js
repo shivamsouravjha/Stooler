@@ -2,7 +2,7 @@ import React, { useEffect, useState,Component} from 'react';
 import { useParams } from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import "./auth.css";
-
+import GroupDetail from './groupdetail';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import SuccessModal from '../../shared/components/UIElements/Success';
