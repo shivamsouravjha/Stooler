@@ -38,6 +38,18 @@ tr:nth-child(2n+1){
     color:white;
     font-size:1.3rem;
 }
+.transaction_link{
+    margin:auto;
+    border: 1px solid transparent;
+    background-color:#0a657e;
+    height:5rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color:white;
+    font-size:1.3rem;
+}
+
 
 @media only screen and (max-width: 1250px) {
 
@@ -60,6 +72,12 @@ tbody td{
     font-size:1rem;
 }
 .join_group_link{
+    margin:auto;
+    height:3.5rem;
+    padding: 0.2rem 0.2rem;
+    font-size:1rem;
+}
+.transaction_link{
     margin:auto;
     height:3.5rem;
     padding: 0.2rem 0.2rem;
@@ -92,6 +110,12 @@ tbody td{
     height:2.5rem;
     padding: 0.3rem 0.1rem;
     font-size:0.7rem;
+}
+.transaction_link{
+    margin:auto;
+    height:2.5rem;
+    padding: 0.3rem 0.1rem;
+    font-size:0.6rem;
 }
 
 }

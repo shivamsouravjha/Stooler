@@ -38,7 +38,7 @@ const Process = () => {
           {compLoading ?<LoadingSpinner asOverlay /> :(
              <div>
                 <center>
-                    <h1>Request {status=="true"? 'added': 'rejected' } Successfuly</h1>
+                    <h1>Request {status=="true"? 'added': 'rejected' } Successful</h1>
                 </center>
              </div>
           )}

@@ -5,9 +5,9 @@ import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-
+import '../../groups/pages/getjoinGroups.css';
 const Styles = styled.div`
-  padding: 1rem;
+  padding: 0rem;
 
   table {
     border-spacing: 0;
@@ -21,9 +21,20 @@ const Styles = styled.div`
       }
     }
 
-    th,
-    td {
-      margin: 0;
+    th{
+      
+      text-align:center;
+      padding: 0.5rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      :last-child {
+        border-right: 0;
+      }
+      
+    }
+    tbody td {
+      
+      text-align:center;
       padding: 0.5rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
@@ -50,29 +61,30 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <center>
+    <table {...getTableProps()} className="join_group_table">
+      <thead className="join_group_header" >
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              <th className="join_group_head" {...column.getHeaderProps()}>{column.render('Header')}</th>
             ))}
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()}>
+      <tbody className="join_group_body" {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row)
           return (
-            <tr {...row.getRowProps()}>
+            <tr className="join_group_row" {...row.getRowProps()}>
               {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                return <td className="join_group_data" {...cell.getCellProps()}>{cell.render('Cell')}</td>
               })}
             </tr>
           )
         })}
       </tbody>
-    </table>
+    </table> </center>
   )
 }
 
@@ -83,12 +95,13 @@ function GroupSource() {
     const columns = React.useMemo(
       () => [
         {
-          Header: 'My Transaction: ',
+          Header: 'MY TRANSACTIONS ',
           columns: [  
+         
             {
               Header: ' Group',
               accessor: 'groupId',
-              Cell: e => <NavLink to={`/yourgroup/${e.value}`}> Click here </NavLink>
+              Cell: e => <NavLink className="transaction_link" to={`/yourgroup/${e.value}`}> Click here </NavLink>
             },
             {
               Header: 'Deposited',
@@ -111,6 +124,7 @@ function GroupSource() {
       ],
       []
     );
+    
     const {sendRequest} = useHttpClient();
     const [loadedUsers, setLoadedUsers] = useState();
     useEffect(() => {

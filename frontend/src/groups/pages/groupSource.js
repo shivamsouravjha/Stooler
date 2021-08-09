@@ -78,7 +78,7 @@ const  JoinGroupAuth = ()=>{
             <button className="leave_group_btn" button  onClick={() => letlev()}>
                 Leave Group
             </button>
-            <NavLink className="request_btn" to={`/requestsource/${gid}`}>Request/Add Source</NavLink>
+            <NavLink className="request_btns" to={`/requestsource/${gid}`}>Request/Add Source</NavLink>
         </center>
     </div>
     </React.Fragment>
