@@ -1,6 +1,5 @@
 import React,{useEffect,useState,Fragment} from 'react';
 import { useParams } from 'react-router-dom';
-import ReactSession from '../../Reactsession';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import GroupList from '../components/grouplist';
@@ -10,7 +9,7 @@ const Group = () => {
     const [compLoading, setCompLoading] = useState(true);
     const [loadedgroup, setLoadedGroup] = useState();
     const gid = useParams().gid;
-    const [valid,setValid]=useState('true');
+    const [valid,setValid]=useState(true);
     useEffect(() => {
         const fetchGroup = async () => {
         try {
@@ -25,11 +24,12 @@ const Group = () => {
             if(responseData['status']!=200 && responseData['status']!=202){
                 throw responseData.error;
             }
-            console.log(responseData.data)
             const dataResponse = responseData.data;
             var arr = dataResponse.members;
-            if(arr.indexOf(userid)==-1) setValid('flase');
-            console.log(valid); //true
+            if(arr.indexOf(userid)==-1){
+                setValid(false);
+            }
+            console.log(arr,userid,arr.indexOf(userid)); //true
             setLoadedGroup(dataResponse);
             setCompLoading(false)
         } catch (err) {}
@@ -49,11 +49,12 @@ const Group = () => {
         }
     ];}
   return (
-  <Fragment>
-          {compLoading ?<LoadingSpinner asOverlay /> : (
-            <GroupList items={GROUP} />
-          )}
-           <SourceLists valid={valid}/>
+        <Fragment>
+          {compLoading ?<LoadingSpinner asOverlay /> : (<Fragment>
+            <GroupList items={GROUP} />,
+            <SourceLists valid={valid}/>
+            </Fragment>)
+          }
         </Fragment>);
 };
 

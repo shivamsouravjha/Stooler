@@ -10,6 +10,7 @@ const SuccessModal = props => {
       header="Successful!"
       show={!!props.error}
       footer={<Button onClick={props.onClear}>Okay</Button>}
+      // footers = {<Button onClick={props.onClear}>Okays</Button>}
     >
       <p>{props.error}</p>
     </Modal>

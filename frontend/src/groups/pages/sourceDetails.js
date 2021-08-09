@@ -20,7 +20,6 @@ const Group = () => {
             if(responseData['status']!=200 && responseData['status']!=202){
                 throw responseData.error;
             }
-            console.log(responseData.data)
             const dataResponse = responseData.data.source;
             setLoadedGroup(dataResponse);
             setCompLoading(false)
@@ -30,7 +29,6 @@ const Group = () => {
     }, []);
     var GROUP =""
     if(!compLoading){
-        console.log(loadedgroup)
     GROUP = [
         {
             name:loadedgroup.name,
