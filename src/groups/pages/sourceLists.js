@@ -144,7 +144,7 @@ function SourceDetails(props) {
         userid = userid['userid']
         console.log("gid");
         const responseData = await sendRequest(
-          `http://stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"
+          `https//stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
@@ -170,7 +170,7 @@ function SourceDetails(props) {
 //         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
 //         body = JSON.stringify(body)
 //         const responseData = await sendRequest(
-//             `http://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
+//             `https//stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
 //                 'Content-Type': 'application/json'
 //         });
 //         const dataResponse = responseData.data;

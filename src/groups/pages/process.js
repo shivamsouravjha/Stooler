@@ -21,7 +21,7 @@ const Process = () => {
         console.log(body);
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `http://stool-back.herokuapp.com/api/source/setapproval/${sid}`,"POST",body,{
+            `https//stool-back.herokuapp.com/api/source/setapproval/${sid}`,"POST",body,{
                 'Content-Type': 'application/json'
         }
         );
