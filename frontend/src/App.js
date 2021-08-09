@@ -87,7 +87,7 @@ const App = () => {
         <Route path="/deletesource/:sid" exact>
           <DeleteSource/>
         </Route>
-        <Route path="/requestsource" exact>
+        <Route path="/requestsource/:gid" exact>
           <RequestSource/>
         </Route>
         <Route path="/crypto" exact>
