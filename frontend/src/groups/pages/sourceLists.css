@@ -30,6 +30,26 @@ tr:nth-child(2n+1){
     color:white;
     font-size:1.2rem;
 }
+.view_source_link{
+    margin:auto;
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    background-color:#0a657e;
+    width: fit-content;
+    height:fit-content;
+    display: block;
+    padding: 0.2rem 0.4rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color:white;
+    font-size:1.2rem;
+}
+.delete_source_link{
+    background-color: rgb(110, 5, 5);
+}
+.edit_source_link{
+    background-color: rgb(8, 92, 57);
+}
 
 @media only screen and (max-width: 1250px) {
 
@@ -62,6 +82,11 @@ tbody td{
     padding: 0.2rem 0.1rem;
     font-size:0.8rem;
 }
+.view_source_link{
+    height:fit-content;
+    padding: 0.2rem 0.1rem;
+    font-size:0.8rem;
+}
 
 }
 
@@ -89,6 +114,11 @@ tbody td{
     height:2.5rem;
     padding: 0.3rem 0.1rem;
     font-size:0.7rem;
+}
+.view_source_link{
+    height:fit-content;
+    padding: 0.3rem 0.1rem;
+    font-size:0.9rem;
 }
 
 }
