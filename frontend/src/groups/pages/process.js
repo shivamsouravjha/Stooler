@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+
 const Process = () => {
     var userid = localStorage.getItem('__react_session__');
     userid = JSON.parse(userid)
@@ -17,11 +19,9 @@ const Process = () => {
         try {
             setCompLoading(true)
         var body = {"set":status};
-        console.log(status);
-        console.log(body);
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/source/setapproval/${sid}`,"POST",body,{
+            `https://stool-back.herokuapp.com/api/source/setapproval/${sid}/${userid}`,"POST",body,{
                 'Content-Type': 'application/json'
         }
         );
@@ -29,7 +29,9 @@ const Process = () => {
             throw responseData.error;
         }
         setCompLoading(false)
-        } catch (err) {}
+        } catch (err) {
+            console.log(err)
+        }
         };
         fetchGroup();
     }, []);

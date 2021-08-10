@@ -15,6 +15,15 @@ export default class GroupRepository {
         }
     }
     
+    async editGroup (obj) {
+        try {
+            const found = await obj.save();
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
+    
     async findTransaction (obj) {
         try {
             const found = await Transaction.findOne(obj);
@@ -28,6 +37,24 @@ export default class GroupRepository {
     async findGroup (obj) {
         try {
             const found = await GroupModel.find(obj).populate('sources').populate('groupOwner');
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
+    
+    async findOwnerGroup (obj) {
+        try {
+            const found = await GroupModel.find(obj);
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
+    
+    async findGroupMembers (obj) {
+        try {
+            const found = await Transaction.find(obj).populate('userId');
             return found;
         } catch (error) {
             throw error
