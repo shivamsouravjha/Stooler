@@ -24,6 +24,7 @@
 .main-navigation__title a {
   text-decoration: none;
   color: white;
+  display:none;
 }
 
 .main-navigation__header-nav {
@@ -38,7 +39,9 @@
   .main-navigation__menu-btn {
     display: none;
   }
-
+  .main-navigation__title a {
+    display: block;
+  }
   .main-navigation__header-nav {
     display: block;
   }

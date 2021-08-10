@@ -28,7 +28,7 @@
   }
   
   .position{
-      font-size: 5.5vw;
+      font-size: 5rem;
       text-align: right;
       margin:1rem 2rem;
       color: #f6d6b5;
@@ -85,24 +85,21 @@
       top: 100%;
   }
   
-  .triangle-right {
-      width: 300px;
-      height: 250px;
-      clip-path: polygon(50% 100%, 0 0, 100% 0);
-      shape-outside: polygon(50% 100%, 0 0, 100% 0);
-      float: right;
-      background: #ca66ac url(https://images.unsplash.com/photo-1464982326199-86f32f81b211?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=2ff8b46004acf88415bb98bb42238e9c);
-      background-size: cover;
-      position: relative;
+  @media (max-width: 768px){
+      .image_head{
+          text-align: center;
+          font-size:4.5rem;
+      }
+.position{
+      margin: 0.5rem 1rem;
+      font-size:1.5rem;
   }
-  
-  
-      
-  
-  
-  p {
-      margin: 0 0 20px 0;
-      line-height: 1.35;
+  .inner{
+      display: none;
   }
+}
+  
+
+ 
   
   
