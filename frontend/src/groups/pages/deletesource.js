@@ -49,15 +49,16 @@ const  EditSource = ()=>{
         <SuccessModal error={success} onClear={successHandler} />
             <div className="group_form_div">
                 <center>
-                    <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
+                    <form  action="/" id="event_form"  name="event_form" className="request_form" onSubmit={onSubmitform}>
                                             {/* form header */}
                         <h2 className="form_heading">
                             Selling Price of  the source
-                        </h2> 
+                        </h2> <hr className="investment_hr"/>
                         <br/>
-                        <input type="number" name="sellingPric" className="inputs" value={sellingPrice} placeholder="SP of source" onChange={e =>setsellingPrice(e.target.value)} required />
+                        
+                        <input type="number" name="sellingPric" className="request_inputs" value={sellingPrice} placeholder="SP of source" onChange={e =>setsellingPrice(e.target.value)} required />
                         <br/><br/>
-                        <button type="submit" className="confirm_btns">
+                        <button type="submit" className="join_btns">
                             Done
                         </button>
                     </form> 
