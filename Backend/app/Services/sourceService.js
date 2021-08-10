@@ -171,7 +171,9 @@ export default class AccountService{
     async setAprrovalAdd(args){
         try {
             let sourceInfo = await this.repository.findSource(args.sid);
+            console.log(args,sourceInfo);
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
+            console.log(groupInfo,sourceInfo)
             groupInfo['fund'] = groupInfo['fund']-sourceInfo["editPrice"]*sourceInfo['unitsPurchase'];
             if(groupInfo['fund']<0){
                 throw {"message":`Source price more than current fund of group, exceeds by = ${sourceInfo["price"]*sourceInfo['unitsPurchase']-groupInfo['fund']}`}
@@ -200,19 +202,18 @@ export default class AccountService{
         try {
             let sourceInfo = await this.repository.findSource(request.params.sid);
             let promise;
+            const value={'sid':request.params.sid};
+            value['uid'] = request.params.uid;
             if(request.params.uid != sourceInfo.group.groupOwner){
                 throw (new Exceptions.ValidationException({"message":"No authorization"}));
             }
             if(sourceInfo.type == "ADD"){
-              promise = await this.setAprrovalAdd(request.body);
+                value['set'] = request.body.set;
+                promise = await this.setAprrovalAdd(value);
             }else if(sourceInfo.type == "EDIT"){
-              const value={'sid':request.params.sid};
-              value['uid'] = request.params.uid;
               value['set'] = request.body.set;
               promise  =  await this.getSourceDetails(request.params.sid,true,value)
             }else if(sourceInfo.type == "REMOVE"){
-                const value={'sid':request.params.sid};
-                value['uid'] = request.params.uid;  
                 value['sellingPrice'] = sourceInfo.sellingPrice;  
                 promise = await this.deleteSource(value);
             }

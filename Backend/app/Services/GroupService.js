@@ -139,4 +139,41 @@ export default class AccountService{
             throw (new Exceptions.ValidationException("Error finding groups"));
         }
     }
+
+    async getGroupMembers(args) {
+        try {
+            args['type'] = "ACTIVE";
+            let groupsInfo = await this.repository.findGroupMembers(args);
+            return groupsInfo[0];
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding groups"));
+        }
+    }
+    
+    async getOwnedGroup (args) {
+        try {
+            let groupsInfo = await this.repository.findGroup(args);
+            return groupsInfo;
+        } catch (error) {
+            throw (new Exceptions.ValidationException("Error finding groups"));
+        }
+    }
+
+    async transferOwnedGroup (args) {
+        try {
+            let groupsInfo = await this.repository.findOwnerGroup({_id:args._id,groupOwner:args.groupOwner});
+            if(!groupsInfo.length)throw (new Exceptions.ValidationException("No group found"));
+            if(groupsInfo[0].groupOwner == args.newOwner){
+                throw (new Exceptions.ValidationException("Already a group member"));
+            }
+            if(!groupsInfo[0].members.includes(args.newOwner)){
+                throw (new Exceptions.ValidationException("Not a group member"));
+            }
+            groupsInfo[0].groupOwner = args.newOwner;
+            await this.repository.editGroup(groupsInfo[0]);
+            return {"message":"Ownership transferred Successfully!!"};
+        } catch (error) {
+            throw (new Exceptions.ValidationException(error.message));
+        }
+    }
 }

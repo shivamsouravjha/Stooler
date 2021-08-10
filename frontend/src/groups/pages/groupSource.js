@@ -89,6 +89,7 @@ const  JoinGroupAuth = ()=>{
                 Leave Group
             </button>
             <NavLink className="request_btns" to={`/requestsource/${gid}`}>Request/Add Source</NavLink>
+            <NavLink className="request_btns" to={`/transferownership/${gid}`}>Group Details</NavLink>
         </center>
     </div>
     </React.Fragment>

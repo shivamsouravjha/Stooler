@@ -92,8 +92,12 @@ function SourceDetails(props) {
             Header: 'Target Price',
             accessor: 'targetPrice',
           }, {
-            Header: 'Prices',
+            Header: 'Price',
             accessor: 'price',
+          },
+          {
+            Header: 'Units',
+            accessor: 'unitsPurchase',
           },
           {
             Header: 'Source Link',
