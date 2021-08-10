@@ -79,6 +79,43 @@ export default class AccountController extends Controller {
       } catch(error){
         this.handleException(error);
       } 
+    } 
+    
+    
+    getMembers (request) {
+      try {
+        let value = {groupId:request.params.groupId};
+        const promise  = this.service.getGroupMembers(value);
+        promise.then(res=>{
+          this.sendResponse(res);
+        }).catch(error =>{
+          this.handleException(error);
+        })
+      } catch(error){
+        this.handleException(error);
+      } 
+    }
+    
+    
+    getOwner (request) {
+      try {
+        let value = {groupOwner:request.params.uid};
+        let promise;
+        if(request.params.context == "getgroups"){
+          promise  = this.service.getOwnedGroup(value);
+        }else{
+          value['_id'] =  request.body.gid;
+          value['newOwner'] =  request.body.newOwner;
+          promise  = this.service.transferOwnedGroup(value);
+        }
+        promise.then(res=>{
+          this.sendResponse(res);
+        }).catch(error =>{
+          this.handleException(error);
+        })
+      } catch(error){
+        this.handleException(error);
+      } 
     }
 
 }
