@@ -1,7 +1,8 @@
 /* css for mobile view*/
 .group{
   
-  margin:20px 15px;
+  margin:1rem 0.5rem;
+  position:relative;
   border:1px white;
   border-radius:10px;
   background-color:white;
@@ -47,6 +48,8 @@
     background: #0a657e;
     color: white;
   }
+
+
   @media (max-width: 1000px) {
     .group-links li {
       
@@ -55,9 +58,7 @@
   }
   /* css for desktop view*/
   @media (min-width: 1000px) {
-    body{
-      margin:20px 25px;
-    }
+    
     .group-links {
       flex-direction: row;
     }

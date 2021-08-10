@@ -3,17 +3,17 @@
   height: 4rem;
   display: flex;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: static;
+  margin-bottom:1.5rem;
   background: #0a657e;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.26);
   padding: 0 1rem;
   z-index: 5;
+ 
 }
 
 main {
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 @media (min-width: 768px) {

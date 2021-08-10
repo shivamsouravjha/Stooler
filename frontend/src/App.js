@@ -9,6 +9,7 @@ import {
   useParams
 } from 'react-router-dom';
 import Main from './groups/pages/main';
+import Image from './groups/pages/image';
 import MyGroup from './groups/pages/mygroup';
 import GroupAuth from './groups/pages/creategroup';
 import Auth from './user/pages/Auth';
@@ -52,6 +53,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
+          <Image/>
           <Main />
         </Route>
         <Route path="/group_auth" exact>
@@ -100,7 +102,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          This IS HOME, Authenticate please
+        <Image />
         </Route>
         
         <Route path="/auth">
@@ -116,7 +118,8 @@ const App = () => {
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
       <Router>
-        <MainNavigation />
+      <MainNavigation />
+        
         <main>{routes}</main>
         <div className="bot">
             <Route path="/" component={Chatbot} exact />
