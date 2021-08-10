@@ -7,32 +7,42 @@ import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const Styles = styled.div`
-  padding: 1rem;
+padding:0rem;
+table {
+  border-spacing: 0;
+  border: 1px solid black;
 
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
+  tr {
+    :last-child {
+      td {
+        border-bottom: 0;
       }
     }
   }
+
+  th{
+    
+    text-align:center;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    :last-child {
+      border-right: 0;
+    }
+    
+  }
+  tbody td {
+    
+    text-align:center;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+
+    :last-child {
+      border-right: 0;
+    }
+  }
+}
 `
 
 function Table({ columns, data }) {
@@ -50,23 +60,23 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <table {...getTableProps()} className="join_group_table">
+      <thead className="join_group_header">
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              <th className="join_group_head" {...column.getHeaderProps()}>{column.render('Header')}</th>
             ))}
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()}>
+      <tbody className="join_group_body" {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row)
           return (
-            <tr {...row.getRowProps()}>
+            <tr className="join_group_row" {...row.getRowProps()}>
               {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                return <td className="join_group_data" {...cell.getCellProps()}>{cell.render('Cell')}</td>
               })}
             </tr>
           )
@@ -83,7 +93,7 @@ function GroupSource() {
     const columns = React.useMemo(
       () => [
         {
-          Header: 'My Groups',
+          Header: 'MY GROUPS',
           columns: [  
             {
               Header: ' Source Name',
@@ -103,16 +113,15 @@ function GroupSource() {
             },
             {   
                 width:30,
-                Header: 'Aceept/Reject',
+                Header: 'Accept/Reject',
                 accessor: '_id',
                 Cell: ({ cell }) => (
                   <Fragment>
-                  <button>
-                   <NavLink to={`/request/${cell.row.values._id}/${true}`}>Accept </NavLink>
-                  </button>
-                  <button>
-                  <NavLink to={`/request/${cell.row.values._id}/${false}`}>Reject </NavLink>
-                 </button>
+                  
+                   <NavLink className="accept_source_link edit_source_link" to={`/request/${cell.row.values._id}/${true}`}>Accept </NavLink> &nbsp;
+                  
+                  <NavLink  className="accept_source_link delete_source_link" to={`/request/${cell.row.values._id}/${false}`}>Reject </NavLink>
+                 
                  </Fragment>
                 )
             }

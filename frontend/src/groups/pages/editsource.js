@@ -50,18 +50,24 @@ const  EditSource = ()=>{
         <SuccessModal error={success} onClear={successHandler} />
             <div className="group_form_div">
                 <center>
-                    <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
+                    <form  action="/" id="event_form"  name="event_form" className="request_form" onSubmit={onSubmitform}>
                                             {/* form header */}
                         <h2 className="form_heading">
                             Edit the Units
                         </h2> 
+                        <hr className="investment_hr"/>
                         <br/>
-                        <input type="number" name="amount" className="inputs" value={unitsPurchase} placeholder="New Units" onChange={e =>setUnitpurchase(e.target.value)} required />
+                        <label className="labels">
+                    Enter New Units<span > * </span> 
+                        </label>
+                        <input type="number" name="amount" className="request_inputs" value={unitsPurchase} placeholder="New Units" onChange={e =>setUnitpurchase(e.target.value)} required />
                         <br/><br/>
-                        <br/>
-                        <input type="number" name="price" className="inputs" value={price} placeholder="Present Price" onChange={e =>setprice(e.target.value)} required />
+                        <label className="labels">
+                    Enter Present Price<span > * </span> 
+                        </label>
+                        <input type="number" name="price" className="request_inputs" value={price} placeholder="Present Price" onChange={e =>setprice(e.target.value)} required />
                         <br/><br/>
-                        <button type="submit" className="confirm_btns">
+                        <button type="submit" className="join_btns">
                             Done
                         </button>
                     </form> 
