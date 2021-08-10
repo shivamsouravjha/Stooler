@@ -51,7 +51,7 @@ function Table({ columns, data }) {
   // Render the UI for your table
   return (
     <table className="source_list_table" {...getTableProps()}>
-      <thead className="join_group_header">
+      <thead className="source_list_header">
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
@@ -64,7 +64,7 @@ function Table({ columns, data }) {
         {rows.map((row, i) => {
           prepareRow(row)
           return (
-            <tr className="join_group_data" {...row.getRowProps()}>
+            <tr className="source_list_data" {...row.getRowProps()}>
               {row.cells.map(cell => {
                 return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
               })}

@@ -24,7 +24,7 @@ const Styles = styled.div`
     th{
       
       text-align:center;
-      padding: 0.5rem;
+      padding: 0.2rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
       :last-child {
@@ -35,7 +35,7 @@ const Styles = styled.div`
     tbody td {
       
       text-align:center;
-      padding: 0.5rem;
+      padding: 0.2rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
 
@@ -108,7 +108,7 @@ function GroupSource() {
               accessor: 'deposited_amount',
             },
             {
-              Header: 'Returned Amount',
+              Header: 'Returned Amt',
               accessor: 'returned_amount',
             },
             {

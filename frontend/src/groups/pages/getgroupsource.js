@@ -113,7 +113,7 @@ function GroupSource() {
             },
             {   
                 width:30,
-                Header: 'Accept/Reject',
+                Header: 'Accept / Reject',
                 accessor: '_id',
                 Cell: ({ cell }) => (
                   <Fragment>
