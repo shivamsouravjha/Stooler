@@ -123,14 +123,14 @@ color:rgb(165, 7, 7);
  }
  
  .request_btns{
-  margin:auto;
+  margin:1.5rem 2rem;
   padding:0.6rem;
   box-sizing: border-box;
   border: 1px solid transparent;
   background-color:#0a657e;
   width: fit-content;
   height:fit-content;
-  display: block;
+  display: inline-block;
   border-radius: 5px;
   text-decoration: none;
   color:white;
@@ -168,7 +168,7 @@ color:rgb(165, 7, 7);
   background-color:#700d0d;
   border-color: #700d0d;
   border-radius:5px;
-  margin: 1.5rem;
+  margin: 1.5rem 2rem;
   font-size: 1.5rem;
 
 }
@@ -185,19 +185,19 @@ box-shadow:  3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 #700d0d;
   border-radius: 5px;
   width:fit-content;
   padding:6px;
-  margin:auto;
+  margin:15px auto;
   }
   .request_form {
     border-radius: 5px;
     width:19rem;
-    padding:6px;
-    margin:auto;
+    padding:10px;
+    margin:15px auto;
     }
   .join_group{
     border-radius: 5px;
   width:15rem;
   padding:6px;
-  margin:auto;
+  margin:15px auto;
   }
   .join_inputs{
     width:-webkit-fill-available;
@@ -252,13 +252,16 @@ box-shadow:  3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 #700d0d;
   width:12rem;
   height:fit-content;
   padding: 0.3rem;
-  margin: 1.5rem;
+  margin:0.5rem;
   font-size: 1.3rem;
+  display: block;
 }
 .request_btns{
   width:fit-content;
   height:fit-content;
   font-size: 1.1rem;
+  display: block;
+  margin:0.5rem;
 }
 
 .select{
