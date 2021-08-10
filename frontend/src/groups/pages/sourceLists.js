@@ -126,18 +126,11 @@ function SourceDetails(props) {
     ],
     []
   );
-//   const [isLoading, setIsLoading] = useState(false);
 
-//   const [groupName,setName]=useState("");
-//   const [genre,setGenre]=useState("");
-//   const [duration,setDuration]=useState("");
-//   const [amount,setAmount]=useState("");
-//   const [error, setError] = useState();
 
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
   const gid= useParams().gid;
-  console.log(useParams())
   var userid;
   useEffect(() => {
     const fetchUsers = async () => {
@@ -163,81 +156,10 @@ function SourceDetails(props) {
     fetchUsers();
   }, []);
   
-//   const onSubmitform = async e =>{
-//     e.preventDefault();
-//     try{   
-//       setCompLoading(true);
-//         var userid = localStorage.getItem('__react_session__');
-//         userid = await JSON.parse(userid)
-//         userid = userid['userid']
-//         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
-//         body = JSON.stringify(body)
-//         const responseData = await sendRequest(
-//             `https://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
-//                 'Content-Type': 'application/json'
-//         });
-//         const dataResponse = responseData.data;
-
-//         setLoadedUsers(dataResponse);
-
-//         console.log(responseData.data)
-//         setCompLoading(false);        
-//     }catch(err){
-//       console.log(err)
-//       setCompLoading(false);
-//         setError(err.message || 'Something went wrong, please try again.');
-//     }
-// }
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
   return (
         <Fragment>          
-          {/* <div className="group_form_div">
-		<center>
-            <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
-                <h4>
-                    Search Group 
-                </h4> 
-                <hr/>
-                <label for="groupName">
-                    By Group Name<span > * </span> 
-                </label>
-                <input type="text" name="groupName"  value={groupName} placeholder="Enter a Unique group name" onChange={e =>setName(e.target.value)}  />
-                <br/>
-                <label for="genre">
-                    By Genre <span > * </span> 
-                </label>
-                <select name="genre" onChange={e =>setGenre(e.target.value)}>
-                    <option></option>
-                    <option value="Gold/Silver" className="options">Gold/Silver</option>
-                    <option value="Stock" className="options">Stock</option>
-                    <option value="Cryptocurrency" className="options">Cryptocurrency</option>
-                    <option value="Currency Exchange" className="options">Currency Exchange</option>
-                </select>
-                <br/>
-                <label for="duration">
-                    Minimum Duration of Investment <span > * </span> 
-                </label>
-                <select name="duration" onChange={e =>setDuration(e.target.value)}>
-                    <option></option>
-                    <option value="1" className="options">1 Month</option>
-                    <option value="3" className="options">3 Months</option>
-                    <option value="6" className="options">6 Months</option>
-                    <option value="12" className="options">1 Year</option>
-                    <option value="60" className="options">5 Years</option>
-                </select>  
-                <br/>
-                <label for="amount" >
-                    By Minimum Amount<span > * </span> 
-                </label>
-                <input type="number" name="amount" value={amount} placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)}  />
-                <br/>
-                <button type="submit">
-                    Search
-                </button>
-            </form> 
-        </center>
-    </div> */}
-    {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data found </h1>:(
+   {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data found </h1>:(
             <Styles>
               <Table columns={columns} data={data} />
             </Styles>

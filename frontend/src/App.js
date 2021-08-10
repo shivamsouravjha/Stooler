@@ -22,6 +22,7 @@ import SourceDetails from './groups/pages/sourceDetails';
 import GetGroupSource from './groups/pages/getgroupsource';
 import Process from './groups/pages/process';
 import OwnedGroups from './groups/pages/ownedGroups';
+import GroupMembers from './groups/pages/groupMembers';
 import EditSource from '../src/groups/pages/editsource';
 import RequestSource from '../src/groups/pages/requestsource';
 import DeleteSource from '../src/groups/pages/deletesource';
@@ -91,9 +92,15 @@ const App = () => {
         <Route path="/requestsource/:gid" exact>
           <RequestSource/>
         </Route>
-        <Route path="/transferownership/getgroups/:uid" exact>
+        <Route path="/groupdetails/:gid" exact>
+          <GroupMembers/>
+        </Route>
+        <Route path="/ownedgroups/getgroups/:gid" exact>
           <OwnedGroups/>
         </Route>
+        {/* <Route path="/transfergroupownership/getgroups/:gid" exact>
+          <OwnedGroups/>
+        </Route> */}
         <Route path="/crypto" exact>
           <Crypto/>
         </Route>

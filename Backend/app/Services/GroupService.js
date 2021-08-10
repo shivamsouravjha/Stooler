@@ -144,7 +144,7 @@ export default class AccountService{
         try {
             args['type'] = "ACTIVE";
             let groupsInfo = await this.repository.findGroupMembers(args);
-            return groupsInfo[0];
+            return groupsInfo;
         } catch (error) {
             throw (new Exceptions.ValidationException("Error finding groups"));
         }
