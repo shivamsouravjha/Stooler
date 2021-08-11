@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import Avatar from '../../shared/components/UIElements/Avatar';
 import Card from '../../shared/components/UIElements/Card';
 import './UserItem.css';
@@ -13,15 +11,16 @@ const UserItem = props => {
             <Avatar image={props.image} alt={props.name} />
           </div>
           <div className="user-item__info">
-            <h2>Name : {props.name}</h2>
-            <h2>User Name : {props.username}</h2>
-            <h2>Number : {props.number}</h2>
-            <h2>Email ID : {props.email}</h2>
-            <h2>Aadhar : {props.aadhar}</h2>
-            <h2>PanNumber : {props.panNumber}</h2>
-            <h3>
-              Invested in {props.groups} {props.groups === 1 ? 'Group' : 'Groups'}
-            </h3>
+            <h2><strong>Name :</strong> {props.name}</h2>
+            <h2><strong>UserName :</strong> {props.username}</h2>
+            <h2><strong>Number :</strong> {props.number}</h2>
+            <h2><strong>Email ID :</strong> {props.email}</h2>
+            <h2><strong>Aadhar :</strong> {props.aadhar}</h2>
+            <h2><strong>PanNumber :</strong> {props.panNumber}</h2>
+            
+              <hr className="investment_hr"/>
+               <p className="investment">Invested in {props.groups} {props.groups === 1 ? 'Group' : 'Groups'} </p>
+         
           </div>
       </Card>
     </li>

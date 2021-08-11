@@ -16,7 +16,7 @@
 }
 
 .user-item__content {
-  padding: 0;
+  padding: 1rem;
 }
 
 .user-item__image {
@@ -35,6 +35,15 @@
   padding-left: 1rem;
 }
 
-.user-item__info h3 {
-  margin: 0;
+
+.investment{
+  font-size: 1.8rem;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.investment_hr{
+  margin: 10px;
 }

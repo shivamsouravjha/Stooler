@@ -115,6 +115,10 @@ function JoinGroup() {
             accessor: 'totalsum',
           },
           {
+            Header: 'Minimum Amount',
+            accessor: 'amount',
+          },
+          {
             Header: 'Group Details',
             accessor: '_id',
             Cell: e => <NavLink className="join_group_link" to={`/group/${e.value}`}> Click here </NavLink>
@@ -138,11 +142,11 @@ function JoinGroup() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
+        var userId = localStorage.getItem('__react_session__');
+        userId = await JSON.parse(userId)
+        userId = userId['userId']
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/groups/getjoingroups/${userid}`,"POST"
+          `https://stool-back.herokuapp.com/api/groups/getjoingroups/${userId}`,"POST"
                     );
           if(responseData['status']!=200 && responseData['status']!=202){
             throw responseData.error;
@@ -162,13 +166,13 @@ function JoinGroup() {
     e.preventDefault();
     try{   
       setCompLoading(true);
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
+        var userId = localStorage.getItem('__react_session__');
+        userId = await JSON.parse(userId)
+        userId = userId['userId']
         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/groups/getjoingroups/${userid}`,"POST",body,{
+            `https://stool-back.herokuapp.com/api/groups/getjoingroups/${userId}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         if(responseData['status']!=200 && responseData['status']!=202){

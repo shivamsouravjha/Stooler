@@ -4,6 +4,7 @@ import Input from '../../shared/components/FormElements/Input';
 import "./auth.css";
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import SuccessModal from '../../shared/components/UIElements/Success';
 import GroupDetail from './groupdetail';
 
@@ -19,13 +20,13 @@ const  JoinGroupAuth = ()=>{
         try{   
             setIsLoading(true);
 
-            var userid = localStorage.getItem('__react_session__');
-            userid = await JSON.parse(userid)
-            userid = userid['userid']
+            var userId = localStorage.getItem('__react_session__');
+            userId = await JSON.parse(userId)
+            userId = userId['userId']
             var body={"amount":amount,"groupId":gid};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/groups/join/${userid}`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/groups/join/${userId}`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );
@@ -38,6 +39,7 @@ const  JoinGroupAuth = ()=>{
             // window.location="/";
         }catch(err){
             setIsLoading(false);
+            setError(true);
             setSuccess(err.message || 'Something went wrong, please try again.');
         }
     }
@@ -47,19 +49,20 @@ const  JoinGroupAuth = ()=>{
       };
     return (   
         <React.Fragment>
+            {error ?<ErrorModal error={success} onClear={successHandler} /> : <SuccessModal error={success} onClear={successHandler} />}
         <SuccessModal error={success} onClear={successHandler} />
         {isLoading && <LoadingSpinner asOverlay />}
-        <GroupDetail/>
+        
     <div className="group_form_div">
 		<center>
-            <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
+            <form  action="/" id="event_form"  name="event_form" className="join_form" onSubmit={onSubmitform}>
                                     {/* form header */}
                 <h2 className="form_heading">
-                    Join this Group 
+                    JOIN THIS GROUP 
                 </h2> 
-                <input type="number" name="amount" className="inputs" value={amount} step="50" min="50"placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)} required />
+                <input type="number" name="amount" className="join_inputs" value={amount} step="50" min="50"placeholder="Starting value of Min Amount:Rs 50" onChange={e =>setAmount(e.target.value)} required />
                 <br/><br/>
-                <button type="submit" className="confirm_btns">
+                <button type="submit" className="join_btns">
                     Join Group
                 </button>
             </form> 
@@ -67,6 +70,7 @@ const  JoinGroupAuth = ()=>{
 
         </center>
     </div>
+    <GroupDetail/>
     </React.Fragment>
     );
   

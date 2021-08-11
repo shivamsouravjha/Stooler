@@ -1,9 +1,6 @@
 import {Pie} from 'react-chartjs-2';
-import React,{useEffect,useState,Fragment} from 'react'
-import ReactSession from '../../Reactsession';
+import React,{useEffect,useState} from 'react'
 import { useHttpClient } from '../../shared/hooks/http-hook';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import UsersList from '../components/UsersList';  
 
 // export default Users;
 
@@ -15,15 +12,15 @@ const PieChart = () => {
     const fetchUsers = async () => {
       try {
         setCompLoading(true)
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
+        var userId = localStorage.getItem('__react_session__');
+        userId = await JSON.parse(userId)
+        userId = userId['userId']
         console.log("Fd")
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
+          `https://stool-back.herokuapp.com/api/users/account/data/${userId}`,"POST"
         );
         console.log("responseData")
-        if(responseData['status']!=200 && responseData['status']!=202){
+        if(responseData['status']!==200 && responseData['status']!==202){
           throw responseData.error;
         }
         const dataResponse = responseData.data.shares.map((val)=>{
@@ -75,15 +72,15 @@ const PieChart = () => {
                 width={600}
                 options={{
                     maintainAspectRatio: false,
-                    scales: {
-                    yAxes: [
-                        {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                        },
-                    ],
-                    },
+                    // scales: {
+                    // yAxes: [
+                    //     {
+                    //     ticks: {
+                    //         beginAtZero: true,
+                    //     },
+                    //     },
+                    // ],
+                    // },
                     legend: {
                     labels: {
                         fontSize: 25,

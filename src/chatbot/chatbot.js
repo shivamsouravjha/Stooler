@@ -71,7 +71,7 @@ const Chatbot = (props) => {
             {
               id: 'stooler',
               message:
-                'Hi,{previousValue} I am RMC Bot! What can I do for you?',
+                'Hi,{previousValue} I am Stooler! What can I do for you?',
               trigger: 'qtype',
             },
             {
@@ -81,41 +81,42 @@ const Chatbot = (props) => {
                 { value: 2, label: 'Why to join Stool?', trigger: '2' },
                 { value: 3, label: 'How to join a group?', trigger: '3' },
                 { value: 4, label: 'How to see your expenses?', trigger: '4' },
+                { value: 5, label: 'Have some other doubts?', trigger: 'q-submit' },
               ],
             },
             {
               id: '3',
               message:
-                'Profession tax is the tax levied and collected by the state governments in India.',
+                'You can join a group by paying above the minimum amount set by the group leader.',
               trigger: 'qtype',
             },
             {
               id: '4',
               message:
-                'A property tax or millage rate is an ad valorem tax on the value of a property.',
+                'From portfolio you can access all your groups.',
               trigger: 'qtype',
             },
             {
               id: '1',
               message:
-                'An election is a way people can choose their candidate or their preferences in a representative democracy or other form of government',
+                'Stool is a platform where you can join a group and invest in Stocks, Gold/Silver, Cryptocurrency, Currency Exchange.',
               trigger: 'qtype',
             },
             {
                 id: '2',
                 message:
-                  'An election is a way people can choose their candidate or their preferences in a representative democracy or other form of government',
+                  'Invest with lowest amount with less stress of managing the resources',
                 trigger: 'qtype',
             },
             {
               id: 'q-submit',
-              message: 'Do you have any other questions !?',
+              message: 'Mail to    stool@gmail.com    to clear your doubts',
               trigger: 'submit',
             },
             {
               id: 'submit',
               options: [
-                { value: 'y', label: 'Yes', trigger: 'no-submit' },
+                { value: 'y', label: 'Ok', trigger: 'no-submit' },
               ],
             },
             {

@@ -13,9 +13,9 @@ const  EditSource = ()=>{
    const [error, setError] = useState();
     const [sellingPrice,setsellingPrice]=useState();
     const sid = useParams().sid;
-    var userid = localStorage.getItem('__react_session__');
-    userid = JSON.parse(userid)
-    userid = userid['userid']
+    var userId = localStorage.getItem('__react_session__');
+    userId = JSON.parse(userId)
+    userId = userId['userId']
     const onSubmitform = async e =>{
         e.preventDefault();
         try{   
@@ -23,7 +23,7 @@ const  EditSource = ()=>{
             var body={"sellingPrice":sellingPrice};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userId}/`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );
@@ -49,15 +49,16 @@ const  EditSource = ()=>{
         <SuccessModal error={success} onClear={successHandler} />
             <div className="group_form_div">
                 <center>
-                    <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
+                    <form  action="/" id="event_form"  name="event_form" className="request_form" onSubmit={onSubmitform}>
                                             {/* form header */}
                         <h2 className="form_heading">
                             Selling Price of  the source
-                        </h2> 
+                        </h2> <hr className="investment_hr"/>
                         <br/>
-                        <input type="number" name="sellingPric" className="inputs" value={sellingPrice} placeholder="SP of source" onChange={e =>setsellingPrice(e.target.value)} required />
+                        
+                        <input type="number" name="sellingPric" className="request_inputs" value={sellingPrice} placeholder="Selling Price of Each unit" onChange={e =>setsellingPrice(e.target.value)} required />
                         <br/><br/>
-                        <button type="submit" className="confirm_btns">
+                        <button type="submit" className="join_btns">
                             Done
                         </button>
                     </form> 

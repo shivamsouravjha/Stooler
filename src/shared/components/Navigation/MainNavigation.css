@@ -9,7 +9,17 @@
   margin-right: 2rem;
   cursor: pointer;
 }
+.mobileview_logo{
+  display:inline-block;
+  width: 4rem;
+    height: 3rem;
+    margin-left: 5rem;
+}
+.nav_logo{
+  width:2.5rem;
+  height:2.5rem;
 
+}
 .main-navigation__menu-btn span {
   display: block;
   width: 3rem;
@@ -24,6 +34,7 @@
 .main-navigation__title a {
   text-decoration: none;
   color: white;
+  display:none;
 }
 
 .main-navigation__header-nav {
@@ -38,8 +49,13 @@
   .main-navigation__menu-btn {
     display: none;
   }
-
+  .main-navigation__title a {
+    display: block;
+  }
   .main-navigation__header-nav {
     display: block;
+  }
+  .mobileview_logo{
+    display:none;
   }
 }

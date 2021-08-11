@@ -9,11 +9,11 @@ const GroupItem = props => {
     <li className="group-item">
       <Card className="group-item__content">
           <div className="group-item__info">
-            <h2>Group Name : {props.groupName}</h2>
-            <h2>Description : {props.description}</h2>
-            <h2>Genre : {props.genre}</h2>
-            <h2>Duration : {props.duration}</h2>
-            <h2>Amount : {props.amount}</h2>
+            <h2><strong>Group Name :</strong> {props.groupName}</h2> <hr className="detail_hr"/>
+            <h2><strong>Description :</strong> {props.description}</h2><hr className="detail_hr"/>
+            <h2><strong>Genre : </strong>{props.genre}</h2><hr className="detail_hr"/>
+            <h2><strong>Duration (in months):</strong> {props.duration}</h2><hr className="detail_hr"/>
+            <h2><strong>Amount :</strong> {props.amount}</h2>
           </div>
       </Card>
     </li>

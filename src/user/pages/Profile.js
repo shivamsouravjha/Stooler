@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import '../../App.css';
 import PieChart from '../components/PieChart';
 import Users from './Users';
+import Transaction from './transaction'
 
 const Profile = () => {
     
@@ -9,6 +10,7 @@ const Profile = () => {
         <div className="App">
             <Users/>
             <PieChart/>
+            <Transaction/>
         </div>
     )
 };

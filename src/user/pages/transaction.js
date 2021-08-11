@@ -1,48 +1,48 @@
 import React,{useEffect,useState,Fragment} from 'react'
-import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-
+import '../../groups/pages/getjoinGroups.css';
 const Styles = styled.div`
-padding:0rem;
-table {
-  border-spacing: 0;
-  border: 1px solid black;
+  padding: 0rem;
 
-  tr {
-    :last-child {
-      td {
-        border-bottom: 0;
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
+
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    th{
+      
+      text-align:center;
+      padding: 0.2rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      :last-child {
+        border-right: 0;
+      }
+      
+    }
+    tbody td {
+      
+      text-align:center;
+      padding: 0.2rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+
+      :last-child {
+        border-right: 0;
       }
     }
   }
-
-  th{
-    
-    text-align:center;
-    padding: 0.5rem;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    :last-child {
-      border-right: 0;
-    }
-    
-  }
-  tbody td {
-    
-    text-align:center;
-    padding: 0.5rem;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-
-    :last-child {
-      border-right: 0;
-    }
-  }
-}
 `
 
 function Table({ columns, data }) {
@@ -60,8 +60,9 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
+    <center>
     <table {...getTableProps()} className="join_group_table">
-      <thead className="join_group_header">
+      <thead className="join_group_header" >
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
@@ -82,7 +83,7 @@ function Table({ columns, data }) {
           )
         })}
       </tbody>
-    </table>
+    </table> </center>
   )
 }
 
@@ -93,73 +94,58 @@ function GroupSource() {
     const columns = React.useMemo(
       () => [
         {
-          Header: 'MY GROUPS',
+          Header: 'MY TRANSACTIONS ',
           columns: [  
+         
             {
-              Header: ' Source Name',
-              accessor: 'name',
+              Header: ' Group',
+              accessor: 'groupId',
+              Cell: e => <NavLink className="transaction_link" to={`/yourgroup/${e.value}`}> Click here </NavLink>
             },
             {
-              Header: 'Suggestor Name',
-              accessor: 'suggestorName',
+              Header: 'Deposited',
+              accessor: 'deposited_amount',
             },
             {
-              Header: 'Target Price',
-              accessor: 'targetPrice',
+              Header: 'Returned Amt',
+              accessor: 'returned_amount',
             },
             {
-              Header: 'Unit Purchase',
-              accessor: 'unitsPurchase',
+              Header: 'Due Amount',
+              accessor: 'due_amount',
             },
-            {   
-                width:30,
-                Header: 'Accept / Reject',
-                accessor: '_id',
-                Cell: ({ cell }) => (
-                  <Fragment>
-                  
-                   <NavLink className="accept_source_link edit_source_link" to={`/request/${cell.row.values._id}/${true}`}>Accept </NavLink> &nbsp;
-                  
-                  <NavLink  className="accept_source_link delete_source_link" to={`/request/${cell.row.values._id}/${false}`}>Reject </NavLink>
-                 
-                 </Fragment>
-                )
+            {
+              Header: 'Status',
+              accessor: 'type',
             }
           ],
         },
       ],
       []
     );
-    const [isLoading, setIsLoading] = useState(false);
     
-    const [error, setError] = useState();
-  
     const {sendRequest} = useHttpClient();
     const [loadedUsers, setLoadedUsers] = useState();
-    var userId = localStorage.getItem('__react_session__');
-    userId = JSON.parse(userId)
-    userId = userId['userId']
     useEffect(() => {
-      const fetchUsers = async () => {
+        const fetchUsers = async () => {
         try {
-          const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/source/approve/${userId}`,"POST"
-          );
-          if(responseData['status']!=200 && responseData['status']!=202){
-            throw responseData.error;
-          }
-          console.log(responseData.data.groups)
-          const dataResponse = responseData.data.groups;
-          setLoadedUsers(dataResponse);
-          setCompLoading(false)
-        } catch (err) {
-          setCompLoading(false);
-          setError(err.message || 'Something went wrong, please try again.');
+            setCompLoading(true)
+            var userId = localStorage.getItem('__react_session__');
+            userId = await JSON.parse(userId)
+            userId = userId['userId']
+            const responseData = await sendRequest(
+            `https://stool-back.herokuapp.com/api/users/account/data/${userId}`,"POST"
+            );
+            const dataResponse = responseData.data;
+            console.log(dataResponse);
+            setLoadedUsers(dataResponse.transaction);
+            setCompLoading(false)
+        } catch (err) {    
+                console.log(err)
         }
-      };
-      fetchUsers();
+        };
+        fetchUsers();
     }, []);
-    
     var data = React.useMemo(() => loadedUsers, [loadedUsers]);
     return (
           <Fragment>          

@@ -14,9 +14,9 @@ const  EditSource = ()=>{
     const [unitsPurchase,setUnitpurchase]=useState();
     const [price,setprice]=useState();
     const sid = useParams().sid;
-    var userid = localStorage.getItem('__react_session__');
-    userid = JSON.parse(userid)
-    userid = userid['userid']
+    var userId = localStorage.getItem('__react_session__');
+    userId = JSON.parse(userId)
+    userId = userId['userId']
     const onSubmitform = async e =>{
         e.preventDefault();
         try{   
@@ -24,7 +24,7 @@ const  EditSource = ()=>{
             var body={"unitsPurchase":unitsPurchase,"price":price};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/source/edit/sources/${sid}/${userid}/`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/source/edit/sources/${sid}/${userId}/`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );
@@ -37,7 +37,7 @@ const  EditSource = ()=>{
             // window.location="/";
         }catch(err){
             setIsLoading(false);
-            setSuccess(err.message || 'Something went wrong, please try again.');
+            setError(err.message || 'Something went wrong, please try again.');
         }
     }
     const successHandler = () => {
@@ -50,18 +50,24 @@ const  EditSource = ()=>{
         <SuccessModal error={success} onClear={successHandler} />
             <div className="group_form_div">
                 <center>
-                    <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
+                    <form  action="/" id="event_form"  name="event_form" className="request_form" onSubmit={onSubmitform}>
                                             {/* form header */}
                         <h2 className="form_heading">
                             Edit the Units
                         </h2> 
+                        <hr className="investment_hr"/>
                         <br/>
-                        <input type="number" name="amount" className="inputs" value={unitsPurchase} placeholder="New Units" onChange={e =>setUnitpurchase(e.target.value)} required />
+                        <label className="labels">
+                    Enter New Units<span > * </span> 
+                        </label>
+                        <input type="number" name="amount" className="request_inputs" value={unitsPurchase} placeholder="New Units" onChange={e =>setUnitpurchase(e.target.value)} required />
                         <br/><br/>
-                        <br/>
-                        <input type="number" name="price" className="inputs" value={price} placeholder="Present Price" onChange={e =>setprice(e.target.value)} required />
+                        <label className="labels">
+                    Enter Present Price<span > * </span> 
+                        </label>
+                        <input type="number" name="price" className="request_inputs" value={price} placeholder="Present Price" onChange={e =>setprice(e.target.value)} required />
                         <br/><br/>
-                        <button type="submit" className="confirm_btns">
+                        <button type="submit" className="join_btns">
                             Done
                         </button>
                     </form> 

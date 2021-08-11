@@ -4,6 +4,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import GroupList from '../components/grouplist';
 import SourceLists from './sourceLists';
+import LineChart from '../components/linegraph';
 const Group = () => {
     const {sendRequest} = useHttpClient();
     const [compLoading, setCompLoading] = useState(true);
@@ -14,9 +15,9 @@ const Group = () => {
         const fetchGroup = async () => {
         try {
             setCompLoading(true)
-            var userid = localStorage.getItem('__react_session__');
-            userid = await JSON.parse(userid)
-            userid = userid['userid']
+            var userId = localStorage.getItem('__react_session__');
+            userId = await JSON.parse(userId)
+            userId = userId['userId']
             const responseData = await sendRequest(
             `https://stool-back.herokuapp.com/api/groups/${gid}`,"POST"
             );
@@ -26,10 +27,10 @@ const Group = () => {
             }
             const dataResponse = responseData.data;
             var arr = dataResponse.members;
-            if(arr.indexOf(userid)==-1){
+            if(arr.indexOf(userId)==-1){
                 setValid(false);
             }
-            console.log(arr,userid,arr.indexOf(userid)); //true
+            console.log(arr,userId,arr.indexOf(userId)); //true
             setLoadedGroup(dataResponse);
             setCompLoading(false)
         } catch (err) {}
@@ -37,6 +38,7 @@ const Group = () => {
         fetchGroup();
     }, []);
     var GROUP =""
+    var Graph=""
     if(!compLoading){
         // console.log("loadedgroup")
     GROUP = [
@@ -47,12 +49,15 @@ const Group = () => {
             duration:loadedgroup.duration,
             amount:loadedgroup.amount
         }
-    ];}
+    ];
+    Graph =[{profit:loadedgroup.profit_deal},{loss:loadedgroup.loss_deal}];
+    }
   return (
         <Fragment>
           {compLoading ?<LoadingSpinner asOverlay /> : (<Fragment>
             <GroupList items={GROUP} />,
-            <SourceLists valid={valid}/>
+            <SourceLists valid={valid}/>,
+            <LineChart graph={Graph}/>,
             </Fragment>)
           }
         </Fragment>);

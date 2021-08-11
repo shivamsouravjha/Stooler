@@ -1,5 +1,6 @@
 import React, { useEffect, useState,Component} from 'react';
 import { useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import "./auth.css";
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -26,13 +27,13 @@ const  JoinGroupAuth = ()=>{
         e.preventDefault();
         try{   
             setIsLoading(true);
-            var userid = localStorage.getItem('__react_session__');
-            userid = await JSON.parse(userid)
-            userid = userid['userid']
+            var userId = localStorage.getItem('__react_session__');
+            userId = await JSON.parse(userId)
+            userId = userId['userId']
             var body={"name":name,"price":price,"unitsPurchase":unitsPurchase,"targetPrice":targetPrice,"details":details,"duration":duration};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/source/add/${gid}/${userid}`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/source/add/${gid}/${userId}`,"POST",body,{
                     'Content-Type': 'application/json'
             }
               );
@@ -54,17 +55,29 @@ const  JoinGroupAuth = ()=>{
         setError(null);
       };
     const letlev = async e =>{
-        e.preventDefault();
+        // e.preventDefault();
+        try{
         setIsLoading(true)
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
+        var userId = localStorage.getItem('__react_session__');
+        userId = await JSON.parse(userId)
+        userId = userId['userId']
+        var body={"groupId":gid};
+        console.log(body)
+        body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/source/delete/sources/${gid}/${userid}/`,"POST"
+            `https://stool-back.herokuapp.com/api/groups/remove/${userId}/`,"POST",body,{
+                'Content-Type': 'application/json'}
         );
-        console.log(responseData,gid)
         setIsLoading(false)
+        SuccessModal(responseData.data.message);
+    }catch(error){
+        setIsLoading(false);
+        setSuccess(error.message || 'Something went wrong, please try again.');
+
     }
+    }
+
+    
     return (   
         <React.Fragment>
         <SuccessModal error={success} onClear={successHandler} />
@@ -72,62 +85,12 @@ const  JoinGroupAuth = ()=>{
         <GroupDetail/>
     <div className="group_form_div">
 		<center>
+            
+            <NavLink className="request_btns" to={`/requestsource/${gid}`}>Request/Add Source</NavLink>
+            <NavLink className="request_btns" to={`/groupdetails/${gid}`}>Member Details</NavLink>
             <button className="leave_group_btn" button  onClick={() => letlev()}>
                 Leave Group
             </button>
-            <form  action="/" id="event_form"  name="event_form" className="auth_form" onSubmit={onSubmitform}>
-                                    {/* form header */}
-                <h2 className="form_heading">
-                    ADD SOURCE 
-                </h2> 
-                <label className="labels">
-                    Name<span > * </span> 
-                </label>
-                <br/>
-                <input type="text" name="name" className="inputs" value={name} onChange={e =>setName(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Market Place 
-                </label>
-                <br/>
-                <input type="text" name="marketplace" className="inputs" value={marketplace} onChange={e =>setMarketplace(e.target.value)} />
-                <br/><br/>
-                <label className="labels">
-                    Price<span > * </span> 
-                </label>
-                <br/>
-                <input type="number" name="price" className="inputs" value={price} onChange={e =>setPrice(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Target Price<span > * </span> 
-                </label>
-                <br/>
-                <input type="number" name="targetPrice" className="inputs" value={targetPrice} onChange={e =>setTragetprice(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Units Purchase<span > * </span> 
-                </label>
-                <br/>
-                <input type="number" name="unitsPurchase" className="inputs" value={unitsPurchase} onChange={e =>setUnitspurchase(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Details<span > * </span> 
-                </label>
-                <br/>
-                <input type="text" name="details" className="inputs" value={details} onChange={e =>setDetails(e.target.value)} required />
-                <br/><br/>
-                <label className="labels">
-                    Duration time in month<span > * </span> 
-                </label>
-                <br/>
-                <input type="number" name="duration" className="inputs" value={duration} onChange={e =>setDuration(e.target.value)} required />
-                <br/><br/>
-                <button type="submit" className="confirm_btns">
-                    REQUEST/ADD
-                </button>
-            </form> 
-                
-
         </center>
     </div>
     </React.Fragment>
