@@ -12,11 +12,11 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         setCompLoading(true)
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
+        var userId = localStorage.getItem('__react_session__');
+        userId = await JSON.parse(userId)
+        userId = userId['userId']
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/users/account/data/${userid}`,"POST"
+          `https://stool-back.herokuapp.com/api/users/account/data/${userId}`,"POST"
         );
         const dataResponse = responseData.data;
         setLoadedUsers(dataResponse);

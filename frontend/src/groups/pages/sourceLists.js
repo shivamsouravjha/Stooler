@@ -131,13 +131,13 @@ function SourceDetails(props) {
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
   const gid= useParams().gid;
-  var userid;
+  var userId;
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
+        userId = localStorage.getItem('__react_session__');
+        userId = await JSON.parse(userId)
+        userId = userId['userId']
         console.log("gid");
         const responseData = await sendRequest(
           `https://stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"

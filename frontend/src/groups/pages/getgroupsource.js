@@ -136,14 +136,14 @@ function GroupSource() {
   
     const {sendRequest} = useHttpClient();
     const [loadedUsers, setLoadedUsers] = useState();
-    var userid = localStorage.getItem('__react_session__');
-    userid = JSON.parse(userid)
-    userid = userid['userid']
+    var userId = localStorage.getItem('__react_session__');
+    userId = JSON.parse(userId)
+    userId = userId['userId']
     useEffect(() => {
       const fetchUsers = async () => {
         try {
           const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/source/approve/${userid}`,"POST"
+            `https://stool-back.herokuapp.com/api/source/approve/${userId}`,"POST"
           );
           if(responseData['status']!=200 && responseData['status']!=202){
             throw responseData.error;
