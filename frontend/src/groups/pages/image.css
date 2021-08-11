@@ -64,11 +64,11 @@
   .inner {
       clip-path: polygon(50% 0, 0 100%, 100% 100%);
       width: 90%;
-      height: 85%;
+      height: 80%;
       background: #ce6f75;
       top: 50%; 
       position: relative;
-      transform: translateY(-50%);
+      transform: translateY(-60%);
   }
   
   .inner2 {
