@@ -6,6 +6,9 @@ import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import SuccessModal from '../../shared/components/UIElements/Success';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+
 import './searchgroup.css';
 import './getjoinGroups.css';
 const Styles = styled.div`
@@ -90,6 +93,28 @@ function Table({ columns, data }) {
 
 function GroupMembers() {
   const [compLoading, setCompLoading] = useState(true);
+  const [newadm,setnewadm] =useState();
+  const [success, setSuccess] = useState();
+
+  var userid = localStorage.getItem('__react_session__');
+  userid = JSON.parse(userid)
+  userid = userid['userid']
+  const mkadm = async e=>{
+    try{
+      setCompLoading(true)
+      var body={"gid":gid,"newOwner":e};
+      body = JSON.stringify(body)
+      const responseData = await sendRequest(
+          `https://stool-back.herokuapp.com/api/groups/transferownership/removegroup/${userid}/`,"POST",body,{
+            'Content-Type': 'application/json'}
+      );
+      setCompLoading(false);
+      setSuccess(responseData.data)
+    }catch(error){
+        setCompLoading(false);
+        setError(error.message || 'Something went wrong, please try again.');
+    }
+  }
   const columns = React.useMemo(
     () => [
       {
@@ -98,15 +123,34 @@ function GroupMembers() {
             {
                 Header: ' Member Name',
                 accessor: 'userId.name',
+                Cell: ({ cell }) =>(
+                  <Fragment>
+                    {setnewadm(cell.value)}
+                    {cell.value}
+                  </Fragment>
+                )
               },
               {
-                Header: ' Member Name',
+                Header: 'Deposited Fund',
                 accessor: 'deposited_amount',
               },
           {
             Header: 'Group Details',
-            accessor: '_id',
-            Cell: e => <NavLink className="join_group_link" to={`/yourgroup/${e.value}`}> Make Admin </NavLink>
+            accessor: 'groupId.groupOwner',
+            Cell: ({ cell }) =>(
+              <Fragment>
+                {cell.value===userid ? (
+                    <button className="leave_group_btn" button  onClick={() => mkadm(cell.row.original.userId._id)}>
+                      Make Admin
+                    </button>                  
+                    ):
+                  (
+                    (cell.row.original.userId._id === cell.value? <h5>Group Owner</h5> : <h5>Member</h5>)
+
+                    )
+                }
+              </Fragment>
+            )
           },
         ],
       },
@@ -132,11 +176,7 @@ function GroupMembers() {
           throw responseData.error;
         }
         const dataResponse = responseData.data.userId;
-        console.log(dataResponse)
-
-        // setLoadedUsers(dataResponse);
         setLoadedUsers(responseData.data);
-        console.log(gid)
         setCompLoading(false)
       } catch (err) {
         console.log(err)
@@ -146,11 +186,15 @@ function GroupMembers() {
     };
     fetchUsers();
   }, []);
-
+  const successHandler = () => {
+    setSuccess(null);
+    setError(null);
+  };
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
   return (
         <Fragment>          
-
+ <SuccessModal error={success} onClear={successHandler} />
+ <ErrorModal error={error} onClear={successHandler} />
     {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data </h1>:(
             <Styles>
               <Table columns={columns} data={data} />

@@ -56,7 +56,7 @@ const  EditSource = ()=>{
                         </h2> <hr className="investment_hr"/>
                         <br/>
                         
-                        <input type="number" name="sellingPric" className="request_inputs" value={sellingPrice} placeholder="SP of source" onChange={e =>setsellingPrice(e.target.value)} required />
+                        <input type="number" name="sellingPric" className="request_inputs" value={sellingPrice} placeholder="Selling Price of Each unit" onChange={e =>setsellingPrice(e.target.value)} required />
                         <br/><br/>
                         <button type="submit" className="join_btns">
                             Done
