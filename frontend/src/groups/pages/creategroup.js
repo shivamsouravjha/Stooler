@@ -24,13 +24,13 @@ const  Newgroup = ()=>{
         try{   
             setIsLoading(true);
 
-            var userid = localStorage.getItem('__react_session__');
-            userid = await JSON.parse(userid)
-            userid = userid['userid']
+            var userId = localStorage.getItem('__react_session__');
+            userId = await JSON.parse(userId)
+            userId = userId['userId']
             var body={"groupName":groupName,"description":description,"genre":genre,"duration":duration,"amount":amount};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/groups/create/${userid}`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/groups/create/${userId}`,"POST",body,{
                     'Content-Type': 'application/json'
             });
             if(responseData['status']!=200 && responseData['status']!=202){

@@ -78,15 +78,14 @@ const Auth = () => {
           })
         });
         const responseData = await response.json();
-        console.log(responseData)
         if(responseData['error']) {
           console.log(responseData.error)
           throw new Error(responseData.error);
         }
         setIsLoading(false);
-        auth.login();
+        auth.login(responseData.data.userId, responseData.data.token);
         ReactSession.set("username", formState.inputs.username.value);
-        ReactSession.set("userid",responseData['data']['userid'] );
+        ReactSession.set("userId",responseData['data']['userId'] );
         ReactSession.set("token",responseData['data']['token'] );
       } catch (err) {
         setIsLoading(false);
@@ -115,15 +114,14 @@ const Auth = () => {
           })
         });
         const responseData = await response.json();
-        console.log(responseData)
         if(responseData['error']) {
           console.log(responseData.error)
           throw new Error(responseData.error);
         }
         setIsLoading(false);
-        auth.login();
+        auth.login(responseData.userId, responseData.token);
         ReactSession.set("username", formState.inputs.username.value);
-        ReactSession.set("userid",responseData['data']['userid'] );
+        ReactSession.set("userId",responseData['data']['userId'] );
         ReactSession.set("token",responseData['data']['token'] );
       } catch (err) {
         setIsLoading(false);

@@ -96,16 +96,16 @@ function GroupMembers() {
   const [newadm,setnewadm] =useState();
   const [success, setSuccess] = useState();
 
-  var userid = localStorage.getItem('__react_session__');
-  userid = JSON.parse(userid)
-  userid = userid['userid']
+  var userId = localStorage.getItem('__react_session__');
+  userId = JSON.parse(userId)
+  userId = userId['userId']
   const mkadm = async e=>{
     try{
       setCompLoading(true)
       var body={"gid":gid,"newOwner":e};
       body = JSON.stringify(body)
       const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/groups/transferownership/removegroup/${userid}/`,"POST",body,{
+          `https://stool-back.herokuapp.com/api/groups/transferownership/removegroup/${userId}/`,"POST",body,{
             'Content-Type': 'application/json'}
       );
       setCompLoading(false);
@@ -139,7 +139,7 @@ function GroupMembers() {
             accessor: 'groupId.groupOwner',
             Cell: ({ cell }) =>(
               <Fragment>
-                {cell.value===userid ? (
+                {cell.value===userId ? (
                     <button className="leave_group_btn" button  onClick={() => mkadm(cell.row.original.userId._id)}>
                       Make Admin
                     </button>                  
@@ -161,9 +161,9 @@ function GroupMembers() {
 
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
-  var userid = localStorage.getItem('__react_session__');
-  userid = JSON.parse(userid);
-  userid = userid['userid'];
+  var userId = localStorage.getItem('__react_session__');
+  userId = JSON.parse(userId);
+  userId = userId['userId'];
   const gid = useParams().gid;
 
   useEffect(() => {
