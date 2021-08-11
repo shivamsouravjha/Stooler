@@ -50,11 +50,7 @@ const Footer = props => {
   <div class="footer-right col-md-4 col-sm-6">
     <h2 className="company_header"> STOOL<img src={Logo} className="logo"/></h2>
     <p class="menu">
-    <NavLink to="/" exact> Home </NavLink> | <NavLink to="/aboutus" exact> About Us</NavLink> | {auth.isLoggedIn && (
-        
-          <NavLink to="/portfolio">PORTFOLIO</NavLink>
-        
-      )} | <a href="#"> My Profile</a> 
+    <NavLink to="/" exact> Home </NavLink> | <NavLink to="/aboutus" exact> About Us</NavLink>  
     </p>
     <p class="name"> Stool &copy; 2021</p>
   </div>
