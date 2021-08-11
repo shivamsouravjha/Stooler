@@ -94,6 +94,7 @@ const App = () => {
         <Route path="/" exact>
           <Image/>
           <Main />
+          <Pillars/>
         </Route>
         <Route path="/group_auth" exact>
           <GroupAuth />
@@ -152,6 +153,7 @@ const App = () => {
         <Route path="/" exact>
         
         <Image />
+        <Pillars/>
         </Route>
         
         <Route path="/auth">
@@ -177,7 +179,7 @@ const App = () => {
         <main>{routes}</main>
         <div className="bot">
             <Route path="/" component={Chatbot} exact />
-            <Pillars/>
+            
             <Footer/>
        </div>
       </Router>  

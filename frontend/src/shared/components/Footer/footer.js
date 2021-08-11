@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
+import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+import {faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import {SocialMediaIconsReact} from 'social-media-icons-react';
-
+import Logo from '../../../images/stool_logo.png';
 import "./footer.css";
 
 const Footer = props => {
@@ -16,8 +19,9 @@ const Footer = props => {
 <footer class="footer">
   <div class="footer-left col-md-4 col-sm-6">
     <p class="about">
-      <span> About the company</span> Ut congue augue non tellus bibendum, in varius tellus condimentum. In scelerisque nibh tortor, sed rhoncus odio condimentum in. Sed sed est ut sapien ultrices eleifend. Integer tellus est, vehicula eu lectus tincidunt,
-      ultricies feugiat leo. Suspendisse tellus elit, pharetra in hendrerit ut, aliquam quis augue. Nam ut nibh mollis, tristique ante sed, viverra massa.
+      <span className="footer_span"> About Stool</span> 
+      Stool is a platform where you can join a group and invest in Stocks, Gold/Silver, Cryptocurrency, Currency Exchange.
+      You can join a group by paying above the minimum amount set by the group leader. Invest with lowest amount with less stress of managing the resources.
     </p>
     <div class="icons">
       
@@ -31,30 +35,30 @@ const Footer = props => {
   </div>
   <div class="footer-center col-md-4 col-sm-6">
     <div>
-      <i class="fa fa-map-marker"></i>
-      <p><span> Street name and number</span> City, Country</p>
+      <FontAwesomeIcon className="footer_center_icon" icon={faMapMarkerAlt} size="1.5x" />
+      <p><span className="footer_center_span"> Street name and number</span> India</p>
     </div>
     <div>
-      <i class="fa fa-phone"></i>
-      <p> (+00) 0000 000 000</p>
+    <FontAwesomeIcon className="footer_center_icon" icon={faPhoneAlt} size="1.5x"/> 
+      <p> (+91) 99999 99999</p>
     </div>
     <div>
-      <i class="fa fa-envelope"></i>
-      <p><a href="#"> office@company.com</a></p>
+    <FontAwesomeIcon className="footer_center_icon" icon={faEnvelope} size="1.5x"/> 
+      <p><a href="#"> stool@gmail.com</a></p>
     </div>
   </div>
   <div class="footer-right col-md-4 col-sm-6">
-    <h2> Company<span> logo</span></h2>
+    <h2 className="company_header"> STOOL<img src={Logo} className="logo"/></h2>
     <p class="menu">
-      <a href="#"> Home</a> |
-      <a href="#"> About</a> |
-      <a href="#"> Services</a> |
-      <a href="#"> Portfolio</a> |
-      <a href="#"> News</a> |
-      <a href="#"> Contact</a>
+    <NavLink to="/" exact> Home </NavLink> | <NavLink to="/aboutus" exact> About Us</NavLink> | {auth.isLoggedIn && (
+        
+          <NavLink to="/portfolio">PORTFOLIO</NavLink>
+        
+      )} | <a href="#"> My Profile</a> 
     </p>
-    <p class="name"> Company Name &copy; 2016</p>
+    <p class="name"> Stool &copy; 2021</p>
   </div>
+  
 </footer>
       
       

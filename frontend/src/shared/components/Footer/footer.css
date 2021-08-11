@@ -1,12 +1,12 @@
 .footer {
-    background-color: #414141;
+    background-color: #0a657e;
     width: 100%;
     text-align: left;
     font-family: sans-serif;
     font-weight: bold;
-    font-size: 16px;
-    padding: 50px;
-    margin-top: 50px;
+    font-size: 1.2rem;
+    padding: 4rem;
+    margin-top: 5rem;
   }
   
   .footer .footer-left,
@@ -21,33 +21,34 @@
   
   .footer .footer-left {
     width: 33%;
-    padding-right: 15px;
+    padding-right: 1.2rem;
   }
   
   .footer .about {
     line-height: 20px;
     color: #ffffff;
-    font-size: 13px;
+    font-size: 0.9rem;
     font-weight: normal;
     margin: 0;
   }
   
-  .footer .about span {
+ .footer_span {
     display: block;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 1.2rem;
   }
   
   .footer .icons {
-    margin-top: 25px;
+    margin-top: 1.5rem;
+ 
   }
   
   .footer .icons a {
     display: inline-block;
-    width: 35px;
-    height: 35px;
+    width: 2.2rem;
+    height: 2.2rem;
     cursor: pointer;
     background-color: #33383b;
     border-radius: 2px;
@@ -55,7 +56,7 @@
     color: #ffffff;
     text-align: center;
     line-height: 35px;
-    margin-right: 3px;
+    margin-right: 0.4rem;
     margin-bottom: 5px;
   }
   
@@ -66,22 +67,17 @@
     width: 30%;
   }
   
-  .footer .footer-center i {
-    background-color: #33383b;
+  .footer_center_icon {
+    background-color: #0a657e;
     color: #ffffff;
     font-size: 25px;
-    width: 38px;
-    height: 38px;
+    width: 2.2rem;
+    height: 2.2rem;
     border-radius: 50%;
     text-align: center;
     line-height: 42px;
     margin: 10px 15px;
     vertical-align: middle;
-  }
-  
-  .footer .footer-center i.fa-envelope {
-    font-size: 17px;
-    line-height: 38px;
   }
   
   .footer .footer-center p {
@@ -91,10 +87,11 @@
     margin: 0;
   }
   
-  .footer .footer-center p span {
+  .footer_center_span {
+      color: #ffffff;
     display: block;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 1rem;
     line-height: 2;
   }
   
@@ -110,15 +107,19 @@
     width: 35%;
   }
   
-  .footer h2 {
+ .company_header{
     color: #ffffff;
-    font-size: 36px;
-    font-weight: normal;
+    font-size: 3rem;
+    font-weight: bold;
     margin: 0;
   }
   
-  .footer h2 span {
-    color: #0099ff;
+ 
+
+  .logo{
+      width:4.5rem;
+      height:4.5rem;
+      border-radius: 50%;
   }
   
   .footer .menu {
@@ -135,19 +136,19 @@
   }
   
   .footer .menu a:hover {
-    color: #0099ff;
+    color: #109aa1;
   }
   
   .footer .name {
-    color: #0099ff;
-    font-size: 14px;
+    color: #b3c3ce;
+    font-size: 1rem;
     font-weight: normal;
-    margin: 0;
+    margin-top: 1.5rem;
   }
   
   @media (max-width: 767px) {
     .footer {
-      font-size: 14px;
+      font-size: 0.9rem;
     }
     .footer .footer-left,
     .footer .footer-center,
@@ -157,7 +158,11 @@
       margin-bottom: 40px;
       text-align: center;
     }
-    .footer .footer-center i {
+    .footer .icons {
+        text-align: center;
+      }
+
+      .footer_center_icon {
       margin-left: 0;
     }
   }
