@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 import {faEnvelope} from '@fortawesome/free-solid-svg-icons';
-import {SocialMediaIconsReact} from 'social-media-icons-react';
+import {fab, faTwitterSquare, faFacebook, faLinkedin, faGithub} from "@fortawesome/free-brands-svg-icons";
 import Logo from '../../../images/stool_logo.png';
 import "./footer.css";
 
@@ -24,12 +24,14 @@ const Footer = props => {
       You can join a group by paying above the minimum amount set by the group leader. Invest with lowest amount with less stress of managing the resources.
     </p>
     <div class="icons">
+
       
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="facebook" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="github" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="linkedin" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="twitter" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="medium" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
+
+    <FontAwesomeIcon className="footer_center_icon" icon={faTwitterSquare} size="1.5x" />
+    <FontAwesomeIcon className="footer_center_icon"  icon={faLinkedin} size="1.5x" />
+    <FontAwesomeIcon  className="footer_center_icon" icon={faGithub} size="1.5x" />
+    <FontAwesomeIcon className="footer_center_icon"  icon={faFacebook} size="1.5x" />
+
       
     </div>
   </div>
