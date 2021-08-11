@@ -25,11 +25,11 @@ const Footer = props => {
     </p>
     <div class="icons">
       
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="facebook" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="https://some-website.com/my-social-media-url" size="35" />
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="github" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="https://some-website.com/my-social-media-url" size="35" />
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="linkedin" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="https://some-website.com/my-social-media-url" size="35" />
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="twitter" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="https://some-website.com/my-social-media-url" size="35" />
-      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="medium" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="https://some-website.com/my-social-media-url" size="35" />
+      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="facebook" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
+      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="github" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
+      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="linkedin" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
+      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="twitter" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
+      <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="2" borderStyle="solid" icon="medium" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(10,101,126,1)" iconSize="5" roundness="20%" url="#" size="35" />
       
     </div>
   </div>
@@ -40,11 +40,11 @@ const Footer = props => {
     </div>
     <div>
     <FontAwesomeIcon className="footer_center_icon" icon={faPhoneAlt} size="1.5x"/> 
-      <p> (+91) 99999 99999</p>
+      <p><a href="tel:+18475555555" style={{color:"white"}}> (+91) 99999 99999</a></p>
     </div>
     <div>
     <FontAwesomeIcon className="footer_center_icon" icon={faEnvelope} size="1.5x"/> 
-      <p><a href="#"> stool@googlegroups.com</a></p>
+      <p><a href="mailto:stool@googlegroups.com"> stool@googlegroups.com</a></p>
     </div>
   </div>
   <div class="footer-right col-md-4 col-sm-6">
