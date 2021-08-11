@@ -15,6 +15,7 @@ import GroupAuth from './groups/pages/creategroup';
 import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
+import Pillars from './shared/components/Footer/pillars';
 import { AuthContext } from './shared/context/auth-context';
 import JoinGroup from './groups/pages/getjoinGroups';
 import JoinGroupAuth from './groups/pages/joingroups';
@@ -148,6 +149,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
+        
         <Image />
         </Route>
         
@@ -171,10 +173,10 @@ const App = () => {
     >
       <Router>
       <MainNavigation />
-        
         <main>{routes}</main>
         <div className="bot">
             <Route path="/" component={Chatbot} exact />
+            <Pillars/>
        </div>
       </Router>  
     </AuthContext.Provider>
