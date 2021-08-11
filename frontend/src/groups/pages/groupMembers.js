@@ -90,6 +90,26 @@ function Table({ columns, data }) {
 
 function GroupMembers() {
   const [compLoading, setCompLoading] = useState(true);
+  const [newadm,setnewadm] =useState();
+  var userid = localStorage.getItem('__react_session__');
+  userid = JSON.parse(userid)
+  userid = userid['userid']
+  const mkadm = async e =>{
+    try{
+    setCompLoading(true)
+    var body={"gid":gid,"newOwner":newadm};
+    console.log(body)
+    body = JSON.stringify(body)
+    const responseData = await sendRequest(
+        `https://stool-back.herokuapp.com/api/groups/transferownership/getgroups/${userid}/`,"POST",body,{
+            'Content-Type': 'application/json'}
+    );
+    setCompLoading(false)
+    }catch(error){
+        setCompLoading(false);
+        setError(error.message || 'Something went wrong, please try again.');
+    }
+  }
   const columns = React.useMemo(
     () => [
       {
@@ -98,6 +118,12 @@ function GroupMembers() {
             {
                 Header: ' Member Name',
                 accessor: 'userId.name',
+                Cell: ({ cell }) =>(
+                  <Fragment>
+                    {setnewadm(cell.value)}
+                    {cell.value}
+                  </Fragment>
+                )
               },
               {
                 Header: ' Member Name',
@@ -105,8 +131,20 @@ function GroupMembers() {
               },
           {
             Header: 'Group Details',
-            accessor: '_id',
-            Cell: e => <NavLink className="join_group_link" to={`/yourgroup/${e.value}`}> Make Admin </NavLink>
+            accessor: 'groupId.groupOwner',
+            Cell: ({ cell }) =>(
+              <Fragment>
+                {cell.value==userid ? (
+                    <button className="leave_group_btn" button  onClick={() => mkadm()}>
+                      Make Admin
+                    </button>
+                  ):
+                  (
+                    console.log(cell.value)
+                  )
+                }
+              </Fragment>
+            )
           },
         ],
       },
