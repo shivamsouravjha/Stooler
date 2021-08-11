@@ -5,6 +5,7 @@ import Backdrop from '../UIElements/Backdrop';
 import MainHeader from './MainHeader';
 import NavLinks from './NavLinks';
 import './MainNavigation.css';
+import Logo from '../../../images/stool_logo.png';
 
 const MainNavigation = props => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -30,13 +31,14 @@ const MainNavigation = props => {
         <button
           className="main-navigation__menu-btn"
           onClick={openDrawerHandler}
-        >
+        > 
           <span />
           <span />
           <span />
         </button>
+        <img src={Logo} className="mobileview_logo"/>
         <h1 className="main-navigation__title">
-          <Link to="/">Stool</Link>
+          <Link to="/">Stool <img src={Logo} className="nav_logo"></img> </Link>
         </h1>
         <nav className="main-navigation__header-nav">
           <NavLinks />
