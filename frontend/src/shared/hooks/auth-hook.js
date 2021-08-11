@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import ReactSession from '../../Reactsession';
 
 let logoutTimer;
 
@@ -6,7 +7,7 @@ export const useAuth = () => {
   const [token, setToken] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [userId, setUserId] = useState(false);
-
+  ReactSession.setStoreType("localStorage");
   const login = useCallback((uid, token, expirationDate) => {
     setToken(token);
     setUserId(uid);
@@ -28,6 +29,9 @@ export const useAuth = () => {
     setTokenExpirationDate(null);
     setUserId(null);
     localStorage.removeItem('userData');
+    ReactSession.remove('username');
+    ReactSession.remove('userId');
+    ReactSession.remove('token');
   }, []);
 
   useEffect(() => {
