@@ -95,7 +95,7 @@ const Auth = () => {
       try {
         var checkuser=formState.inputs.username.value.slice(-4);
         var checkpan=formState.inputs.panNumber.value.slice(-4);
-        if(checkpan != checkuser){
+        if(checkpan !== checkuser){
           throw new Error("Use 4 last character of pan");
         }
         const response = await fetch('https://stool-back.herokuapp.com/api/users/account/signup', {

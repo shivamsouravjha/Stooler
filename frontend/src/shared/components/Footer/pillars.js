@@ -1,14 +1,9 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
-import { AuthContext } from '../../context/auth-context';
+import React from 'react';
 import "./pillars.css";
 import confidence from '../../../images/confidence.png';
 import clarity from '../../../images/clarity.png';
 import community from '../../../images/community.png';
-const Pillars = props => {
-    const auth = useContext(AuthContext);
-  
+const Pillars = props => {  
     return (
       
 
