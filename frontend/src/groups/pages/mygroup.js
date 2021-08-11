@@ -136,14 +136,14 @@ function Group() {
 
   const {sendRequest} = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
-  var userid = localStorage.getItem('__react_session__');
-  userid = JSON.parse(userid)
-  userid = userid['userid']
+  var userId = localStorage.getItem('__react_session__');
+  userId = JSON.parse(userId)
+  userId = userId['userId']
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST"
+          `https://stool-back.herokuapp.com/api/groups/getgroups/${userId}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
@@ -164,13 +164,13 @@ function Group() {
     e.preventDefault();
     try{   
       setCompLoading(true);
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
+        var userId = localStorage.getItem('__react_session__');
+        userId = await JSON.parse(userId)
+        userId = userId['userId']
         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/groups/getgroups/${userid}`,"POST",body,{
+            `https://stool-back.herokuapp.com/api/groups/getgroups/${userId}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         if(responseData['status']!=200 && responseData['status']!=202){
@@ -236,8 +236,8 @@ function Group() {
                 </button>
                 <ul className="group_source_links">
                 
-                <Link to={`/getgroupsource/${userid}`} ><button className="group_source_button">Manage Group Source</button></Link>
-                <Link to={`/ownedgroups/getgroups/${userid}`} ><button className="group_source_button">Manage Owned Groups</button></Link>
+                <Link to={`/getgroupsource/${userId}`} ><button className="group_source_button">Manage Group Source</button></Link>
+                <Link to={`/ownedgroups/getgroups/${userId}`} ><button className="group_source_button">Manage Owned Groups</button></Link>
                 </ul>
                 </form>
              

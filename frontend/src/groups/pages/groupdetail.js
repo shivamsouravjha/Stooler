@@ -14,9 +14,9 @@ const Group = () => {
         const fetchGroup = async () => {
         try {
             setCompLoading(true)
-            var userid = localStorage.getItem('__react_session__');
-            userid = await JSON.parse(userid)
-            userid = userid['userid']
+            var userId = localStorage.getItem('__react_session__');
+            userId = await JSON.parse(userId)
+            userId = userId['userId']
             const responseData = await sendRequest(
             `https://stool-back.herokuapp.com/api/groups/${gid}`,"POST"
             );
@@ -26,10 +26,10 @@ const Group = () => {
             }
             const dataResponse = responseData.data;
             var arr = dataResponse.members;
-            if(arr.indexOf(userid)==-1){
+            if(arr.indexOf(userId)==-1){
                 setValid(false);
             }
-            console.log(arr,userid,arr.indexOf(userid)); //true
+            console.log(arr,userId,arr.indexOf(userId)); //true
             setLoadedGroup(dataResponse);
             setCompLoading(false)
         } catch (err) {}

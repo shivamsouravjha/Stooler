@@ -62,26 +62,26 @@ export default class GroupRepository {
     }
 
 
-    async addUserToGroup (args,verifyGroupId,verifyUserId) {
+    async addUserToGroup (args,verifyGroupId,verifyuserId) {
         try {
             args['type'] = 'ACTIVE';
             args['deposited_amount'] = args.amount;
             args['returned_amount'] = 0;
             args['due_amount'] = args.amount;
             delete args.amount;
-            if(verifyUserId.funds < args.deposited_amount){
+            if(verifyuserId.funds < args.deposited_amount){
                 throw {'message':'Insufficient funds','success':false};
             }
-            verifyUserId.funds -= args.deposited_amount;
+            verifyuserId.funds -= args.deposited_amount;
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
             await newTransaction.save(); 
             verifyGroupId.groupPayment.push(newTransaction._id); 
-            verifyGroupId.members.push(verifyUserId._id);          
-            verifyUserId.groups.push(verifyGroupId._id); 
-            verifyUserId.transaction.push(newTransaction._id);
-            await verifyUserId.save({ session: sess }); 
+            verifyGroupId.members.push(verifyuserId._id);          
+            verifyuserId.groups.push(verifyGroupId._id); 
+            verifyuserId.transaction.push(newTransaction._id);
+            await verifyuserId.save({ session: sess }); 
 
             await verifyGroupId.save({ session: sess }); 
 
@@ -93,14 +93,14 @@ export default class GroupRepository {
     }
     
     
-    async removeUserFromGroup (args,verifyGroupId,verifyUserId) {
+    async removeUserFromGroup (args,verifyGroupId,verifyuserId) {
         try {
             const sess = await mongoose.startSession();
             sess.startTransaction();      
             await args.save(); 
-            verifyGroupId.members.pull(verifyUserId._id);          
-            verifyUserId.groups.pull(verifyGroupId._id); 
-            await verifyUserId.save({ session: sess }); 
+            verifyGroupId.members.pull(verifyuserId._id);          
+            verifyuserId.groups.pull(verifyGroupId._id); 
+            await verifyuserId.save({ session: sess }); 
             await verifyGroupId.save({ session: sess }); 
             await sess.commitTransaction(); 
             return {'message':'Group Left','success':true};

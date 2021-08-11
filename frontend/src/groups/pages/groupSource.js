@@ -27,13 +27,13 @@ const  JoinGroupAuth = ()=>{
         e.preventDefault();
         try{   
             setIsLoading(true);
-            var userid = localStorage.getItem('__react_session__');
-            userid = await JSON.parse(userid)
-            userid = userid['userid']
+            var userId = localStorage.getItem('__react_session__');
+            userId = await JSON.parse(userId)
+            userId = userId['userId']
             var body={"name":name,"price":price,"unitsPurchase":unitsPurchase,"targetPrice":targetPrice,"details":details,"duration":duration};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/source/add/${gid}/${userid}`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/source/add/${gid}/${userId}`,"POST",body,{
                     'Content-Type': 'application/json'
             }
               );
@@ -58,14 +58,14 @@ const  JoinGroupAuth = ()=>{
         // e.preventDefault();
         try{
         setIsLoading(true)
-        var userid = localStorage.getItem('__react_session__');
-        userid = await JSON.parse(userid)
-        userid = userid['userid']
+        var userId = localStorage.getItem('__react_session__');
+        userId = await JSON.parse(userId)
+        userId = userId['userId']
         var body={"groupId":gid};
         console.log(body)
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/groups/remove/${userid}/`,"POST",body,{
+            `https://stool-back.herokuapp.com/api/groups/remove/${userId}/`,"POST",body,{
                 'Content-Type': 'application/json'}
         );
         setIsLoading(false)

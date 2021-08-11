@@ -12,8 +12,8 @@ export default class AccountService{
     async userToGroup(args) {
         try {        
             const {userId,groupId}=args
-            let verifyUserId =  await this.verifyUserDetail(userId)
-            if(!verifyUserId){
+            let verifyuserId =  await this.verifyUserDetail(userId)
+            if(!verifyuserId){
                 throw (new Exceptions.ConflictException("No user found"));
             }
             let verifyGroupId;
@@ -24,29 +24,29 @@ export default class AccountService{
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
                 if(verifyGroupId.genre == 'Gold/Silver'){
-                    verifyUserId.shares[0]['amount']+=args.amount
+                    verifyuserId.shares[0]['amount']+=args.amount
                 } if(verifyGroupId.genre == 'Stock'){
-                    verifyUserId.shares[1]['amount']+=args.amount
+                    verifyuserId.shares[1]['amount']+=args.amount
                 } if(verifyGroupId.genre == 'Cryptocurrency'){
-                    verifyUserId.shares[2]['amount']+=args.amount
+                    verifyuserId.shares[2]['amount']+=args.amount
                 } if(verifyGroupId.genre == 'Currency Exchange'){
-                    verifyUserId.shares[3]['amount']+=args.amount
+                    verifyuserId.shares[3]['amount']+=args.amount
                 }
                 if(args.amount < verifyGroupId.amount){
                     throw {'message':`Amount less than group minimum,add more ${verifyGroupId.amount - args.amount}`,'success':false};
                 }
                 verifyGroupId['fund']+=args.amount;
                 verifyGroupId['totalsum']+=args.amount; 
-                accountInfo = await this.repository.addUserToGroup(args,verifyGroupId,verifyUserId);
+                accountInfo = await this.repository.addUserToGroup(args,verifyGroupId,verifyuserId);
             }else{
                 verifyGroupId =  (await this.getGroups(userId,{_id:groupId},true))[0];            
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
                 const refund_amount = verifyGroupId.fund/verifyGroupId.members.length + verifyGroupId.loss/verifyGroupId.members.length;
-                const transaction = await  this.repository.findTransaction({userId:verifyUserId['_id'],groupId:verifyGroupId['_id'],type:"ACTIVE"});
-                verifyUserId['funds'] += verifyGroupId.fund/verifyGroupId.members.length;
-                verifyUserId['loss'] += verifyGroupId.loss/verifyGroupId.members.length;
+                const transaction = await  this.repository.findTransaction({userId:verifyuserId['_id'],groupId:verifyGroupId['_id'],type:"ACTIVE"});
+                verifyuserId['funds'] += verifyGroupId.fund/verifyGroupId.members.length;
+                verifyuserId['loss'] += verifyGroupId.loss/verifyGroupId.members.length;
                 transaction['returned_amount'] = verifyGroupId.fund/verifyGroupId.members.length;
                 transaction['result'] = transaction['returned_amount'] - transaction['deposited_amount'];
                 transaction['type']= "LEFT";
@@ -58,12 +58,12 @@ export default class AccountService{
 
                 if(transaction.deposited_amount>refund_amount){
                     transaction['due_amount']= transaction.deposited_amount-refund_amount;
-                    verifyUserId['dues']+=transaction.deposited_amount-refund_amount;
+                    verifyuserId['dues']+=transaction.deposited_amount-refund_amount;
                     transaction['type']= "DUES";
                     transaction['result'] =  0;
                     verifyGroupId.dues.push(transaction._id)
                 }
-                accountInfo = await this.repository.removeUserFromGroup(transaction,verifyGroupId,verifyUserId);
+                accountInfo = await this.repository.removeUserFromGroup(transaction,verifyGroupId,verifyuserId);
             }
             return accountInfo;
         } catch (error) {

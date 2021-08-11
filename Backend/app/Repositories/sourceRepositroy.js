@@ -42,18 +42,18 @@ export default class SourceRepository {
         }
     }
 
-    async addUserToGroup (args,verifyGroupId,verifyUserId) {
+    async addUserToGroup (args,verifyGroupId,verifyuserId) {
         try {
             const newTransaction = new Transaction(args);
             const sess = await mongoose.startSession();
             sess.startTransaction();      
             await newTransaction.save(); 
             verifyGroupId.groupPayment.push(newTransaction._id); 
-            verifyGroupId.members.push(verifyUserId._id);
-            verifyUserId.groups.push(verifyGroupId._id); 
-            verifyUserId.transaction.push(newTransaction._id); 
+            verifyGroupId.members.push(verifyuserId._id);
+            verifyuserId.groups.push(verifyGroupId._id); 
+            verifyuserId.transaction.push(newTransaction._id); 
             await verifyGroupId.save({ session: sess }); 
-            await verifyUserId.save({ session: sess }); 
+            await verifyuserId.save({ session: sess }); 
             await sess.commitTransaction(); 
             return "Joined";
         } catch (error) {
