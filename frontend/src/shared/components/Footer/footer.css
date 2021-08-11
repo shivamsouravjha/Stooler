@@ -44,13 +44,21 @@
     margin-top: 1.5rem;
  
   }
+  .footer_left_icon{
+    background-color: #0a657e;
+    color: #ffffff;
+    
+    width: 2rem;
+    height: 2.2rem;
+    
+    
+  }
   
   .footer .icons a {
     display: inline-block;
     width: 2.2rem;
     height: 2.2rem;
     cursor: pointer;
-    background-color: #33383b;
     border-radius: 2px;
     font-size: 20px;
     color: #ffffff;

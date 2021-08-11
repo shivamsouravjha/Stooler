@@ -27,10 +27,10 @@ const Footer = props => {
 
       
 
-    <FontAwesomeIcon className="footer_center_icon" icon={faTwitterSquare} size="1.5x" />
-    <FontAwesomeIcon className="footer_center_icon"  icon={faLinkedin} size="1.5x" />
-    <FontAwesomeIcon  className="footer_center_icon" icon={faGithub} size="1.5x" />
-    <FontAwesomeIcon className="footer_center_icon"  icon={faFacebook} size="1.5x" />
+    <a><FontAwesomeIcon className="footer_left_icon" style={{width:"2rem",height:"2.1rem"}} icon={faTwitterSquare} size="1.5x" /></a>
+    <a><FontAwesomeIcon className="footer_left_icon" style={{width:"2rem",height:"2.1rem"}}  icon={faLinkedin} size="1.5x" /></a>
+    <a><FontAwesomeIcon  className="footer_left_icon" style={{width:"2rem",height:"2.1rem"}} icon={faGithub} size="1.5x" /></a>
+    <a> <FontAwesomeIcon className="footer_left_icon"  icon={faFacebook} style={{width:"2rem",height:"2.1rem"}} size="1.5x" /></a>
 
       
     </div>
@@ -42,7 +42,7 @@ const Footer = props => {
     </div>
     <div>
     <FontAwesomeIcon className="footer_center_icon" icon={faPhoneAlt} size="1.5x"/> 
-      <p><a href="tel:+18475555555" style={{color:"white"}}> (+91) 99999 99999</a></p>
+      <p><a href="tel:9999999999" style={{color:"white"}}> (+91) 99999 99999</a></p>
     </div>
     <div>
     <FontAwesomeIcon className="footer_center_icon" icon={faEnvelope} size="1.5x"/> 
