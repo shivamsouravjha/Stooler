@@ -72,15 +72,15 @@ const PieChart = () => {
                 width={600}
                 options={{
                     maintainAspectRatio: false,
-                    scales: {
-                    yAxes: [
-                        {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                        },
-                    ],
-                    },
+                    // scales: {
+                    // yAxes: [
+                    //     {
+                    //     ticks: {
+                    //         beginAtZero: true,
+                    //     },
+                    //     },
+                    // ],
+                    // },
                     legend: {
                     labels: {
                         fontSize: 25,

@@ -4,6 +4,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import GroupList from '../components/grouplist';
 import SourceLists from './sourceLists';
+import LineChart from '../components/linegraph';
 const Group = () => {
     const {sendRequest} = useHttpClient();
     const [compLoading, setCompLoading] = useState(true);
@@ -37,6 +38,7 @@ const Group = () => {
         fetchGroup();
     }, []);
     var GROUP =""
+    var Graph=""
     if(!compLoading){
         // console.log("loadedgroup")
     GROUP = [
@@ -47,12 +49,15 @@ const Group = () => {
             duration:loadedgroup.duration,
             amount:loadedgroup.amount
         }
-    ];}
+    ];
+    Graph =[{profit:loadedgroup.profit_deal},{loss:loadedgroup.loss_deal}];
+    }
   return (
         <Fragment>
           {compLoading ?<LoadingSpinner asOverlay /> : (<Fragment>
             <GroupList items={GROUP} />,
-            <SourceLists valid={valid}/>
+            <SourceLists valid={valid}/>,
+            <LineChart graph={Graph}/>,
             </Fragment>)
           }
         </Fragment>);
