@@ -48,11 +48,11 @@ export default class AccountRepository {
         let token;
         try{
             userDetails =  await userModel.save();
-            token = jwt.sign({userid:userDetails.id,email:userDetails.email},process.env.secretcode,{expiresIn:'7d'});
+            token = jwt.sign({userId:userDetails.id,email:userDetails.email},process.env.secretcode,{expiresIn:'7d'});
         } catch (error) {
             return "error at adding"
         }
-        return {"success":true,"token":token,"userid":userDetails._id};
+        return {"success":true,"token":token,"userId":userDetails._id,email:userDetails.email};
     }
 
 }

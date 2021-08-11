@@ -13,9 +13,9 @@ const  EditSource = ()=>{
    const [error, setError] = useState();
     const [sellingPrice,setsellingPrice]=useState();
     const sid = useParams().sid;
-    var userid = localStorage.getItem('__react_session__');
-    userid = JSON.parse(userid)
-    userid = userid['userid']
+    var userId = localStorage.getItem('__react_session__');
+    userId = JSON.parse(userId)
+    userId = userId['userId']
     const onSubmitform = async e =>{
         e.preventDefault();
         try{   
@@ -23,7 +23,7 @@ const  EditSource = ()=>{
             var body={"sellingPrice":sellingPrice};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userid}/`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/source/delete/sources/${sid}/${userId}/`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );
