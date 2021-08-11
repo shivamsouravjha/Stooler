@@ -44,7 +44,7 @@ const Footer = props => {
     </div>
     <div>
     <FontAwesomeIcon className="footer_center_icon" icon={faEnvelope} size="1.5x"/> 
-      <p><a href="#"> stool@gmail.com</a></p>
+      <p><a href="#"> stool@googlegroups.com</a></p>
     </div>
   </div>
   <div class="footer-right col-md-4 col-sm-6">

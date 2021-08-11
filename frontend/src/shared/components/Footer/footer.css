@@ -105,13 +105,14 @@
   
   .footer .footer-right {
     width: 35%;
+    padding:0rem 5rem;
   }
   
  .company_header{
     color: #ffffff;
     font-size: 3rem;
     font-weight: bold;
-    margin: 0;
+    margin: 0rem;
   }
   
  
@@ -158,6 +159,13 @@
       margin-bottom: 40px;
       text-align: center;
     }
+    .footer .footer-right {
+        display: block;
+      width: 100%;
+      margin-bottom: 40px;
+      text-align: center;
+    padding:0rem ;
+      }
     .footer .icons {
         text-align: center;
       }
