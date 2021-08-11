@@ -16,6 +16,7 @@ import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Pillars from './shared/components/Footer/pillars';
+import Footer from './shared/components/Footer/footer';
 import { AuthContext } from './shared/context/auth-context';
 import JoinGroup from './groups/pages/getjoinGroups';
 import JoinGroupAuth from './groups/pages/joingroups';
@@ -136,6 +137,7 @@ const App = () => {
         <div className="bot">
             <Route path="/" component={Chatbot} exact />
             <Pillars/>
+            <Footer/>
        </div>
       </Router>  
     </AuthContext.Provider>
