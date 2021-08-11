@@ -111,7 +111,6 @@ function GroupMembers() {
       setCompLoading(false);
       setSuccess(responseData.data)
     }catch(error){
-      
         setCompLoading(false);
         setError(error.message || 'Something went wrong, please try again.');
     }
