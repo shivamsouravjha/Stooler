@@ -57,13 +57,8 @@
   .pillar_img{
     
     width:-webkit-fill-available;
-    width: -moz-available;
-    width: fill-available;
     height: -webkit-fill-available;
-    height: -moz-available;
-    height: fill-available;
     margin:10px;
-
 }
 
 @media (max-width: 1200px){
@@ -74,7 +69,6 @@
         font-size: 1.3rem;
     
     }
-   
     .pillar_img_div_outside{
         
         height: 18rem;
