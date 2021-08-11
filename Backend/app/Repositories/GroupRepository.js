@@ -54,7 +54,7 @@ export default class GroupRepository {
     
     async findGroupMembers (obj) {
         try {
-            const found = await Transaction.find(obj).populate('userId');
+            const found = await Transaction.find(obj).populate('userId').populate('groupId');
             return found;
         } catch (error) {
             throw error
