@@ -73,7 +73,7 @@ const GetStarted = props => {
         </div>
         <div className="get_started_img_div">
         <h2 className="get_started_img_head">5) Chat with Stooler to get your queries resolved</h2>
-            <img src={Stool} className="get_started_img"></img> <img src={Manage1} className="get_started_img"></img>
+            <img src={Stool} className="get_started_img"></img> 
         </div>
         <div className="get_started_img_div">
         <h2 className="get_started_img_head">6) Visit 'About Us' to understand our Mission</h2>
