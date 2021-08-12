@@ -103,6 +103,9 @@ export default class GroupRepository {
             await verifyuserId.save({ session: sess }); 
             await verifyGroupId.save({ session: sess }); 
             await sess.commitTransaction(); 
+            if(!verifyGroupId.members.length){
+                await verifyGroupId.remove();
+            }
             return {'message':'Group Left','success':true};
         } catch (error) {
             throw error;

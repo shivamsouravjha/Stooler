@@ -119,7 +119,7 @@ const Auth = () => {
           throw new Error(responseData.error);
         }
         setIsLoading(false);
-        auth.login(responseData.userId, responseData.token);
+        auth.login(responseData.data.userId, responseData.data.token);
         ReactSession.set("username", formState.inputs.username.value);
         ReactSession.set("userId",responseData['data']['userId'] );
         ReactSession.set("token",responseData['data']['token'] );

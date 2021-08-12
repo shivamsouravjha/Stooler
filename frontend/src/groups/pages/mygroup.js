@@ -62,7 +62,7 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()} className="join_group_table">
+    <table {...getTableProps()} className="join_my_group_table">
       <thead className="join_group_header">
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
@@ -193,7 +193,7 @@ function Group() {
         <Fragment>          
           <div className="group_form_div">
 		<center>
-            <form  action="/" id="event_form"  name="event_form" className="search_form" onSubmit={onSubmitform}>
+            <form  action="/" id="event_form"  name="event_form" className="my_group_search_form" onSubmit={onSubmitform}>
                 <h2 className="search_header">
                     Filter Groups by 
                 </h2> 

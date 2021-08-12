@@ -6,6 +6,7 @@ import "./auth.css";
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import SuccessModal from '../../shared/components/UIElements/Success';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import GroupDetail from './groupdetail';
 
 const  JoinGroupAuth = ()=>{
@@ -43,11 +44,10 @@ const  JoinGroupAuth = ()=>{
               console.log(responseData)
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
-            setError(false);
             //window.location="/";
         }catch(err){
             setIsLoading(false);
-            setSuccess(err.message || 'Something went wrong, please try again.');
+            setError(err.message || 'Something went wrong, please try again.');
         }
     }
     const successHandler = () => {
@@ -72,7 +72,7 @@ const  JoinGroupAuth = ()=>{
         SuccessModal(responseData.data.message);
     }catch(error){
         setIsLoading(false);
-        setSuccess(error.message || 'Something went wrong, please try again.');
+        setError(error.message || 'Something went wrong, please try again.');
 
     }
     }
@@ -81,6 +81,7 @@ const  JoinGroupAuth = ()=>{
     return (   
         <React.Fragment>
         <SuccessModal error={success} onClear={successHandler} />
+        <ErrorModal error={error} onClear={successHandler} />
         {isLoading && <LoadingSpinner asOverlay />}
         <GroupDetail/>
     <div className="group_form_div">
