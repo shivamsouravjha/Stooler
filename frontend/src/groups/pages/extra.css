@@ -1,0 +1,23 @@
+.about_def_logout{
+   background-color: white;
+    border-radius: 10px;
+    color:#0a657e;
+    width:100%;
+    padding:1rem;
+    font-size:1.6rem;
+    margin:3rem auto;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.about_link_logout{
+    color:#30821b;
+    cursor: pointer;
+}
+@media(max-width:1000px){
+ .about_def_logout{   font-size:1.3rem;
+    width:90%;
+    margin:3rem auto;
+    line-height: 1.4;
+}
+}

@@ -15,8 +15,10 @@
 }
 .get_started_img{
     margin:1rem;
-    width:70%;
-    height:70%;
+    width:75%;
+    height:75%;
+    border:3px solid black;
+    border-radius: 5px;
 }
 
 @media(max-width:950px){
@@ -29,5 +31,6 @@
         margin:0.5rem;
         height:95%;
         width: 95%;
+        border:2px solid black;
     }
 }
