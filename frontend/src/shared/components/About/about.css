@@ -52,6 +52,10 @@
     color:#0a657e;
     background-color: #fff1d333;
 }
+.mission li{
+    text-align: center;
+    list-style: none;
+}
 .faqs_header{
     text-align: center;
     color:#0a657e;
@@ -131,9 +135,16 @@
         width:95%;
         padding:1.5rem;
         line-height: 1.5;
+        font-size:1.2rem;
         margin:0.5rem auto 2rem auto;
     }
 
+    .about_def{
+        font-size:1.1rem;
+    }
+    .mission li{
+        text-align: left;
+    }
 
     
     .conclusion{
