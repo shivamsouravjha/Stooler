@@ -3,7 +3,7 @@ import ReactSession from '../../Reactsession';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import UsersList from '../components/UsersList';
-
+import Profile from '../../images/profile.png';
 const Users = () => {
   const {sendRequest} = useHttpClient();
   const [compLoading, setCompLoading] = useState(true);
@@ -37,8 +37,7 @@ const Users = () => {
       email:loadedUsers.email,
       panNumber:loadedUsers.panNumber,
       aadhar:loadedUsers.aadhar,
-      image:
-        'https://www.pngitem.com/pimgs/m/204-2040760_contact-starwars-user-default-yoda-comments-users-icon.png',
+      image:Profile,
       groups: loadedUsers.groups.length
     }
   ];}
