@@ -19,9 +19,13 @@ const Main = props => {
         <li > <Link to={`/view_group`} > 
         <button className="group_button">JOIN A GROUP</button></Link>
         </li>
+        <li > <Link to={`/gettingstarted`} > 
+        <button className="group_button">HOW TO GET STARTED</button></Link>
+        </li>
         <li > <Link to={`/crypto`} > 
         <button className="group_button">VIEW CRYPTO</button></Link>
         </li>
+        
           
         
         
