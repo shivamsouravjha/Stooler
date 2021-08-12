@@ -16,6 +16,7 @@ import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Pillars from './shared/components/Footer/pillars';
+import About from './shared/components/About/about';
 import Footer from './shared/components/Footer/footer';
 import { AuthContext } from './shared/context/auth-context';
 import JoinGroup from './groups/pages/getjoinGroups';
@@ -105,6 +106,9 @@ const App = () => {
         <Route path="/profile" exact>
           <Profile />
         </Route>
+        <Route path="/aboutus">
+          <About/>
+        </Route>
         <Route path="/group/:gid" exact>
           <JoinGroupAuth/>
         </Route>
@@ -155,7 +159,9 @@ const App = () => {
         <Image />
         <Pillars/>
         </Route>
-        
+        <Route path="/aboutus">
+          <About/>
+        </Route>
         <Route path="/auth">
           <Auth />
         </Route>
@@ -174,6 +180,7 @@ const App = () => {
         logout: logout 
       }}
     >
+      
       <Router>
       <MainNavigation />
         <main>{routes}</main>

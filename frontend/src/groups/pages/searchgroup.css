@@ -4,6 +4,11 @@
     margin-bottom:20px;
     padding:10px 0px;
 }
+.my_group_search_form{
+    background-color: #f1f1f1;
+    margin-bottom:20px;
+    padding:10px 0px; 
+}
 hr{
     margin:10px;
 }
@@ -67,6 +72,11 @@ hr{
         display: inline-block;
         padding:8px 0px;
         float:right;
+        
+    }
+    .my_group_search_form{
+        width:70%;
+        padding:8px 0px; 
     }
     .search_header{
         font-size:1.5rem;
@@ -91,7 +101,7 @@ hr{
     .search_form{
    
       float:none;
-      width:-webkit-fill-available;
+      width:100%;
     }
   
     .search_header{
