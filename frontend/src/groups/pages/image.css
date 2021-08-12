@@ -10,8 +10,9 @@
       background: #ecdbe7 url(https://images.moneycontrol.com/static-mcnews/2021/07/stocks_sensex_nifty_stockmarket-5.jpg);
       background-size: 50% 200%;
       background-position: bottom;
+      background-clip: text;
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+     
   font-family: 'Spirax', cursive;
       font-size: 15vw;
       position: relative;
@@ -25,6 +26,13 @@
           position: absolute;
           z-index: -1;
       }
+  }
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .image_head {
+      -webkit-background-clip: text;
+              background-clip: text;
+      color: transparent;
+    }
   }
   
   .position{

@@ -1,9 +1,16 @@
 .join_group_table{
-    width:50rem;
+    width:70%;
     margin:auto;
     border-spacing: 0;
     border: 1px solid black;
 }
+.join_my_group_table{
+    width:75%;
+    margin:auto;
+    border-spacing: 0;
+    border: 1px solid black;
+}
+
 .join_group_div{
     padding:0rem;
     margin:0rem;
@@ -54,8 +61,13 @@ tr:nth-child(2n+1){
 @media only screen and (max-width: 1250px) {
 
     .join_group_table{
-        width:31rem;
+        width:60%;
         margin:auto;
+}
+.join_my_group_table{
+    width:90%;
+    margin:auto;
+
 }
 th{
     height: 50px;
@@ -88,8 +100,13 @@ tbody td{
 
 @media only screen and (max-width: 900px){
     .join_group_table{
-        width:-webkit-fill-available;
+        width:100%;
         margin:auto;
+}
+.join_my_group_table{
+    width:100%;
+    margin:auto;
+
 }
 th{
     height: 40px;
