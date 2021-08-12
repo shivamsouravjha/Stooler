@@ -1,9 +1,6 @@
 import {Pie} from 'react-chartjs-2';
-import React,{useEffect,useState,Fragment} from 'react'
-import ReactSession from '../../Reactsession';
+import React,{useEffect,useState} from 'react'
 import { useHttpClient } from '../../shared/hooks/http-hook';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import UsersList from '../components/UsersList';  
 
 // export default Users;
 
@@ -23,7 +20,7 @@ const PieChart = () => {
           `https://stool-back.herokuapp.com/api/users/account/data/${userId}`,"POST"
         );
         console.log("responseData")
-        if(responseData['status']!=200 && responseData['status']!=202){
+        if(responseData['status']!==200 && responseData['status']!==202){
           throw responseData.error;
         }
         const dataResponse = responseData.data.shares.map((val)=>{

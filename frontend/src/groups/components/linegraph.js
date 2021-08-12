@@ -7,27 +7,27 @@ const linechart = props => {
     var profit=[];
     var loss=[];
     var data=[];
-    var i=0;
-    profit = props.graph[0];
-    loss = props.graph[1];
-    for(var x in loss){
-        data[i]=x;
+    var data_loss =  props.graph[1].loss;
+    for(var j in data_loss){
+        data_loss[j]*=-1;
     }
-    console.log(profit);
-    console.log(loss);
-    console.log(data);
+    var data_profit = props.graph[0].profit;
+    data = data_loss.concat(data_profit);
+    var deal_number = [];
+    for(var i in data){
+        deal_number.push(i);
+    }
     return (
         <div>
             <Line
                 data={{
-                    labels: ['profit', 'loss'],
+                    labels: deal_number,
                     datasets: [
                         {
                         label: '# of votes',
                         data: data,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
                           ],
                           borderColor: [
                             'rgba(255, 99, 132, 1)',
