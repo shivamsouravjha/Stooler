@@ -41,7 +41,7 @@
   border: none;
   background-image: #a5a4a4;
   font-size:20px;
-  text-align: center;
+  text-align: center; 
   color: #000000;
 }
 
@@ -51,12 +51,13 @@
 
 @media only screen and (max-width: 850px) {
   .coin-input{
-    width:150px;
+    width:200px;
     height:35px;
+    margin:1rem;
     font-size:15px ;
   }
   .coin-search{
-    padding:15px 20px;
+    padding:auto;
   }
   .coin-text{
     font-size:25px;
