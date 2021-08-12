@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 
 const Process = () => {
     var userId = localStorage.getItem('__react_session__');

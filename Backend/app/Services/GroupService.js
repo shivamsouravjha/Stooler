@@ -43,6 +43,11 @@ export default class AccountService{
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
+                if(verifyGroupId.members.length!=1){
+                    if(JSON.stringify(verifyGroupId.groupOwner._id) == JSON.stringify(verifyuserId._id)){
+                        throw (new Exceptions.ConflictException("You're the owner you can't quit without transfering role."));
+                    }
+                }
                 const refund_amount = verifyGroupId.fund/verifyGroupId.members.length + verifyGroupId.loss/verifyGroupId.members.length;
                 const transaction = await  this.repository.findTransaction({userId:verifyuserId['_id'],groupId:verifyGroupId['_id'],type:"ACTIVE"});
                 verifyuserId['funds'] += verifyGroupId.fund/verifyGroupId.members.length;
