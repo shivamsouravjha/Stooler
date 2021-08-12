@@ -20,7 +20,7 @@
 .coin-search {
   background-color: #f1f1f1;
   margin-bottom:20px;
-  padding:20px 80px;
+  padding:20px 70px;
   display: flex;
   flex-direction: row;
   align-content: stretch;
@@ -53,7 +53,7 @@
   .coin-input{
     width:200px;
     height:35px;
-    margin:1rem;
+    margin:0.5rem;
     font-size:15px ;
   }
   .coin-search{
