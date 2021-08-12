@@ -13,11 +13,11 @@
       background-clip: text;
       -webkit-background-clip: text;
      
-  font-family: 'Spirax', cursive;
+  font-family:'Courier New', Courier, monospace;
       font-size: 15vw;
       position: relative;
       text-align: left;
-      margin: 0;
+      margin: 1rem;
       line-height: 1.2;
   
       &::before {
@@ -93,6 +93,7 @@
       .image_head{
           text-align: center;
           font-size:4.5rem;
+          margin:0rem;
       }
 .position{
       margin: 0.5rem 1rem;

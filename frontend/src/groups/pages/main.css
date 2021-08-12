@@ -1,4 +1,18 @@
 /* css for mobile view*/
+@media (max-width: 1250px) {
+  .group-links li {
+    margin: 2rem 1.5rem;
+    font-size:1.2rem;
+  }
+  .group-links {
+    flex-direction: row;
+  }
+
+  
+}
+@media(max-width:900px){
+
+
 .group{
   
   margin:1rem 0.5rem;
@@ -28,7 +42,7 @@
   }
   
   .group-links button {
-    height:6rem;
+    height:4rem;
     border-radius: 7px;
     cursor: pointer;
     border: 1px solid #0a657e;
@@ -37,6 +51,7 @@
     padding: 1rem;
     font: inherit;
     font-weight: bolder;
+    font-size:1.3rem;
   }
   
   .group-links button:focus {
@@ -48,33 +63,57 @@
     background: #0a657e;
     color: white;
   }
+}
 
 
-  @media (max-width: 1000px) {
-    .group-links li {
-      
-      font-size:1rem;
-    }
-  }
   /* css for desktop view*/
-  @media (min-width: 1000px) {
+  @media (min-width: 1250px) {
+    .group{
+  
+      margin:1rem 0.5rem;
+      position:relative;
+      border:1px white;
+      border-radius:10px;
+      background-color:white;
+    }
     
     .group-links {
+      list-style: none;
+      margin-top: 3rem;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
       flex-direction: row;
+      justify-content: center;
+      align-items: center;
     }
+   
   
     .group-links li {
-      margin: 2rem 1.5rem;
+      margin: 1.5rem;
+      font-size:1.7rem;
     }
   
     
   
+    
     .group-links button {
+      height:4.2rem;
+      border-radius: 7px;
+      cursor: pointer;
       border: 1px solid #0a657e;
       color: #0a657e;
-      height:4.2rem;
-      font-size:1.8rem;
       background: transparent;
+      padding: 1rem;
+      font: inherit;
+      font-weight: bolder;
+      font-size:1.6rem;
+    }
+    
+   
+    .group-links button:focus {
+      outline: none;
     }
     
     .group-links button:hover,

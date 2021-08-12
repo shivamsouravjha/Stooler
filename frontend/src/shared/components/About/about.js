@@ -40,25 +40,25 @@ const About = props => {
     <p className="pillar_header"> Prominent Financial Entities where you can invest and get good returns </p>
     <div className="flex_img">
     
-	<div className="about_img_div_outside"><div className="pillar_img_div"><img className="pillar_img" src={stock}/></div><h2 className="pillar_img_div_header">Stocks</h2>
-    <p className="pillar_img_div_body">A stock (also known as equity) is a security that represents the ownership of a fraction of a corporation. To know more,<br/> <a className="about_link" href="https://www.investopedia.com/terms/s/stock.asp">Click Here
+	<div className="about_img_div_outside"><div className="about_img_div"><img className="pillar_img" src={stock}/></div><h2 className="pillar_img_div_header">Stocks</h2>
+    <p className="about_img_div_body">A stock (also known as equity) is a security that represents the ownership of a fraction of a corporation. To know more,<br/> <a className="about_link" href="https://www.investopedia.com/terms/s/stock.asp">Click Here
     
      </a></p></div>
 
 
-     <div className="about_img_div_outside"><div className="pillar_img_div"><img className="pillar_img" src={crypto}/></div><h2 className="pillar_img_div_header">Cryptocurrency</h2>
-    <p className="pillar_img_div_body">Cryptocurrency is a type of digital currency that generally only exists electronically.  To know more,<br/> <a className="about_link" href="https://www.consumer.ftc.gov/articles/what-know-about-cryptocurrency-and-scams">Click Here
+     <div className="about_img_div_outside"><div className="about_img_div"><img className="pillar_img" src={crypto}/></div><h2 className="pillar_img_div_header">Cryptocurrency</h2>
+    <p className="about_img_div_body">Cryptocurrency is a type of digital currency that generally only exists electronically.  To know more,<br/> <a className="about_link" href="https://www.consumer.ftc.gov/articles/what-know-about-cryptocurrency-and-scams">Click Here
     
     </a></p></div>
 
     
-    <div className="about_img_div_outside"><div className="pillar_img_div"><img className="pillar_img" src={currency}/></div><h2 className="pillar_img_div_header">Currency Exchange</h2>
-    <p className="pillar_img_div_body">Currency Exchange(also known as Foreign Exchange,forex or FX) is the trading of one currency for another. To know more,<br/> <a className="about_link" href="https://www.investopedia.com/terms/f/foreign-exchange.asp">Click Here
+    <div className="about_img_div_outside"><div className="about_img_div"><img className="pillar_img" src={currency}/></div><h2 className="pillar_img_div_header">Currency Exchange</h2>
+    <p className="about_img_div_body">Currency Exchange(also known as Foreign Exchange,forex or FX) is the trading of one currency for another. To know more,<br/> <a className="about_link" href="https://www.investopedia.com/terms/f/foreign-exchange.asp">Click Here
     
     </a></p></div>
     
-    <div className="about_img_div_outside"><div className="pillar_img_div"><img className="pillar_img" src={gold}/></div><h2 className="pillar_img_div_header">Gold/Silver</h2>
-    <p className="pillar_img_div_body">Gold investment can be done in many ways like buying jewellery, coins, gold funds,sovereign gold bond scheme, etc.
+    <div className="about_img_div_outside"><div className="about_img_div"><img className="pillar_img" src={gold}/></div><h2 className="pillar_img_div_header">Gold/Silver</h2>
+    <p className="about_img_div_body">Gold investment can be done in many ways like buying jewellery, coins, gold funds,sovereign gold bond scheme, etc.
      To know more,<br/> <a className="about_link" href="https://groww.in/p/gold-investment/">Click Here
     
     </a></p></div>

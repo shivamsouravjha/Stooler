@@ -13,3 +13,11 @@
   height: 100%;
   object-fit: cover;
 }
+
+@media(max-width:900px){
+  .avatar img {
+    width: 90%;
+    height: 90%;
+  
+}
+}
