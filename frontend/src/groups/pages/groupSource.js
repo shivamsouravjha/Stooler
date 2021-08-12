@@ -16,7 +16,6 @@ const  JoinGroupAuth = ()=>{
    const [error, setError] = useState();
  
     const [name,setName]=useState("");
-    const [marketplace,setMarketplace]=useState("");
     const [price,setPrice]=useState("");
     const [unitsPurchase,setUnitspurchase]=useState("");
     const [targetPrice,setTragetprice]=useState("");
@@ -41,7 +40,6 @@ const  JoinGroupAuth = ()=>{
               if(responseData['status']!=200 && responseData['status']!=202){
                 throw responseData.error;
             }
-              console.log(responseData)
             setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
             //window.location="/";
@@ -89,6 +87,7 @@ const  JoinGroupAuth = ()=>{
             
             <NavLink className="request_btns" to={`/requestsource/${gid}`}>Request/Add Source</NavLink>
             <NavLink className="request_btns" to={`/groupdetails/${gid}`}>Member Details</NavLink>
+            <NavLink className="request_btns" to={`/chatroom/${gid}`}>Group Chat</NavLink>
             <button className="leave_group_btn" button  onClick={() => letlev()}>
                 Leave Group
             </button>

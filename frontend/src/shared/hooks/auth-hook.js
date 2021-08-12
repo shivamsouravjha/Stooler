@@ -29,6 +29,7 @@ export const useAuth = () => {
     setTokenExpirationDate(null);
     setUserId(null);
     localStorage.removeItem('userData');
+    localStorage.removeItem('username');
     ReactSession.remove('username');
     ReactSession.remove('userId');
     ReactSession.remove('token');
