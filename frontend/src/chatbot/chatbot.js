@@ -110,7 +110,7 @@ const Chatbot = (props) => {
             },
             {
               id: 'q-submit',
-              message: 'Mail to    shivamsouravjha@gmail.com    to clear your doubts',
+              message: 'Mail to    stool@googlegroups.com    to clear your doubts',
               trigger: 'submit',
             },
             {

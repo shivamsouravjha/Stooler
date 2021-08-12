@@ -16,6 +16,8 @@ import Auth from './user/pages/Auth';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Pillars from './shared/components/Footer/pillars';
+import About from './shared/components/About/about';
+import Footer from './shared/components/Footer/footer';
 import { AuthContext } from './shared/context/auth-context';
 import JoinGroup from './groups/pages/getjoinGroups';
 import JoinGroupAuth from './groups/pages/joingroups';
@@ -93,6 +95,7 @@ const App = () => {
         <Route path="/" exact>
           <Image/>
           <Main />
+          <Pillars/>
         </Route>
         <Route path="/group_auth" exact>
           <GroupAuth />
@@ -102,6 +105,9 @@ const App = () => {
         </Route>
         <Route path="/profile" exact>
           <Profile />
+        </Route>
+        <Route path="/aboutus">
+          <About/>
         </Route>
         <Route path="/group/:gid" exact>
           <JoinGroupAuth/>
@@ -151,8 +157,11 @@ const App = () => {
         <Route path="/" exact>
         
         <Image />
+        <Pillars/>
         </Route>
-        
+        <Route path="/aboutus">
+          <About/>
+        </Route>
         <Route path="/auth">
           <Auth />
         </Route>
@@ -171,12 +180,14 @@ const App = () => {
         logout: logout 
       }}
     >
+      
       <Router>
       <MainNavigation />
         <main>{routes}</main>
         <div className="bot">
             <Route path="/" component={Chatbot} exact />
-            <Pillars/>
+            
+            <Footer/>
        </div>
       </Router>  
     </AuthContext.Provider>
