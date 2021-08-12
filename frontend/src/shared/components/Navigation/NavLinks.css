@@ -25,7 +25,7 @@
 .nav-links a:active,
 .nav-links a.active {
   background: #6ea361;
-  border-color: #292929;
+  border-radius: 5px;
   color: #292929;
 }
 
