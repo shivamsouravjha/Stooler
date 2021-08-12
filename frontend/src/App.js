@@ -9,6 +9,7 @@ import {
   useParams
 } from 'react-router-dom';
 import Main from './groups/pages/main';
+import GetStarted from './groups/pages/getstarted';
 import Image from './groups/pages/image';
 import MyGroup from './groups/pages/mygroup';
 import GroupAuth from './groups/pages/creategroup';
@@ -51,6 +52,9 @@ const App = () => {
         </Route>
         <Route path="/view_group" exact>
           <JoinGroup />
+        </Route>
+        <Route path="/gettingstarted" exact>
+          <GetStarted />
         </Route>
         <Route path="/profile" exact>
           <Profile />
