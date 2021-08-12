@@ -1,5 +1,45 @@
 /* css for mobile view*/
 @media (max-width: 1250px) {
+  .group-links button {
+    height:5rem;
+    border-radius: 7px;
+    cursor: pointer;
+    border: 1px solid #0a657e;
+    color: #0a657e;
+    background: transparent;
+    padding: 1rem;
+    font: inherit;
+    font-weight: bolder;
+    font-size:1.2rem;
+  }
+  .group{
+  
+    margin:1rem 0.5rem;
+    position:relative;
+    border:1px white;
+    border-radius:10px;
+    background-color:white;
+  }
+  .group-links {
+    list-style: none;
+    margin-top: 3rem;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .group-links button:focus {
+    outline: none;
+  }
+  
+  .group-links button:hover,
+  .group-links button:active {
+    background: #0a657e;
+    color: white;
+  }
   .group-links li {
     margin: 2rem 1.5rem;
     font-size:1.2rem;
@@ -7,11 +47,29 @@
   .group-links {
     flex-direction: row;
   }
+  .mission_def{
+    background-color: #fff1d333;
+    border-radius: 10px;
+    width:95%;
+    padding:1rem;
+    font-size:1.2rem;
+    margin:3rem auto 1rem auto;
+    line-height: 1.5;
+   } 
 
   
 }
 @media(max-width:900px){
 
+  .mission_def{
+    background-color: #fff1d333;
+    border-radius: 10px;
+    width:95%;
+    padding:1rem;
+    font-size:1rem;
+    margin:3rem auto 1rem auto;
+    line-height: 1.5;
+   } 
 
 .group{
   
@@ -95,7 +153,15 @@
       font-size:1.7rem;
     }
   
-    
+   .mission_def{
+    background-color: #fff1d333;
+    border-radius: 10px;
+    width:100%;
+    padding:1rem;
+    font-size:1.5rem;
+    margin:5rem auto 1rem auto;
+    line-height: 1.5;
+   } 
   
     
     .group-links button {

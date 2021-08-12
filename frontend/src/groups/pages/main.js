@@ -7,7 +7,7 @@ import "./main.css";
 const Main = props => {
     const auth = useContext(AuthContext);
   
-    return (
+    return (<div>
     
       <div className="group">
         
@@ -32,6 +32,17 @@ const Main = props => {
         
       </ul>
       </div>
+      <div className="mission_def">
+      <h1 className="about_stool_h1">Our Mission </h1><hr/>
+      <p className="about_content">
+      <strong>
+      <ul className="about_div_ul mission">
+      <li> Provide a stable platform to users finding new investment methods </li> 
+      <li> Spread the knowledge of financial independence</li>
+      <li>Make a community of people willing to help people lead a stable life</li></ul></strong><hr/>
+  </p>
+    </div>
+    </div>
     );
   };
   
