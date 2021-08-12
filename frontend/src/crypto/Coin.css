@@ -54,10 +54,12 @@
   
   .red {
     color: #f00606;
+    font-weight: bold;
   }
   
   .green {
-    color: #11d811;
+    color:  #09a609;
+    font-weight: bold;
   }
 
   @media(max-width:1000px){
@@ -75,6 +77,10 @@
       font-size: 0.9rem;
     width: 5rem;
     }
+    .coin-text {
+      font-size: 25px;
+      margin: 0.5rem;
+  }
     
     .coin img {
       height: 30px;
@@ -102,4 +108,10 @@
     .coin-percent {
       width: 4rem;
     }
+    .coin-input {
+      width: 200px;
+      height: 35px;
+      margin: 0.5rem;
+      font-size: 15px;
   }
+}
