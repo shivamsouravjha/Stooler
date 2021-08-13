@@ -140,7 +140,7 @@ function GroupMembers() {
             Cell: ({ cell }) =>(
               <Fragment>
                 {cell.value===userId ? (
-                    <button className="leave_group_btn" button  onClick={() => mkadm(cell.row.original.userId._id)}>
+                    <button className="make_admin" button  onClick={() => mkadm(cell.row.original.userId._id)}>
                       Make Admin
                     </button>                  
                     ):
