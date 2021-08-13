@@ -82,7 +82,7 @@
         font-size:1rem;
     }
 }
-@media (max-width: 768px){
+@media (max-width: 900px){
     .pillar_div{
         
         width:100%;

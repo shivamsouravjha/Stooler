@@ -2,35 +2,25 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/auth_context';
-import "./main.css";
-
-const Main = props => {
+import "./extra.css";
+const Extra = props => {
     const auth = useContext(AuthContext);
   
     return (<div>
     
-      <div className="group">
-        
-      <ul className="group-links">
-        
-        <li> <Link to={`/group_auth`}> 
-        <button >CREATE A GROUP</button></Link>
-        </li>
-        <li > <Link to={`/view_group`} > 
-        <button className="group_button">JOIN A GROUP</button></Link>
-        </li>
-        <li > <Link to={`/gettingstarted`} > 
-        <button className="group_button">HOW TO GET STARTED</button></Link>
-        </li>
-        <li > <Link to={`/crypto`} > 
-        <button className="group_button">VIEW CRYPTO</button></Link>
-        </li>
+      <div className="about_def_logout">
+
+Do you want your investment to grow more? Do you want your money to make more money?<br/> 
+Do you want your financial risk to be the best calculated risk?<br/> So what are you gaping at?
+ <br/><br/><strong><Link to="/auth" className="about_link_logout">Signup</Link> and join our community now.</strong>
+
+
         
           
         
         
         
-      </ul>
+      
       </div>
       <div className="mission_def">
       <h1 className="about_stool_h1">Our Mission </h1><hr/>
@@ -41,12 +31,9 @@ const Main = props => {
       <li> Spread the knowledge of financial independence</li>
       <li>Make a community of people willing to help people lead a stable life</li></ul></strong><hr/>
   </p>
-    </div>
-    </div>
+    </div></div>
     );
   };
   
 
-export default Main;
-
-
+export default Extra;
