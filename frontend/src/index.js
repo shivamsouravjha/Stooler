@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from "./shared/util/serviceWorkerRegistration";
 import reportWebVitals from "./shared/util/reportWebVitals";
-// console.log = console.warn = console.error = () => {};
+console.log = console.warn = console.error = () => {};
 
 
 
