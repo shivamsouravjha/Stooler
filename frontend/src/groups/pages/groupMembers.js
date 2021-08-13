@@ -109,7 +109,7 @@ function GroupMembers() {
             'Content-Type': 'application/json'}
       );
       setCompLoading(false);
-      setSuccess(responseData.data)
+      setSuccess(responseData.data.message)
     }catch(error){
         setCompLoading(false);
         setError(error.message || 'Something went wrong, please try again.');
