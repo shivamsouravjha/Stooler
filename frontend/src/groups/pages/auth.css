@@ -172,7 +172,22 @@ color:rgb(165, 7, 7);
   font-size: 1.5rem;
 
 }
+.make_admin{
+  width:12rem;
+  height:3rem;
+  color:white;
+  background-color:#700d0d;
+  border-color: #700d0d;
+  border-radius:5px;
+  margin: 1.5rem 2rem;
+  font-size: 1.5rem;
 
+}
+.make_admin:hover{
+  
+  transform: translate(-3px,-2px);
+  box-shadow:  3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 #700d0d;
+   }
 .leave_group_btn:hover{
   
 transform: translate(-3px,-2px);
@@ -254,6 +269,14 @@ box-shadow:  3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 #700d0d;
   padding: 0.3rem;
   margin:0.5rem;
   font-size: 1.3rem;
+  display: block;
+}
+.make_admin{
+  width:6rem;
+  height:fit-content;
+  padding: 0.3rem;
+  margin:0.5rem;
+  font-size: 0.9rem;
   display: block;
 }
 .request_btns{
