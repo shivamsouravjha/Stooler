@@ -39,15 +39,13 @@ you can share ideas with each other and can grow together.
  Features      |            Purpose        | 
 | ------------- |:-------------------------:| 
 | Chatbot       | To answer small questions |
-| Notification  | A SMS update of work summary|  
-| Chatroom | to communicate with friends and share progress.      |   
-| Github Report | An analysis of github profile and activity |   
-| Reading Progress Report | A comparion between Code reading progress of current and last week      |   
-| Coding Progress Report | A comparion between Coding Progress of current and last week      |   
-| Coding Goals Achieved Report | A comparion between Coding Progress of current week and the aim    |   
-| Edit Goals |To edit the coding goals      |   
-| Efficiency report |A comparison of code written with the duration of coding session     |   
-| Language used |A summary of coding language used.    |
+| GroupChat | Discussion on sales and buying of resources|
+| Groups | Create your group or join another group |
+| Resources | Add or request to add new resources in group |
+| Profile | See all your transaction and investment |
+| Group Details| Resources in which group invest, history of profit and loss deal|
+| Members | View other members and transfer of ownership |
+| Crypto | View the latest value of crypto currency|
   
 ## Deployment on Local System
 
