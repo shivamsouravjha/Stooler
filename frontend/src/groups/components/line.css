@@ -1,0 +1,11 @@
+.css_chart{
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+    display: inline-block;
+    height: var(--widget-size);
+    margin: 5em 5em 5em 5em;
+    padding: 0;
+    position: relative;
+    width: var(--widget-size);
+    background-color: azure;
+}
