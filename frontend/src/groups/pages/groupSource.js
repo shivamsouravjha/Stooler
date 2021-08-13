@@ -87,7 +87,7 @@ const  JoinGroupAuth = ()=>{
             
             <NavLink className="request_btns" to={`/requestsource/${gid}`}>Request/Add Source</NavLink>
             <NavLink className="request_btns" to={`/groupdetails/${gid}`}>Member Details</NavLink>
-            <NavLink className="request_btns" to={`/chatroom/${gid}`}>Group Chat</NavLink>
+            {/* <NavLink className="request_btns" to={`/chatroom/${gid}`}>Group Chat</NavLink> */}
             <button className="leave_group_btn" button  onClick={() => letlev()}>
                 Leave Group
             </button>

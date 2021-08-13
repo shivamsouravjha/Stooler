@@ -8,6 +8,8 @@ import { useHistory, useParams} from 'react-router-dom';
 import { Input } from "@material-ui/core";
 import SendIcon from '@material-ui/icons/Send';
 import './chatroom.css'
+import {io} from "socket.io-client";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -20,12 +22,29 @@ const ChatRoom = () => {
   // let history = useHistory();
   // const [username, setusername] = useState("");
   const classes = useStyles();
-
+  const groupId = useParams().gid;
+  console.log(useParams().gid)
   const username = localStorage.getItem('username');
+  const userId = localStorage.getItem('userId');
   // var userId = localStorage.getItem('__react_session__');
   // var username = await JSON.parse(userId)
   const PERSON_IMG = `https://eu.ui-avatars.com/api?name=${username}&&size=80&background=random&rounded=true`;
+  const socket = io('https://stool-chat.herokuapp.com/' , { transports : ['websocket'] });
+  socket.emit('join-room', 'Shivam', groupId , username);
+  socket.on('user-connected',(user_id)=>{
+    console.log(groupId + "is connected");
+  })
 
+   
+ socket.on('createMessage', (msg , userName , givenId) => {
+
+  if(givenId === userId)
+   { console.log("hi");
+     appendMessage(userName, PERSON_IMG, "right", msg);}
+  else
+  appendMessage(userName, PERSON_IMG, "left", msg);
+
+});
   //checking jwt tokens
   // useEffect(() => {
   //   if (!localStorage.getItem("token")) {
