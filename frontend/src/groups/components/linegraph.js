@@ -1,5 +1,6 @@
 import {Line} from 'react-chartjs-2';
 import React from 'react'  
+import './line.css';
 
 // export default Users;
 
@@ -18,22 +19,23 @@ const linechart = props => {
         deal_number.push(i);
     }
     return (
-        <div>
+        <center>
+        <div class="css_chart">
             <Line
                 data={{
                     labels: deal_number,
                     datasets: [
                         {
-                        label: '# of votes',
+                        label: 'loss_Gain',
                         data: data,
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 255, 255, 1)',
                           ],
                           borderColor: [
-                            'rgba(255, 99, 132, 1)',
+                            'rgba(238, 75, 43, 1)',
                             'rgba(54, 162, 235, 1)',
                           ],
-                          borderWidth: 1,
+                          borderWidth: 2,
                         },
                     ],
                 }}
@@ -58,6 +60,7 @@ const linechart = props => {
                 }}
             />
         </div>
+        </center>
     )
 };
 
