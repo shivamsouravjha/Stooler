@@ -4,6 +4,8 @@ import React from 'react'
 // export default Users;
 
 const linechart = props => {
+    var profit=[];
+    var loss=[];
     var data=[];
     var data_loss =  props.graph[1].loss;
     for(var j in data_loss){
