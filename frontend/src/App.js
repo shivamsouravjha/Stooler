@@ -33,7 +33,6 @@ import EditSource from '../src/groups/pages/editsource';
 import RequestSource from '../src/groups/pages/requestsource';
 import DeleteSource from '../src/groups/pages/deletesource';
 import Chatbot from '../src/chatbot/chatbot';
-import Chatroom from '../src/chatbot/chatroom';
 import Crypto from './crypto/crypto';
 import { useAuth } from './shared/hooks/auth-hook';
 
@@ -94,9 +93,7 @@ const App = () => {
         <Route path="/groupdetails/:gid" exact>
           <GroupMembers/>
         </Route>
-        <Route path="/chatroom/:gid" exact>
-          <Chatroom/>
-        </Route>
+
         <Route path="/ownedgroups/getgroups/:gid" exact>
           <OwnedGroups/>
         </Route>
