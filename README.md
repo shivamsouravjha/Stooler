@@ -14,7 +14,7 @@ sharing the investment strategy and profit.
 
 If in doubt talk to our Chatbot to clarify doubts.
 
-                                                      Invest Together Grow Together.
+                                          Invest Together Grow Together.
 
 
 
