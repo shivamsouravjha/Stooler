@@ -33,6 +33,19 @@ you can share ideas with each other and can grow together.
 ## [To see live action](https://stool-front.herokuapp.com/)
 
 
+# Workflow
+![stool_workflow](https://user-images.githubusercontent.com/63896998/129359099-ae832998-4291-4005-9b2c-479901407191.jpeg)
+
+
+
+
+
+
+
+
+
+
+
 # Features
 
 
