@@ -84,20 +84,7 @@ export default class SourceRepository {
             throw error
         }
     }
-    // async saveSource(groupInfo,sourceInfo){
-    //     try{
-    //         sourceInfo.approved = true;
-    //         const sess = await mongoose.startSession();
-    //         sess.startTransaction();
-    //         await sourceInfo.save({ session: sess });
-    //         groupInfo.sources.push(sourceInfo._id); 
-    //         await groupInfo.save({ session: sess }); 
-    //         await sess.commitTransaction(); 
-    //         return true;
-    //     }catch (error){
-    //         throw error
-    //     }
-    // }
+
     async deleteSourceSet(obj){
         try{    
             await obj.remove();
