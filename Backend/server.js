@@ -1,14 +1,9 @@
-// const path = require('path');
-// const fs = require('fs');
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import Routes from './routes/routes'
-// const Error = require('./MODELS/error');
-// const memer = require('./ROUTERS/memer');
-// const memes = require('./ROUTERS/memes');
 import Error from './app/Exceptions/error';
-import { request } from 'gaxios';
+
 require('dotenv').config();
 
 const app = express();
@@ -24,10 +19,9 @@ app.use((req, res, next) => {
   next();
 }); 
 
-app.use('/api/users', Routes.AccountApiRouter); 
-app.use('/api/groups', Routes.GroupApiRouter); 
-app.use('/api/source', Routes.SourceApiRouter); 
-// app.use('/api/memes', memes);
+app.use('/api/users', Routes.AccountApiRouter); ///for user commands
+app.use('/api/groups', Routes.GroupApiRouter);  ///for group commands
+app.use('/api/source', Routes.SourceApiRouter);   ////for source commands
 
 app.use((req, res, next) => {
   const error = new Error('Could not find this route.', 404);       ///Incase of not having a route

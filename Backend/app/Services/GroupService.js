@@ -87,17 +87,6 @@ export default class AccountService{
         }
     }
 
-
-    // async getGroups(args) {
-    //     try {
-    //         let groupInfo = await this.repository.findGroup(args);
-    //         return groupInfo;
-    //     } catch (error) {
-    //         throw (new Exceptions.ValidationException("Error finding user details"));
-    //     }
-    // }
-
-
     async verifyUserDetail(args) {
         try {
             let accountInfo = await this.repository.findUser(args);
