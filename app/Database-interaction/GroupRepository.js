@@ -133,7 +133,7 @@ export default class GroupRepository {
         })
         let ownerDetails;
         try{
-            ownerDetails = await UserModel.findById(userId);
+            ownerDetails = await UserModel.findById(userId);        //finding user and adding the amount to the portfolio
             if(genre == 'Gold/Silver'){
                 ownerDetails.shares[0]['amount']+=amount
             } if(genre == 'Stock'){

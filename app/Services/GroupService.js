@@ -19,7 +19,7 @@ export default class AccountService{
             let verifyGroupId;
             let accountInfo;
             if(args.context=="join"){
-                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];            
+                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];      //getGroup architure will be followed,so false will give the  detail of group (if any)the user is not part yet      
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
@@ -39,7 +39,7 @@ export default class AccountService{
                 verifyGroupId['totalsum']+=args.amount; 
                 accountInfo = await this.repository.addUserToGroup(args,verifyGroupId,verifyuserId);
             }else{
-                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},true))[0];            
+                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},true))[0];      //getGroup architure will be followed,so true will give the  detail of group (if any)the user is  part of         
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
@@ -97,7 +97,7 @@ export default class AccountService{
     }
 
 
-    async getGroups(uid,args,objj){
+    async getGroups(uid,args,objj){         //search the group that user is a part of ,or not a part of depending upon objj(true or false)
         try {
             function clean(obj) {
                 for (var propName in obj) {
@@ -107,15 +107,15 @@ export default class AccountService{
                 }
                 return obj
             }
-            args = clean(args);   
+            args = clean(args);   //cleaning the body for empty parameters(as body can contain terms rquired for sorting group)
             let groupsInfo = await this.repository.findGroup(args);
             function checkUid(uids) {
-                return objj == uids.members.includes(uid);
+                return objj == uids.members.includes(uid);//finding group ,user is a part-of/not a part of(depending on objj)
             };
-            groupsInfo = groupsInfo.filter(checkUid);           
+            groupsInfo = groupsInfo.filter(checkUid);          
 
             groupsInfo.sort(function(a,b){
-                return (b.members).length-(a.members).length;
+                return (b.members).length-(a.members).length;   //returing on decreasing group size
             })
             return groupsInfo;
         } catch (error) {
@@ -123,7 +123,7 @@ export default class AccountService{
         }
     }
 
-    async getOwnGroup(args) {
+    async getGroupDetail(args) { //get detail of a group
         try {
 
             let groupsInfo = await this.repository.findGroup(args);
@@ -133,7 +133,7 @@ export default class AccountService{
         }
     }
 
-    async getGroupMembers(args) {
+    async getGroupMembers(args) { //getting details of a memeber of groups
         try {
             args['type'] = "ACTIVE";
             let groupsInfo = await this.repository.findGroupMembers(args);
@@ -154,10 +154,10 @@ export default class AccountService{
 
     async transferOwnedGroup (args) {
         try {
-            let groupsInfo = await this.repository.findOwnerGroup({_id:args._id,groupOwner:args.groupOwner});
+            let groupsInfo = await this.repository.findOwnerGroup({_id:args._id,groupOwner:args.groupOwner}); //finding the group whose ownership is changed
             if(!groupsInfo.length)throw (new Exceptions.ValidationException("No group found"));
             if(groupsInfo[0].groupOwner == args.newOwner){
-                throw (new Exceptions.ValidationException("Already a group member"));
+                throw (new Exceptions.ValidationException("Already group leader"));
             }
             if(!groupsInfo[0].members.includes(args.newOwner)){
                 throw (new Exceptions.ValidationException("Not a group member"));

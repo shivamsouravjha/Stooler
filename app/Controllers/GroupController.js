@@ -65,11 +65,11 @@ export default class AccountController extends Controller {
     }
 
 
-    //getting owner groups
-    getGroup (request) {
+    //getting group details
+    getGroupDetail (request) {
       try {
         let value = {_id:request.params.groupId};
-        const promise  = this.service.getOwnGroup(value);
+        const promise  = this.service.getGroupDetail(value);
         promise.then(res=>{
           this.sendResponse(res);
         }).catch(error =>{
