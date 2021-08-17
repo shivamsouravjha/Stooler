@@ -66,7 +66,6 @@ export default class SourceRepository {
         try{
             if(approved){
                 sourceModel['sellPrice'] =0;    
-                console.log(sourceModel,groupInfo,approved)            
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
                 await sourceModel.save({ session: sess });
@@ -80,7 +79,6 @@ export default class SourceRepository {
             }
             
         } catch (error) {
-            console.log(error)
             throw error
         }
     }

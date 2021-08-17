@@ -1,6 +1,6 @@
 import GroupRepository from '../Database-interaction/GroupRepository';
 import * as Exceptions from '../Exceptions/exceptions';
-import SourceRepository from '../Repositories/sourceRepositroy';
+import SourceRepository from '../Database-interaction/sourceRepositroy';
 import SourceModel from "../Models/sourceModel";
 
 export default class AccountService{
@@ -161,7 +161,7 @@ export default class AccountService{
                 if(!args.group)return false;
                 return args.group.groupOwner==uid;
             };
-            sourceInfo = sourceInfo.filter(checkUid);
+            sourceInfo = sourceInfo.filter(checkUid);   ///return all the sources that belong to the group ,to the group owner for approval
             return {'groups':sourceInfo};
         } catch (error) {
             throw (new Exceptions.ValidationException("Error finding sources"));
@@ -171,9 +171,7 @@ export default class AccountService{
     async setAprrovalAdd(args){
         try {
             let sourceInfo = await this.repository.findSource(args.sid);
-            console.log(args,sourceInfo);
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
-            console.log(groupInfo,sourceInfo)
             groupInfo['fund'] = groupInfo['fund']-sourceInfo["editPrice"]*sourceInfo['unitsPurchase'];
             if(groupInfo['fund']<0){
                 throw {"message":`Source price more than current fund of group, exceeds by = ${sourceInfo["price"]*sourceInfo['unitsPurchase']-groupInfo['fund']}`}
@@ -192,7 +190,6 @@ export default class AccountService{
             }
             
         } catch (error) {
-            console.log(error)
             throw (new Exceptions.ValidationException(error.message));
         }
     }

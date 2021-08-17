@@ -41,7 +41,6 @@ export default class CompanyController extends Controller {
         this.handleException(error);
       })
     } catch(error){
-      console.log(error)
       this.handleException(error);
     }
   }
