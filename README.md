@@ -14,7 +14,7 @@ sharing the investment strategy and profit.
 
 If in doubt talk to our Chatbot to clarify doubts.
 
-                                                      Invest Together Grow Together.
+                                          Invest Together Grow Together.
 
 
 
@@ -31,6 +31,22 @@ you can share ideas with each other and can grow together.
 
 
 ## [To see live action](https://stool-front.herokuapp.com/)
+
+
+# Workflow (Website Architecture)
+![stool_workflow](https://user-images.githubusercontent.com/63896998/129359099-ae832998-4291-4005-9b2c-479901407191.jpeg)
+
+
+# Source Flow
+![Source Diagram](https://user-images.githubusercontent.com/60891544/129677169-4bf4d796-c40c-40e0-8ffd-64597dfc1817.png)
+
+
+#Group Flow
+![Group Schema (2)](https://user-images.githubusercontent.com/60891544/129674115-70f9a9f2-9533-4198-b937-8e250a32673b.jpeg)
+
+
+# User Flow
+![System Flow](https://user-images.githubusercontent.com/60891544/129672812-f4731075-d1e7-40ee-b1f3-277a66f827e2.jpeg)
 
 
 # Features
