@@ -177,7 +177,7 @@ export default class AccountService{
                 throw {"message":`Source price more than current fund of group, exceeds by = ${sourceInfo["price"]*sourceInfo['unitsPurchase']-groupInfo['fund']}`}
             }
             let approved = args.set == "true"?true:false;
-            if(approved){
+            if(approved){       //if user approves of suggestion
                 sourceInfo.approved = true;
                 sourceInfo.type = "APPROVED";
                 sourceInfo.price = sourceInfo.editPrice;
@@ -204,13 +204,13 @@ export default class AccountService{
             if(request.params.uid != sourceInfo.group.groupOwner){
                 throw (new Exceptions.ValidationException({"message":"No authorization"}));
             }
-            if(sourceInfo.type == "ADD"){
+            if(sourceInfo.type == "ADD"){   ///if request is of add
                 value['set'] = request.body.set;
                 promise = await this.setAprrovalAdd(value);
-            }else if(sourceInfo.type == "EDIT"){
+            }else if(sourceInfo.type == "EDIT"){        //if request is of edit
               value['set'] = request.body.set;
               promise  =  await this.getSourceDetails(request.params.sid,true,value)
-            }else if(sourceInfo.type == "REMOVE"){
+            }else if(sourceInfo.type == "REMOVE"){      //if request is of deletion
                 value['sellingPrice'] = sourceInfo.sellingPrice;  
                 promise = await this.deleteSource(value);
             }
