@@ -19,7 +19,7 @@ export default class AccountService{
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"));
             }
-            if(args.uid != groupInfo.groupOwner){
+            if(args.uid != groupInfo.groupOwner){       //getting edit if requester is not the owner or else delete the source
                 sourceInfo.sellingPrice =args['sellingPrice'] ;
                 sourceInfo.type = "REMOVE";
                 sourceInfo.approved = false;
@@ -123,7 +123,7 @@ export default class AccountService{
             if(groupInfo['fund']<0){
                 throw (new Exceptions.ConflictException("Source funds less than group amount"));
             }
-            if(groupInfo.groupOwner == value.uid){
+            if(groupInfo.groupOwner == value.uid){  //if requester is owner approve the edit or else sent to owner
                 sourceInfo.type = "APPROVED";
                 sourceInfo.approved= true;
                 sourceInfo['editsuggestion']=0;
