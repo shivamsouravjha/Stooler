@@ -1,6 +1,6 @@
 import GroupRepository from '../Repositories/groupRepository';
 import * as Exceptions from '../Exceptions/exceptions';
-import bycrypt from 'bcryptjs';
+import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
 export default class AccountService{
@@ -23,6 +23,20 @@ export default class AccountService{
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
+                var config = {
+                    method: 'get',
+                    url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${verifyuserId['accountholderbankID']}/balance`,
+                    headers: { 
+                      'accept': 'application/json; charset=utf-8', 
+                      'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                    }
+                  };
+                  
+                  args['amount']= await axios(config)
+                  .then(function (response) {
+                    return response.data.balance;
+                })   
+                console.log(args)
                 if(verifyGroupId.genre == 'Gold/Silver'){
                     verifyuserId.shares[0]['amount']+=args.amount
                 } if(verifyGroupId.genre == 'Stock'){
@@ -109,7 +123,6 @@ export default class AccountService{
             }
             args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
-            console.log(groupsInfo)
             function checkUid(uids) {
                 return objj == uids.members.includes(uid);
             };

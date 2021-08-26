@@ -67,15 +67,44 @@ export default class GroupRepository {
     async addUserToGroup (args,verifyGroupId,verifyuserId) {
         try {
             args['type'] = 'ACTIVE';
-            args['deposited_amount'] = args.amount;
+            args['deposited_amount'] = verifyGroupId.amount;
             args['returned_amount'] = 0;
-            args['due_amount'] = args.amount;
-            delete args.amount;
-            if(verifyuserId.funds < args.deposited_amount){
+            args['due_amount'] = verifyGroupId.amount;
+            if(args.amount < args.deposited_amount){
                 throw {'message':'Insufficient funds','success':false};
             }
-            verifyuserId.funds -= args.deposited_amount;
+            delete args.amount;
             const newTransaction = new Transaction(args);
+            var data = JSON.stringify({
+                "requestID":newTransaction._id ,
+                "amount": {
+                  "currency": "INR",
+                  "amount": verifyGroupId.amount
+                },
+                "transferCode": "ATLAS_P2M_AUTH",
+                "debitAccountID": verifyuserId['accountholderbankID'],
+                "creditAccountID": verifyGroupId['accountholderbankID'],
+                "transferTime": Date.now(),
+                "remarks": "Creating group",
+                "attributes": {}
+              });
+              
+              var config = {
+                method: 'post',
+                url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'Content-Type': 'application/json', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                },
+                data : data
+              };
+              
+            var result = await axios(config)
+              .then(function (response) {
+                return response.data;
+              });
+              newTransaction['transferID'] =result['transferID']
             const sess = await mongoose.startSession();
             sess.startTransaction();      
             await newTransaction.save(); 
@@ -145,7 +174,24 @@ export default class GroupRepository {
             } if(genre == 'Currency Exchange'){
                 ownerDetails.shares[3]['amount']+=amount
             }
+
+            var config = {
+                method: 'get',
+                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${ownerDetails['accountholderbankID']}/balance`,
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                }
+              };
+              
+              ownerDetails['funds']= await axios(config)
+              .then(function (response) {
+                return response.data.balance;
+            })  
+
+            
             if(ownerDetails.funds < amount){
+                console.log(ownerDetails.funds)
                 throw {'message':'Insufficient funda','success':false};
             }
             ownerDetails.funds -= amount;
@@ -219,6 +265,39 @@ export default class GroupRepository {
             })
             groupModel['accountholderbankID']=replyforaccount.accounts[0].accountID;
             groupModel['accountholderbank']=reply.individualID;
+
+            console.log(groupModel['accountholderbankID'])
+
+            var data = JSON.stringify({
+              "requestID":newTransaction._id ,
+              "amount": {
+                "currency": "INR",
+                "amount": amount
+              },
+              "transferCode": "ATLAS_P2M_AUTH",
+              "debitAccountID": ownerDetails['accountholderbankID'],
+              "creditAccountID": groupModel['accountholderbankID'],
+              "transferTime": Date.now(),
+              "remarks": "Creating group",
+              "attributes": {}
+            });
+            
+            var config = {
+              method: 'post',
+              url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
+              headers: { 
+                'accept': 'application/json; charset=utf-8', 
+                'Content-Type': 'application/json', 
+                'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+              },
+              data : data
+            };
+            
+            var result = await axios(config)
+            .then(function (response) {
+              return response.data;
+            });
+            newTransaction['transferID'] =result['transferID']
             const sess = await mongoose.startSession();
             sess.startTransaction();
             await groupModel.save({ session: sess }); 

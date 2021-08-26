@@ -10,7 +10,10 @@ export default class AccountService{
     async addAccount(args) {
         try {
             const {panNumber,aadhar,username,email,number}=args
+            console.log(args)
             let verifyUsername =  await this.verifyUsername({username:username})
+            console.log(verifyUsername)
+
             let verifyNumber =  await this.verifyUserDetail({number:number})
             let verifyEmail =  await this.verifyUserDetail({email:email})
             let verifyPanNumber =  await this.verifyUserDetail({panNumber:panNumber})
@@ -55,13 +58,20 @@ export default class AccountService{
 
     async verifyUsername(args) {
         try {
+            let accountInfo = await this.repository.findUserDetail(args);
+            return accountInfo;
+        } catch (error) {
+        throw error;
+        }
+    }
+    async findUsername(args) {
+        try {
             let accountInfo = await this.repository.findUsername(args);
             return accountInfo;
         } catch (error) {
         throw error;
         }
     }
-
     async findUid (uid,args) {
         try {
             function clean(obj) {

@@ -62,7 +62,7 @@ export default class AccountController extends Controller {
     }
       verifyUsername (request) {
           try{
-              const exist =  this.service.verifyUsername(request);
+              const exist =  this.service.findUsername(request);
               exist.then(res => {
                 this.sendResponse(res);
               })

@@ -20,7 +20,21 @@ export default class AccountRepository {
     }
     async findUsername(obj){
         try {
-            const found = await UserModel.findOne(obj).populate('transaction');
+            var found = await UserModel.findOne(obj).populate('transaction');
+            var config = {
+              method: 'get',
+              url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${found['accountholderbankID']}/balance`,
+              headers: { 
+                'accept': 'application/json; charset=utf-8', 
+                'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+              }
+            };
+            
+            found['funds']= await axios(config)
+            .then(function (response) {
+              return response.data.balance;
+            })        
+            console.log(found)
             return found;
         } catch (error) {
             return "error at finding"
@@ -35,7 +49,7 @@ export default class AccountRepository {
             email,
             password,
             number,
-            funds:10000,
+            funds:0,
             loss:0,
             dues:0,
             groups:[],
