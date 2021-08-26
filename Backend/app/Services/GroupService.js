@@ -18,24 +18,25 @@ export default class AccountService{
             }
             let verifyGroupId;
             let accountInfo;
+            var config = {
+                method: 'get',
+                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${verifyuserId['accountholderbankID']}/balance`,
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                }
+              };
+              
+            verifyuserId['amount']= await axios(config)
+              .then(function (response) {
+                return response.data.balance;
+            })   
+            
             if(args.context=="join"){
                 verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];            
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
-                var config = {
-                    method: 'get',
-                    url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${verifyuserId['accountholderbankID']}/balance`,
-                    headers: { 
-                      'accept': 'application/json; charset=utf-8', 
-                      'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                    }
-                  };
-                  
-                  args['amount']= await axios(config)
-                  .then(function (response) {
-                    return response.data.balance;
-                })   
                 console.log(args)
                 if(verifyGroupId.genre == 'Gold/Silver'){
                     verifyuserId.shares[0]['amount']+=args.amount
@@ -57,12 +58,26 @@ export default class AccountService{
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
+                var config = {
+                    method: 'get',
+                    url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${verifyGroupId['accountholderbankID']}/balance`,
+                    headers: { 
+                      'accept': 'application/json; charset=utf-8', 
+                      'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                    }
+                  };
+                  
+                verifyuserId['amount']= await axios(config)
+                  .then(function (response) {
+                    return response.data.balance;
+                }) 
                 if(verifyGroupId.members.length!=1){
                     if(JSON.stringify(verifyGroupId.groupOwner._id) == JSON.stringify(verifyuserId._id)){
                         throw (new Exceptions.ConflictException("You're the owner you can't quit without transfering role."));
                     }
                 }
                 const refund_amount = verifyGroupId.fund/verifyGroupId.members.length + verifyGroupId.loss/verifyGroupId.members.length;
+                
                 const transaction = await  this.repository.findTransaction({userId:verifyuserId['_id'],groupId:verifyGroupId['_id'],type:"ACTIVE"});
                 verifyuserId['funds'] += verifyGroupId.fund/verifyGroupId.members.length;
                 verifyuserId['loss'] += verifyGroupId.loss/verifyGroupId.members.length;

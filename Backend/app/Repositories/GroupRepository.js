@@ -104,7 +104,8 @@ export default class GroupRepository {
               .then(function (response) {
                 return response.data;
               });
-              newTransaction['transferID'] =result['transferID']
+            
+            newTransaction['transferID'] =result['transferID']
             const sess = await mongoose.startSession();
             sess.startTransaction();      
             await newTransaction.save(); 
@@ -126,6 +127,36 @@ export default class GroupRepository {
     
     async removeUserFromGroup (args,verifyGroupId,verifyuserId) {
         try {
+            var data = JSON.stringify({
+                "requestID":args._id+"sa" ,
+                "amount": {
+                  "currency": "INR",
+                  "amount": args.returned_amount
+                },
+                "transferCode": "ATLAS_P2M_AUTH",
+                "debitAccountID": verifyGroupId['accountholderbankID'],
+                "creditAccountID": verifyuserId['accountholderbankID'],
+                "transferTime": Date.now(),
+                "remarks": "Creating group",
+                "attributes": {}
+              });
+              
+              var config = {
+                method: 'post',
+                url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'Content-Type': 'application/json', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                },
+                data : data
+              };
+              
+            var result = await axios(config)
+              .then(function (response) {
+                return response.data;
+              });
+            args['transferID'] =result['transferID']
             const sess = await mongoose.startSession();
             sess.startTransaction();      
             await args.save(); 
@@ -139,6 +170,7 @@ export default class GroupRepository {
             }
             return {'message':'Group Left','success':true};
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }
