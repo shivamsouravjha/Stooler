@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import ReactSession from '../../Reactsession';
 import Card from '../../shared/components/UIElements/Card';
 import Input from '../../shared/components/FormElements/Input';
@@ -198,6 +198,38 @@ const Auth = () => {
               errorText="Please enter exact 12 digit aadhar number."
               onInput={inputHandler}
             />)
+          }
+          {!isLoginMode && (
+            <Fragment>
+            <p>Date of Birth</p>
+            <Input
+              element="input"
+              id="day"
+              type="number"
+              label="Day"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter day b/w 1 and 31."
+              onInput={inputHandler}
+            />
+            <Input
+              element="input"
+              id="month"
+              type="number"
+              label="Month"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter month b/w 1 and 12."
+              onInput={inputHandler}
+            />
+            <Input
+              element="input"
+              id="year"
+              type="number"
+              label="year"
+              validators={[VALIDATOR_FIXLENGTH(4)]}
+              errorText="Please enter valid year."
+              onInput={inputHandler}
+            />
+            </Fragment>)
           }
           {!isLoginMode && (
             <Input
