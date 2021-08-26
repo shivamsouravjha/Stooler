@@ -4,6 +4,8 @@ import SourceModel from "../Models/sourceModel";
 import Transaction from "../Models/transaction";
 import mongoose from 'mongoose';
 mongoose.models = {GroupModel,UserModel}
+import axios from 'axios';
+
 
 export default class GroupRepository {
     async findUser (obj) {
@@ -150,6 +152,73 @@ export default class GroupRepository {
             const newTransaction = new Transaction({deposited_amount:amount,returned_amount:0,due_amount:amount,result:0,groupId:groupModel['_id'],userId:ownerDetails['_id'],type:"ACTIVE"})
             groupModel.groupPayment.push(newTransaction._id);
             ownerDetails.transaction.push(newTransaction._id);
+            var today = new Date();
+            var dd = today.getDate()-1;
+            var mm = today.getMonth() //January is 0!
+            var yyyy = today.getFullYear();
+            var data = JSON.stringify({
+            "ifiID": process.env.ifiID,
+            "formID": groupModel._id,
+            "applicationType": "CREATE_ACCOUNT_HOLDER",
+            "spoolID": "3deb5a70-311c-11ea-978f-2e728ce88125",
+            "individualType": "REAL",
+            "salutation": "",
+            "firstName": groupName,
+            "middleName": "",
+            "lastName": "",
+            "profilePicURL": "",
+            "dob": {
+                "year": yyyy,
+                "month": mm,
+                "day": dd-1
+            },
+            "gender": "",
+            "mothersMaidenName": "",
+            "kycDetails": {
+                "kycStatus": "Full",
+                "kycStatusPostExpiry": "KYC_EXPIRED",
+                "kycAttributes": {},
+                "authData": {
+                "PAN": groupModel._id,
+                },
+                "authType": "PAN"
+            },
+            "vectors": [],
+            "pops": [],
+            "customFields": {}
+            });
+            var config = {
+            method: 'post',
+            url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/applications/newIndividual',
+            headers: { 
+                'Content-Type': 'application/json', 
+                'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+            },
+            data : data
+            };
+            
+            var reply = await  axios(config)
+            .then(function (response) {
+            return ((response.data));
+            })
+            var data = `{"accountHolderID": ${reply.individualID},  "name": ${genre}, "phoneNumber": +91${Math.trunc(Number((Date.now().toString()).slice(-11,-1)))}}`;
+            var config = {
+            method: 'post',
+            url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/bundles/${process.env.bundleId}/issueBundle`,
+            headers: { 
+                'accept': 'application/json; charset=utf-8', 
+                'Content-Type': 'application/json; charset=utf-8', 
+                'X-Zeta-AuthToken':  process.env.XZetaAuthToken
+            },
+            data : data
+            };
+            
+            var replyforaccount =await axios(config)
+            .then(function (response) {
+                return (response.data);
+            })
+            groupModel['accountholderbankID']=replyforaccount.accounts[0].accountID;
+            groupModel['accountholderbank']=reply.individualID;
             const sess = await mongoose.startSession();
             sess.startTransaction();
             await groupModel.save({ session: sess }); 
@@ -158,6 +227,7 @@ export default class GroupRepository {
             await ownerDetails.save({ session: sess }); 
             await sess.commitTransaction(); 
         } catch (error) {
+            console.log(error)
             throw error
         }
         return {"success":true};
