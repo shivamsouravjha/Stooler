@@ -9,13 +9,7 @@ const Profile = () => {
     
     return (
         <div className="App">
-            <Users/>
-            <PieChart/>
-            <br/>
-            <Link to={`/addmoney`} > <button className="group_button">ADD Money</button></Link>
-            <br/>
-            <br/>
-            <Transaction/>
+           chall Paisa De
         </div>
     )
 };

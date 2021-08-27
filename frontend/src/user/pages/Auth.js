@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import ReactSession from '../../Reactsession';
 import Card from '../../shared/components/UIElements/Card';
 import Input from '../../shared/components/FormElements/Input';
@@ -10,7 +10,7 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
   VALIDATOR_FIXLENGTH,
-  VALIDATOR_PASSWORD
+  VALIDATOR_PASSWORD,
 } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import { AuthContext } from '../../shared/context/auth-context';
@@ -93,6 +93,9 @@ const Auth = () => {
       }
     } else {
       try {
+        var day=parseInt(formState.inputs.sample.value.substr(8));
+        var month=parseInt(formState.inputs.sample.value.substr(5,7));
+        var year=parseInt(formState.inputs.sample.value.substr(0,4));
         var checkuser=formState.inputs.username.value.slice(-4);
         var checkpan=formState.inputs.panNumber.value.slice(-4);
         if(checkpan !== checkuser){
@@ -110,7 +113,8 @@ const Auth = () => {
             panNumber: formState.inputs.panNumber.value,
             aadhar: formState.inputs.aadhar.value,
             email: formState.inputs.email.value,
-            password: formState.inputs.password.value
+            password: formState.inputs.password.value,
+            dob:{"year":year,"month":month,"day":day}
           })
         });
         const responseData = await response.json();
@@ -119,6 +123,7 @@ const Auth = () => {
           throw new Error(responseData.error);
         }
         setIsLoading(false);
+        console.log(responseData.data);
         auth.login(responseData.data.userId, responseData.data.token);
         ReactSession.set("username", formState.inputs.username.value);
         ReactSession.set("userId",responseData['data']['userId'] );
@@ -196,6 +201,17 @@ const Auth = () => {
               label="Your 12 digit AADHAR Number"
               validators={[VALIDATOR_FIXLENGTH(12)]}
               errorText="Please enter exact 12 digit aadhar number."
+              onInput={inputHandler}
+            />)
+          }
+          {!isLoginMode && (
+            <Input
+              element="input"
+              id="sample"
+              type="date"
+              label="Enter Date of Birth"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please select date."
               onInput={inputHandler}
             />)
           }
