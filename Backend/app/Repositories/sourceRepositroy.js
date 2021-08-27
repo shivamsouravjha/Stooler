@@ -3,6 +3,7 @@ import UserModel from "../Models/userModel";
 import SourceModel from "../Models/sourceModel";
 import mongoose from 'mongoose';
 mongoose.models = {GroupModel,UserModel}
+import axios from 'axios';
 
 export default class SourceRepository {
     async findUser (obj) {
@@ -17,7 +18,7 @@ export default class SourceRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.findById(obj,'-groupPayment').populate('sources');
+            const found = await GroupModel.findById(obj,'-groupPayment').populate('sources').populate('groupOwner');
             return found;
         } catch (error) {
             throw error
@@ -65,8 +66,37 @@ export default class SourceRepository {
     async createSource(sourceModel,groupInfo,approved) {
         try{
             if(approved){
+                console.log(sourceModel['price']*sourceModel['unitsPurchase'])
+                var data = JSON.stringify({
+                    "requestID":sourceInfo._id ,
+                    "amount": {
+                      "currency": "INR",
+                      "amount": sourceModel['price']*sourceModel['unitsPurchase'],
+                    },
+                    "transferCode": "ATLAS_P2M_AUTH",
+                    "debitAccountID": groupInfo['accountholderbankID'],
+                    "creditAccountID": groupInfo['groupOwner']['accountholderbankID'],
+                    "transferTime": Date.now(),
+                    "remarks": "Creating group",
+                    "attributes": {}
+                  });
+                  
+                  var config = {
+                    method: 'post',
+                    url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
+                    headers: { 
+                      'accept': 'application/json; charset=utf-8', 
+                      'Content-Type': 'application/json', 
+                      'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                    },
+                    data : data
+                  };
+                  
+                var result = await axios(config)
+                  .then(function (response) {
+                    return response.data;
+                });
                 sourceModel['sellPrice'] =0;    
-                console.log(sourceModel,groupInfo,approved)            
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
                 await sourceModel.save({ session: sess });
@@ -84,7 +114,6 @@ export default class SourceRepository {
             throw error
         }
     }
-
     async deleteSourceSet(obj){
         try{    
             await obj.remove();
