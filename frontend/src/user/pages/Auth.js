@@ -84,6 +84,8 @@ const Auth = () => {
         }
         setIsLoading(false);
         auth.login(responseData.data.userId, responseData.data.token);
+        localStorage.setItem("username", formState.inputs.username.value);
+        localStorage.setItem("userId", responseData.data.userId);
         ReactSession.set("username", formState.inputs.username.value);
         ReactSession.set("userId",responseData['data']['userId'] );
         ReactSession.set("token",responseData['data']['token'] );
@@ -125,6 +127,8 @@ const Auth = () => {
         setIsLoading(false);
         console.log(responseData.data);
         auth.login(responseData.data.userId, responseData.data.token);
+        localStorage.setItem("username", formState.inputs.username.value);
+        localStorage.setItem("userId", responseData.data.userId);
         ReactSession.set("username", formState.inputs.username.value);
         ReactSession.set("userId",responseData['data']['userId'] );
         ReactSession.set("token",responseData['data']['token'] );

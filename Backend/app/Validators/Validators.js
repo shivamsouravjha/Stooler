@@ -8,8 +8,13 @@ export default {
         panNumber: Joi.string().required(),
         aadhar: Joi.string().required(),
         username: Joi.string().required(),
-        password: Joi.string().required()
-    }),
+        password: Joi.string().required(),
+        dob: Joi.object().keys({    
+            month: Joi.number().required(),
+            year: Joi.number().required(),
+            day: Joi.number().required(),
+        })
+        }),
     loginAccount : Joi.object().keys({
         username: Joi.string().required(),
         password: Joi.string().required()

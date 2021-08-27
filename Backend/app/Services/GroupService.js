@@ -1,6 +1,6 @@
 import GroupRepository from '../Repositories/groupRepository';
 import * as Exceptions from '../Exceptions/exceptions';
-import bycrypt from 'bcryptjs';
+import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
 export default class AccountService{
@@ -18,11 +18,26 @@ export default class AccountService{
             }
             let verifyGroupId;
             let accountInfo;
+            var config = {
+                method: 'get',
+                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${verifyuserId['accountholderbankID']}/balance`,
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                }
+              };
+              
+            verifyuserId['amount']= await axios(config)
+              .then(function (response) {
+                return response.data.balance;
+            })   
+            
             if(args.context=="join"){
                 verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];            
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
+                console.log(args)
                 if(verifyGroupId.genre == 'Gold/Silver'){
                     verifyuserId.shares[0]['amount']+=args.amount
                 } if(verifyGroupId.genre == 'Stock'){
@@ -43,12 +58,26 @@ export default class AccountService{
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
+                var config = {
+                    method: 'get',
+                    url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${verifyGroupId['accountholderbankID']}/balance`,
+                    headers: { 
+                      'accept': 'application/json; charset=utf-8', 
+                      'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                    }
+                  };
+                  
+                verifyuserId['amount']= await axios(config)
+                  .then(function (response) {
+                    return response.data.balance;
+                }) 
                 if(verifyGroupId.members.length!=1){
                     if(JSON.stringify(verifyGroupId.groupOwner._id) == JSON.stringify(verifyuserId._id)){
                         throw (new Exceptions.ConflictException("You're the owner you can't quit without transfering role."));
                     }
                 }
                 const refund_amount = verifyGroupId.fund/verifyGroupId.members.length + verifyGroupId.loss/verifyGroupId.members.length;
+                
                 const transaction = await  this.repository.findTransaction({userId:verifyuserId['_id'],groupId:verifyGroupId['_id'],type:"ACTIVE"});
                 verifyuserId['funds'] += verifyGroupId.fund/verifyGroupId.members.length;
                 verifyuserId['loss'] += verifyGroupId.loss/verifyGroupId.members.length;
@@ -87,17 +116,6 @@ export default class AccountService{
         }
     }
 
-
-    // async getGroups(args) {
-    //     try {
-    //         let groupInfo = await this.repository.findGroup(args);
-    //         return groupInfo;
-    //     } catch (error) {
-    //         throw (new Exceptions.ValidationException("Error finding user details"));
-    //     }
-    // }
-
-
     async verifyUserDetail(args) {
         try {
             let accountInfo = await this.repository.findUser(args);
@@ -120,7 +138,6 @@ export default class AccountService{
             }
             args = clean(args);   
             let groupsInfo = await this.repository.findGroup(args);
-            console.log(groupsInfo)
             function checkUid(uids) {
                 return objj == uids.members.includes(uid);
             };

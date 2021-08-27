@@ -9,7 +9,6 @@ export default class CompanyController extends Controller {
     }
 
     addSource (request) {
-        // Logger.info("Creating Group");
         try{
             let {value,error} = Validators.createSource.validate(request.body);
             value.userId = request.params.uid;
@@ -25,30 +24,9 @@ export default class CompanyController extends Controller {
                 this.handleException(error);
               }) 
         } catch (error) {
-            // Logger.error("Error at creating group",error);
             this.handleException(error)
         }
     }
-
-  //   removeSource (request) {
-  //     // Logger.info("Joining Group");
-  //     try{              
-  //         const value ={};
-  //         value.uid = request.params.uid;
-  //         value.gid = request.params.gid;
-  //         value.sid = request.params.sid;
-  //         const addUser = this.service.deleteSource(value);
-  //         addUser.then(res => {
-  //             this.sendResponse(res);
-  //           })
-  //           .catch (error => {
-  //             this.handleException(error);
-  //           }) 
-  //     } catch (error) {
-  //         // Logger.error("Error at joining error",error);
-  //         this.handleException(error)
-  //     }
-  // }
 
     getSource (request) {
       try {
@@ -71,11 +49,9 @@ export default class CompanyController extends Controller {
         const value={'sid':request.params.sid};
         value['uid'] = request.params.uid;
         let promise;
-        // console.log(request.params)
         if(request.params.edit == "edit"){
            promise  = this.service.editSourceDetails(value,request.body);
         }else{
-          // console.log("in delete")
           request.params['sellingPrice'] = request.body.sellingPrice;
           promise  = this.service.deleteSource(request.params);
         }

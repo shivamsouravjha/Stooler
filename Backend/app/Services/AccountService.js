@@ -55,13 +55,20 @@ export default class AccountService{
 
     async verifyUsername(args) {
         try {
+            let accountInfo = await this.repository.findUserDetail(args);
+            return accountInfo;
+        } catch (error) {
+        throw error;
+        }
+    }
+    async findUsername(args) {
+        try {
             let accountInfo = await this.repository.findUsername(args);
             return accountInfo;
         } catch (error) {
         throw error;
         }
     }
-
     async findUid (uid,args) {
         try {
             function clean(obj) {

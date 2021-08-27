@@ -1,7 +1,5 @@
 import Controller from './controller';
-import at from 'v-at'
 import * as Exceptions from '../Exceptions/exceptions'
-import Logger from '../Helpers/Logger';
 import Validators from '../Validators/validators';
 import GroupService from '../Services/groupService';
 export default class AccountController extends Controller {
@@ -11,7 +9,6 @@ export default class AccountController extends Controller {
     }
 
     createGroup (request) {
-        // Logger.info("Creating Group");
         try{
             let {value,error} = Validators.groupCreate.validate(request.body);
             value.userId = request.params.uid;
@@ -26,13 +23,11 @@ export default class AccountController extends Controller {
                 this.handleException(error);
               }) 
         } catch (error) {
-            // Logger.error("Error at creating group",error);
             this.handleException(error)
         }
     }
 
     userGroup (request) {
-      // Logger.info("Joining Group");
       try{
           let {value,error} = Validators.groupJoin.validate(request.body);
           if(error){
@@ -48,7 +43,6 @@ export default class AccountController extends Controller {
               this.handleException(error);
             }) 
       } catch (error) {
-          // Logger.error("Error at joining error",error);
           this.handleException({message:"Already a group member"})
       }
   }

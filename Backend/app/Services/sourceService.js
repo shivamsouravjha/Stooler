@@ -2,6 +2,7 @@ import GroupRepository from '../Repositories/groupRepository';
 import * as Exceptions from '../Exceptions/exceptions';
 import SourceRepository from '../Repositories/sourceRepositroy';
 import SourceModel from "../Models/sourceModel";
+import axios from 'axios';
 
 export default class AccountService{
     constructor() {
@@ -19,7 +20,7 @@ export default class AccountService{
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"));
             }
-            if(args.uid != groupInfo.groupOwner){
+            if(args.uid != groupInfo.groupOwner._id){
                 sourceInfo.sellingPrice =args['sellingPrice'] ;
                 sourceInfo.type = "REMOVE";
                 sourceInfo.approved = false;
@@ -27,7 +28,21 @@ export default class AccountService{
                 return {"message":"Sent to admin for removal"};
             } 
             sourceInfo['sellingPrice'] = args['sellingPrice'];
-            groupInfo['fund'] += sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
+            var config = {
+                method: 'get',
+                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${groupInfo['accountholderbankID']}/balance`,
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                }
+              };
+              
+            groupInfo['fund']= await axios(config)
+              .then(function (response) {
+                return response.data.balance;
+            })   
+            var netbalance = sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
+            groupInfo['fund']+=netbalance;
             if(sourceInfo['price']*sourceInfo['unitsPurchase'] > sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']){
                 groupInfo['loss'] +=sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
                 groupInfo.loss_deal.push(sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
@@ -35,6 +50,35 @@ export default class AccountService{
                 groupInfo.profit_deal.push(-sourceInfo['price']*sourceInfo['unitsPurchase'] + sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
 
             } 
+            var data = JSON.stringify({
+                "requestID":sourceInfo._id+"sa" ,
+                "amount": {
+                  "currency": "INR",
+                  "amount": netbalance
+                },
+                "transferCode": "ATLAS_P2M_AUTH",
+                "debitAccountID": groupInfo['groupOwner']['accountholderbankID'],
+                "creditAccountID": groupInfo['accountholderbankID'],
+                "transferTime": Date.now(),
+                "remarks": "Creating group",
+                "attributes": {}
+              });
+              
+              var config = {
+                method: 'post',
+                url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'Content-Type': 'application/json', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                },
+                data : data
+              };
+              
+            var result = await axios(config)
+              .then(function (response) {
+                return response.data;
+            });
             const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
             return reply;
         } catch (error) {
@@ -55,7 +99,21 @@ export default class AccountService{
             const sourceModel = new SourceModel({
                 name,details,targetPrice,duration,price,editPrice:price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
             })
-            groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
+            var config = {
+                method: 'get',
+                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${groupInfo['accountholderbankID']}/balance`,
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                }
+              };
+              
+            groupInfo['fund']= await axios(config)
+              .then(function (response) {
+                return response.data.balance;
+            })   
+            var netBalance = groupInfo['fund']-price*unitsPurchase;
+            groupInfo['fund']=netBalance;
             if(groupInfo['fund']<0){
                 throw {"message":`Source price more than current fund of group, exceeds by = ${price*unitsPurchase-groupInfo['fund']}`}
             }
@@ -118,7 +176,20 @@ export default class AccountService{
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"))
-            } 
+            }
+            var config = {
+                method: 'get',
+                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${groupInfo['accountholderbankID']}/balance`,
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                }
+              };
+              
+            groupInfo['fund']= await axios(config)
+              .then(function (response) {
+                return response.data.balance;
+            })   
             groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*args['price']);
             if(groupInfo['fund']<0){
                 throw (new Exceptions.ConflictException("Source funds less than group amount"));
@@ -129,12 +200,71 @@ export default class AccountService{
                 sourceInfo['editsuggestion']=0;
                 if(args['unitsPurchase']<sourceInfo['unitsPurchase']){
                     const deal = ((args['unitsPurchase']-sourceInfo['unitsPurchase'])*(args['price']-sourceInfo['price']));
+                    var data = JSON.stringify({
+                        "requestID":sourceInfo._id+"transaction" ,
+                        "amount": {
+                          "currency": "INR",
+                          "amount": abs((args['unitsPurchase']-sourceInfo['unitsPurchase'])*(args['price']))
+                        },
+                        "transferCode": "ATLAS_P2M_AUTH",
+                        "debitAccountID": groupInfo['groupOwner']['accountholderbankID'],
+                        "creditAccountID": groupInfo['accountholderbankID'],
+                        "transferTime": Date.now(),
+                        "remarks": "Creating group",
+                        "attributes": {}
+                      });
+                      
+                      var config = {
+                        method: 'post',
+                        url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
+                        headers: { 
+                          'accept': 'application/json; charset=utf-8', 
+                          'Content-Type': 'application/json', 
+                          'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                        },
+                        data : data
+                      };
+                      
+                    var result = await axios(config)
+                      .then(function (response) {
+                        return response.data;
+                    });
                     if(deal>0){
                         groupInfo.loss += deal;
                         groupInfo.loss_deal.push(deal);
                     }else{
                         groupInfo.profit_deal.push(-deal);
                     }
+                }else{
+                    var data = JSON.stringify({
+                        "requestID":sourceInfo._id+"transaction" ,
+                        "amount": {
+                          "currency": "INR",
+                          "amount": abs((sourceInfo['unitsPurchase']-args['unitsPurchase'])*(args['price']))
+                        },
+                        "transferCode": "ATLAS_P2M_AUTH",
+                        "debitAccountID": groupInfo['accountholderbankID'],
+                        "creditAccountID": groupInfo['groupOwner']['accountholderbankID'],
+                        "transferTime": Date.now(),
+                        "remarks": "Creating group",
+                        "attributes": {}
+                      });
+                      
+                      var config = {
+                        method: 'post',
+                        url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
+                        headers: { 
+                          'accept': 'application/json; charset=utf-8', 
+                          'Content-Type': 'application/json', 
+                          'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                        },
+                        data : data
+                      };
+                      
+                    var result = await axios(config)
+                      .then(function (response) {
+                        return response.data;
+                    });
                 }
                 sourceInfo['unitsPurchase'] = args.unitsPurchase; 
                 sourceInfo['price'] = args['price'];
@@ -171,9 +301,20 @@ export default class AccountService{
     async setAprrovalAdd(args){
         try {
             let sourceInfo = await this.repository.findSource(args.sid);
-            console.log(args,sourceInfo);
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
-            console.log(groupInfo,sourceInfo)
+            var config = {
+                method: 'get',
+                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${groupInfo['accountholderbankID']}/balance`,
+                headers: { 
+                  'accept': 'application/json; charset=utf-8', 
+                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
+                }
+              };
+              
+            groupInfo['fund']= await axios(config)
+              .then(function (response) {
+                return response.data.balance;
+            })   
             groupInfo['fund'] = groupInfo['fund']-sourceInfo["editPrice"]*sourceInfo['unitsPurchase'];
             if(groupInfo['fund']<0){
                 throw {"message":`Source price more than current fund of group, exceeds by = ${sourceInfo["price"]*sourceInfo['unitsPurchase']-groupInfo['fund']}`}

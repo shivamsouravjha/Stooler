@@ -11,6 +11,7 @@ const transactionSchema = new schema({
     groupId: {type :mongoose.Types.ObjectId,required:true,ref:'Group'},
     userId:{type :mongoose.Types.ObjectId,required:true,ref:'User'},
     type:{type: String},
+    transferID:{type: String},
 },{
     versionKey: false 
   });

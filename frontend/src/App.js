@@ -97,6 +97,7 @@ const App = () => {
         <Route path="/groupdetails/:gid" exact>
           <GroupMembers/>
         </Route>
+
         <Route path="/ownedgroups/getgroups/:gid" exact>
           <OwnedGroups/>
         </Route>
