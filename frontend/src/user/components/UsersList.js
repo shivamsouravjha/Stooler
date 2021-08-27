@@ -28,6 +28,7 @@ const UsersList = props => {
           aadhar={user.aadhar}
           panNumber={user.panNumber}
           groups={user.groups}
+          funds={user.funds}
         />
       ))}
     </ul>

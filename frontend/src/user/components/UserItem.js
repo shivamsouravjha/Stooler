@@ -17,6 +17,7 @@ const UserItem = props => {
             <h2><strong>Email ID :</strong> {props.email}</h2>
             <h2><strong>Aadhar :</strong> {props.aadhar}</h2>
             <h2><strong>PanNumber :</strong> {props.panNumber}</h2>
+            <h2><strong>Funds :</strong> {props.funds}</h2>
             
               <hr className="investment_hr"/>
                <p className="investment">Invested in {props.groups} {props.groups === 1 ? 'Group' : 'Groups'} </p>

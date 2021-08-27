@@ -19,6 +19,7 @@ const Users = () => {
           `https://stool-back.herokuapp.com/api/users/account/data/${userId}`,"POST"
         );
         const dataResponse = responseData.data;
+        console.log(dataResponse)
         setLoadedUsers(dataResponse);
         setCompLoading(false)
       } catch (err) {    
@@ -32,13 +33,14 @@ const Users = () => {
    USERS = [
     {
       name:loadedUsers.name,
+      funds: loadedUsers.funds,
       username:ReactSession.get("username"), 
       number:loadedUsers.number,
       email:loadedUsers.email,
       panNumber:loadedUsers.panNumber,
       aadhar:loadedUsers.aadhar,
       image:Profile,
-      groups: loadedUsers.groups.length
+      groups: loadedUsers.groups.length,
     }
   ];}
   return (
