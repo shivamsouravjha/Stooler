@@ -15,6 +15,7 @@ import MyGroup from './groups/pages/mygroup';
 import Extra from './groups/pages/extra';
 import GroupAuth from './groups/pages/creategroup';
 import Auth from './user/pages/Auth';
+import AddMoney from './user/pages/addmoney';
 import Profile from './user/pages/Profile';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Pillars from './shared/components/Footer/pillars';
@@ -53,6 +54,9 @@ const App = () => {
         </Route>
         <Route path="/view_group" exact>
           <JoinGroup />
+        </Route>
+        <Route path="/addmoney" exact>
+          <AddMoney />
         </Route>
         <Route path="/gettingstarted" exact>
           <GetStarted />

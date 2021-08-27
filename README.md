@@ -46,7 +46,13 @@ you can share ideas with each other and can grow together.
 | Group Details| Resources in which group invest, history of profit and loss deal|
 | Members | View other members and transfer of ownership |
 | Crypto | View the latest value of crypto currency|
-  
+
+
+# Work Flow
+![stool_workflow](https://user-images.githubusercontent.com/63896998/129359099-ae832998-4291-4005-9b2c-479901407191.jpeg)
+
+
+
 ## Deployment on Local System
 
 To deploy this project run
