@@ -10,10 +10,7 @@ export default class AccountService{
     async addAccount(args) {
         try {
             const {panNumber,aadhar,username,email,number}=args
-            console.log(args)
             let verifyUsername =  await this.verifyUsername({username:username})
-            console.log(verifyUsername)
-
             let verifyNumber =  await this.verifyUserDetail({number:number})
             let verifyEmail =  await this.verifyUserDetail({email:email})
             let verifyPanNumber =  await this.verifyUserDetail({panNumber:panNumber})

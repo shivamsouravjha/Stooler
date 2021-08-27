@@ -1,19 +1,20 @@
 import Joi from '@hapi/joi';
 
 export default {
-    // createAccount : Joi.object().keys({
-    //     name: Joi.string().required(),
-    //     number: Joi.number().required(),
-    //     email: Joi.string().required(),
-    //     panNumber: Joi.string().required(),
-    //     aadhar: Joi.string().required(),
-    //     username: Joi.string().required(),
-    //     password: Joi.string().required(),
-    //     dob: Joi.object().keys({
-    //         month: Joi.string().required(),
-    //         year: Joi.number().required(),
-    //         date: Joi.string().required(),
-    // }),
+    createAccount : Joi.object().keys({
+        name: Joi.string().required(),
+        number: Joi.number().required(),
+        email: Joi.string().required(),
+        panNumber: Joi.string().required(),
+        aadhar: Joi.string().required(),
+        username: Joi.string().required(),
+        password: Joi.string().required(),
+        dob: Joi.object().keys({    
+            month: Joi.number().required(),
+            year: Joi.number().required(),
+            day: Joi.number().required(),
+        })
+        }),
     loginAccount : Joi.object().keys({
         username: Joi.string().required(),
         password: Joi.string().required()

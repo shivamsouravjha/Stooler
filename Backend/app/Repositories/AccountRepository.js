@@ -41,7 +41,7 @@ export default class AccountRepository {
         }
     }
     async addUser(obj){
-        const {name,panNumber,aadhar,username,email,password,number}=obj
+        const {name,panNumber,aadhar,username,email,password,number,dob}=obj
         const userModel = new UserModel({name,
             panNumber,
             aadhar,
@@ -74,9 +74,9 @@ export default class AccountRepository {
             "lastName": "",
             "profilePicURL": "",
             "dob": {
-                "year": 1992,
-                "month": 10,
-                "day": 25
+                "year": dob.year,
+                "month": dob.month,
+                "day": dob.day
             },
             "gender": "",
             "mothersMaidenName": "",
