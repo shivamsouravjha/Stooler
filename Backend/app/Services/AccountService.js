@@ -2,7 +2,6 @@ import AccountRepository from '../Repositories/accountRepository.js';
 import * as Exceptions from '../Exceptions/exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import axios from 'axios';
 
 export default class AccountService{
     constructor() {
@@ -118,42 +117,6 @@ export default class AccountService{
         }
     }
 
-    async transfermoney(user,body) {
-        try {
-            var userDetail = await this.verifyUserDetail({'_id':user})
-            var data = JSON.stringify({
-                "requestID":userDetail._id+Date.now() ,
-                "amount": {
-                  "currency": "INR",
-                  "amount": body.sum
-                },
-                "transferCode": "ATLAS_P2M_AUTH",
-                "debitAccountID": process.env.secretrichie,
-                "creditAccountID": userDetail['accountholderbankID'],
-                "transferTime": Date.now(),
-                "remarks": "Creating group",
-                "attributes": {}
-              });
-              
-              var config = {
-                method: 'post',
-                url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
-                headers: { 
-                  'accept': 'application/json; charset=utf-8', 
-                  'Content-Type': 'application/json', 
-                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                },
-                data : data
-              };
-              
-            var result = await axios(config)
-              .then(function (response) {
-                return response.data;
-              });
-            return {"status":"success"};
-        } catch (error) {
-            console.log(error)
-        throw (new Exceptions.ValidationException("Error finding user details"));
-        }
-    }
+
+
 }
