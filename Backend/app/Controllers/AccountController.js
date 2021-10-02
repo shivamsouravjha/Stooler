@@ -46,38 +46,20 @@ export default class AccountController extends Controller {
 
 
 
-  getData (request) {
-    try{
-      const value = request.params.uid;
-      const user = this.service.findUid(value,request.body);
-      user.then(res => {
-          this.sendResponse(res);
-        })
-        .catch (error => {
-          this.handleException(error);
-        }) 
-      } catch (error) {
-       this.handleException(error)
+    getData (request) {
+      try{
+        const value = request.params.uid;
+        const user = this.service.findUid(value,request.body);
+        user.then(res => {
+            this.sendResponse(res);
+          })
+          .catch (error => {
+            this.handleException(error);
+          }) 
+    } catch (error) {
+        this.handleException(error)
     }
     }
-
-
-  addSum (request) {
-    try{
-      const uid = request.params.uid;
-      const user = this.service.transfermoney(uid,request.body)
-      user.then(res => {
-          this.sendResponse(res);
-        })
-        .catch (error => {
-          this.handleException(error);
-        }) 
-  } catch (error) {
-      this.handleException(error)
-  }
-    }
-
-
       verifyUsername (request) {
           try{
               const exist =  this.service.findUsername(request);

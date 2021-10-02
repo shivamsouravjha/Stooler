@@ -23,14 +23,14 @@ const  EditSource = ()=>{
             var body={"sum":amount};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/users/addsum/account/${userId}/`,"POST",body,{
+                `https://stool-back.herokuapp.com/api/addsum/account/${userId}/`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );
             if(responseData['status']!=200 && responseData['status']!=202){
                 throw responseData.error;
             }
-            setSuccess(responseData.data.status || 'Something went wrong, please try again.');
+            setSuccess(responseData.data.message || 'Something went wrong, please try again.');
             setIsLoading(false);
             setError(false);
             // window.location="/";
