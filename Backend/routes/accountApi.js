@@ -20,7 +20,7 @@ AccountApiRouter.post('/account/:uid', (request, response) => {
 
 AccountApiRouter.post('/addsum/account/:uid', (request, response) => {
   const accountController = new AccountController(response);
-  accountController.getData(request);
+  accountController.addSum(request);
 }); 
 
 AccountApiRouter.post('/account/data/:uid', (request, response) => {
