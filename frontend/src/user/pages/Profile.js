@@ -12,7 +12,13 @@ const Profile = () => {
             <Users/>
             <PieChart/>
             <br/>
-            <Link to={`/addmoney`} > <button className="search_button">Add Money</button></Link>
+
+            <div className="group">
+            <ul className="group-links">
+            <li><Link to={`/addmoney`} > <button className="group_button">ADD Money</button></Link>
+            </li>
+            </ul></div>
+
             <br/>
             <br/>
             <Transaction/>
