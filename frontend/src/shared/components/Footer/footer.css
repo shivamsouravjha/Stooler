@@ -10,24 +10,24 @@
     margin-bottom:0rem;
     clear: both;
     position: relative;
-    
+
   }
-  
+
   .footer .footer-left,
   .footer .footer-center,
   .footer .footer-right {
     display: inline-block;
     vertical-align: top;
   }
-  
-  
+
+
   /* footer left*/
-  
+
   .footer .footer-left {
     width: 33%;
     padding-right: 1.2rem;
   }
-  
+
   .footer .about {
     line-height: 20px;
     color: #ffffff;
@@ -35,7 +35,7 @@
     font-weight: normal;
     margin: 0;
   }
-  
+
  .footer_span {
     display: block;
     color: #ffffff;
@@ -43,21 +43,21 @@
     font-weight: bold;
     margin-bottom: 1.2rem;
   }
-  
+
   .footer .icons {
     margin-top: 1.5rem;
- 
+
   }
   .footer_left_icon{
     background-color: #0a657e;
     color: #ffffff;
-    
+
     width: 2rem;
     height: 2.2rem;
-    
-    
+
+
   }
-  
+
   .footer .icons a {
     display: inline-block;
     width: 2.2rem;
@@ -71,14 +71,14 @@
     margin-right: 0.4rem;
     margin-bottom: 5px;
   }
-  
-  
+
+
   /* footer center*/
-  
+
   .footer .footer-center {
     width: 30%;
   }
-  
+
   .footer_center_icon {
     background-color: #0a657e;
     color: #ffffff;
@@ -91,74 +91,66 @@
     margin: 10px 15px;
     vertical-align: middle;
   }
-  
+
   .footer .footer-center p {
     display: inline-block;
     color: #ffffff;
     vertical-align: middle;
     margin: 0;
   }
-  
-  .footer_center_span {
-      color: #ffffff;
-    display: block;
-    font-weight: normal;
-    font-size: 1rem;
-    line-height: 2;
-  }
-  
+
   .footer .footer-center p a {
     color: #0099ff;
     text-decoration: none;
   }
-  
-  
+
+
   /* footer right*/
-  
+
   .footer .footer-right {
     width: 35%;
     padding:0rem 6rem;
   }
-  
+
  .company_header{
     color: #ffffff;
     font-size: 2.5rem;
     font-weight: bold;
     margin: 0rem;
   }
-  
- 
+
+
 
   .logo{
       width:4rem;
       height:4rem;
       border-radius: 50%;
   }
-  
+
   .footer .menu {
     color: #ffffff;
     margin: 20px 0 12px;
     padding: 0;
   }
-  
+
   .footer .menu a {
     display: inline-block;
     line-height: 1.8;
     text-decoration: none;
     color: inherit;
   }
-  
+
   .footer .menu a:hover {
     color: #109aa1;
   }
-  
+
   .footer .name {
     color: #b3c3ce;
     font-size: 1rem;
     font-weight: normal;
     margin-top: 1.5rem;
   }
-  
+
   @media (max-width: 1100px) {
     .footer {
       font-size: 0.9rem;
@@ -186,3 +178,37 @@
       margin-left: 0;
     }
   }
+
+/* custom media queries for mobile breakpoint */
+@media (max-width: 576px) {
+    footer {
+        padding: 4rem 0 !important;
+    }
+    .social-container {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: baseline !important;
+    }
+    .social-container div {
+        padding: 0 5px;
+    }
+    .social-container div .footer_center_icon {
+        font-size: 1.3rem;
+        margin-left: 12px;
+    }
+    .social-container div p {
+        font-size: 0.75rem;
+    }
+    .social-container div p span.footer_center_span {
+        font-size: 0.75rem;
+    }
+}
+
+.footer_center_span {
+    color: #ffffff;
+    display: block;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 2;
+}
+
