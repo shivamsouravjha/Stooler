@@ -1,4 +1,4 @@
-
+*if you're bluntly copying this repo shamelessly, atleast star the repo*
 # Stool
 Ever thought of investing in stocks even though you don't know much about finances?
 
