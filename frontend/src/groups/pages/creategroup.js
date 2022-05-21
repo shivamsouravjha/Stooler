@@ -30,7 +30,7 @@ const  Newgroup = ()=>{
             var body={"groupName":groupName,"description":description,"genre":genre,"duration":duration,"amount":amount};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `https://stool-back.herokuapp.com/api/groups/create/${userId}`,"POST",body,{
+                `http://localhost:5001/api/groups/create/${userId}`,"POST",body,{
                     'Content-Type': 'application/json'
             });
             if(responseData['status']!=200 && responseData['status']!=202){

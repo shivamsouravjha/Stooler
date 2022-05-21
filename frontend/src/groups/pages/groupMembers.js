@@ -105,7 +105,7 @@ function GroupMembers() {
       var body={"gid":gid,"newOwner":e};
       body = JSON.stringify(body)
       const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/groups/transferownership/removegroup/${userId}/`,"POST",body,{
+          `http://localhost:5001/api/groups/transferownership/removegroup/${userId}/`,"POST",body,{
             'Content-Type': 'application/json'}
       );
       setCompLoading(false);
@@ -170,7 +170,7 @@ function GroupMembers() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/groups/groupmembers/${gid}`,"POST"
+          `http://localhost:5001/api/groups/groupmembers/${gid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;

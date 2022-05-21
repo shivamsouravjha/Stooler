@@ -25,6 +25,9 @@ const Main = props => {
         <li > <Link to={`/crypto`} > 
         <button className="group_button">VIEW CRYPTO</button></Link>
         </li>
+        <li>
+          <button className="group_button">VIEW MUTUAL FUNDS</button>
+        </li>
         
           
         

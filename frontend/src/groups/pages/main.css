@@ -10,7 +10,7 @@
     padding: 1rem;
     font: inherit;
     font-weight: bolder;
-    font-size:1.2rem;
+    font-size:1rem;
   }
   .group{
   
@@ -109,7 +109,7 @@
     padding: 1rem;
     font: inherit;
     font-weight: bolder;
-    font-size:1.3rem;
+    font-size:1rem;
   }
   
   .group-links button:focus {
@@ -174,7 +174,7 @@
       padding: 1rem;
       font: inherit;
       font-weight: bolder;
-      font-size:1.6rem;
+      font-size:1.2rem;
     }
     
    
