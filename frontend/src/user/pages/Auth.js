@@ -67,7 +67,7 @@ const Auth = () => {
 
     if (isLoginMode) {
       try {
-        const response = await fetch("https://stool-back.herokuapp.com/api/users/account/login", {
+        const response = await fetch("http://localhost:5001/api/users/account/login", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json'
@@ -95,15 +95,15 @@ const Auth = () => {
       }
     } else {
       try {
-        var day=parseInt(formState.inputs.sample.value.substr(8));
-        var month=parseInt(formState.inputs.sample.value.substr(5,7));
-        var year=parseInt(formState.inputs.sample.value.substr(0,4));
+        // var day=parseInt(formState.inputs.sample.value.substr(8));
+        // var month=parseInt(formState.inputs.sample.value.substr(5,7));
+        // var year=parseInt(formState.inputs.sample.value.substr(0,4));
         var checkuser=formState.inputs.username.value.slice(-4);
         var checkpan=formState.inputs.panNumber.value.slice(-4);
         if(checkpan !== checkuser){
           throw new Error("Use 4 last character of pan");
         }
-        const response = await fetch('https://stool-back.herokuapp.com/api/users/account/signup', {
+        const response = await fetch('http://localhost:5001/api/users/account/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ const Auth = () => {
             aadhar: formState.inputs.aadhar.value,
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
-            dob:{"year":year,"month":month,"day":day}
+            // dob:{"year":year,"month":month,"day":day}
           })
         });
         const responseData = await response.json();

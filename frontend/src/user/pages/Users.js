@@ -16,7 +16,7 @@ const Users = () => {
         userId = await JSON.parse(userId)
         userId = userId['userId']
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/users/account/data/${userId}`,"POST"
+          `http://localhost:5001/api/users/account/data/${userId}`,"POST"
         );
         const dataResponse = responseData.data;
         setLoadedUsers(dataResponse);

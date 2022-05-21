@@ -136,7 +136,7 @@ function OwnedGroup() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/groups/transferownership/getgroups/${userId}`,"POST"
+          `http://localhost:5001/api/groups/transferownership/getgroups/${userId}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;

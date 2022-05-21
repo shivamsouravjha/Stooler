@@ -140,7 +140,7 @@ function SourceDetails(props) {
         userId = userId['userId']
         console.log("gid");
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/source/getcompany/${gid}`,"POST"
+          `http://localhost:5001/api/source/getcompany/${gid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
