@@ -35,6 +35,13 @@ import RequestSource from '../src/groups/pages/requestsource';
 import DeleteSource from '../src/groups/pages/deletesource';
 import Chatbot from '../src/chatbot/chatbot';
 import Crypto from './crypto/crypto';
+import Mutual_Funds from './mutual_funds/list';
+import Debt from './mutual_funds/Item/debt';
+import Equity from './mutual_funds/Item/equity';
+import Funds_of_funds from './mutual_funds/Item/funds_of_funds';
+import Hybrid from './mutual_funds/Item/hybrid';
+import Index from './mutual_funds/Item/index';
+import Solution from './mutual_funds/Item/solution';
 import { useAuth } from './shared/hooks/auth-hook';
 
 const App = () => {
@@ -106,6 +113,27 @@ const App = () => {
         </Route> */}
         <Route path="/crypto" exact>
           <Crypto/>
+        </Route>
+        <Route path="/mutual_funds" exact>
+          <Mutual_Funds/>
+        </Route>
+        <Route path="/equity" exact>
+          <Equity/>
+        </Route>
+        <Route path="/debt" exact>
+          <Debt/>
+        </Route>
+        <Route path="/funds_of_funds" exact>
+          <Funds_of_funds/>
+        </Route>
+        <Route path="/index" exact>
+          <Index/>
+        </Route>
+        <Route path="/hybrid" exact>
+          <Hybrid/>
+        </Route>
+        <Route path="/solution_oriented" exact>
+          <Solution/>
         </Route>
         <Redirect to="/" />       
       </Switch>
