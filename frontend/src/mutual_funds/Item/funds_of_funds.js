@@ -213,18 +213,7 @@ function Solution() {
                 Name :
             </label>
             <input className="search_input" type="text" name="name"  value={name} placeholder="Enter the name" onChange={e =>setName(e.target.value)}  />
-            
             &nbsp; 
-            
-          <label className="search_label" for="red_all">
-                 Redemption Allowed :
-            </label>
-            <select className="search_input" name="red_all" onChange={e =>setRed_all(e.target.value)}>
-                <option></option>
-                <option value={true} className="options">True</option>
-                <option value={false} className="options">False</option>
-            </select>
-            &nbsp;
             <label className="search_label" for="purc_all">
                  Purchase Allowed :
             </label>
@@ -239,23 +228,40 @@ function Solution() {
             </label>
             <input className="search_input" type="number" name="min_pur_amnt" value={min_pur_amnt} placeholder="Enter Min Amount" onChange={e =>setMin_pur_amnt(e.target.value)}  />
             &nbsp; 
-            
             <label className="search_label" for="divd_type">
                 Dividend Type :
             </label>
-            <input className="search_input" type="text" name="divd_type"  value={divd_type} placeholder="Enter the value" onChange={e =>setDivd_type(e.target.value)}  />
+            <select className="search_input" name="divd_type" onChange={e =>setDivd_type(e.target.value)}>
+                <option></option>
+                <option value="idcw-reinvest" className="options">idcw-reinvest</option>
+                <option value="growth" className="options">growth</option>
+                <option value="idcw-payout" className="options">idcw-payout</option>
+            </select>
             &nbsp; 
 
             <label className="search_label" for="plan">
                 Plan Type :
             </label>
-            <input className="search_input" type="text" name="plan"  value={plan} placeholder="Enter the vlaue" onChange={e =>setPlan(e.target.value)}  />
+            <select className="search_input" name="plan" onChange={e =>setPlan(e.target.value)}>
+                <option></option>
+                <option value="regular" className="options">regular</option>
+                <option value="direct" className="options">direct</option>
+            </select>
             &nbsp; 
 
             <label className="search_label" for="setll_ty">
                 Settlement Type :
             </label>
-            <input className="search_input" type="text" name="setll_ty"  value={setll_ty} placeholder="Enter the value" onChange={e =>setSetll_ty(e.target.value)}  />
+            <select className="search_input" name="setll_ty" onChange={e =>setSetll_ty(e.target.value)}>
+                <option></option>
+                <option value="T1" className="options">T1</option>
+                <option value="T2" className="options">T2</option>
+                <option value="T3" className="options">T3</option>
+                <option value="T4" className="options">T4</option>
+                <option value="T5" className="options">T5</option>
+                <option value="T6" className="options">T6</option>
+                <option value="T7" className="options">T7</option>
+            </select>
             
             <br/> <br/>
             <button type="submit" className="search_button">
