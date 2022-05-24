@@ -42,6 +42,7 @@ import Funds_of_funds from './mutual_funds/Item/funds_of_funds';
 import Hybrid from './mutual_funds/Item/hybrid';
 import Index from './mutual_funds/Item/index';
 import Solution from './mutual_funds/Item/solution';
+import Children from './mutual_funds/Item/children';
 import { useAuth } from './shared/hooks/auth-hook';
 
 const App = () => {
@@ -134,6 +135,9 @@ const App = () => {
         </Route>
         <Route path="/solution_oriented" exact>
           <Solution/>
+        </Route>
+        <Route path="/solution_oriented_children" exact>
+          <Children/>
         </Route>
         <Redirect to="/" />       
       </Switch>

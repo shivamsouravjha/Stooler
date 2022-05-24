@@ -146,7 +146,7 @@ function Solution() {
         var userId = localStorage.getItem('__react_session__');
         userId = await JSON.parse(userId)
         userId = userId['userId']
-        var body={"scheme_type": "Equity"};
+        var body={"scheme_type": "Solution Oriented - Children's"};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
           `http://localhost:5001/Api/source/getcatalogue/`,"POST",body,{
@@ -176,7 +176,7 @@ function Solution() {
                   "dividend_type":divd_type,
                   "plan":plan,
                   "settlement_type":setll_ty,
-                  "scheme_type": "Equity"
+                  "scheme_type": "Solution Oriented - Children's"
                 };
         body = JSON.stringify(body)
         const responseData = await sendRequest(

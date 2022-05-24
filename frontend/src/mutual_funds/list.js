@@ -23,8 +23,6 @@ const Coin = () => {
       <button className="group_button">Funds of Funds</button>
       </Link>
       </li>
-    </ul>
-    <ul className="group-links">
       <li>
       <Link to={`/hybrid`}>
       <button className="group_button">Hybrid</button>
@@ -38,6 +36,11 @@ const Coin = () => {
       <li > 
       <Link to={`/solution_oriented`}>
       <button className="group_button">Solution Oriented</button>
+       </Link>
+       </li>
+       <li>
+       <Link to={`/solution_oriented_children`}>
+      <button className="group_button">Solution Oriented - Children's</button>
        </Link>
       </li>
     </ul>

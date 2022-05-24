@@ -1,0 +1,135 @@
+.search_form{
+   
+    background-color: #f1f1f1;
+    margin-bottom:20px;
+    padding:10px 0px;
+}
+.my_group_search_form{
+    background-color: #f1f1f1;
+    margin-bottom:20px;
+    padding:10px 0px; 
+}
+hr{
+    margin:10px;
+}
+.search_header{
+    margin:5px;
+    color: #0a657e;
+    font-size:2rem;
+    text-align: center;
+}
+.search_label{
+  margin:5px;
+  font-weight: bold; 
+  font-size:1.1rem; 
+}
+
+.search_input{
+    font-size:1rem;
+    background-color: rgb(255, 255, 255);
+    height:1.8rem;
+}
+.search_button{
+    width:10rem;
+    height:2.5rem;
+    color:white;
+ background-color:#0a657e;
+   border-color: #0a657e;
+   border-radius:5px;
+    margin: auto 10%;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.search_button:hover{
+  transform: translate(-3px,-2px);
+  cursor: pointer;
+ }
+
+ .group_source_button{
+    width:15rem;
+    height:3rem;
+    background-color:white;
+   color:#0a657e;
+   border-color: #0a657e;
+   border-radius:5px;
+    margin: auto 10%;
+    margin:20px;
+    font-size: 1.2rem;
+    font-weight:bold ;
+ }
+
+ .group_source_button:hover{
+  
+    color:white;
+   background-color:#0a657e;
+   }
+
+
+/* css for mobile view*/
+@media only screen and (max-width: 1450px) {
+    .search_form{
+        display: inline-block;
+        padding:8px 0px;
+        float:right;
+        
+    }
+    .my_group_search_form{
+        width:70%;
+        padding:8px 0px; 
+    }
+    .search_header{
+        font-size:1.5rem;
+    }
+    .search_label{
+        display: block;
+        margin:10px;
+    }
+    .search_input{
+        margin:8px;
+    }
+    .group_source_button{
+        width:14rem;
+        height:2.5rem;
+        font-size: 1.1rem;
+        font-weight:bold ;
+     }
+}
+
+@media only screen and (max-width: 900px) {
+
+    .search_form{
+   
+      float:none;
+      width:100%;
+    }
+  
+    .search_header{
+        font-size:1.3rem;
+    }
+    .search_label{
+        font-size:1rem;
+        display: block;
+        margin:2px;
+    }
+    .search_input{
+       
+        height:1.2rem;
+        font-size:0.8rem;
+    }
+    .search_button{
+    width:6rem;
+    height:1.8rem;
+    margin: auto 10%;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    }
+    .group_source_button{
+        width:12rem;
+        height:2rem;
+        margin: auto 10%;
+        margin:10px;
+        font-size: 0.9rem;
+        font-weight:bold ;
+     }
+}
