@@ -4,6 +4,7 @@ import { useTable } from 'react-table'
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import './common.css';
+import './searchgroup.css';
 
 const Styles = styled.div`
   
@@ -94,33 +95,46 @@ function Solution() {
       {
         Header: 'AVAILABLE Funds',
         columns: [
-         
-          {
-            Header: 'AMC',
-            accessor: 'amc',
-            
-          },
-          {
-            Header: 'Name',
-            accessor: 'name',
-          },
-          {
-            Header: 'Purchase Allowed',
-            accessor: 'purchase_allowed',
-          },
-          {
-            Header: 'Redemption Allowed',
-            accessor: 'redemption_allowed',
-          },
-          {
-            Header: 'Minimum Purchase Amount',
-            accessor: 'minimum_purchase_amount',
-          },  
+            {
+              Header: 'Trading Symbol',
+              accessor: 'tradingsymbol',
+              
+            },
+            {
+              Header: 'AMC',
+              accessor: 'amc',
+              
+            },
+            {
+              Header: 'Last Price',
+              accessor: 'last_price',
+              
+            },
+            {
+              Header: 'Name',
+              accessor: 'name',
+            },
+            {
+              Header: 'Plan',
+              accessor: 'plan',
+            },
+            {
+              Header: 'Settlement Type',
+              accessor: 'settlement_type',
+            },  
         ],
       },
     ],
     []
   );
+  
+  const [name,setName]=useState("");
+  const [purc_all,setPurc_all]=useState("");
+  const [red_all,setRed_all]=useState("");
+  const [min_pur_amnt,setMin_pur_amnt]=useState("");
+  const [divd_type,setDivd_type]=useState("");
+  const [plan,setPlan]=useState("");
+  const [setll_ty,setSetll_ty]=useState("");
 
   const [error, setError] = useState();
   const {sendRequest} = useHttpClient();
@@ -151,10 +165,105 @@ function Solution() {
     };
     fetchUsers();
   }, []);
- 
+  const onSubmitform = async e =>{
+    e.preventDefault();
+    try{   
+      setCompLoading(true);
+        var body={"name":name,
+                  "purchase_allowed":purc_all,
+                  "redemption_allowed":red_all,
+                  "minimum_purchase_amount":min_pur_amnt,
+                  "dividend_type":divd_type,
+                  "plan":plan,
+                  "settlement_type":setll_ty,
+                  "scheme_type": "Solution Oriented"
+                };
+        body = JSON.stringify(body)
+        const responseData = await sendRequest(
+            `http://localhost:5001/Api/source/getcatalogue/`,"POST",body,{
+                'Content-Type': 'application/json'
+        });
+        if(responseData['status']!=200 && responseData['status']!=202){
+          throw responseData.error;
+      }
+        const dataResponse = responseData.data;
+
+        setLoadedUsers(dataResponse);
+
+        console.log(responseData.data)
+        setCompLoading(false);        
+    }catch(err){
+      console.log(err)
+      setCompLoading(false);
+        setError(err.message || 'Something went wrong, please try again.');
+    }
+}
+  
   var data = React.useMemo(() => loadedUsers, [loadedUsers]);
   return (
-    <Fragment>          
+    <Fragment> 
+        <div className="group_form_div">
+<center>
+        <form  action="/" id="event_form"  name="event_form" className="search_form" onSubmit={onSubmitform}>
+            <h2 className="search_header">
+                Filter Funds by
+            </h2> 
+            <hr/>
+            <label className="search_label" for="name">
+                Name :
+            </label>
+            <input className="search_input" type="text" name="name"  value={name} placeholder="Enter the name" onChange={e =>setName(e.target.value)}  />
+            
+            &nbsp; 
+            
+          <label className="search_label" for="red_all">
+                 Redemption Allowed :
+            </label>
+            <select className="search_input" name="red_all" onChange={e =>setRed_all(e.target.value)}>
+                <option></option>
+                <option value={true} className="options">True</option>
+                <option value={false} className="options">False</option>
+            </select>
+            &nbsp;
+            <label className="search_label" for="purc_all">
+                 Purchase Allowed :
+            </label>
+            <select className="search_input" name="purc_all" onChange={e =>setPurc_all(e.target.value)}>
+                <option></option>
+                <option value={true} className="options">True</option>
+                <option value={false} className="options">False</option>
+            </select>
+            &nbsp;
+            <label className="search_label" for="min_pur_amnt" >
+                Minimum Purchase Amount :
+            </label>
+            <input className="search_input" type="number" name="min_pur_amnt" value={min_pur_amnt} placeholder="Enter Min Amount" onChange={e =>setMin_pur_amnt(e.target.value)}  />
+            &nbsp; 
+            
+            <label className="search_label" for="divd_type">
+                Dividend Type :
+            </label>
+            <input className="search_input" type="text" name="divd_type"  value={divd_type} placeholder="Enter the value" onChange={e =>setDivd_type(e.target.value)}  />
+            &nbsp; 
+
+            <label className="search_label" for="plan">
+                Plan Type :
+            </label>
+            <input className="search_input" type="text" name="plan"  value={plan} placeholder="Enter the vlaue" onChange={e =>setPlan(e.target.value)}  />
+            &nbsp; 
+
+            <label className="search_label" for="setll_ty">
+                Settlement Type :
+            </label>
+            <input className="search_input" type="text" name="setll_ty"  value={setll_ty} placeholder="Enter the value" onChange={e =>setSetll_ty(e.target.value)}  />
+            
+            <br/> <br/>
+            <button type="submit" className="search_button">
+                Search
+            </button>
+        </form> 
+    </center>
+</div>      
       {compLoading ?<LoadingSpinner asOverlay /> : (!data ? <h1>No data </h1>:(
               <Styles>
                 <Table columns={columns} data={data} />
