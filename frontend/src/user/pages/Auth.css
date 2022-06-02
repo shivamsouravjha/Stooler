@@ -1,15 +1,68 @@
 .authentication__header {
   color: white;
-  text-align: center;
+  text-align: left;
 }
 
 .authentication {
-  width: 90%;
+  width: 70%;
   max-width: 25rem;
   margin: 7rem auto;
   text-align: center;
+  font-family: montserrat;
+  padding: 50px;
 }
 
+.authentication h1{
+  text-align: center;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid silver;
+}
+
+.infoBox label{
+  position: absolute;
+  font-size: 15px;
+  font-family: montserrat;
+  color:#adadad;
+  padding: 30px 5px 30px 0;
+  transform: translateY(-50%);
+}
+
+.infoBox input{
+  border:none;
+  border-bottom: 1px solid #adadad;
+  color:#807e7e;
+  width: 95%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  background: none;
+  transition: width 0.8s ease-in-out;
+
+}
+
+.infoBox label:hover{
+  color: #555;
+}
+
+.infoBox input:focus{
+  width: 100%;
+  background: none;
+  color: #555;
+  border-bottom: 3px solid rgb(135, 178, 231);
+  padding: 30px 0 20px 5px;
+
+}
+
+.infoBox input:hover{
+  width: 100%;
+  background: none;
+  color: #555;
+  border-bottom: 3px solid rgb(44, 124, 221);
+  padding: 30px 0 20px 5px;
+}
+
+
 .authentication form {
+  padding: 20px 0 0 0;
   margin-bottom: 1rem;
 }

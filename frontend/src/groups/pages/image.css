@@ -1,31 +1,24 @@
 
 
 .image_div{
-    background: #0a657e;
-    font-family: 'PT Serif', serif;
+    background: rgb(78, 86, 235);
+    font-family: montserrat;
       
   }
   
   .image_head {
-      background: #ecdbe7 url(https://images.moneycontrol.com/static-mcnews/2021/07/stocks_sensex_nifty_stockmarket-5.jpg);
+      background: #ecdbe7 ;
       background-size: 50% 200%;
       background-position: bottom;
-      background-clip: text;
-      -webkit-background-clip: text;
-     
-  font-family:'Courier New', Courier, monospace;
+      
+      font-family: montserrat;
       font-size: 15vw;
       position: relative;
       text-align: left;
       margin: 1rem;
       line-height: 1.2;
   
-      &::before {
-          content:'Kylie Timpani';
-          text-align: center;
-          position: absolute;
-          z-index: -1;
-      }
+      
   }
   @supports (-webkit-background-clip: text) or (background-clip: text) {
     .image_head {
@@ -40,7 +33,7 @@
       text-align: right;
       margin:1rem 2rem;
       color: #f6d6b5;
-      font-family: cursive;
+      font-family: montserrat;
     	
   }
       
@@ -57,36 +50,15 @@
       mix-blend-mode: overlay;
       transform: rotate(180deg);
       
-      &.offset {
+      /*&.offset {
           transform: rotate(0);
           bottom: 200%;
           z-index:-1;
-      }
+      }*/
   }
   
-  .inner {
-      clip-path: polygon(50% 0, 0 100%, 100% 100%);
-      width: 90%;
-      height: 80%;
-      background: #ce6f75;
-      top: 50%; 
-      position: relative;
-      transform: translateY(-60%);
-  }
   
-  .inner2 {
-      background: #cbc2a3;
-      position: absolute;
-      mix-blend-mode: overlay;
-  }
   
-  .inner3 {
-      background: #cbc2a3;
-      position: absolute;
-      mix-blend-mode: overlay;
-      bottom: 0;
-      top: 100%;
-  }
   
   
   @media (max-width: 768px){

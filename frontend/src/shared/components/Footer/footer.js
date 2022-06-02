@@ -19,7 +19,7 @@ const Footer = props => {
 <footer class="footer">
   <div class="footer-left col-md-4 col-sm-6">
     <p class="about">
-      <span className="footer_span"> About Stool</span>
+      <span className="footer_span"> About Us</span>
       Stool is a platform where you can join a group and invest in Stocks, Gold/Silver, Cryptocurrency, Currency Exchange.
       You can join a group by paying above the minimum amount set by the group leader. Invest with lowest amount with less stress of managing the resources.
     </p>
@@ -27,10 +27,10 @@ const Footer = props => {
 
 
 
-    <a><FontAwesomeIcon className="footer_left_icon" style={{width:"2rem",height:"2.1rem"}} icon={faTwitterSquare} size="1.5x" /></a>
-    <a><FontAwesomeIcon className="footer_left_icon" style={{width:"2rem",height:"2.1rem"}}  icon={faLinkedin} size="1.5x" /></a>
-    <a><FontAwesomeIcon  className="footer_left_icon" style={{width:"2rem",height:"2.1rem"}} icon={faGithub} size="1.5x" /></a>
-    <a> <FontAwesomeIcon className="footer_left_icon"  icon={faFacebook} style={{width:"2rem",height:"2.1rem"}} size="1.5x" /></a>
+    <a><FontAwesomeIcon className="footer_left_icon"  icon={faTwitterSquare} size="1.5x" /></a>
+    <a><FontAwesomeIcon className="footer_left_icon"  icon={faLinkedin} size="1.5x" /></a>
+    <a><FontAwesomeIcon  className="footer_left_icon"  icon={faGithub} size="1.5x" /></a>
+    <a> <FontAwesomeIcon className="footer_left_icon"  icon={faFacebook}  size="1.5x" /></a>
 
 
     </div>

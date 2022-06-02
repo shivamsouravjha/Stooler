@@ -148,113 +148,130 @@ const Auth = () => {
       <ErrorModal error={error} onClear={errorHandler} />
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
-        <h1>Login Required</h1>
-        <h4>It is mandatory to fill all the fields<span>*</span></h4>
-        <hr />
+        <h1>Login </h1>
         <form onSubmit={authSubmitHandler}>
           {!isLoginMode && (
+            <div className="infoBox">
             <Input
               element="input"
               id="name"
               type="text"
-              label="Your Name"
+              label="Name"
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter a name."
               onInput={inputHandler}
-            />)
+            />
+            </div>)
           }
           
           {!isLoginMode && (
+            <div className="infoBox">
             <Input
               element="input"
               id="email"
               type="email"
-              label="E-Mail address"
+              label="E-Mail"
               validators={[VALIDATOR_EMAIL()]}
               errorText="Please enter a valid email address."
               onInput={inputHandler}
-            />)
+            />
+            </div>)
           }
           {!isLoginMode && (
+            <div className="infoBox">
               <Input
                 element="input"
                 id="number"
                 type="text"
-                label="Your Mobile Number"
+                label="Mobile Number"
                 validators={[VALIDATOR_FIXLENGTH(10)]}
                 errorText="Please enter exact 10 digit Mobile number."
                 onInput={inputHandler}
-              />)
+              />
+              </div>)
           }  
           {!isLoginMode && (
+            <div className="infoBox">
             <Input
               element="input"
               id="panNumber"
               type="text"
-              label="Your 10 digit PAN Card Number"
+              label="PAN Card Number"
               validators={[VALIDATOR_FIXLENGTH(10)]}
               errorText="Please enter exact 10 digit Pancard number."
               onInput={inputHandler}
-            />)
+            />
+            </div>)
           }
           {!isLoginMode && (
+            <div className="infoBox">
             <Input
               element="input"
               id="aadhar"
               type="text"
-              label="Your 12 digit AADHAR Number"
+              label="AADHAR Number"
               validators={[VALIDATOR_FIXLENGTH(12)]}
               errorText="Please enter exact 12 digit aadhar number."
               onInput={inputHandler}
-            />)
+            />
+            </div>)
           }
           {!isLoginMode && (
+            <div className="infoBox">
             <Input
               element="input"
               id="sample"
               type="date"
-              label="Enter Date of Birth"
+              label="Date of Birth"
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please select date."
               onInput={inputHandler}
-            />)
+            />
+            </div>)
           }
           {!isLoginMode && (
+            <div className="infoBox">
             <Input
               element="input"
               id="username"
               type="text"
-              label = "Create a Username"
-              placeholder=" Username must've last 4 digits of PAN number"
+              label = "New Username"
+              placeholder=" must include last 4 digits of PAN"
               validators={[VALIDATOR_MINLENGTH(7)]}
               errorText="Create a user Name of length at least 7"
               onInput={inputHandler}
-            />)
+            />
+            </div>)
           }
           {isLoginMode && (
-            <Input
+            <div className="infoBox">
+              <Input
               element="input"
               id="username"
               type="text"
-              label = "Username"
+              label="Username"
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter a username"
               onInput={inputHandler}
-            />)
+              />
+            </div>)
           }
           {!isLoginMode && (
+            <div className="infoBox">
             <Input
               element="input"
               id="password"
               type="password"
-              label="Create a Password"
-              placeholder="using Combination of {0-9},{a-z},{A-Z}"
+              label="New Password"
+              placeholder="use alphanumeric combination"
               validators={[VALIDATOR_PASSWORD()]}
               errorText="Must contain an uppercanse and lowercase character with a number"
               onInput={inputHandler}
-            />)
+            />
+            </div>)
           }
           {isLoginMode && (
+            <div className="infoBox">
             <Input
               element="input"
               id="password"
@@ -263,14 +280,15 @@ const Auth = () => {
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter a password."
               onInput={inputHandler}
-            />)
+            />
+            </div>)
           }
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? 'LOGIN' : 'SIGNUP'}
           </Button>
         </form>
         <Button inverse onClick={switchModeHandler}>
-          SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
+           {isLoginMode ? 'SIGNUP' : 'LOGIN'}
         </Button>
       </Card>
     </React.Fragment>

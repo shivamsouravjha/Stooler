@@ -3,6 +3,7 @@ import ChatBot from 'react-simple-chatbot'
 import Botpic from './Full-HD-Mobile-Minimal-Wallpaper-HD11-1080X1920.jpg'
 import { ThemeProvider } from 'styled-components'
 import '../App.css'
+
 const theme = {
   background: '#f5f8fb',
   fontFamily: 'Helvetica Neue',

@@ -1,10 +1,11 @@
 .footer {
-    background-color: #0a657e;
+    background-color: rgb(33, 28, 50);
     width: 100%;
     text-align: left;
-    font-family: sans-serif;
+    font-family: montserrat;
     font-weight: bold;
     font-size: 1.2rem;
+    letter-spacing: 0.7px;
     padding: 4rem;
     margin-top: 10rem;
     margin-bottom:0rem;
@@ -49,13 +50,20 @@
 
   }
   .footer_left_icon{
-    background-color: #0a657e;
+    background-color: rgb(33, 28, 50);
     color: #ffffff;
 
     width: 2rem;
     height: 2.2rem;
 
 
+  }
+
+  .footer_left_icon:hover{
+    transition: 1s;
+    width: 3rem;
+    height: 2.7rem;
+    
   }
 
   .footer .icons a {
@@ -80,7 +88,7 @@
   }
 
   .footer_center_icon {
-    background-color: #0a657e;
+    background-color: rgb(33, 28, 50);
     color: #ffffff;
     font-size: 25px;
     width: 2.2rem;
@@ -141,7 +149,8 @@
   }
 
   .footer .menu a:hover {
-    color: #109aa1;
+    transition: 1s;
+    font-size: 25px;
   }
 
   .footer .name {

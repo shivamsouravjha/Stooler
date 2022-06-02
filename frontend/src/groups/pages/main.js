@@ -14,7 +14,7 @@ const Main = props => {
       <ul className="group-links">
         
         <li> <Link to={`/group_auth`}> 
-        <button >CREATE A GROUP</button></Link>
+        <button className="group_button" >CREATE A GROUP</button></Link>
         </li>
         <li > <Link to={`/view_group`} > 
         <button className="group_button">JOIN A GROUP</button></Link>
@@ -36,7 +36,7 @@ const Main = props => {
       </ul>
       </div>
       <div className="mission_def">
-      <h1 className="about_stool_h1">Our Mission </h1><hr/>
+      <h1 className="about_stool_h1">Mission </h1><hr/>
       <p className="about_content">
       <strong>
       <ul className="about_div_ul mission">

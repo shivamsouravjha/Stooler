@@ -11,7 +11,7 @@ const Image = props => {
       
 
 <div className="image_div">
-	<h1 className="image_head" style={{ backgroundImage: `url(${background})` }}>STOOL</h1>
+	<h1 className="image_head" >STOOL</h1>
 	<p class="position">Invest in Future</p>
 
   <div class="inner"></div>
