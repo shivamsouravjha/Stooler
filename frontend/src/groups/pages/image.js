@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/auth_context';
 import "./image.css";
-import background from '../../images/background2.jpg';
+import nivesh from '../../images/NIVESH.png';
+
 const Image = props => {
     const auth = useContext(AuthContext);
   
@@ -11,9 +12,9 @@ const Image = props => {
       
 
 <div className="image_div">
-	<h1 className="image_head" >STOOL</h1>
-	<p class="position">Invest in Future</p>
-
+	<figure>
+    <img src={nivesh}></img>
+  </figure>
   <div class="inner"></div>
 			<div class="inner inner2"></div>
 </div>

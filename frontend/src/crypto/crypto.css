@@ -4,7 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family:  sans-serif;
+  font-family:   montserrat;
  
 }
 
@@ -14,7 +14,7 @@
   align-items: center;
   margin-top: 64px;
   
-  color: rgb(0, 0, 0);
+  color: rgb(99, 99, 99);
 }
 
 .coin-search {
@@ -29,8 +29,13 @@
 }
 
 .coin-text {
-  text-align: center;
-  color:#0a657e;
+  font-family: montserrat;
+    color:#5271ff;
+    letter-spacing: 1px;
+    font-size: 25px;
+    margin: 0.5rem;
+  text-align:left;
+  
 }
 
 .coin-input {
@@ -39,11 +44,13 @@
   height: 44px;
   border-radius: 5px;
   border: none;
-  background-image: #a5a4a4;
+  background-color: #fff;
   font-size:20px;
   text-align: center; 
-  color: #000000;
+  color: rgb(67, 66, 66);
 }
+
+
 
 .coin-input::placeholder {
   color: #e2e2e2;
@@ -53,9 +60,17 @@
   .coin-input{
     width:200px;
     height:35px;
-    margin:0.5rem;
     font-size:15px ;
+    margin-left: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    font-size:20px;
+    text-align: center; 
+    color: rgb(67, 66, 66);
   }
+  
+  
   .coin-search{
     padding:auto;
   }

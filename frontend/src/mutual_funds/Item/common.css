@@ -2,13 +2,19 @@
     width:70%;
     margin:auto;
     border-spacing: 0;
-    border: 1px solid black;
+    border: 1px solid silver;
 }
 .join_my_group_table{
     width:75%;
     margin:auto;
     border-spacing: 0;
-    border: 1px solid black;
+    border: 1px solid silver;
+}
+.join_group_head{
+    color:rgb(99, 99, 99);
+    font-family: montserrat bold; 
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .join_group_div{
@@ -26,8 +32,8 @@ height:60px;
     font-weight: bolder;
 }
 .join_group_data{
-    font-family:Arial, Helvetica, sans-serif;
-    font-size:1.3rem;
+    font-family: montserrat;
+    font-size:14px;
 }
 tr:nth-child(2n+1){
     background-color: #f1f1f1;

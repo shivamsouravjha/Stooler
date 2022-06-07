@@ -12,7 +12,7 @@
   text-decoration: none;
   padding: 1rem;
   color: white;
-  background: #292929;
+  background: #b93131;
 }
 
 .user-item__content {
@@ -27,21 +27,20 @@
 }
 
 .user-item__info h2 {
-  font-size: 1.5rem;
+  font-size: 18px;
   margin: 0 0.5rem 0.5rem 0;
-  font-weight: normal;
-  color: #130101;
+  color: rgb(62, 62, 62);
   text-align: left;
-  padding-left: 1rem;
+  padding-left: 25px;
 }
 
 
 .investment{
-  font-size: 1.8rem;
+  font-size: 25px;
   margin-top: 15px;
   text-align: center;
-  font-weight: bold;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: montserrat ;
+  color: #57d9b2;
 }
 
 .investment_hr{
@@ -50,13 +49,13 @@
 
 @media(max-width:900px){
   .user-item__info h2 {
-    font-size: 1.1rem;
-    margin: 1rem 0.5rem 0.5rem 0;
-    font-weight: normal;
-    color: #130101;
-    text-align: left;
-    padding-left: 1rem;
+    font-size: 18px;
+  margin: 0 0.5rem 0.5rem 0;
+  color: rgb(62, 62, 62);
+  text-align: left;
+  padding-left: 25px;
 }
+
 .user-item__image {
   width: 11rem;
   height: 8rem;

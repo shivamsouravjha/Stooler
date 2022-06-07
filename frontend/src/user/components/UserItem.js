@@ -12,11 +12,12 @@ const UserItem = props => {
           </div>
           <div className="user-item__info">
             <h2><strong>Name :</strong> {props.name}</h2>
-            <h2><strong>UserName :</strong> {props.username}</h2>
-            <h2><strong>Number :</strong> {props.number}</h2>
+            <h2><strong>Username :</strong> {props.username}</h2>
+            <h2><strong>Contact :</strong> {props.number}</h2>
             <h2><strong>Email ID :</strong> {props.email}</h2>
             <h2><strong>Aadhar :</strong> {props.aadhar}</h2>
-            <h2><strong>PanNumber :</strong> {props.panNumber}</h2>
+            <h2><strong>PAN:</strong> {props.panNumber}</h2>
+            
             
               <hr className="investment_hr"/>
                <p className="investment">Invested in {props.groups} {props.groups === 1 ? 'Group' : 'Groups'} </p>

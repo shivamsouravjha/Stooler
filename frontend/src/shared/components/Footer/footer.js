@@ -20,7 +20,7 @@ const Footer = props => {
   <div class="footer-left col-md-4 col-sm-6">
     <p class="about">
       <span className="footer_span"> About Us</span>
-      Stool is a platform where you can join a group and invest in Stocks, Gold/Silver, Cryptocurrency, Currency Exchange.
+      Nivesh is a platform where you can join a group and invest in Stocks, Gold/Silver, Cryptocurrency, Currency Exchange.
       You can join a group by paying above the minimum amount set by the group leader. Invest with lowest amount with less stress of managing the resources.
     </p>
     <div class="icons">
@@ -46,15 +46,15 @@ const Footer = props => {
     </div>
     <div>
     <FontAwesomeIcon className="footer_center_icon" icon={faEnvelope} size="1.5x"/>
-      <p><a href="mailto:stool@googlegroups.com">stool@googlegroups.com</a></p>
+      <p><a href="mailto:stool@googlegroups.com">nivesh@googlegroups.com</a></p>
     </div>
   </div>
   <div class="footer-right col-md-4 col-sm-6">
-    <h2 className="company_header"> STOOL<img src={Logo} className="logo"/></h2>
+    <h2 className="company_header"> NIVESH<img src={Logo} className="logo"/></h2>
     <p class="menu">
     <NavLink to="/" exact> Home </NavLink> | <NavLink to="/aboutus" exact> About Us</NavLink>
     </p>
-    <p class="name"> Stool &copy; 2021</p>
+    <p class="name"> Nivesh &copy; 2021</p>
   </div>
 
 </footer>
