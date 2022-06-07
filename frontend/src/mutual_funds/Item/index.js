@@ -213,7 +213,7 @@ function Solution() {
                 Name :
             </label>
             <input className="search_input" type="text" name="name"  value={name} placeholder="Enter the name" onChange={e =>setName(e.target.value)}  />
-            &nbsp; 
+            <br/> 
             <label className="search_label" for="purc_all">
                  Purchase Allowed :
             </label>
@@ -222,12 +222,12 @@ function Solution() {
                 <option value={true} className="options">True</option>
                 <option value={false} className="options">False</option>
             </select>
-            &nbsp;
+            <br/>
             <label className="search_label" for="min_pur_amnt" >
                 Minimum Purchase Amount :
             </label>
             <input className="search_input" type="number" name="min_pur_amnt" value={min_pur_amnt} placeholder="Enter Min Amount" onChange={e =>setMin_pur_amnt(e.target.value)}  />
-            &nbsp; 
+            <br/> 
             <label className="search_label" for="divd_type">
                 Dividend Type :
             </label>
@@ -237,7 +237,7 @@ function Solution() {
                 <option value="growth" className="options">growth</option>
                 <option value="idcw-payout" className="options">idcw-payout</option>
             </select>
-            &nbsp; 
+            <br/> 
 
             <label className="search_label" for="plan">
                 Plan Type :
@@ -247,7 +247,7 @@ function Solution() {
                 <option value="regular" className="options">regular</option>
                 <option value="direct" className="options">direct</option>
             </select>
-            &nbsp; 
+            <br/> 
 
             <label className="search_label" for="setll_ty">
                 Settlement Type :
