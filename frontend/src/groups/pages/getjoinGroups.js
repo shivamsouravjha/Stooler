@@ -27,8 +27,8 @@ padding:0rem;
       
       text-align:center;
       padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      border-bottom: 1px solid silver;
+      border-right: 1px solid silver;
       :last-child {
         border-right: 0;
       }
@@ -39,7 +39,7 @@ padding:0rem;
       text-align:center;
       padding: 0.5rem;
       border-bottom: 1px solid silver;
-      border-right: 1px solid black;
+      border-right: 1px solid silver;
 
       :last-child {
         border-right: 0;

@@ -1,21 +1,38 @@
 
 
 .image_div{
-    background: rgb(78, 86, 235);
-    font-family: montserrat;
-      
-  }
+    overflow: hidden;
+    
+}
+
+.image_div figure{
+    width: 100%;
+    position: relative;
+}
+
+.image_div img{
+    width: 100%;
+    
+}
+
+.image_div figure img{
+    width: 100%;
+    float:left;
+    
+    margin-bottom: 7%;
+
+}
   
   .image_head {
       background: #ecdbe7 ;
-      background-size: 50% 200%;
+      background-size: 80% 200%;
       background-position: bottom;
       
       font-family: montserrat;
-      font-size: 15vw;
+      font-size: 13vw;
       position: relative;
       text-align: left;
-      margin: 1rem;
+     
       line-height: 1.2;
   
       
@@ -29,9 +46,8 @@
   }
   
   .position{
-      font-size: 5rem;
+      font-size: 3rem;
       text-align: right;
-      margin:1rem 2rem;
       color: #f6d6b5;
       font-family: montserrat;
     	
@@ -39,37 +55,46 @@
       
 
   
-  .overlay {
-      bottom: 0;
-      left:0;
-      clip-path: polygon(50% 0, 0 100%, 100% 100%);
-      width: 100%;
-      height: 130%;
-      background: #de8f87;
-      position: absolute;
-      mix-blend-mode: overlay;
-      transform: rotate(180deg);
-      
-      /*&.offset {
-          transform: rotate(0);
-          bottom: 200%;
-          z-index:-1;
-      }*/
-  }
+  
   
   
   
   
   
   @media (max-width: 768px){
+
+
+.image_div{
+    overflow: hidden;
+    
+}
+
+.image_div figure{
+    width: 300%;
+    position: relative;
+}
+
+.image_div img{
+    width: 100%;
+    
+}
+
+.image_div figure img{
+    width: 30.33%;
+    float:left;
+   
+    margin-bottom: 7%;
+
+}
+  
       .image_head{
           text-align: center;
-          font-size:4.5rem;
+          font-size:3.5rem;
           margin:0rem;
       }
 .position{
       margin: 0.5rem 1rem;
-      font-size:1.5rem;
+      font-size:1rem;
   }
   .inner{
       display: none;

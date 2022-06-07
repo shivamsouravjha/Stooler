@@ -9,9 +9,17 @@
     justify-content: start;
     align-items: center;
     height: 80px;
-    border-bottom: 1px solid #0a657e;
+    border-bottom: 1px solid silver;
    
   }
+
+  .coin-text {
+    font-family: montserrat;
+    color:#5271ff;
+    letter-spacing: 1px;
+    font-size: 25px;
+    margin: 0.5rem;
+}
   
   .coin { 
     display: flex;
@@ -22,6 +30,8 @@
   }
   
   .coin h1 {
+    font-family: montserrat;
+    color:rgb(99, 99, 99);
     font-size: 16px;
     width: 150px;
   }
@@ -34,6 +44,8 @@
   
   .coin-symbol {
     text-transform: uppercase;
+    font-family: montserrat;
+    color:rgb(99, 99, 99);
   }
   
   .coin-data {

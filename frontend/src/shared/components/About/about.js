@@ -24,17 +24,32 @@ const About = props => {
   <div className="aboutsection">
     <div className="innercontainer">
       <h1 >ABOUT US</h1>
-      <p className="text">Stool provides you a platform which helps you to climb the ladder of financial growth by investing in groups having members sharing common interests. The common goal of getting high returns leads 
+      <p className="text">Nivesh provides you a platform which helps you to climb the ladder of financial growth by investing in groups having members sharing common interests. The common goal of getting high returns leads 
     to deeper research and growth of the investing community.   
-    To explain more, Stool lets you invest in a financial entity via group pool. Friends and strangers come together to invest in stocks, gold, cryptocurrency and currency exchange for sharing the investment strategy and profit.</p>
+    To explain more, Nivesh lets you invest in a financial entity via group pool. Friends and strangers come together to invest in stocks, gold, cryptocurrency and currency exchange for sharing the investment strategy and profit.</p>
     </div>
   </div>
 
+
   <div className="aboutsectionl">
     <div className="innercontainerl">
-      <h1 >ABOUT US</h1>
-      <p className="textl">
-        <ul>
+      <h1 >Background</h1>
+      <p className="text">
+      Investment is a complex process and a lot of research goes around it. This is the reason many people are afraid to invest in the market that is 
+        producing wealth  constantly. The causes behind this fear :
+        <ul className="about_div_ul"><li>Unpredictability of the market</li>
+        <li>Lack of market knowledge and research</li>
+        <li>Untrustable sources</li>
+        <li>Conflict in interests</li>
+        </ul> </p> 
+    </div>
+  </div>
+
+  <div className="aboutsectionr">
+    <div className="innercontainerr">
+      <h1 >Why Us?</h1>
+      <p className="text">
+        <ul className="about_div_ul">
       <li>Provide a stable platform to users finding new investment methods </li>
      <li>Spread the knowledge of financial independence</li>
       <li>Make a community of people willing to help people lead a stable life</li>
@@ -43,38 +58,7 @@ const About = props => {
   </div>
 
   
-  <div className='aboutparallel'>
-  <div className="about_def">
-    <h1 className="about_stool_h1">About</h1>
-    <p className="about_content">
-    Stool provides you a platform which helps you to climb the ladder of financial growth by investing in groups having members sharing common interests. The common goal of getting high returns leads 
-    to deeper research and growth of the investing community.   
-    To explain more, Stool lets you invest in a financial entity via group pool. Friends and strangers come together to invest in stocks, gold, cryptocurrency and currency exchange for sharing the investment strategy and profit.
-    </p>
-  </div>
 
-  <div className="about_def">
-    <h1 className="about_stool_h1">Mission </h1>
-    <p className="about_content">
-    <ul className="about_div_ul mission">
-    <li> Provide a stable platform to users finding new investment methods </li> 
-    <li> Spread the knowledge of financial independence</li>
-    <li>Make a community of people willing to help people lead a stable life</li></ul>
-    </p>
-  </div>
-
-
-  <div className="about_def">
-  <h1 className="about_stool_h1">Mission </h1>
-    <p className="about_content">Investment is a complex process and a lot of research goes around it. This is the reason many people are afraid to invest in the market that is 
-        producing wealth  constantly. The causes behind this fear :
-        <ul className="about_div_ul"><li>Unpredictability of the market</li>
-        <li>Lack of market knowledge and research</li>
-        <li>Untrustable sources</li>
-        <li>Conflict in interests</li>
-        </ul> </p> 
-  </div>
-  </div>
 
   <div className="pillar_div">
 
@@ -128,42 +112,40 @@ const About = props => {
       <p className='faqheading'>FAQs</p>
       <div className='faqs'>
         <details>
-          <summary>What is stool?</summary>
+          <summary>What is Nivesh?</summary>
           <hr className='faqline'></hr>
-          <p className='faqtext'>Stool is this that blah blah</p>
+          <p className='faqtext'>Nivesh is a paltform where you can join a group and invest in Stocks, Gold, Cryptocurrency, Currency Exchange.</p>
         </details>
         <details>
-          <summary>What is stool?</summary>
+          <summary>Why to join Nivesh?</summary>
           <hr className='faqline'></hr>
-          <p className='faqtext'>Stool is this that blah blah</p>
+          <p className='faqtext'>Invest with lowest amount with less stress of managing the resources.</p>
         </details>
         <details>
-          <summary>What is stool?</summary>
+          <summary>How to join a group?</summary>
           <hr className='faqline'></hr>
-          <p className='faqtext'>Stool is this that blah blah</p>
+          <p className='faqtext'>You can join a group by paying above the minimum amount set by the group leader.</p>
         </details>
         <details>
-          <summary>What is stool?</summary>
+          <summary>Have some other doubts?</summary>
           <hr className='faqline'></hr>
-          <p className='faqtext'>Stool is this that blah blah</p>
+          <p className='faqtext'>Mail to: nivesh@googlegroups.com</p>
         </details>
-        <details>
-          <summary>What is stool?</summary>
-          <hr className='faqline'></hr>
-          <p className='faqtext'>Stool is this that blah blah</p>
-        </details>
+        
       </div>
     </div>
 
     <div className="conclusion">
-      <div className="statictext">Do you want your</div>
+      <div className="statictext">Join NIVESH if you want your</div>
       <ul className="dynamictext">
-     <li><span> INVESTMENTS TO GROW MORE? </span></li> 
-     <li><span> MONEY TO MAKE MORE MONEY? </span></li> 
-     <li><span> FINANCIAL RISKS TO BE MINIMAL?</span></li>
+     <li><span> INVESTMENTS TO GROW MORE!</span></li> 
+     <li><span> MONEY TO MAKE MORE MONEY!</span>  </li> 
+     <li><span> FINANCIAL RISKS TO BE MINIMAL!</span></li>
      </ul>
-
+     
     </div>
+    
+
 
 </div>
 

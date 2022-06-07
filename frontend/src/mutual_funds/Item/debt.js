@@ -93,7 +93,7 @@ function Solution() {
     () => [
     
       {
-        Header: 'AVAILABLE Funds',
+        Header: 'AVAILABLE FUNDS',
         columns: [
             {
               Header: 'Trading Symbol',

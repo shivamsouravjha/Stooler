@@ -53,6 +53,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
+
           <Image/>
           <Main />
           <Pillars/>

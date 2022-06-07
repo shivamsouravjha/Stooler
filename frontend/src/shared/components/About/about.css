@@ -7,17 +7,17 @@
     
 }
  
+
+
 .aboutsection{
     background: url(../../../images/aboutcvr.png) no-repeat left;
     background-size: 85%;
     background-color: #fdfdfd;
     overflow: hidden;
-    padding: 100px 0;
+    
     margin-left: 20px;
     margin-bottom: 40px;
 }
-
-
 
 .innercontainer{
     width: 45%;
@@ -41,7 +41,62 @@
     line-height: 30px;
     text-align: justify;
     margin-bottom: 40px;
+    font-family: montserrat;
+    letter-spacing: 1px;
 }
+
+
+.aboutsectionl{
+    background: url(../../../images/aboutcvrl.png) no-repeat left;
+    background-size: 95%;
+    overflow: hidden;
+    padding: 100px 0;
+   
+    margin-bottom: 40px;
+}
+
+.innercontainerl{
+    width: 50%;
+    float: left;
+    background-color: rgb(236, 234, 234);
+    padding: 80px;
+    font-family: montserrat;
+    letter-spacing: 1px;
+    margin-left: 40px;
+}
+
+.innercontainerl h1{
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.aboutsectionr{
+    background: url(../../../images/aboutcvrr.png) no-repeat left;
+    background-size: 95%;
+    overflow: hidden;
+    padding: 100px 0;
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+
+.innercontainerr{
+    width: 50%;
+    float: right;
+    background-color: rgb(236, 234, 234);
+    padding: 80px;
+    font-family: montserrat;
+    letter-spacing: 1px;
+    margin-right: 40px;
+}
+
+.innercontainerr h1{
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+
 
 .aboutparallel {
     display: flex;
@@ -61,7 +116,7 @@
 
 .about_div_ul{
     margin:1rem;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 1px;
     font-family: montserrat;
 }
@@ -157,8 +212,8 @@
     font-family: montserrat;
     border-radius: 40px;
     margin-top: 60px;
-    margin-left: 25%;
-    padding-left: 30px;
+    margin-left: 15%;
+    padding-left: 10px;
     padding-top:60px;
     color:rgb(57, 56, 56);
     box-sizing: border-box;
@@ -186,7 +241,7 @@
     font-weight: 500;
     position: relative;
     top:0;
-    animation: slide 18s steps(3) infinite;
+    animation: slide 9s steps(3) infinite;
 }
 @keyframes slide{
     100%{
@@ -208,7 +263,10 @@
     width: 100%;
     background: white;
     border-left: 2px solid #fff;
-    animation: typing 7s steps(46) infinite;
+    right:0px;
+    animation: typing 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(29);
 }
 @keyframes typing{
     100%{
@@ -318,6 +376,16 @@ details:hover {
     margin: 0.5rem;
     font-size: 12px;
     letter-spacing: 0.5px;
+  }
+
+
+  .textdown{
+    font-family:  montserrat;
+    font-size: 35px;
+    text-align: center;
+    color:#545454;
+    margin-top: -5px;
+    padding-left: 10px;
   }
 
 @media(max-width:1400px){
