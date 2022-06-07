@@ -33,7 +33,7 @@
      font-size:1rem;
      border:none;
      color: rgb(100, 94, 94);
-     height:15px;
+     height:25px;
      text-align: center;
      border-bottom:1px solid silver;
      border-radius: 3px;
@@ -124,8 +124,8 @@
      }
      .search_input{
         
-         height:1.2rem;
-         font-size:0.8rem;
+         height:2rem;
+         font-size:0.9rem;
      }
      .search_button{
      width:6rem;
