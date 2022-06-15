@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --recursive --exit",
     "apis": "npx babel-node --presets=@babel/preset-env -- server.js",
-    "start": "nodemon  --exec npm-run-all --parallel apis"
+    "start": "npm-run-all --parallel apis"
   },
   "author": "shivamsouravjha",
   "license": "ISC",
