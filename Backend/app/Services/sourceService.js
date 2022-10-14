@@ -1,9 +1,12 @@
-import GroupRepository from '../Repositories/groupRepository';
 import * as Exceptions from '../Exceptions/exceptions';
-import SourceRepository from '../Repositories/sourceRepositroy';
+import SourceRepository from '../Database-interaction/sourceRepositroy';
 import SourceModel from "../Models/sourceModel";
-import axios from 'axios';
-
+import fetch from 'node-fetch';
+const fs = require('fs');
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
+const https = require('https');
+const {readFile} = require("fs");
 export default class AccountService{
     constructor() {
         this.repository = new SourceRepository();
@@ -20,7 +23,7 @@ export default class AccountService{
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"));
             }
-            if(args.uid != groupInfo.groupOwner._id){
+            if(args.uid != groupInfo.groupOwner){       //getting edit if requester is not the owner or else delete the source
                 sourceInfo.sellingPrice =args['sellingPrice'] ;
                 sourceInfo.type = "REMOVE";
                 sourceInfo.approved = false;
@@ -28,21 +31,7 @@ export default class AccountService{
                 return {"message":"Sent to admin for removal"};
             } 
             sourceInfo['sellingPrice'] = args['sellingPrice'];
-            var config = {
-                method: 'get',
-                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${groupInfo['accountholderbankID']}/balance`,
-                headers: { 
-                  'accept': 'application/json; charset=utf-8', 
-                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                }
-              };
-              
-            groupInfo['fund']= await axios(config)
-              .then(function (response) {
-                return response.data.balance;
-            })   
-            var netbalance = sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
-            groupInfo['fund']+=netbalance;
+            groupInfo['fund'] += sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
             if(sourceInfo['price']*sourceInfo['unitsPurchase'] > sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']){
                 groupInfo['loss'] +=sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase'];
                 groupInfo.loss_deal.push(sourceInfo['price']*sourceInfo['unitsPurchase'] - sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
@@ -50,35 +39,6 @@ export default class AccountService{
                 groupInfo.profit_deal.push(-sourceInfo['price']*sourceInfo['unitsPurchase'] + sourceInfo['sellingPrice']*sourceInfo['unitsPurchase']);
 
             } 
-            var data = JSON.stringify({
-                "requestID":sourceInfo._id+"sa" ,
-                "amount": {
-                  "currency": "INR",
-                  "amount": netbalance
-                },
-                "transferCode": "ATLAS_P2M_AUTH",
-                "debitAccountID": groupInfo['groupOwner']['accountholderbankID'],
-                "creditAccountID": groupInfo['accountholderbankID'],
-                "transferTime": Date.now(),
-                "remarks": "Creating group",
-                "attributes": {}
-              });
-              
-              var config = {
-                method: 'post',
-                url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
-                headers: { 
-                  'accept': 'application/json; charset=utf-8', 
-                  'Content-Type': 'application/json', 
-                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                },
-                data : data
-              };
-              
-            var result = await axios(config)
-              .then(function (response) {
-                return response.data;
-            });
             const reply =  await this.repository.deleteSource(groupInfo,sourceInfo);
             return reply;
         } catch (error) {
@@ -99,21 +59,7 @@ export default class AccountService{
             const sourceModel = new SourceModel({
                 name,details,targetPrice,duration,price,editPrice:price,unitsPurchase,approved:approved,type:type,suggestorName,group:groupId
             })
-            var config = {
-                method: 'get',
-                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${groupInfo['accountholderbankID']}/balance`,
-                headers: { 
-                  'accept': 'application/json; charset=utf-8', 
-                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                }
-              };
-              
-            groupInfo['fund']= await axios(config)
-              .then(function (response) {
-                return response.data.balance;
-            })   
-            var netBalance = groupInfo['fund']-price*unitsPurchase;
-            groupInfo['fund']=netBalance;
+            groupInfo['fund'] = groupInfo['fund']-price*unitsPurchase;
             if(groupInfo['fund']<0){
                 throw {"message":`Source price more than current fund of group, exceeds by = ${price*unitsPurchase-groupInfo['fund']}`}
             }
@@ -176,95 +122,23 @@ export default class AccountService{
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
             if(!groupInfo){
                 throw (new Exceptions.NotFoundException("No such group found"))
-            }
-            var config = {
-                method: 'get',
-                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${groupInfo['accountholderbankID']}/balance`,
-                headers: { 
-                  'accept': 'application/json; charset=utf-8', 
-                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                }
-              };
-              
-            groupInfo['fund']= await axios(config)
-              .then(function (response) {
-                return response.data.balance;
-            })   
+            } 
             groupInfo['fund'] = groupInfo['fund']-((args['unitsPurchase']-sourceInfo['unitsPurchase'])*args['price']);
             if(groupInfo['fund']<0){
                 throw (new Exceptions.ConflictException("Source funds less than group amount"));
             }
-            if(groupInfo.groupOwner == value.uid){
+            if(groupInfo.groupOwner == value.uid){  //if requester is owner approve the edit or else sent to owner
                 sourceInfo.type = "APPROVED";
                 sourceInfo.approved= true;
                 sourceInfo['editsuggestion']=0;
                 if(args['unitsPurchase']<sourceInfo['unitsPurchase']){
                     const deal = ((args['unitsPurchase']-sourceInfo['unitsPurchase'])*(args['price']-sourceInfo['price']));
-                    var data = JSON.stringify({
-                        "requestID":sourceInfo._id+"transaction" ,
-                        "amount": {
-                          "currency": "INR",
-                          "amount": abs((args['unitsPurchase']-sourceInfo['unitsPurchase'])*(args['price']))
-                        },
-                        "transferCode": "ATLAS_P2M_AUTH",
-                        "debitAccountID": groupInfo['groupOwner']['accountholderbankID'],
-                        "creditAccountID": groupInfo['accountholderbankID'],
-                        "transferTime": Date.now(),
-                        "remarks": "Creating group",
-                        "attributes": {}
-                      });
-                      
-                      var config = {
-                        method: 'post',
-                        url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
-                        headers: { 
-                          'accept': 'application/json; charset=utf-8', 
-                          'Content-Type': 'application/json', 
-                          'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                        },
-                        data : data
-                      };
-                      
-                    var result = await axios(config)
-                      .then(function (response) {
-                        return response.data;
-                    });
                     if(deal>0){
                         groupInfo.loss += deal;
                         groupInfo.loss_deal.push(deal);
                     }else{
                         groupInfo.profit_deal.push(-deal);
                     }
-                }else{
-                    var data = JSON.stringify({
-                        "requestID":sourceInfo._id+"transaction" ,
-                        "amount": {
-                          "currency": "INR",
-                          "amount": abs((sourceInfo['unitsPurchase']-args['unitsPurchase'])*(args['price']))
-                        },
-                        "transferCode": "ATLAS_P2M_AUTH",
-                        "debitAccountID": groupInfo['accountholderbankID'],
-                        "creditAccountID": groupInfo['groupOwner']['accountholderbankID'],
-                        "transferTime": Date.now(),
-                        "remarks": "Creating group",
-                        "attributes": {}
-                      });
-                      
-                      var config = {
-                        method: 'post',
-                        url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
-                        headers: { 
-                          'accept': 'application/json; charset=utf-8', 
-                          'Content-Type': 'application/json', 
-                          'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                        },
-                        data : data
-                      };
-                      
-                    var result = await axios(config)
-                      .then(function (response) {
-                        return response.data;
-                    });
                 }
                 sourceInfo['unitsPurchase'] = args.unitsPurchase; 
                 sourceInfo['price'] = args['price'];
@@ -291,7 +165,7 @@ export default class AccountService{
                 if(!args.group)return false;
                 return args.group.groupOwner==uid;
             };
-            sourceInfo = sourceInfo.filter(checkUid);
+            sourceInfo = sourceInfo.filter(checkUid);   ///return all the sources that belong to the group ,to the group owner for approval
             return {'groups':sourceInfo};
         } catch (error) {
             throw (new Exceptions.ValidationException("Error finding sources"));
@@ -302,25 +176,12 @@ export default class AccountService{
         try {
             let sourceInfo = await this.repository.findSource(args.sid);
             let groupInfo  = await this.repository.findGroup(sourceInfo.group)
-            var config = {
-                method: 'get',
-                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${groupInfo['accountholderbankID']}/balance`,
-                headers: { 
-                  'accept': 'application/json; charset=utf-8', 
-                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                }
-              };
-              
-            groupInfo['fund']= await axios(config)
-              .then(function (response) {
-                return response.data.balance;
-            })   
             groupInfo['fund'] = groupInfo['fund']-sourceInfo["editPrice"]*sourceInfo['unitsPurchase'];
             if(groupInfo['fund']<0){
                 throw {"message":`Source price more than current fund of group, exceeds by = ${sourceInfo["price"]*sourceInfo['unitsPurchase']-groupInfo['fund']}`}
             }
             let approved = args.set == "true"?true:false;
-            if(approved){
+            if(approved){       //if user approves of suggestion
                 sourceInfo.approved = true;
                 sourceInfo.type = "APPROVED";
                 sourceInfo.price = sourceInfo.editPrice;
@@ -333,7 +194,6 @@ export default class AccountService{
             }
             
         } catch (error) {
-            console.log(error)
             throw (new Exceptions.ValidationException(error.message));
         }
     }
@@ -348,19 +208,103 @@ export default class AccountService{
             if(request.params.uid != sourceInfo.group.groupOwner){
                 throw (new Exceptions.ValidationException({"message":"No authorization"}));
             }
-            if(sourceInfo.type == "ADD"){
+            if(sourceInfo.type == "ADD"){   ///if request is of add
                 value['set'] = request.body.set;
                 promise = await this.setAprrovalAdd(value);
-            }else if(sourceInfo.type == "EDIT"){
+            }else if(sourceInfo.type == "EDIT"){        //if request is of edit
               value['set'] = request.body.set;
               promise  =  await this.getSourceDetails(request.params.sid,true,value)
-            }else if(sourceInfo.type == "REMOVE"){
+            }else if(sourceInfo.type == "REMOVE"){      //if request is of deletion
                 value['sellingPrice'] = sourceInfo.sellingPrice;  
                 promise = await this.deleteSource(value);
             }
             return promise;
 
           } catch(error){
+            throw (new Exceptions.ValidationException(error.message));
+          }
+    }
+    
+    
+    async getCatalogue(args) {
+        try {
+            function clean(obj) {
+                for (var propName in obj) {
+                  if (obj[propName] === null || obj[propName] === '') {
+                    delete obj[propName];
+                  }
+                }
+                return obj
+            }
+            args = clean(args);   //cleaning the body for empty parameters(as body can contain terms rquired for sorting group)
+            let groupsInfo = await this.repository.findMutualFundCatalgoue(args);
+            return groupsInfo;
+          } catch(error){
+            throw (new Exceptions.ValidationException(error.message));
+          }
+    }
+
+
+    async updateMutualFunds() {
+        try {
+            https.get("https://api.kite.trade/mf/instruments",async (res) => {
+                // Image will be stored at this path
+                const path = `./app/Controllers/mutualFund.csv`; 
+                const filePath = fs.createWriteStream(path);
+                res.pipe(filePath);
+                filePath.on('finish',async () => {
+                    readFile(`./app/Controllers/mutualFund.csv`, "utf8", async (error, textContent) => {
+                        if(error){ throw error; }
+                        let count=0
+                        for(let row of textContent.split("\n")){
+                          const rowItems = row.split(",");
+                          let date = rowItems[15].split("\r");
+                          if(rowItems[0]!="tradingsymbol"){
+                          let unitdata =  {
+                            "tradingsymbol":rowItems[0],"amc":rowItems[1],
+                            "name":rowItems[2],"purchase_allowed":(rowItems[3] === '1'),
+                            "redemption_allowed":(rowItems[4] === 'true'),"minimum_purchase_amount":rowItems[5],
+                            "purchase_amount_multiplier":rowItems[6],"minimum_additional_purchase_amount":rowItems[7],
+                            "minimum_redemption_quantity":rowItems[8],"redemption_quantity_multiplier":rowItems[9],
+                            "dividend_type":rowItems[10],"scheme_type":rowItems[11],
+                            "plan":rowItems[12],"settlement_type":rowItems[13],
+                            "last_price":rowItems[14],"last_price_date":date[0],
+                          }
+                          await this.repository.bulkUpsertMutualFundData(unitdata)
+                          console.log(count)
+                          count+=1
+                        }
+                        }
+
+                      })
+                    filePath.close();
+                    await unlinkAsync(path);
+                })
+            })    
+            return "request";
+          } catch(error){
+              console.log(error)
+            throw (new Exceptions.ValidationException(error.message));
+          }
+    }
+    
+    async updateStocks() {
+        try {
+            var url = 'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json';            
+           
+            let settings = { method: "Get" };
+            fetch(url, settings)
+            .then(res => res.json())
+            .then(async(json) => {
+                for (let i = 0; i < json.length; i++) {
+                    console.log(i)
+                    if(json[i].exch_seg=="BSE"||json[i].exch_seg=="NSE")
+                    await this.repository.bulkUpsertStocksData(json[i])
+                  }                
+            });
+            return "request";
+          } catch(error){
+              console.log(error)
             throw (new Exceptions.ValidationException(error.message));
           }
     }

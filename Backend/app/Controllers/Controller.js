@@ -7,7 +7,6 @@ export default class Contoller {
     }
 
     
-
     handleException(error) {
         switch (error.name) {
           case 'GeneralException':

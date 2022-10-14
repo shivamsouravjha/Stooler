@@ -38,7 +38,7 @@ const MainNavigation = props => {
         </button>
         <img src={Logo} className="mobileview_logo"/>
         <h1 className="main-navigation__title">
-          <Link to="/">Stool <img src={Logo} className="nav_logo"></img> </Link>
+          <Link to="/">NIVESH <img src={Logo} className="nav_logo"></img> </Link>
         </h1>
         <nav className="main-navigation__header-nav">
           <NavLinks />

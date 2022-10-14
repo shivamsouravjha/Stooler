@@ -19,8 +19,6 @@ const groupSchema = new schema({
     groupPayment: [{type :mongoose.Types.ObjectId,required:false,ref:'Transaction'}],
     sources: [{type :mongoose.Types.ObjectId,required:false,ref:'Source'}],
     dues: [{type :mongoose.Types.ObjectId,required:true,ref:'Transaction'}],
-    accountholderbank:{type :String},
-    accountholderbankID:{type :String},
 },{
     versionKey: false 
   });

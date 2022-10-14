@@ -1,13 +1,14 @@
-import AccountRepository from '../Repositories/accountRepository.js';
+import AccountRepository from '../Database-interaction/accountRepository.js';
 import * as Exceptions from '../Exceptions/exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import axios from 'axios';
-
+import SMS from '../Database-interaction/AccountRepository'
 export default class AccountService{
     constructor() {
         this.repository = new AccountRepository();
     }
+
+    //adding account
     async addAccount(args) {
         try {
             const {panNumber,aadhar,username,email,number}=args
@@ -47,15 +48,17 @@ export default class AccountService{
                 throw (new Exceptions.ConflictException("Password doesn't match"));
             }
             let token = jwt.sign({userId:profile.id,email:profile.email},process.env.secretcode,{expiresIn:'7d'});
+
             return {message: 'Logged in!',success: true,userId:profile.id,email:profile.email,token:token}
         } catch (error) {
         throw error;
         }
     }
 
-
+    //verify that params aren't existing earlier
     async verifyUsername(args) {
         try {
+        
             let accountInfo = await this.repository.findUserDetail(args);
             return accountInfo;
         } catch (error) {
@@ -70,6 +73,7 @@ export default class AccountService{
         throw error;
         }
     }
+
     async findUid (uid,args) {
         try {
             function clean(obj) {
@@ -80,7 +84,7 @@ export default class AccountService{
                 }
                 return obj
             }
-            function search(obj) {
+            function search(obj) {              //search and remove the blank query params 
                 for (var propName in obj) {
                     if (obj[propName] === null || obj[propName] === '') {
                         delete obj[propName];
@@ -94,7 +98,7 @@ export default class AccountService{
                 return obj
             }
             args = clean(args);
-            let groupsInfo = await this.repository.findUid(uid);
+            let groupsInfo = await this.repository.findUid(uid);///find all groups of a user
             if(!Object.keys(args).length){
                 return groupsInfo;
             }
@@ -103,7 +107,7 @@ export default class AccountService{
             groupsInfos = groupsInfos.filter(function (el) {
                 return el != null;
             });
-            return groupsInfos;
+            return groupsInfos; ///returning all group that belong to a user
         } catch(error){
             throw error;
         }
@@ -118,42 +122,6 @@ export default class AccountService{
         }
     }
 
-    async transfermoney(user,body) {
-        try {
-            var userDetail = await this.verifyUserDetail({'_id':user})
-            var data = JSON.stringify({
-                "requestID":userDetail._id+Date.now() ,
-                "amount": {
-                  "currency": "INR",
-                  "amount": body.sum
-                },
-                "transferCode": "ATLAS_P2M_AUTH",
-                "debitAccountID": process.env.secretrichie,
-                "creditAccountID": userDetail['accountholderbankID'],
-                "transferTime": Date.now(),
-                "remarks": "Creating group",
-                "attributes": {}
-              });
-              
-              var config = {
-                method: 'post',
-                url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
-                headers: { 
-                  'accept': 'application/json; charset=utf-8', 
-                  'Content-Type': 'application/json', 
-                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                },
-                data : data
-              };
-              
-            var result = await axios(config)
-              .then(function (response) {
-                return response.data;
-              });
-            return {"status":"success"};
-        } catch (error) {
-            console.log(error)
-        throw (new Exceptions.ValidationException("Error finding user details"));
-        }
-    }
+
+
 }

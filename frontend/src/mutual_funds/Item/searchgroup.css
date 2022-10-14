@@ -1,0 +1,145 @@
+
+.search_form{
+    width: 25%;
+ 
+     background-color: #f1f1f1;
+     margin-bottom:20px;
+     padding:10px 10px;
+ }
+ 
+ .my_group_search_form{
+     background-color: #f1f1f1;
+     margin-bottom:20px;
+     padding:10px 0px; 
+ }
+ hr{
+     margin:10px;
+ }
+ .search_head{
+     margin:5px;
+     color: rgb(78, 86, 235);;
+     font-size:2rem;
+     text-align: center;
+ }
+ 
+ .search_label{
+   margin:5px;
+   font-size:1.1rem; 
+   text-align: left;
+   font-family: montserrat;
+ }
+ 
+ .search_input{
+     font-size:1rem;
+     border:none;
+     color: rgb(100, 94, 94);
+     height:25px;
+     text-align: center;
+     border-bottom:1px solid silver;
+     border-radius: 3px;
+     font-family: montserrat;
+ }
+ 
+ .search_button{
+     width:10rem;
+     height:2.5rem;
+     color:white;
+     background:rgb(78, 86, 235);
+     border-bottom:1px solid silver;
+    border-radius:5px;
+     margin: auto 10%;
+     margin-bottom: 20px;
+     font-size: 1.3rem;
+ }
+ 
+ .search_button:hover{
+   transform: translate(-3px,-2px);
+   cursor: pointer;
+  }
+ 
+  .group_source_button{
+     width:15rem;
+     height:3rem;
+     background-color:rgb(78, 86, 235);
+    color:white;
+    border-bottom:1px solid silver;
+    border-radius:5px;
+     margin: auto 10%;
+     margin:20px;
+     font-size: 1.2rem;
+  }
+ 
+  .group_source_button:hover{
+   
+     color:white;
+    background-color:rgb(78, 86, 235);
+ }
+ 
+ 
+ /* css for mobile view*/
+ @media only screen and (max-width: 1450px) {
+     .search_form{
+         display: inline-block;
+         padding:8px 0px;
+         float:right;
+         
+     }
+     .my_group_search_form{
+         width:70%;
+         padding:8px 0px; 
+     }
+     .search_header{
+         font-size:1.5rem;
+     }
+     .search_label{
+         display: block;
+         margin:10px;
+     }
+     .search_input{
+         margin:8px;
+     }
+     .group_source_button{
+         width:14rem;
+         height:2.5rem;
+         font-size: 1.1rem;
+         font-weight:bold ;
+      }
+ }
+ 
+ @media only screen and (max-width: 900px) {
+ 
+     .search_form{
+    
+       float:none;
+       width:100%;
+     }
+   
+     .search_header{
+         font-size:1.3rem;
+     }
+     .search_label{
+         font-size:1rem;
+         display: block;
+         margin:2px;
+     }
+     .search_input{
+        
+         height:2rem;
+         font-size:0.9rem;
+     }
+     .search_button{
+     width:6rem;
+     height:1.8rem;
+     margin: auto 10%;
+     margin-bottom: 10px;
+     font-size: 1rem;
+     }
+     .group_source_button{
+         width:12rem;
+         height:2rem;
+         margin: auto 10%;
+         margin:10px;
+         font-size: 0.9rem;
+         font-weight:bold ;
+      }
+ }

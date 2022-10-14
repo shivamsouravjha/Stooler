@@ -14,7 +14,7 @@ const Main = props => {
       <ul className="group-links">
         
         <li> <Link to={`/group_auth`}> 
-        <button >CREATE A GROUP</button></Link>
+        <button className="group_button" >CREATE A GROUP</button></Link>
         </li>
         <li > <Link to={`/view_group`} > 
         <button className="group_button">JOIN A GROUP</button></Link>
@@ -25,6 +25,9 @@ const Main = props => {
         <li > <Link to={`/crypto`} > 
         <button className="group_button">VIEW CRYPTO</button></Link>
         </li>
+        <li> <Link to={`/mutual_funds`}> 
+          <button className="group_button">VIEW MUTUAL FUNDS</button> </Link>
+        </li>
         
           
         
@@ -32,16 +35,7 @@ const Main = props => {
         
       </ul>
       </div>
-      <div className="mission_def">
-      <h1 className="about_stool_h1">Our Mission </h1><hr/>
-      <p className="about_content">
-      <strong>
-      <ul className="about_div_ul mission">
-      <li> Provide a stable platform to users finding new investment methods </li> 
-      <li> Spread the knowledge of financial independence</li>
-      <li>Make a community of people willing to help people lead a stable life</li></ul></strong><hr/>
-  </p>
-    </div>
+      
     </div>
     );
   };

@@ -1,9 +1,10 @@
 import GroupModel from "../Models/groupModel";
 import UserModel from "../Models/userModel";
 import SourceModel from "../Models/sourceModel";
+import MutualFundModel from "../Models/MutualFundModel";
+import StockModel from "../Models/StockModel";
 import mongoose from 'mongoose';
 mongoose.models = {GroupModel,UserModel}
-import axios from 'axios';
 
 export default class SourceRepository {
     async findUser (obj) {
@@ -18,7 +19,7 @@ export default class SourceRepository {
 
     async findGroup (obj) {
         try {
-            const found = await GroupModel.findById(obj,'-groupPayment').populate('sources').populate('groupOwner');
+            const found = await GroupModel.findById(obj,'-groupPayment').populate('sources');
             return found;
         } catch (error) {
             throw error
@@ -37,6 +38,36 @@ export default class SourceRepository {
     async findSource (obj) {
         try {            
             const found = await SourceModel.findById(obj).populate('group');
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async findMutualFundCatalgoue (obj) {
+        try {            
+            const found = await MutualFundModel.find(obj);
+            return found;
+        } catch (error) {
+            throw error
+        }
+    }
+    
+    async bulkUpsertMutualFundData (obj) {
+        try {            
+            const found = await MutualFundModel.findOneAndUpdate({"tradingsymbol":obj['tradingsymbol']},obj);
+            return found;
+        } catch (error) {
+            throw error
+        }
+    } 
+    
+    async bulkUpsertStocksData (obj) {
+        try {            
+            const objData = {symbol:obj['symbol'],token:obj['token'],name:obj['name'],expiry:obj['expiry'],strike:obj['strike'],lotsize:obj['lotsize'],instrumenttype:obj['instrumenttype'],exch_seg:obj['exch_seg'],tick_size:obj['tick_size']}
+
+            const found = await StockModel.findOneAndUpdate({"symbol":obj['symbol']},objData,{upsert:true});
+            console.log(objData,found)
             return found;
         } catch (error) {
             throw error
@@ -66,36 +97,6 @@ export default class SourceRepository {
     async createSource(sourceModel,groupInfo,approved) {
         try{
             if(approved){
-                console.log(sourceModel['price']*sourceModel['unitsPurchase'])
-                var data = JSON.stringify({
-                    "requestID":sourceInfo._id ,
-                    "amount": {
-                      "currency": "INR",
-                      "amount": sourceModel['price']*sourceModel['unitsPurchase'],
-                    },
-                    "transferCode": "ATLAS_P2M_AUTH",
-                    "debitAccountID": groupInfo['accountholderbankID'],
-                    "creditAccountID": groupInfo['groupOwner']['accountholderbankID'],
-                    "transferTime": Date.now(),
-                    "remarks": "Creating group",
-                    "attributes": {}
-                  });
-                  
-                  var config = {
-                    method: 'post',
-                    url: 'https://fusion.preprod.zeta.in/api/v1/ifi/140793/transfers',
-                    headers: { 
-                      'accept': 'application/json; charset=utf-8', 
-                      'Content-Type': 'application/json', 
-                      'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                    },
-                    data : data
-                  };
-                  
-                var result = await axios(config)
-                  .then(function (response) {
-                    return response.data;
-                });
                 sourceModel['sellPrice'] =0;    
                 const sess = await mongoose.startSession();
                 sess.startTransaction();
@@ -110,10 +111,10 @@ export default class SourceRepository {
             }
             
         } catch (error) {
-            console.log(error)
             throw error
         }
     }
+
     async deleteSourceSet(obj){
         try{    
             await obj.remove();

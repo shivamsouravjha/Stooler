@@ -1,9 +1,13 @@
+
+
 .search_form{
-   
+   width: 25%;
+
     background-color: #f1f1f1;
     margin-bottom:20px;
-    padding:10px 0px;
+    padding:10px 10px;
 }
+
 .my_group_search_form{
     background-color: #f1f1f1;
     margin-bottom:20px;
@@ -12,29 +16,37 @@
 hr{
     margin:10px;
 }
-.search_header{
+.search_head{
     margin:5px;
-    color: #0a657e;
+    color: rgb(78, 86, 235);;
     font-size:2rem;
     text-align: center;
 }
+
 .search_label{
   margin:5px;
-  font-weight: bold; 
   font-size:1.1rem; 
+  text-align: left;
+  font-family: montserrat;
 }
 
 .search_input{
     font-size:1rem;
-    background-color: rgb(255, 255, 255);
-    height:1.8rem;
+    border:none;
+    color: rgb(100, 94, 94);
+    height:15px;
+    text-align: center;
+    border-bottom:1px solid silver;
+    border-radius: 3px;
+    font-family: montserrat;
 }
+
 .search_button{
     width:10rem;
     height:2.5rem;
     color:white;
- background-color:#0a657e;
-   border-color: #0a657e;
+    background:rgb(78, 86, 235);
+    border-bottom:1px solid silver;
    border-radius:5px;
     margin: auto 10%;
     margin-bottom: 20px;
@@ -49,21 +61,20 @@ hr{
  .group_source_button{
     width:15rem;
     height:3rem;
-    background-color:white;
-   color:#0a657e;
-   border-color: #0a657e;
+    background-color:rgb(78, 86, 235);
+   color:white;
+   border-bottom:1px solid silver;
    border-radius:5px;
     margin: auto 10%;
     margin:20px;
     font-size: 1.2rem;
-    font-weight:bold ;
  }
 
  .group_source_button:hover{
   
     color:white;
-   background-color:#0a657e;
-   }
+   background-color:rgb(78, 86, 235);
+}
 
 
 /* css for mobile view*/

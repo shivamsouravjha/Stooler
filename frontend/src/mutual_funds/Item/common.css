@@ -1,0 +1,144 @@
+.join_group_table{
+    width:70%;
+    margin:auto;
+    border-spacing: 0;
+    border: 1px solid silver;
+}
+.join_my_group_table{
+    width:75%;
+    margin:auto;
+    border-spacing: 0;
+    border: 1px solid silver;
+}
+.join_group_head{
+    color:rgb(99, 99, 99);
+    font-family: montserrat bold; 
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.join_group_div{
+    padding:0rem;
+    margin:0rem;
+}
+th{
+    height:80px;
+}
+tbody td{
+height:60px;
+}
+.join_group_header{
+    font-size:1.6rem;
+    font-weight: bolder;
+}
+.join_group_data{
+    font-family: montserrat;
+    font-size:14px;
+}
+tr:nth-child(2n+1){
+    background-color: #f1f1f1;
+}
+
+
+.join_group_link{
+    margin:auto;
+    border: 1px solid transparent;
+    background-color:#0a657e;
+    height:5rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color:white;
+    font-size:1.3rem;
+}
+.transaction_link{
+    margin:auto;
+    border: 1px solid transparent;
+    background-color:#0a657e;
+    height:5rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color:white;
+    font-size:1.3rem;
+}
+
+
+@media only screen and (max-width: 1250px) {
+
+    .join_group_table{
+        width:60%;
+        margin:auto;
+}
+.join_my_group_table{
+    width:90%;
+    margin:auto;
+
+}
+th{
+    height: 50px;
+}
+tbody td{
+    height: 45px;
+}
+.join_group_header{
+    font-size:1.1rem;
+
+}
+.join_group_data{
+    
+    font-size:1rem;
+}
+.join_group_link{
+    margin:auto;
+    height:3.5rem;
+    padding: 0.2rem 0.2rem;
+    font-size:1rem;
+}
+.transaction_link{
+    margin:auto;
+    height:3.5rem;
+    padding: 0.2rem 0.2rem;
+    font-size:1rem;
+}
+
+}
+
+@media only screen and (max-width: 900px){
+    .join_group_table{
+        width:100%;
+        margin:auto;
+}
+.join_my_group_table{
+    width:100%;
+    margin:auto;
+
+}
+th{
+    height: 40px;
+}
+tbody td{
+    height: 38px;
+}
+.join_group_header{
+    font-size:1.1rem;
+
+}
+.join_group_data{
+    
+    font-size:0.9rem;
+}
+.join_group_link{
+    margin:auto;
+    height:2.5rem;
+    padding: 0.3rem 0.1rem;
+    font-size:0.7rem;
+}
+.transaction_link{
+    margin:auto;
+    height:2.5rem;
+    padding: 0.3rem 0.1rem;
+    font-size:0.6rem;
+}
+
+}

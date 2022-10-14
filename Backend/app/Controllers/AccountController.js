@@ -8,7 +8,7 @@ export default class AccountController extends Controller {
       this.service = new AccountService();
     }
 
-    addAccount (request) {
+    addAccount (request) {                  //signup the user 
         try{
             let {value,error} = Validators.createAccount.validate(request.body);
             if(error){
@@ -26,7 +26,7 @@ export default class AccountController extends Controller {
         }
     }
 
-    loginAccount (request) {
+    loginAccount (request) {            //loggin in the account 
       try{
           let {value,error} = Validators.loginAccount.validate(request.body);
           if(error){
@@ -46,41 +46,25 @@ export default class AccountController extends Controller {
 
 
 
-  getData (request) {
-    try{
-      const value = request.params.uid;
-      const user = this.service.findUid(value,request.body);
-      user.then(res => {
-          this.sendResponse(res);
-        })
-        .catch (error => {
-          this.handleException(error);
-        }) 
-      } catch (error) {
-       this.handleException(error)
+    getData (request) {                     //getting data for a UID(uid=userId)
+      try{
+        const value = request.params.uid;
+        const user = this.service.findUid(value,request.body);
+        user.then(res => {
+            this.sendResponse(res);
+          })
+          .catch (error => {
+            this.handleException(error);
+          }) 
+    } catch (error) {
+        this.handleException(error)
     }
     }
 
-
-  addSum (request) {
-    try{
-      const uid = request.params.uid;
-      const user = this.service.transfermoney(uid,request.body)
-      user.then(res => {
-          this.sendResponse(res);
-        })
-        .catch (error => {
-          this.handleException(error);
-        }) 
-  } catch (error) {
-      this.handleException(error)
-  }
-    }
-
-
-      verifyUsername (request) {
+    
+      verifyUsername (request) {            //function named so because of multiple use across different function
           try{
-              const exist =  this.service.findUsername(request);
+              const exist =  this.service.verifyUsername(request); 
               exist.then(res => {
                 this.sendResponse(res);
               })

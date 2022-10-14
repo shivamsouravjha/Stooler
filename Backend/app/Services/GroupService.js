@@ -1,6 +1,6 @@
-import GroupRepository from '../Repositories/groupRepository';
+import GroupRepository from '../Database-interaction/GroupRepository';
 import * as Exceptions from '../Exceptions/exceptions';
-import axios from 'axios';
+import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export default class AccountService{
@@ -9,7 +9,7 @@ export default class AccountService{
     }
 
 
-    async userToGroup(args) {
+    async userToGroup(args) {   //adding user to a group and removing them by increasing or decreasing funds
         try {        
             const {userId,groupId}=args
             let verifyuserId =  await this.verifyUserDetail(userId)
@@ -18,26 +18,11 @@ export default class AccountService{
             }
             let verifyGroupId;
             let accountInfo;
-            var config = {
-                method: 'get',
-                url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${verifyuserId['accountholderbankID']}/balance`,
-                headers: { 
-                  'accept': 'application/json; charset=utf-8', 
-                  'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                }
-              };
-              
-            verifyuserId['amount']= await axios(config)
-              .then(function (response) {
-                return response.data.balance;
-            })   
-            
             if(args.context=="join"){
-                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];            
+                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},false))[0];      //getGroup architure will be followed,so false will give the  detail of group (if any)the user is not part yet      
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
-                console.log(args)
                 if(verifyGroupId.genre == 'Gold/Silver'){
                     verifyuserId.shares[0]['amount']+=args.amount
                 } if(verifyGroupId.genre == 'Stock'){
@@ -54,30 +39,16 @@ export default class AccountService{
                 verifyGroupId['totalsum']+=args.amount; 
                 accountInfo = await this.repository.addUserToGroup(args,verifyGroupId,verifyuserId);
             }else{
-                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},true))[0];            
+                verifyGroupId =  (await this.getGroups(userId,{_id:groupId},true))[0];      //getGroup architure will be followed,so true will give the  detail of group (if any)the user is  part of         
                 if(!verifyGroupId){
                     throw (new Exceptions.ConflictException("No Group found"));
                 } 
-                var config = {
-                    method: 'get',
-                    url: `https://fusion.preprod.zeta.in/api/v1/ifi/140793/accounts/${verifyGroupId['accountholderbankID']}/balance`,
-                    headers: { 
-                      'accept': 'application/json; charset=utf-8', 
-                      'X-Zeta-AuthToken': process.env.XZetaAuthToken,
-                    }
-                  };
-                  
-                verifyuserId['amount']= await axios(config)
-                  .then(function (response) {
-                    return response.data.balance;
-                }) 
                 if(verifyGroupId.members.length!=1){
                     if(JSON.stringify(verifyGroupId.groupOwner._id) == JSON.stringify(verifyuserId._id)){
                         throw (new Exceptions.ConflictException("You're the owner you can't quit without transfering role."));
                     }
                 }
                 const refund_amount = verifyGroupId.fund/verifyGroupId.members.length + verifyGroupId.loss/verifyGroupId.members.length;
-                
                 const transaction = await  this.repository.findTransaction({userId:verifyuserId['_id'],groupId:verifyGroupId['_id'],type:"ACTIVE"});
                 verifyuserId['funds'] += verifyGroupId.fund/verifyGroupId.members.length;
                 verifyuserId['loss'] += verifyGroupId.loss/verifyGroupId.members.length;
@@ -126,7 +97,7 @@ export default class AccountService{
     }
 
 
-    async getGroups(uid,args,objj){
+    async getGroups(uid,args,objj){         //search the group that user is a part of ,or not a part of depending upon objj(true or false)
         try {
             function clean(obj) {
                 for (var propName in obj) {
@@ -136,15 +107,15 @@ export default class AccountService{
                 }
                 return obj
             }
-            args = clean(args);   
+            args = clean(args);   //cleaning the body for empty parameters(as body can contain terms rquired for sorting group)
             let groupsInfo = await this.repository.findGroup(args);
             function checkUid(uids) {
-                return objj == uids.members.includes(uid);
+                return objj == uids.members.includes(uid);//finding group ,user is a part-of/not a part of(depending on objj)
             };
-            groupsInfo = groupsInfo.filter(checkUid);           
+            groupsInfo = groupsInfo.filter(checkUid);          
 
             groupsInfo.sort(function(a,b){
-                return (b.members).length-(a.members).length;
+                return (b.members).length-(a.members).length;   //returing on decreasing group size
             })
             return groupsInfo;
         } catch (error) {
@@ -152,9 +123,8 @@ export default class AccountService{
         }
     }
 
-    async getOwnGroup(args) {
+    async getGroupDetail(args) { //get detail of a group
         try {
-
             let groupsInfo = await this.repository.findGroup(args);
             return groupsInfo[0];
         } catch (error) {
@@ -162,7 +132,7 @@ export default class AccountService{
         }
     }
 
-    async getGroupMembers(args) {
+    async getGroupMembers(args) { //getting details of a memeber of groups
         try {
             args['type'] = "ACTIVE";
             let groupsInfo = await this.repository.findGroupMembers(args);
@@ -183,10 +153,10 @@ export default class AccountService{
 
     async transferOwnedGroup (args) {
         try {
-            let groupsInfo = await this.repository.findOwnerGroup({_id:args._id,groupOwner:args.groupOwner});
+            let groupsInfo = await this.repository.findOwnerGroup({_id:args._id,groupOwner:args.groupOwner}); //finding the group whose ownership is changed
             if(!groupsInfo.length)throw (new Exceptions.ValidationException("No group found"));
             if(groupsInfo[0].groupOwner == args.newOwner){
-                throw (new Exceptions.ValidationException("Already a group member"));
+                throw (new Exceptions.ValidationException("Already group leader"));
             }
             if(!groupsInfo[0].members.includes(args.newOwner)){
                 throw (new Exceptions.ValidationException("Not a group member"));

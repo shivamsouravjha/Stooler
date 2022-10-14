@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import ChatBot from 'react-simple-chatbot'
-import Botpic from './Full-HD-Mobile-Minimal-Wallpaper-HD11-1080X1920.jpg'
+import Botpic from './logochat.png'
 import { ThemeProvider } from 'styled-components'
 import '../App.css'
+
 const theme = {
-  background: '#f5f8fb',
-  fontFamily: 'Helvetica Neue',
-  headerBgColor: '#0a657e',
+  background: '#fff',
+  fontFamily: 'montserrat',
+  headerBgColor: '#5e17eb',
   headerFontColor: '#fff',
   headerFontSize: '15px',
-  botBubbleColor: '#0a657e',
+  botBubbleColor: '#a6a6a6',
   botFontColor: '#fff',
   userBubbleColor: '#fff',
   userFontColor: '#4a4a4a',

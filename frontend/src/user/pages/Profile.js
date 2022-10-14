@@ -11,10 +11,6 @@ const Profile = () => {
         <div className="App">
             <Users/>
             <PieChart/>
-            <br/>
-            <Link to={`/addmoney`} > <button className="search_button">Add Money</button></Link>
-            <br/>
-            <br/>
             <Transaction/>
         </div>
     )

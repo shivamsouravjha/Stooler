@@ -13,7 +13,7 @@ const Styles = styled.div`
 padding:0rem;
   table {
     border-spacing: 0;
-    border: 1px solid black;
+    border: 1px solid silver;
 
     tr {
       :last-child {
@@ -27,8 +27,8 @@ padding:0rem;
       
       text-align:center;
       padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      border-bottom: 1px solid silver;
+      border-right: 1px solid silver;
       :last-child {
         border-right: 0;
       }
@@ -38,8 +38,8 @@ padding:0rem;
       
       text-align:center;
       padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      border-bottom: 1px solid silver;
+      border-right: 1px solid silver;
 
       :last-child {
         border-right: 0;
@@ -146,7 +146,7 @@ function JoinGroup() {
         userId = await JSON.parse(userId)
         userId = userId['userId']
         const responseData = await sendRequest(
-          `https://stool-back.herokuapp.com/api/groups/getjoingroups/${userId}`,"POST"
+          `http://localhost:5001/api/groups/getjoingroups/${userId}`,"POST"
                     );
           if(responseData['status']!=200 && responseData['status']!=202){
             throw responseData.error;
@@ -172,7 +172,7 @@ function JoinGroup() {
         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `https://stool-back.herokuapp.com/api/groups/getjoingroups/${userId}`,"POST",body,{
+            `http://localhost:5001/api/groups/getjoingroups/${userId}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         if(responseData['status']!=200 && responseData['status']!=202){
@@ -197,21 +197,21 @@ function JoinGroup() {
       <div className="group_form_div">
 <center>
         <form  action="/" id="event_form"  name="event_form" className="search_form" onSubmit={onSubmitform}>
-            <h2 className="search_header">
-                Filter Groups by
+            <h2 className="search_head">
+                Filter Groups
             </h2> 
             <hr/>
             <label className="search_label" for="groupName">
                  Group Name :
             </label>
-            <input className="search_input" type="text" name="groupName"  value={groupName} placeholder="Enter the GroupName" onChange={e =>setName(e.target.value)}  />
+            <input className="search_input" type="text" name="groupName"  value={groupName} placeholder="enter group name" onChange={e =>setName(e.target.value)}  />
             
             &nbsp; 
             
           <label className="search_label" for="genre">
                  Genre :
             </label>
-            <select className="search_input" name="genre" onChange={e =>setGenre(e.target.value)}>
+            <select className="search_input_op" name="genre" onChange={e =>setGenre(e.target.value)}>
                 <option></option>
                 <option value="Gold/Silver" className="options">Gold/Silver</option>
                 <option value="Stock" className="options">Stock</option>
@@ -220,7 +220,7 @@ function JoinGroup() {
             </select>
             &nbsp;
             <label className="search_label" for="duration">
-                Minimum Duration of Investment :
+                Minimum duration of investment :
             </label>
             <select className="search_input" name="duration" onChange={e =>setDuration(e.target.value)}>
                 <option></option>
@@ -234,7 +234,7 @@ function JoinGroup() {
             <label className="search_label" for="amount" >
                  Minimum Amount :
             </label>
-            <input className="search_input" type="number" name="amount" value={amount} placeholder="Enter Min Amount" onChange={e =>setAmount(e.target.value)}  />
+            <input className="search_input" type="number" name="amount" value={amount} placeholder="enter min amount" onChange={e =>setAmount(e.target.value)}  />
             <br/> <br/>
             <button type="submit" className="search_button">
                 Search
