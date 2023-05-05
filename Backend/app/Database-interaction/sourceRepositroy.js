@@ -1,6 +1,6 @@
 import GroupModel from "../Models/GroupModel";
 import UserModel from "../Models/UserModel";
-import SourceModel from "../Models/SourceModel";
+import SourceModel from "../Models/sourceModel";
 import MutualFundModel from "../Models/MutualFundModel";
 import StockModel from "../Models/StockModel";
 import mongoose from 'mongoose';
