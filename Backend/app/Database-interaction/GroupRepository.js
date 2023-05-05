@@ -1,7 +1,7 @@
 import GroupModel from "../Models/GroupModel";
 import UserModel from "../Models/UserModel";
 import SMS from "../Database-interaction/AccountRepository";
-import Transaction from "../Models/transaction";
+import Transaction from "../Models/Transaction";
 import mongoose from 'mongoose';
 mongoose.models = {GroupModel,UserModel}
 
