@@ -35,20 +35,6 @@ const Footer = props => {
 
     </div>
   </div>
-  <div class="footer-center col-md-4 col-sm-6 social-container">
-    <div>
-      <FontAwesomeIcon className="footer_center_icon" icon={faMapMarkerAlt} size="1.5x" />
-      <p><span className="footer_center_span">Street name and number</span>India</p>
-    </div>
-    <div>
-    <FontAwesomeIcon className="footer_center_icon" icon={faPhoneAlt} size="1.5x"/>
-      <p><a href="tel:9999999999" style={{color:"white"}}> (+91) 99999 99999</a></p>
-    </div>
-    <div>
-    <FontAwesomeIcon className="footer_center_icon" icon={faEnvelope} size="1.5x"/>
-      <p><a href="mailto:stool@googlegroups.com">nivesh@googlegroups.com</a></p>
-    </div>
-  </div>
   <div class="footer-right col-md-4 col-sm-6">
     <h2 className="company_header"> NIVESH<img src={Logo} className="logo"/></h2>
     <p class="menu">
