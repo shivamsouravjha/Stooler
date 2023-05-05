@@ -35,9 +35,7 @@ app.use((error, req, res, next) => {          //special 4 term function that let
 console.log(`${process.env.name}:${process.env.password}`)
 mongoose
     .connect(
-      `mongodb://${process.env.name}:${process.env.password}@cluster0.kzetf.mongodb.net/?retryWrites=true&w=majority`,
-      { useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex: true }
-      
+      `mongodb://${process.env.name}:${process.env.password}@cluster0.kzetf.mongodb.net/?retryWrites=true&w=majority`,      
     )
     .then(() => {
       console.log('listening at port',process.env.PORT || 5001 )
