@@ -1,7 +1,7 @@
 import Controller from './Controller';
 import * as Exceptions from '../Exceptions/Exceptions'
 import Validators from '../Validators/Validators';
-import SourceService from '../Services/SourceService';
+import SourceService from '../Services/sourceService';
 export default class CompanyController extends Controller {
     constructor(response) {
       super(response);
