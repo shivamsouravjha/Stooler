@@ -1,4 +1,4 @@
-import AccountRepository from '../Database-interaction/accountRepository.js';
+import AccountRepository from '../Database-interaction/AccountRepository.js';
 import * as Exceptions from '../Exceptions/Exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
