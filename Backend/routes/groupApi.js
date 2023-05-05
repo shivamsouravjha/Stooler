@@ -1,5 +1,5 @@
 import express from 'express';
-import GroupController from '../app/Controllers/groupController';
+import GroupController from '../app/Controllers/GroupController';
 
 const GroupApiRouter = express.Router();
 

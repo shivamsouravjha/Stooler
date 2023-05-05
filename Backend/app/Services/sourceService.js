@@ -1,4 +1,4 @@
-import * as Exceptions from '../Exceptions/exceptions';
+import * as Exceptions from '../Exceptions/Exceptions';
 import SourceRepository from '../Database-interaction/sourceRepositroy';
 import SourceModel from "../Models/sourceModel";
 import fetch from 'node-fetch';

@@ -1,6 +1,5 @@
-import UserModel from "../Models/userModel";
+import UserModel from "../Models/UserModel";
 import jwt from 'jsonwebtoken';
-import axios from 'axios';
  
 export default class AccountRepository {
     async findUserDetail(obj){          //finding user detail

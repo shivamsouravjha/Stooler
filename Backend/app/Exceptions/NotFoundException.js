@@ -1,7 +1,7 @@
 /**
  * not found exception module
  */
-import Exception from './error';
+import Exception from './Error';
 
 export default class NotFoundException extends Exception {
   constructor(message) {

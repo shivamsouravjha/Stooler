@@ -1,7 +1,7 @@
 /**
  * unauthorized access to resource exception module
  */
-import Exception from './error';
+import Exception from './Error';
 
 export default class UnauthorizedException extends Exception {
   constructor(message) {

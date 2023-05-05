@@ -1,8 +1,7 @@
 import AccountRepository from '../Database-interaction/accountRepository.js';
-import * as Exceptions from '../Exceptions/exceptions';
+import * as Exceptions from '../Exceptions/Exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import SMS from '../Database-interaction/AccountRepository'
 export default class AccountService{
     constructor() {
         this.repository = new AccountRepository();

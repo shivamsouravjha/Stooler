@@ -1,5 +1,5 @@
-import GroupModel from "../Models/groupModel";
-import UserModel from "../Models/userModel";
+import GroupModel from "../Models/GroupMode";
+import UserModel from "../Models/UserModel";
 import SMS from "../Database-interaction/AccountRepository";
 import Transaction from "../Models/transaction";
 import mongoose from 'mongoose';

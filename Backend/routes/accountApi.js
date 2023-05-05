@@ -1,6 +1,5 @@
 import express from 'express';
-import { acceleratedmobilepageurl } from 'googleapis/build/src/apis/acceleratedmobilepageurl';
-import AccountController from '../app/Controllers/accountController';
+import AccountController from '../app/Controllers/AccountController';
 
 const AccountApiRouter = express.Router();
 

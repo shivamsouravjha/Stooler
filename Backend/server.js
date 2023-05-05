@@ -1,8 +1,7 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import Routes from './routes/routes'
-import Error from './app/Exceptions/error';
+import Error from './app/Exceptions/Error';
 require('dotenv').config();
 const app = express();
 var cors = require('cors')

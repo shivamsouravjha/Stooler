@@ -1,7 +1,7 @@
 /**
  * lacks permission to access resource exception module
  */
-import Exception from './error';
+import Exception from './Error';
 
 export default class ForbiddenException extends Exception {
   constructor(message) {

@@ -1,13 +1,13 @@
 /**
  * exposes all custom exceptions
  */
-import GeneralException from './generalException';
-import NotFoundException from './notFoundException';
-import ForbiddenException from './forbiddenException';
-import ValidationException from './validationException';
-import UnauthorizedException from './unauthorizedException';
-import InternalServerErrorException from './internalServerErrorException';
-import ConflictException from './conflictException';
+import GeneralException from './GeneralException';
+import NotFoundException from './NotFoundException';
+import ForbiddenException from './ForbiddenException';
+import ValidationException from './ValidationException';
+import UnauthorizedException from './UnauthorizedException';
+import InternalServerErrorException from './InternalServerErrorException';
+import ConflictException from './ConflictException';
 export {
   GeneralException,
   NotFoundException,

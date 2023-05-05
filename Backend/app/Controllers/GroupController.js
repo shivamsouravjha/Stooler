@@ -1,7 +1,7 @@
-import Controller from './controller';
-import * as Exceptions from '../Exceptions/exceptions'
-import Validators from '../Validators/validators';
-import GroupService from '../Services/groupService';
+import Controller from './Controller';
+import * as Exceptions from '../Exceptions/Exceptions'
+import Validators from '../Validators/Validators';
+import GroupService from '../Services/GroupService';
 export default class AccountController extends Controller {
     constructor(response) {
       super(response);

@@ -1,5 +1,5 @@
 import GroupRepository from '../Database-interaction/GroupRepository';
-import * as Exceptions from '../Exceptions/exceptions';
+import * as Exceptions from '../Exceptions/Exceptions';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 

@@ -1,7 +1,7 @@
 /**
  * validation exception module
  */
- import Exception from './error';
+ import Exception from './Error';
 
  export default class ValidationException extends Exception {
    constructor(message) {
