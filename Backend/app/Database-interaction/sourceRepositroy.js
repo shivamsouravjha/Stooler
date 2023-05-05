@@ -1,4 +1,4 @@
-import GroupModel from "../Models/GroupMode";
+import GroupModel from "../Models/GroupModel";
 import UserModel from "../Models/UserModel";
 import SourceModel from "../Models/SourceModel";
 import MutualFundModel from "../Models/MutualFundModel";
