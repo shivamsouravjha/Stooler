@@ -195,7 +195,7 @@ function Solution() {
     }catch(err){
       console.log(err)
       setCompLoading(false);
-        setError(err.message || 'Something went wrong, please try again.');
+        setError(err.message || 'Something went wrong,  please try again.');
     }
 }
   
