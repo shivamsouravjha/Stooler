@@ -134,7 +134,7 @@ function GroupSource() {
             userId = await JSON.parse(userId)
             userId = userId['userId']
             const responseData = await sendRequest(
-            `http://localhost:5001/api/users/account/data/${userId}`,"POST"
+            `https://stool-backend.vercel.app/api/users/account/data/${userId}`,"POST"
             );
             const dataResponse = responseData.data;
             console.log(dataResponse);

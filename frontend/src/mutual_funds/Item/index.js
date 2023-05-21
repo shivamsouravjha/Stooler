@@ -149,7 +149,7 @@ function Solution() {
         var body={"scheme_type": "Index Funds"};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-          `http://localhost:5001/Api/source/getcatalogue/`,"POST",body,{
+          `https://stool-backend.vercel.app/Api/source/getcatalogue/`,"POST",body,{
             'Content-Type': 'application/json'});
           if(responseData['status']!=200 && responseData['status']!=202){
             throw responseData.error;
@@ -180,7 +180,7 @@ function Solution() {
                 };
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `http://localhost:5001/Api/source/getcatalogue/`,"POST",body,{
+            `https://stool-backend.vercel.app/Api/source/getcatalogue/`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         if(responseData['status']!=200 && responseData['status']!=202){

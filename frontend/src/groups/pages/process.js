@@ -20,7 +20,7 @@ const Process = () => {
         var body = {"set":status};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `http://localhost:5001/api/source/setapproval/${sid}/${userId}`,"POST",body,{
+            `https://stool-backend.vercel.app/api/source/setapproval/${sid}/${userId}`,"POST",body,{
                 'Content-Type': 'application/json'
         }
         );

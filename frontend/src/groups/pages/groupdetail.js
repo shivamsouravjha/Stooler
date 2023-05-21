@@ -19,7 +19,7 @@ const Group = () => {
             userId = await JSON.parse(userId)
             userId = userId['userId']
             const responseData = await sendRequest(
-            `http://localhost:5001/api/groups/${gid}`,"POST"
+            `https://stool-backend.vercel.app/api/groups/${gid}`,"POST"
             );
         
             if(responseData['status']!=200 && responseData['status']!=202){

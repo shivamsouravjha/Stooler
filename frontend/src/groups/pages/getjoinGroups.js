@@ -146,7 +146,7 @@ function JoinGroup() {
         userId = await JSON.parse(userId)
         userId = userId['userId']
         const responseData = await sendRequest(
-          `http://localhost:5001/api/groups/getjoingroups/${userId}`,"POST"
+          `https://stool-backend.vercel.app/api/groups/getjoingroups/${userId}`,"POST"
                     );
           if(responseData['status']!=200 && responseData['status']!=202){
             throw responseData.error;
@@ -172,7 +172,7 @@ function JoinGroup() {
         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `http://localhost:5001/api/groups/getjoingroups/${userId}`,"POST",body,{
+            `https://stool-backend.vercel.app/api/groups/getjoingroups/${userId}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         if(responseData['status']!=200 && responseData['status']!=202){

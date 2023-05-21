@@ -17,7 +17,7 @@ const PieChart = () => {
         userId = userId['userId']
         console.log("Fd")
         const responseData = await sendRequest(
-          `http://localhost:5001/api/users/account/data/${userId}`,"POST"
+          `https://stool-backend.vercel.app/api/users/account/data/${userId}`,"POST"
         );
         console.log("responseData")
         if(responseData['status']!==200 && responseData['status']!==202){

@@ -24,7 +24,7 @@ const  EditSource = ()=>{
             var body={"sellingPrice":sellingPrice};
             body = JSON.stringify(body)
             const responseData = await sendRequest(
-                `http://localhost:5001/api/source/delete/sources/${sid}/${userId}/`,"POST",body,{
+                `https://stool-backend.vercel.app/api/source/delete/sources/${sid}/${userId}/`,"POST",body,{
                     'Content-Type': 'application/json'
                 }
             );

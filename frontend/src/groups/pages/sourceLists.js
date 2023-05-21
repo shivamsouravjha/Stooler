@@ -140,7 +140,7 @@ function SourceDetails(props) {
         userId = userId['userId']
         console.log("gid");
         const responseData = await sendRequest(
-          `http://localhost:5001/api/source/getcompany/${gid}`,"POST"
+          `https://stool-backend.vercel.app/api/source/getcompany/${gid}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;

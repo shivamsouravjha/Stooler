@@ -143,7 +143,7 @@ function Group() {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5001/api/groups/getgroups/${userId}`,"POST"
+          `https://stool-backend.vercel.app/api/groups/getgroups/${userId}`,"POST"
         );
         if(responseData['status']!=200 && responseData['status']!=202){
           throw responseData.error;
@@ -170,7 +170,7 @@ function Group() {
         var body={"groupName":groupName,"genre":genre,"duration":duration,"amount":amount};
         body = JSON.stringify(body)
         const responseData = await sendRequest(
-            `http://localhost:5001/api/groups/getgroups/${userId}`,"POST",body,{
+            `https://stool-backend.vercel.app/api/groups/getgroups/${userId}`,"POST",body,{
                 'Content-Type': 'application/json'
         });
         if(responseData['status']!=200 && responseData['status']!=202){

@@ -67,7 +67,7 @@ const Auth = () => {
 
     if (isLoginMode) {
       try {
-        const response = await fetch("http://localhost:5001/api/users/account/login", {
+        const response = await fetch("https://stool-backend.vercel.app/api/users/account/login", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json'
@@ -103,7 +103,7 @@ const Auth = () => {
         if(checkpan !== checkuser){
           throw new Error("Use 4 last character of pan");
         }
-        const response = await fetch('http://localhost:5001/api/users/account/signup', {
+        const response = await fetch('https://stool-backend.vercel.app/api/users/account/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
