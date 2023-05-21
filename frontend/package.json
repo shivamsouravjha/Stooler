@@ -13,6 +13,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@vercel/analytics": "^1.0.1",
     "axios": "^0.21.1",
     "chart.js": "^3.4.1",
     "plotly.js": "^2.2.1",

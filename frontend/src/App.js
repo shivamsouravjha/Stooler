@@ -173,7 +173,8 @@ const App = () => {
         logout: logout 
       }}
     >
-      
+      <Analytics />
+
       <Router>
       <MainNavigation />
         <main>{routes}</main>
